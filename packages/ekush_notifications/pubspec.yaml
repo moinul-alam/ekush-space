@@ -1,0 +1,4 @@
+name: ekush_notifications
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+resolution: workspace

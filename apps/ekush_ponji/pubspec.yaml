@@ -1,0 +1,101 @@
+name: ekush_ponji
+description: Simple dates, Meaniningful days.
+publish_to: 'none'
+version: 1.0.0+3
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/app_icon.png"
+  adaptive_icon_background: "#006b54"
+  adaptive_icon_foreground: "assets/images/app_icon.png"
+  min_sdk_android: 21
+  web:
+    generate: false
+dependencies:
+  flutter:
+    sdk: flutter
+  # State Management
+  flutter_riverpod: ^3.2.1
+  riverpod_annotation: ^4.0.2
+  # Navigation
+  go_router: ^16.2.4
+  # Storage
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  shared_preferences: ^2.2.3
+  # Network
+  dio: ^5.7.0
+  # UI
+  flutter_screenutil: ^5.9.3
+  # Utilities
+  intl: ^0.20.2
+  # Icons
+  cupertino_icons: ^1.0.8
+  # Localization
+  flutter_localizations:
+    sdk: flutter
+
+  flutter_local_notifications: ^19.4.2
+  timezone: ^0.10.0
+  permission_handler: ^11.3.1
+  # Sharing + dynamic text sizing
+  share_plus: ^11.1.0
+  path_provider: ^2.1.5
+  auto_size_text: ^3.0.0
+  # Background manager
+  workmanager: ^0.9.0
+  flutter_native_splash: ^2.4.1
+  google_mobile_ads: ^7.0.0
+
+  #App Review
+  in_app_review: ^2.0.11
+
+  #UR Launcher
+  url_launcher: ^6.3.2
+
+  # Version number centralization
+  package_info_plus: ^9.0.0
+  
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: ^0.13.1
+  # Code Generation
+  riverpod_generator: ^4.0.3
+  build_runner: ^2.4.12
+  riverpod_lint: ^3.0.0-dev.4
+  # Linting
+  flutter_lints: ^6.0.0
+flutter:
+  uses-material-design: true
+  fonts:
+    # Primary font for Bengali text
+    - family: Kalpurush
+      fonts:
+        - asset: assets/fonts/Kalpurush.ttf
+  # Assets
+  assets:
+    - assets/images/
+    - assets/fonts/
+    - assets/data/
+    - assets/data/holidays/
+    - assets/data/quotes/
+    - assets/data/words/
+flutter_native_splash:
+  color: "#006b54"
+  color_dark: "#006b54"
+
+  image: assets/images/app_icon.png
+  image_dark: assets/images/app_icon.png
+
+  android_12:
+    color: "#006b54"
+    color_dark: "#006b54"
+    image: assets/images/app_icon.png
+    image_dark: assets/images/app_icon.png
+
+  fullscreen: false
+
+resolution: workspace

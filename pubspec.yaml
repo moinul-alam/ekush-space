@@ -1,0 +1,23 @@
+name: ekush_space
+publish_to: none
+environment:
+  sdk: ^3.9.0
+workspace:
+  - apps/ekush_ponji
+  - packages/ekush_core
+  - packages/ekush_ui
+  - packages/ekush_theme
+  - packages/ekush_ads
+  - packages/ekush_notifications
+  - packages/ekush_share
+  - packages/ekush_models
+dev_dependencies:
+  melos: ^7.5.0
+melos:
+  scripts:
+    analyze:
+      run: dart analyze
+      description: Analyze all packages and apps
+    clean:
+      run: flutter clean
+      description: Clean all packages and apps
