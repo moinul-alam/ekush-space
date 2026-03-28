@@ -76,25 +76,6 @@ class _QuotesScreenState extends BaseScreenState<QuotesScreen>
     setState(() => _quoteFontScale = v.clamp(0.8, 1.6));
   }
 
-  Future<void> _saveFontScale(double v) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setDouble('quote_font_scale', v);
-  }
-
-  void _increaseFontSize() {
-    if (_quoteFontScale >= 1.6) return;
-    final next = (_quoteFontScale + 0.1).clamp(0.8, 1.6);
-    setState(() => _quoteFontScale = next);
-    _saveFontScale(next);
-  }
-
-  void _decreaseFontSize() {
-    if (_quoteFontScale <= 0.8) return;
-    final next = (_quoteFontScale - 0.1).clamp(0.8, 1.6);
-    setState(() => _quoteFontScale = next);
-    _saveFontScale(next);
-  }
-
   // ── Notification prefs ─────────────────────────────────────
 
   Future<void> _loadNotifPrefs() async {

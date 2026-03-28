@@ -76,25 +76,6 @@ class _WordsScreenState extends BaseScreenState<WordsScreen>
     setState(() => _wordFontScale = v.clamp(0.8, 1.6));
   }
 
-  Future<void> _saveFontScale(double v) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setDouble('word_font_scale', v);
-  }
-
-  void _increaseFontSize() {
-    if (_wordFontScale >= 1.6) return;
-    final next = (_wordFontScale + 0.1).clamp(0.8, 1.6);
-    setState(() => _wordFontScale = next);
-    _saveFontScale(next);
-  }
-
-  void _decreaseFontSize() {
-    if (_wordFontScale <= 0.8) return;
-    final next = (_wordFontScale - 0.1).clamp(0.8, 1.6);
-    setState(() => _wordFontScale = next);
-    _saveFontScale(next);
-  }
-
   // ── Notification prefs ─────────────────────────────────────
 
   Future<void> _loadNotifPrefs() async {

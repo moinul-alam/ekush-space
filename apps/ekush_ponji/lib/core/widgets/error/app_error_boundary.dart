@@ -30,7 +30,6 @@ class AppErrorWidget extends StatelessWidget {
     required this.details,
   });
 
-  static const Color _primary = Color(0xFF006B54);
   static const Color _surface = Color(0xFFFBFDF9);
   static const Color _onSurface = Color(0xFF191C1A);
   static const Color _onSurfaceVariant = Color(0xFF404943);

@@ -70,9 +70,9 @@ class NotificationPermissionDialog extends ConsumerWidget {
         // ── Enable ────────────────────────────────────────
         FilledButton(
           onPressed: () async {
-            await NotificationPermissionPrefs.markAsked();
-
+            // ── Capture everything from context BEFORE any await ──
             final languageCode = AppLocalizations.of(context).languageCode;
+            final navigator = Navigator.of(context);
             final quoteNotifier =
                 ref.read(quoteNotificationPrefsProvider.notifier);
             final wordNotifier =
@@ -84,7 +84,10 @@ class NotificationPermissionDialog extends ConsumerWidget {
             final permNotifier =
                 ref.read(notificationPermissionProvider.notifier);
 
-            Navigator.of(context).pop();
+            // ── Now safe to await ─────────────────────────
+            await NotificationPermissionPrefs.markAsked();
+
+            navigator.pop();
 
             final granted =
                 await NotificationPermissionService.ensurePermission();
