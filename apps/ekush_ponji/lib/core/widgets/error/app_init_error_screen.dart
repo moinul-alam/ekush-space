@@ -2,19 +2,20 @@
 
 import 'package:flutter/material.dart';
 import 'package:ekush_theme/ekush_theme.dart';
-import 'package:ekush_ponji/features/about/about_content.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AppInitErrorScreen extends StatefulWidget {
   final Object error;
   final StackTrace stackTrace;
   final Future<void> Function() onRetry;
+  final String? websiteUrl;
 
   const AppInitErrorScreen({
     super.key,
     required this.error,
     required this.stackTrace,
     required this.onRetry,
+    this.websiteUrl,
   });
 
   @override
@@ -241,29 +242,31 @@ class _AppInitErrorScreenState extends State<AppInitErrorScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton.icon(
-                      onPressed: () => _launchUrl(AboutContent.websiteUrl),
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: _primary,
-                        side: const BorderSide(color: _primary),
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
+                  if (widget.websiteUrl != null) ...[
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton.icon(
+                        onPressed: () => _launchUrl(widget.websiteUrl!),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: _primary,
+                          side: const BorderSide(color: _primary),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14),
+                          ),
                         ),
-                      ),
-                      icon: const Icon(Icons.language_rounded),
-                      label: const Text(
-                        'ওয়েবসাইট / Website',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
+                        icon: const Icon(Icons.language_rounded),
+                        label: const Text(
+                          'ওয়েবসাইট / Website',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ],
 
                 const SizedBox(height: 24),

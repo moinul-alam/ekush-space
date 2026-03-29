@@ -8,6 +8,7 @@ import 'package:ekush_ponji/app/app.dart';
 import 'package:ekush_ponji/app/config/app_initializer.dart';
 import 'package:ekush_ponji/core/widgets/error/app_init_error_screen.dart';
 import 'package:ekush_ponji/core/widgets/error/app_error_boundary.dart';
+import 'package:ekush_ponji/features/about/about_content.dart';
 
 String? pendingNotificationPayload;
 
@@ -36,6 +37,7 @@ Future<void> main() async {
           error: e,
           stackTrace: st,
           onRetry: () => _retryInit(),
+          websiteUrl: AboutContent.websiteUrl,
         ),
       );
       return;
