@@ -2,7 +2,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ekush_ponji/features/calendar/models/bengali_date.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
+import 'package:ekush_core/ekush_core.dart';
 
 /// Converts Gregorian dates to Bengali (Bangla Academy standard).
 ///
@@ -147,3 +147,4 @@ class BengaliCalendarService {
 final bengaliCalendarServiceProvider = Provider<BengaliCalendarService>((ref) {
   return BengaliCalendarService();
 });
+

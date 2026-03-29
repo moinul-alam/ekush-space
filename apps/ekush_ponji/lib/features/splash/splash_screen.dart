@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ekush_ponji/app/router/route_names.dart';
-import 'package:ekush_ponji/features/splash/widgets/logo_splash_widget.dart';
+import 'package:ekush_ui/ekush_ui.dart';
 import 'package:ekush_ponji/main.dart' show pendingNotificationPayload;
 
 class SplashScreen extends ConsumerStatefulWidget {
@@ -214,3 +214,5 @@ class _BackgroundPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant _BackgroundPainter oldDelegate) => false;
 }
+
+

@@ -134,3 +134,5 @@ Future<void> _rescheduleWordNotifications() async {
 
   debugPrint('✅ Word notifications rescheduled from background');
 }
+
+

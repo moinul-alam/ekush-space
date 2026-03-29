@@ -105,3 +105,5 @@ class WordsLocalDatasource {
 
   bool isWordSaved(WordModel word) => _savedBox.containsKey(word.storageKey);
 }
+
+

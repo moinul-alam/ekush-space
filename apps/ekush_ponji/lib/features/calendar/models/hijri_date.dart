@@ -126,3 +126,4 @@ class HijriDate {
   @override
   String toString() => 'HijriDate(day: $day, month: $monthName, year: $year AH)';
 }
+

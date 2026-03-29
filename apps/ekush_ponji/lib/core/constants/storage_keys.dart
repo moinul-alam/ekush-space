@@ -35,3 +35,4 @@ class StorageKeys {
   static const String reminderSound = 'reminder_sound';
   static const String reminderVibration = 'reminder_vibration';
 }
+

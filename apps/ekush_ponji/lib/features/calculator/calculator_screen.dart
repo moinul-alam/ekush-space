@@ -3,12 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ekush_ponji/core/base/base_screen.dart';
-import 'package:ekush_ponji/core/base/view_state.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
-import 'package:ekush_ponji/core/services/ad_service.dart';
-import 'package:ekush_ponji/core/widgets/ads/native_ad_widget.dart';
-import 'package:ekush_ponji/core/widgets/pickers/app_date_picker.dart';
+import 'package:ekush_ponji/core/base/ponji_base_screen.dart';
+import 'package:ekush_core/ekush_core.dart';
+import 'package:ekush_ads/ekush_ads.dart';
+import 'package:ekush_ponji/app/config/ad_config.dart';
+import 'package:ekush_ui/ekush_ui.dart';
+import 'package:ekush_ui/date_picker_localizations.dart';
 import 'package:ekush_ponji/features/calculator/calculator_viewmodel.dart';
 import 'package:ekush_ponji/features/calculator/widgets/date_input_field.dart';
 import 'package:ekush_ponji/features/calculator/widgets/result_card.dart';
@@ -16,14 +16,14 @@ import 'package:go_router/go_router.dart';
 import 'package:ekush_ponji/app/router/route_names.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_header.dart';
 
-class CalculatorScreen extends BaseScreen {
+class CalculatorScreen extends PonjiBaseScreen {
   const CalculatorScreen({super.key});
 
   @override
-  BaseScreenState<CalculatorScreen> createState() => _CalculatorScreenState();
+  PonjiBaseScreenState<CalculatorScreen> createState() => _CalculatorScreenState();
 }
 
-class _CalculatorScreenState extends BaseScreenState<CalculatorScreen> {
+class _CalculatorScreenState extends PonjiBaseScreenState<CalculatorScreen> {
   final GlobalKey<DateInputFieldState> _toDateKey =
       GlobalKey<DateInputFieldState>();
 
@@ -158,7 +158,7 @@ class _CalculatorScreenState extends BaseScreenState<CalculatorScreen> {
     final selected = await AppDatePicker.show(
       context: context,
       initial: initial,
-      l10n: l10n,
+      l10n: l10n as DatePickerLocalizations,
     );
 
     if (selected != null && context.mounted) {
@@ -258,9 +258,12 @@ class _CalculatorScreenState extends BaseScreenState<CalculatorScreen> {
               context, l10n, _formatYearsMonthsDays(l10n, result)),
         ),
 
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 4),
-          child: NativeAdWidget(style: NativeAdStyle.card),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: NativeAdWidget(
+            style: NativeAdStyle.card,
+            config: AdConfig.toEkushAdConfig(),
+          ),
         ),
 
         // ── Card 2: ___ Weeks ___ Days ────────────────────
@@ -377,3 +380,5 @@ class _CalculatorScreenState extends BaseScreenState<CalculatorScreen> {
     );
   }
 }
+
+

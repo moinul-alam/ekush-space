@@ -2,24 +2,24 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ekush_ponji/core/base/base_screen.dart';
-import 'package:ekush_ponji/core/base/view_state.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
-import 'package:ekush_ponji/core/widgets/ads/native_ad_widget.dart';
+import 'package:ekush_ponji/core/base/ponji_base_screen.dart';
+import 'package:ekush_core/ekush_core.dart';
+import 'package:ekush_ads/ekush_ads.dart';
+import 'package:ekush_ponji/app/config/ad_config.dart';
 import 'package:ekush_ponji/features/quotes/models/quote.dart';
 import 'package:ekush_ponji/features/quotes/quotes_viewmodel.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ekush_ponji/app/router/route_names.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_header.dart';
 
-class SavedQuotesScreen extends BaseScreen {
+class SavedQuotesScreen extends PonjiBaseScreen {
   const SavedQuotesScreen({super.key});
 
   @override
-  BaseScreenState createState() => _SavedQuotesScreenState();
+  PonjiBaseScreenState<SavedQuotesScreen> createState() => _SavedQuotesScreenState();
 }
 
-class _SavedQuotesScreenState extends BaseScreenState<SavedQuotesScreen> {
+class _SavedQuotesScreenState extends PonjiBaseScreenState<SavedQuotesScreen> {
   @override
   NotifierProvider<dynamic, ViewState> get viewModelProvider =>
       quotesViewModelProvider;
@@ -91,9 +91,12 @@ class _SavedQuotesScreenState extends BaseScreenState<SavedQuotesScreen> {
 
       // Inject native ad after the 3rd quote (index 2)
       if (i == 2) {
-        items.add(const Padding(
-          padding: EdgeInsets.symmetric(vertical: 4),
-          child: NativeAdWidget(style: NativeAdStyle.card),
+        items.add(Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: NativeAdWidget(
+            style: NativeAdStyle.card,
+            config: AdConfig.toEkushAdConfig(),
+          ),
         ));
       }
     }
@@ -183,3 +186,5 @@ class _SavedQuoteCard extends StatelessWidget {
     );
   }
 }
+
+

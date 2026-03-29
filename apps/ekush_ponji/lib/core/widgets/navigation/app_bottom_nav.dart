@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
+import 'package:ekush_core/ekush_core.dart';
 
 /// Logical tab indices for shell branches.
 class AppTab {
@@ -153,3 +153,5 @@ class _AppBottomNavInnerState extends State<_AppBottomNavInner> {
     );
   }
 }
+
+

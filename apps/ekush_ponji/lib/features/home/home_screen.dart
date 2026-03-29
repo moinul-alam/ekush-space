@@ -4,11 +4,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ekush_ponji/core/base/base_screen.dart';
-import 'package:ekush_ponji/core/base/view_state.dart';
+import 'package:ekush_ponji/core/base/ponji_base_screen.dart';
+import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_header.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_drawer.dart';
-import 'package:ekush_ponji/core/services/app_review_service.dart';
 import 'package:ekush_ponji/features/home/home_viewmodel.dart';
 import 'package:ekush_ponji/features/home/widgets/home_date_greeter_widget.dart';
 import 'package:ekush_ponji/features/home/widgets/home_holidays_widget.dart';
@@ -16,17 +15,18 @@ import 'package:ekush_ponji/features/home/widgets/home_events_widget.dart';
 import 'package:ekush_ponji/features/home/widgets/daily_quote_widget.dart';
 import 'package:ekush_ponji/features/home/widgets/daily_word_widget.dart';
 import 'package:ekush_ponji/features/home/widgets/app_review_banner.dart';
-import 'package:ekush_ponji/core/widgets/ads/native_ad_widget.dart';
+import 'package:ekush_ads/ekush_ads.dart';
+import 'package:ekush_ponji/app/config/ad_config.dart';
 import 'package:ekush_ponji/app/providers/app_providers.dart';
 
-class HomeScreen extends BaseScreen {
+class HomeScreen extends PonjiBaseScreen {
   const HomeScreen({super.key});
 
   @override
-  BaseScreenState<HomeScreen> createState() => _HomeScreenState();
+  PonjiBaseScreenState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends BaseScreenState<HomeScreen>
+class _HomeScreenState extends PonjiBaseScreenState<HomeScreen>
     with WidgetsBindingObserver {
   bool _showReviewBanner = false;
   Timer? _dayBoundaryCheckTimer;
@@ -134,9 +134,10 @@ class _HomeScreenState extends BaseScreenState<HomeScreen>
           const SizedBox(height: 8),
           const DailyQuoteWidget(),
           const SizedBox(height: 8),
-          const NativeAdWidget(
+          NativeAdWidget(
             style: NativeAdStyle.card,
-            cardMargin: EdgeInsets.fromLTRB(4, 4, 4, 4),
+            config: AdConfig.toEkushAdConfig(),
+            cardMargin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
             cardBorderRadius: 16,
             cardSurfaceAlpha: 0.35,
           ),
@@ -173,3 +174,5 @@ class _HomeScreenState extends BaseScreenState<HomeScreen>
     ref.read(homeViewModelProvider.notifier).refresh();
   }
 }
+
+

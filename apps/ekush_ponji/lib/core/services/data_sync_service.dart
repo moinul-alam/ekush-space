@@ -6,12 +6,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'package:ekush_ponji/core/models/app_manifest.dart';
+import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_ponji/features/holidays/services/holiday_sync_service.dart';
 import 'package:ekush_ponji/features/quotes/services/quotes_sync_service.dart';
 import 'package:ekush_ponji/features/words/services/words_sync_service.dart';
 import 'package:ekush_ponji/features/calendar/services/hijri_offset_sync_service.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
 
 // ── Configuration ─────────────────────────────────────────────────────────────
 
@@ -251,3 +250,5 @@ class DataSyncResult {
     return l10n.syncUpdated(updated.join(', '));
   }
 }
+
+

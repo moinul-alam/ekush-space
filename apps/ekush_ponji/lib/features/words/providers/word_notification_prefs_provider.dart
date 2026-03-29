@@ -49,3 +49,5 @@ final wordNotificationPrefsProvider =
     NotifierProvider<WordNotificationPrefsNotifier, WordNotificationPrefs>(
   WordNotificationPrefsNotifier.new,
 );
+
+

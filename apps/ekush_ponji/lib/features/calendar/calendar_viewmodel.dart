@@ -1,8 +1,7 @@
 // lib/features/calendar/calendar_viewmodel.dart
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ekush_ponji/core/base/base_viewmodel.dart';
-import 'package:ekush_ponji/core/base/view_state.dart';
+import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_ponji/features/calendar/models/calendar_day.dart';
 import 'package:ekush_ponji/features/calendar/models/month_data.dart';
 import 'package:ekush_ponji/features/calendar/data/calendar_repository.dart';
@@ -265,3 +264,5 @@ class CalendarViewModel extends BaseViewModel {
 
 final calendarViewModelProvider =
     NotifierProvider<CalendarViewModel, ViewState>(() => CalendarViewModel());
+
+

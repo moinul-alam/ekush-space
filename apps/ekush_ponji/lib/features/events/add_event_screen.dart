@@ -2,14 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ekush_ponji/core/base/view_state.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
+import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_ponji/features/events/add_event_viewmodel.dart';
 import 'package:ekush_ponji/features/events/models/event.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ekush_ponji/core/services/local_notification_service.dart';
+import 'package:ekush_notifications/ekush_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:ekush_ponji/core/widgets/pickers/app_date_time_picker.dart';
+import 'package:ekush_ui/ekush_ui.dart';
+import 'package:ekush_ui/date_picker_localizations.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_header.dart';
 
 class AddEventScreen extends ConsumerStatefulWidget {
@@ -415,8 +415,10 @@ class _DateTimePicker extends ConsumerWidget {
     final result = await AppDateTimePicker.show(
       context: context,
       initial: dateTime ?? DateTime.now(),
-      l10n: l10n,
+      l10n: l10n as DatePickerLocalizations,
     );
     if (result != null) onPick(result);
   }
 }
+
+

@@ -77,3 +77,5 @@ class AppConfig {
   static const int maxEventTitleLen = 150;
   static const Duration notificationLead = Duration(minutes: 30);
 }
+
+

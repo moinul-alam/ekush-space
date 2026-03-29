@@ -17,8 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'package:ekush_ponji/core/models/app_manifest.dart';
-import 'package:ekush_ponji/core/services/base_sync_service.dart';
+import 'package:ekush_core/ekush_core.dart';
 
 class QuotesSyncService implements BaseSyncService {
   // ── Hive keys ──────────────────────────────────────────────
@@ -154,3 +153,5 @@ class QuotesSyncService implements BaseSyncService {
     return false;
   }
 }
+
+

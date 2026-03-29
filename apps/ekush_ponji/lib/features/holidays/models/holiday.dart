@@ -473,3 +473,5 @@ class HolidayAdapter extends TypeAdapter<Holiday> {
   @override
   int get hashCode => typeId.hashCode;
 }
+
+

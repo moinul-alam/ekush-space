@@ -6,8 +6,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:ekush_ponji/app/app.dart';
 import 'package:ekush_ponji/app/config/app_initializer.dart';
-import 'package:ekush_ponji/core/widgets/error/app_init_error_screen.dart';
-import 'package:ekush_ponji/core/widgets/error/app_error_boundary.dart';
+import 'package:ekush_ponji/app/config/ad_config.dart';
+import 'package:ekush_ads/ekush_ads.dart';
+import 'package:ekush_ui/ekush_ui.dart';
+import 'package:ekush_ponji/features/about/about_content.dart';
 
 String? pendingNotificationPayload;
 
@@ -36,6 +38,7 @@ Future<void> main() async {
           error: e,
           stackTrace: st,
           onRetry: () => _retryInit(),
+          websiteUrl: AboutContent.websiteUrl,
         ),
       );
       return;
@@ -43,11 +46,15 @@ Future<void> main() async {
 
     pendingNotificationPayload = await AppInitializer.getColdStartPayload();
 
-    final container = ProviderContainer();
-
     runApp(
-      UncontrolledProviderScope(
-        container: container,
+      ProviderScope(
+        overrides: [
+          adServiceProvider.overrideWith((ref) {
+            final service = AdService(ref, AdConfig.toEkushAdConfig());
+            ref.onDispose(service.dispose);
+            return service;
+          }),
+        ],
         child: const EkushPonjiApp(),
       ),
     );
@@ -55,8 +62,6 @@ Future<void> main() async {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       FlutterNativeSplash.remove();
     });
-
-    unawaited(_runBackgroundInit(container));
   }, (error, stack) {
     debugPrint('🔥 Uncaught App Error: $error');
     debugPrintStack(stackTrace: stack);
@@ -71,11 +76,15 @@ Future<void> _retryInit() async {
   final payload = await AppInitializer.getColdStartPayload();
   pendingNotificationPayload = payload;
 
-  final container = ProviderContainer();
-
   runApp(
-    UncontrolledProviderScope(
-      container: container,
+    ProviderScope(
+      overrides: [
+        adServiceProvider.overrideWith((ref) {
+          final service = AdService(ref, AdConfig.toEkushAdConfig());
+          ref.onDispose(service.dispose);
+          return service;
+        }),
+      ],
       child: const EkushPonjiApp(),
     ),
   );
@@ -83,15 +92,6 @@ Future<void> _retryInit() async {
   WidgetsBinding.instance.addPostFrameCallback((_) {
     FlutterNativeSplash.remove();
   });
-
-  unawaited(_runBackgroundInit(container));
 }
 
-Future<void> _runBackgroundInit(ProviderContainer container) async {
-  try {
-    await AppInitializer.initializeBackground(container);
-  } catch (e, st) {
-    debugPrint('⚠️ Background initialization failed: $e');
-    debugPrintStack(stackTrace: st);
-  }
-}
+

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:ekush_ponji/features/holidays/models/holiday.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
+import 'package:ekush_core/ekush_core.dart';
 
 class HolidayCard extends StatelessWidget {
   final Holiday holiday;
@@ -336,3 +336,5 @@ class _SmallChip extends StatelessWidget {
     );
   }
 }
+
+

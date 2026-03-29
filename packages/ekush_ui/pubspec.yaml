@@ -1,4 +1,25 @@
 name: ekush_ui
+description: Ekush UI package for reusable widgets
+publish_to: 'none'
+version: 1.0.0
+
 environment:
   sdk: '>=3.5.0 <4.0.0'
+  flutter: '>=3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  ekush_theme:
+    path: ../ekush_theme
+  url_launcher: ^6.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
 resolution: workspace

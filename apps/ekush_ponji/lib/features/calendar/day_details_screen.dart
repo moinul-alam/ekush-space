@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
-import 'package:ekush_ponji/core/utils/number_converter.dart';
-import 'package:ekush_ponji/core/widgets/ads/native_ad_widget.dart';
+import 'package:ekush_core/ekush_core.dart';
+import 'package:ekush_ads/ekush_ads.dart';
+import 'package:ekush_ponji/app/config/ad_config.dart';
 import 'package:ekush_ponji/features/calendar/calendar_viewmodel.dart';
 import 'package:ekush_ponji/features/calendar/models/calendar_day.dart';
 import 'package:ekush_ponji/features/holidays/models/holiday.dart';
@@ -99,7 +99,10 @@ class _DayDetailsScreenState extends ConsumerState<DayDetailsScreen> {
               ],
 
               // ── Native ad — after holidays, before events/reminders ──────
-              const NativeAdWidget(style: NativeAdStyle.card),
+              NativeAdWidget(
+                style: NativeAdStyle.card,
+                config: AdConfig.toEkushAdConfig(),
+              ),
               const SizedBox(height: 12),
 
               // ── Events ───────────────────────────────────────────────────
@@ -679,3 +682,5 @@ class _FilledActionButton extends StatelessWidget {
     );
   }
 }
+
+

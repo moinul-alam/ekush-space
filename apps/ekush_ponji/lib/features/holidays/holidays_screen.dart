@@ -5,12 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:ekush_ponji/app/router/route_names.dart';
-import 'package:ekush_ponji/core/base/base_screen.dart';
-import 'package:ekush_ponji/core/base/view_state.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
-import 'package:ekush_ponji/core/notifications/notification_permission_provider.dart';
-import 'package:ekush_ponji/core/widgets/ads/native_ad_widget.dart';
-import 'package:ekush_ponji/core/widgets/loading/app_loading_spinner.dart';
+import 'package:ekush_ponji/core/base/ponji_base_screen.dart';
+import 'package:ekush_core/ekush_core.dart';
+import 'package:ekush_notifications/ekush_notifications.dart';
+import 'package:ekush_ads/ekush_ads.dart';
+import 'package:ekush_ponji/app/config/ad_config.dart';
+import 'package:ekush_ui/ekush_ui.dart';
 import 'package:ekush_ponji/features/holidays/models/holiday.dart';
 import 'package:ekush_ponji/features/holidays/holidays_viewmodel.dart';
 import 'package:ekush_ponji/features/holidays/widgets/holiday_gazette_section_widget.dart';
@@ -19,14 +19,14 @@ import 'package:ekush_ponji/features/holidays/widgets/holiday_type_legend_widget
 import 'package:ekush_ponji/features/holidays/providers/holiday_notification_provider.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_header.dart';
 
-class HolidaysScreen extends BaseScreen {
+class HolidaysScreen extends PonjiBaseScreen {
   const HolidaysScreen({super.key});
 
   @override
-  BaseScreenState<HolidaysScreen> createState() => _HolidaysScreenState();
+  PonjiBaseScreenState<HolidaysScreen> createState() => _HolidaysScreenState();
 }
 
-class _HolidaysScreenState extends BaseScreenState<HolidaysScreen>
+class _HolidaysScreenState extends PonjiBaseScreenState<HolidaysScreen>
     with WidgetsBindingObserver {
   @override
   void initState() {
@@ -383,7 +383,10 @@ class _GazetteTypeView extends StatelessWidget {
               holidays: entry.value,
             ),
             // Native ad as section separator after the 3rd gazette section.
-            if (index == 2) const NativeAdWidget(style: NativeAdStyle.section),
+            if (index == 2) NativeAdWidget(
+              style: NativeAdStyle.section,
+              config: AdConfig.toEkushAdConfig(),
+            ),
           ],
         );
       },
@@ -462,10 +465,15 @@ class _MonthWiseViewState extends State<_MonthWiseView> {
             ),
             // Dynamic native ad after the currently expanded month section.
             if (index == adAfterIndex && index < entries.length - 1)
-              const NativeAdWidget(style: NativeAdStyle.section),
+              NativeAdWidget(
+                style: NativeAdStyle.section,
+                config: AdConfig.toEkushAdConfig(),
+              ),
           ],
         );
       },
     );
   }
 }
+
+

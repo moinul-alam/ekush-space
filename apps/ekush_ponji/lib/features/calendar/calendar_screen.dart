@@ -2,9 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ekush_ponji/core/base/base_screen.dart';
-import 'package:ekush_ponji/core/base/view_state.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
+import 'package:ekush_ponji/core/base/ponji_base_screen.dart';
+import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_ponji/features/calendar/services/hijri_calendar_service.dart';
 import 'package:ekush_ponji/features/calendar/calendar_viewmodel.dart';
 import 'package:ekush_ponji/features/calendar/widgets/calendar_header.dart';
@@ -13,21 +12,21 @@ import 'package:ekush_ponji/features/calendar/widgets/calendar_grid.dart';
 import 'package:ekush_ponji/features/calendar/widgets/calendar_visibilities.dart';
 import 'package:ekush_ponji/features/calendar/widgets/day_details_panel.dart';
 import 'package:ekush_ponji/features/calendar/widgets/calendar_holidays_widget.dart';
-import 'package:ekush_ponji/core/widgets/pickers/custom_month_year_picker.dart';
-import 'package:ekush_ponji/core/widgets/loading/app_loading_spinner.dart';
+import 'package:ekush_ui/ekush_ui.dart';
+import 'package:ekush_ui/date_picker_localizations.dart';
 import 'package:ekush_ponji/app/router/route_names.dart';
 import 'package:ekush_ponji/app/providers/app_providers.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_header.dart';
 
-class CalendarScreen extends BaseScreen {
+class CalendarScreen extends PonjiBaseScreen {
   const CalendarScreen({super.key});
 
   @override
-  BaseScreenState<CalendarScreen> createState() => _CalendarScreenState();
+  PonjiBaseScreenState<CalendarScreen> createState() => _CalendarScreenState();
 }
 
-class _CalendarScreenState extends BaseScreenState<CalendarScreen> {
+class _CalendarScreenState extends PonjiBaseScreenState<CalendarScreen> {
   double _dragStartX = 0;
   int? _lastSeenDataVersion;
 
@@ -199,13 +198,27 @@ class _CalendarScreenState extends BaseScreenState<CalendarScreen> {
       builder: (context) => MonthYearPickerDialog(
         initialYear: monthData.gregorianYear,
         initialMonth: monthData.gregorianMonth,
-        l10n: l10n,
+        l10n: l10n as DatePickerLocalizations,
         onSelected: (year, month) => viewModel.jumpToMonth(year, month),
       ),
     );
   }
 
   Future<void> _showYearPicker(BuildContext context, WidgetRef ref) async {
-    await _showMonthPicker(context, ref);
+    final viewModel = ref.read(calendarViewModelProvider.notifier);
+    final monthData = viewModel.currentMonthData;
+    if (monthData == null) return;
+    final l10n = AppLocalizations.of(context);
+    await showDialog(
+      context: context,
+      builder: (context) => MonthYearPickerDialog(
+        initialYear: monthData.gregorianYear,
+        initialMonth: monthData.gregorianMonth,
+        l10n: l10n as DatePickerLocalizations,
+        onSelected: (year, month) => viewModel.jumpToMonth(year, month),
+      ),
+    );
   }
 }
+
+

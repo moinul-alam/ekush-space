@@ -1,7 +1,6 @@
 // lib/features/home/home_viewmodel.dart
 
-import 'package:ekush_ponji/core/base/base_viewmodel.dart';
-import 'package:ekush_ponji/core/base/view_state.dart';
+import 'package:ekush_core/ekush_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ekush_ponji/features/holidays/models/holiday.dart';
 import 'package:ekush_ponji/features/events/models/event.dart';
@@ -71,3 +70,5 @@ class HomeViewModel extends BaseViewModel {
 final homeViewModelProvider = NotifierProvider<HomeViewModel, ViewState>(
   () => HomeViewModel(),
 );
+
+

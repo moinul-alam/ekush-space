@@ -193,3 +193,4 @@ class Event {
     return 'Event(id: $id, title: $title, startTime: $startTime, category: ${category.name})';
   }
 }
+

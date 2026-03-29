@@ -1,7 +1,6 @@
 // lib/features/calculator/calculator_viewmodel.dart
 
-import 'package:ekush_ponji/core/base/base_viewmodel.dart';
-import 'package:ekush_ponji/core/base/view_state.dart';
+import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_ponji/features/calculator/models/date_calculation_result.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -152,3 +151,4 @@ final calculatorViewModelProvider =
     NotifierProvider<CalculatorViewModel, ViewState>(
   () => CalculatorViewModel(),
 );
+

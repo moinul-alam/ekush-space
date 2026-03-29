@@ -3,33 +3,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ekush_ponji/core/base/base_screen.dart';
-import 'package:ekush_ponji/core/base/view_state.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
+import 'package:ekush_ponji/core/base/ponji_base_screen.dart';
+import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_ponji/app/router/route_names.dart';
 import 'package:ekush_ponji/features/words/models/word.dart';
 import 'package:ekush_ponji/features/words/words_viewmodel.dart';
 import 'package:ekush_ponji/features/words/widgets/word_share_card.dart';
-import 'package:ekush_ponji/core/services/share_service.dart';
-import 'package:ekush_ponji/core/services/ad_service.dart';
+import 'package:ekush_share/ekush_share.dart';
+import 'package:ekush_ads/ekush_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ekush_ponji/features/words/services/word_notification_service.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:ekush_ponji/core/notifications/notification_permission_service.dart';
-import 'package:ekush_ponji/core/notifications/notification_permission_prefs.dart';
-import 'package:ekush_ponji/core/notifications/notification_permission_provider.dart';
+import 'package:ekush_notifications/ekush_notifications.dart';
 import 'package:ekush_ponji/features/words/services/word_notification_prefs.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_header.dart';
 
-class WordsScreen extends BaseScreen {
+class WordsScreen extends PonjiBaseScreen {
   final int initialIndex;
   const WordsScreen({super.key, this.initialIndex = 0});
 
   @override
-  BaseScreenState createState() => _WordsScreenState();
+  PonjiBaseScreenState createState() => _WordsScreenState();
 }
 
-class _WordsScreenState extends BaseScreenState<WordsScreen>
+class _WordsScreenState extends PonjiBaseScreenState<WordsScreen>
     with SingleTickerProviderStateMixin {
   late int _currentIndex;
   late AnimationController _animationController;
@@ -595,3 +592,5 @@ class _WordCard extends StatelessWidget {
     );
   }
 }
+
+

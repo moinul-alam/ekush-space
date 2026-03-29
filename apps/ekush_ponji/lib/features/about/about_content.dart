@@ -70,3 +70,5 @@ Key points:
 Read the full terms at:
 $termsUrl''';
 }
+
+

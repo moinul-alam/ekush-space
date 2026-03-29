@@ -3,9 +3,7 @@
 import 'package:flutter/material.dart' show Color, debugPrint;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
-import 'package:ekush_ponji/core/notifications/notification_id.dart';
-import 'package:ekush_ponji/core/notifications/notification_permission_service.dart';
-import 'package:ekush_ponji/core/services/local_notification_service.dart';
+import 'package:ekush_notifications/ekush_notifications.dart';
 import 'package:ekush_ponji/features/holidays/models/holiday.dart';
 import 'package:ekush_ponji/features/holidays/services/holiday_notification_prefs.dart';
 
@@ -153,3 +151,5 @@ class HolidayNotificationService {
     );
   }
 }
+
+

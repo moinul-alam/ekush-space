@@ -2,24 +2,24 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ekush_ponji/core/base/base_screen.dart';
-import 'package:ekush_ponji/core/base/view_state.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
-import 'package:ekush_ponji/core/widgets/ads/native_ad_widget.dart';
+import 'package:ekush_ponji/core/base/ponji_base_screen.dart';
+import 'package:ekush_core/ekush_core.dart';
+import 'package:ekush_ads/ekush_ads.dart';
+import 'package:ekush_ponji/app/config/ad_config.dart';
 import 'package:ekush_ponji/features/words/models/word.dart';
 import 'package:ekush_ponji/features/words/words_viewmodel.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ekush_ponji/app/router/route_names.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_header.dart';
 
-class SavedWordsScreen extends BaseScreen {
+class SavedWordsScreen extends PonjiBaseScreen {
   const SavedWordsScreen({super.key});
 
   @override
-  BaseScreenState createState() => _SavedWordsScreenState();
+  PonjiBaseScreenState<SavedWordsScreen> createState() => _SavedWordsScreenState();
 }
 
-class _SavedWordsScreenState extends BaseScreenState<SavedWordsScreen> {
+class _SavedWordsScreenState extends PonjiBaseScreenState<SavedWordsScreen> {
   @override
   NotifierProvider<dynamic, ViewState> get viewModelProvider =>
       wordsViewModelProvider;
@@ -91,9 +91,12 @@ class _SavedWordsScreenState extends BaseScreenState<SavedWordsScreen> {
 
       // Inject native ad after the 3rd word (index 2)
       if (i == 2) {
-        items.add(const Padding(
-          padding: EdgeInsets.symmetric(vertical: 4),
-          child: NativeAdWidget(style: NativeAdStyle.card),
+        items.add(Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: NativeAdWidget(
+            style: NativeAdStyle.card,
+            config: AdConfig.toEkushAdConfig(),
+          ),
         ));
       }
     }
@@ -243,3 +246,5 @@ class _SavedWordCard extends StatelessWidget {
     );
   }
 }
+
+

@@ -5,8 +5,7 @@
 // Unobtrusive, dismissible, bilingual.
 
 import 'package:flutter/material.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
-import 'package:ekush_ponji/core/services/app_review_service.dart';
+import 'package:ekush_core/ekush_core.dart';
 
 class AppReviewBanner extends StatelessWidget {
   final VoidCallback onDismiss;
@@ -124,3 +123,5 @@ class AppReviewBanner extends StatelessWidget {
     );
   }
 }
+
+

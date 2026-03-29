@@ -1,9 +1,7 @@
 // lib/features/quotes/quotes_viewmodel.dart
 
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:ekush_ponji/core/base/base_viewmodel.dart';
-import 'package:ekush_ponji/core/base/view_state.dart';
-import 'package:ekush_ponji/core/services/app_review_service.dart';
+import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_ponji/app/providers/app_providers.dart';
 import 'package:ekush_ponji/features/quotes/data/datasources/local/quotes_local_datasource.dart';
 import 'package:ekush_ponji/features/quotes/models/quote.dart';
@@ -92,3 +90,5 @@ final quotesRepositoryProvider = Provider<QuotesRepository>((ref) {
     ),
   );
 });
+
+

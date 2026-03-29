@@ -80,3 +80,4 @@ class QuoteNotificationPrefs {
   String toString() => 'QuoteNotificationPrefs(enabled=$enabled, '
       'time=$notifyHour:${notifyMinute.toString().padLeft(2, "0")})';
 }
+

@@ -7,13 +7,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 
 import 'package:ekush_ponji/app/providers/app_providers.dart';
-import 'package:ekush_ponji/core/themes/app_theme.dart';
+import 'package:ekush_theme/ekush_theme.dart';
 import 'package:ekush_ponji/features/holidays/models/holiday.dart';
 import 'package:ekush_ponji/features/quotes/models/quote.dart';
 import 'package:ekush_ponji/features/words/models/word.dart';
-import 'package:ekush_ponji/core/services/app_version_service.dart';
-import 'package:ekush_ponji/core/services/local_notification_service.dart';
+import 'package:ekush_core/ekush_core.dart';
+import 'package:ekush_notifications/ekush_notifications.dart';
 import 'package:ekush_ponji/core/services/background_task_dispatcher.dart';
+import 'package:ekush_ponji/app/router/app_router.dart';
+import 'package:ekush_ponji/app/router/route_names.dart';
 import 'package:ekush_ponji/features/calendar/data/calendar_repository.dart';
 import 'package:ekush_ponji/features/holidays/services/holiday_notification_prefs.dart';
 import 'package:ekush_ponji/features/holidays/services/holiday_notification_service.dart';
@@ -47,7 +49,55 @@ class AppInitializer {
         Hive.openBox<QuoteModel>(savedQuotesBoxName),
         Hive.openBox<WordModel>(savedWordsBoxName),
       ]);
-      await LocalNotificationService.initialize();
+      await LocalNotificationService.initialize(
+        onNotificationTap: (payload) {
+          if (payload == null || payload.isEmpty) {
+            AppRouter.router.go(RouteNames.home);
+            return;
+          }
+          if (payload == 'holiday') {
+            AppRouter.router.push(RouteNames.holidays);
+            return;
+          }
+          if (payload.startsWith('quote:')) {
+            final index = int.tryParse(payload.substring('quote:'.length)) ?? 0;
+            AppRouter.router.push(RouteNames.quotes, extra: index);
+            return;
+          }
+          if (payload.startsWith('word:')) {
+            final index = int.tryParse(payload.substring('word:'.length)) ?? 0;
+            AppRouter.router.push(RouteNames.words, extra: index);
+            return;
+          }
+          if (payload.startsWith('event:')) {
+            final dateStr = payload.substring('event:'.length);
+            try {
+              final date = DateTime.parse(dateStr);
+              AppRouter.router.go(RouteNames.calendar);
+              Future.delayed(const Duration(milliseconds: 300), () {
+                AppRouter.router.push(RouteNames.calendarDayDetails, extra: date);
+              });
+            } catch (e) {
+              AppRouter.router.go(RouteNames.calendar);
+            }
+            return;
+          }
+          if (payload.startsWith('reminder:')) {
+            final dateStr = payload.substring('reminder:'.length);
+            try {
+              final date = DateTime.parse(dateStr);
+              AppRouter.router.go(RouteNames.calendar);
+              Future.delayed(const Duration(milliseconds: 300), () {
+                AppRouter.router.push(RouteNames.calendarDayDetails, extra: date);
+              });
+            } catch (e) {
+              AppRouter.router.go(RouteNames.calendar);
+            }
+            return;
+          }
+          AppRouter.router.go(RouteNames.home);
+        },
+      );
       await AppVersionCache.warmFromPlatform();
       _log('✅ Core initialization completed');
     } catch (e, st) {
@@ -222,3 +272,5 @@ class AppInitializer {
     await Hive.close();
   }
 }
+
+

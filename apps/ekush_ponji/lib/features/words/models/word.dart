@@ -116,3 +116,5 @@ class WordModelAdapter extends TypeAdapter<WordModel> {
     writer.writeBool(obj.isSaved);
   }
 }
+
+
