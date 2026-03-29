@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ekush_ponji/core/base/base_screen.dart';
+import 'package:ekush_ponji/core/base/ponji_base_screen.dart';
 import 'package:ekush_ponji/core/base/view_state.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_header.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_drawer.dart';
@@ -19,14 +19,14 @@ import 'package:ekush_ponji/features/home/widgets/app_review_banner.dart';
 import 'package:ekush_ponji/core/widgets/ads/native_ad_widget.dart';
 import 'package:ekush_ponji/app/providers/app_providers.dart';
 
-class HomeScreen extends BaseScreen {
+class HomeScreen extends PonjiBaseScreen {
   const HomeScreen({super.key});
 
   @override
-  BaseScreenState<HomeScreen> createState() => _HomeScreenState();
+  PonjiBaseScreenState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends BaseScreenState<HomeScreen>
+class _HomeScreenState extends PonjiBaseScreenState<HomeScreen>
     with WidgetsBindingObserver {
   bool _showReviewBanner = false;
   Timer? _dayBoundaryCheckTimer;

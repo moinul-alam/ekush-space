@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ekush_ponji/core/base/base_screen.dart';
+import 'package:ekush_ponji/core/base/ponji_base_screen.dart';
 import 'package:ekush_ponji/core/base/view_state.dart';
 import 'package:ekush_ponji/core/localization/app_localizations.dart';
 import 'package:ekush_ponji/core/services/ad_service.dart';
@@ -17,14 +17,14 @@ import 'package:go_router/go_router.dart';
 import 'package:ekush_ponji/app/router/route_names.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_header.dart';
 
-class CalculatorScreen extends BaseScreen {
+class CalculatorScreen extends PonjiBaseScreen {
   const CalculatorScreen({super.key});
 
   @override
-  BaseScreenState<CalculatorScreen> createState() => _CalculatorScreenState();
+  PonjiBaseScreenState<CalculatorScreen> createState() => _CalculatorScreenState();
 }
 
-class _CalculatorScreenState extends BaseScreenState<CalculatorScreen> {
+class _CalculatorScreenState extends PonjiBaseScreenState<CalculatorScreen> {
   final GlobalKey<DateInputFieldState> _toDateKey =
       GlobalKey<DateInputFieldState>();
 

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ekush_ponji/core/base/base_screen.dart';
+import 'package:ekush_ponji/core/base/ponji_base_screen.dart';
 import 'package:ekush_ponji/core/base/view_state.dart';
 import 'package:ekush_ponji/core/localization/app_localizations.dart';
 import 'package:ekush_ponji/features/calendar/services/hijri_calendar_service.dart';
@@ -20,14 +20,14 @@ import 'package:ekush_ponji/app/providers/app_providers.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_header.dart';
 
-class CalendarScreen extends BaseScreen {
+class CalendarScreen extends PonjiBaseScreen {
   const CalendarScreen({super.key});
 
   @override
-  BaseScreenState<CalendarScreen> createState() => _CalendarScreenState();
+  PonjiBaseScreenState<CalendarScreen> createState() => _CalendarScreenState();
 }
 
-class _CalendarScreenState extends BaseScreenState<CalendarScreen> {
+class _CalendarScreenState extends PonjiBaseScreenState<CalendarScreen> {
   double _dragStartX = 0;
   int? _lastSeenDataVersion;
 

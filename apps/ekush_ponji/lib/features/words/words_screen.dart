@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ekush_ponji/core/base/base_screen.dart';
+import 'package:ekush_ponji/core/base/ponji_base_screen.dart';
 import 'package:ekush_ponji/core/base/view_state.dart';
 import 'package:ekush_ponji/core/localization/app_localizations.dart';
 import 'package:ekush_ponji/app/router/route_names.dart';
@@ -21,15 +21,15 @@ import 'package:ekush_ponji/core/notifications/notification_permission_provider.
 import 'package:ekush_ponji/features/words/services/word_notification_prefs.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_header.dart';
 
-class WordsScreen extends BaseScreen {
+class WordsScreen extends PonjiBaseScreen {
   final int initialIndex;
   const WordsScreen({super.key, this.initialIndex = 0});
 
   @override
-  BaseScreenState createState() => _WordsScreenState();
+  PonjiBaseScreenState createState() => _WordsScreenState();
 }
 
-class _WordsScreenState extends BaseScreenState<WordsScreen>
+class _WordsScreenState extends PonjiBaseScreenState<WordsScreen>
     with SingleTickerProviderStateMixin {
   late int _currentIndex;
   late AnimationController _animationController;

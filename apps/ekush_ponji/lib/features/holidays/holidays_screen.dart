@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:ekush_ponji/app/router/route_names.dart';
-import 'package:ekush_ponji/core/base/base_screen.dart';
+import 'package:ekush_ponji/core/base/ponji_base_screen.dart';
 import 'package:ekush_ponji/core/base/view_state.dart';
 import 'package:ekush_ponji/core/localization/app_localizations.dart';
 import 'package:ekush_ponji/core/notifications/notification_permission_provider.dart';
@@ -19,14 +19,14 @@ import 'package:ekush_ponji/features/holidays/widgets/holiday_type_legend_widget
 import 'package:ekush_ponji/features/holidays/providers/holiday_notification_provider.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_header.dart';
 
-class HolidaysScreen extends BaseScreen {
+class HolidaysScreen extends PonjiBaseScreen {
   const HolidaysScreen({super.key});
 
   @override
-  BaseScreenState<HolidaysScreen> createState() => _HolidaysScreenState();
+  PonjiBaseScreenState<HolidaysScreen> createState() => _HolidaysScreenState();
 }
 
-class _HolidaysScreenState extends BaseScreenState<HolidaysScreen>
+class _HolidaysScreenState extends PonjiBaseScreenState<HolidaysScreen>
     with WidgetsBindingObserver {
   @override
   void initState() {
