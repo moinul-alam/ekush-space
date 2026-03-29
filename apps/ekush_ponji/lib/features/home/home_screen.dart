@@ -15,7 +15,8 @@ import 'package:ekush_ponji/features/home/widgets/home_events_widget.dart';
 import 'package:ekush_ponji/features/home/widgets/daily_quote_widget.dart';
 import 'package:ekush_ponji/features/home/widgets/daily_word_widget.dart';
 import 'package:ekush_ponji/features/home/widgets/app_review_banner.dart';
-import 'package:ekush_ponji/core/widgets/ads/native_ad_widget.dart';
+import 'package:ekush_ads/ekush_ads.dart';
+import 'package:ekush_ponji/app/config/ad_config.dart';
 import 'package:ekush_ponji/app/providers/app_providers.dart';
 
 class HomeScreen extends PonjiBaseScreen {
@@ -133,9 +134,10 @@ class _HomeScreenState extends PonjiBaseScreenState<HomeScreen>
           const SizedBox(height: 8),
           const DailyQuoteWidget(),
           const SizedBox(height: 8),
-          const NativeAdWidget(
+          NativeAdWidget(
             style: NativeAdStyle.card,
-            cardMargin: EdgeInsets.fromLTRB(4, 4, 4, 4),
+            config: AdConfig.toEkushAdConfig(),
+            cardMargin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
             cardBorderRadius: 16,
             cardSurfaceAlpha: 0.35,
           ),

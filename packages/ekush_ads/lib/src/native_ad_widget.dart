@@ -3,10 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:ekush_ponji/app/config/ad_config.dart';
+import 'ekush_ad_config.dart';
 
 class NativeAdWidget extends StatefulWidget {
   final NativeAdStyle style;
+  final EkushAdConfig config;
 
   /// When [style] is [NativeAdStyle.card], overrides outer margin (default 16h / 4v).
   final EdgeInsetsGeometry? cardMargin;
@@ -20,6 +21,7 @@ class NativeAdWidget extends StatefulWidget {
   const NativeAdWidget({
     super.key,
     this.style = NativeAdStyle.card,
+    required this.config,
     this.cardMargin,
     this.cardBorderRadius,
     this.cardSurfaceAlpha,
@@ -38,31 +40,31 @@ class _NativeAdWidgetState extends State<NativeAdWidget> {
     if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
       final screenSize = MediaQuery.sizeOf(context);
       final isCompact = screenSize.height <
-              AdConfig.nativeCompactHeightThreshold ||
-          screenSize.shortestSide < AdConfig.nativeCompactShortestSideThreshold;
+              widget.config.nativeCompactHeightThreshold ||
+          screenSize.shortestSide < widget.config.nativeCompactShortestSideThreshold;
       final isVeryCompact =
-          screenSize.height < AdConfig.nativeVeryCompactHeightThreshold ||
+          screenSize.height < widget.config.nativeVeryCompactHeightThreshold ||
               screenSize.shortestSide <
-                  AdConfig.nativeVeryCompactShortestSideThreshold;
+                  widget.config.nativeVeryCompactShortestSideThreshold;
 
       final base = widget.style == NativeAdStyle.section
-          ? AdConfig.nativeSectionBaseHeightAndroid
-          : AdConfig.nativeCardBaseHeightAndroid;
+          ? widget.config.nativeSectionBaseHeightAndroid
+          : widget.config.nativeCardBaseHeightAndroid;
       final reduced = isVeryCompact
-          ? (base - AdConfig.nativeVeryCompactReductionAndroid)
+          ? (base - widget.config.nativeVeryCompactReductionAndroid)
           : isCompact
-              ? (base - AdConfig.nativeCompactReductionAndroid)
+              ? (base - widget.config.nativeCompactReductionAndroid)
               : base;
 
       // Keep lower bound high enough for media + text native layouts.
       return reduced.clamp(
-        AdConfig.nativeMinHeightAndroid,
-        AdConfig.nativeMaxHeightAndroid,
+        widget.config.nativeMinHeightAndroid,
+        widget.config.nativeMaxHeightAndroid,
       );
     }
     return widget.style == NativeAdStyle.section
-        ? AdConfig.nativeSectionHeightDefault
-        : AdConfig.nativeCardHeightDefault;
+        ? widget.config.nativeSectionHeightDefault
+        : widget.config.nativeCardHeightDefault;
   }
 
   NativeAd? _nativeAd;
@@ -72,14 +74,14 @@ class _NativeAdWidgetState extends State<NativeAdWidget> {
   @override
   void initState() {
     super.initState();
-    if (AdConfig.enableNativeAds) {
+    if (widget.config.enableNativeAds) {
       _loadAd();
     }
   }
 
   void _loadAd() {
     _nativeAd = NativeAd(
-      adUnitId: AdConfig.native,
+      adUnitId: widget.config.nativeAdUnitId,
       factoryId: 'ekushNativeAd',
       nativeAdOptions: NativeAdOptions(
         videoOptions: VideoOptions(
@@ -103,20 +105,20 @@ class _NativeAdWidgetState extends State<NativeAdWidget> {
           ad.dispose();
           _nativeAd = null;
           final isNoFill = error.code == 3;
-          if (AdConfig.nativeRetryOnNoFill &&
+          if (widget.config.nativeRetryOnNoFill &&
               isNoFill &&
-              _noFillRetries < AdConfig.nativeNoFillMaxRetries &&
+              _noFillRetries < widget.config.nativeNoFillMaxRetries &&
               mounted) {
             _noFillRetries++;
             debugPrint(
               '⚠️ NativeAd no fill (code 3), retry '
-              '$_noFillRetries/${AdConfig.nativeNoFillMaxRetries} in '
-              '${AdConfig.nativeNoFillRetrySeconds}s',
+              '$_noFillRetries/${widget.config.nativeNoFillMaxRetries} in '
+              '${widget.config.nativeNoFillRetrySeconds}s',
             );
             Future<void>.delayed(
-              Duration(seconds: AdConfig.nativeNoFillRetrySeconds),
+              Duration(seconds: widget.config.nativeNoFillRetrySeconds),
               () {
-                if (!mounted || !AdConfig.enableNativeAds) return;
+                if (!mounted || !widget.config.enableNativeAds) return;
                 _loadAd();
               },
             );
@@ -139,7 +141,7 @@ class _NativeAdWidgetState extends State<NativeAdWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (!AdConfig.enableNativeAds) return const SizedBox.shrink();
+    if (!widget.config.enableNativeAds) return const SizedBox.shrink();
     if (!_isLoaded || _nativeAd == null) return const SizedBox.shrink();
 
     return widget.style == NativeAdStyle.section
@@ -252,5 +254,3 @@ class _NativeAdWidgetState extends State<NativeAdWidget> {
     );
   }
 }
-
-

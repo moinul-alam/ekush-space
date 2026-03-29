@@ -1,4 +1,25 @@
 name: ekush_ads
+publish_to: none
+description: Ad management package for Ekush apps
+version: 1.0.0
+homepage: https://github.com/moinul-alam/ekush-space
+
 environment:
   sdk: '>=3.5.0 <4.0.0'
 resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.2.1
+  google_mobile_ads: ^7.0.0
+  ekush_core:
+    path: ../ekush_core
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  # No assets or fonts needed for this package

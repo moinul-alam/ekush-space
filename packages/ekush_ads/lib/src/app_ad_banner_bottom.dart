@@ -7,17 +7,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:ekush_ponji/app/config/ad_config.dart';
-import 'package:ekush_ponji/core/services/ad_service.dart';
+import 'ad_service.dart';
 
 class AppAdBannerBottom extends ConsumerWidget {
   const AppAdBannerBottom({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Kill switch
-    if (!AdConfig.enableBannerAds) return const SizedBox.shrink();
-
     final bannerLoaded = ref.watch(bannerLoadedProvider);
     final adService = ref.read(adServiceProvider);
 
@@ -41,5 +37,3 @@ class AppAdBannerBottom extends ConsumerWidget {
     );
   }
 }
-
-

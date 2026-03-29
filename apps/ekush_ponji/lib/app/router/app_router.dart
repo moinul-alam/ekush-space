@@ -17,7 +17,7 @@ import 'package:ekush_ponji/features/words/saved_words_screen.dart';
 import 'package:ekush_ponji/app/router/route_names.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_bottom_nav.dart';
 import 'package:ekush_ponji/core/widgets/navigation/more_bottom_sheet.dart';
-import 'package:ekush_ponji/core/widgets/ads/app_ad_banner_bottom.dart';
+import 'package:ekush_ads/ekush_ads.dart';
 import 'package:ekush_ponji/features/events/models/event.dart';
 import 'package:ekush_ponji/features/reminders/models/reminder.dart';
 import 'package:ekush_core/ekush_core.dart';

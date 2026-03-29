@@ -5,8 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ekush_ponji/core/base/ponji_base_screen.dart';
 import 'package:ekush_core/ekush_core.dart';
-import 'package:ekush_ponji/core/services/ad_service.dart';
-import 'package:ekush_ponji/core/widgets/ads/native_ad_widget.dart';
+import 'package:ekush_ads/ekush_ads.dart';
+import 'package:ekush_ponji/app/config/ad_config.dart';
 import 'package:ekush_ui/ekush_ui.dart';
 import 'package:ekush_ui/date_picker_localizations.dart';
 import 'package:ekush_ponji/features/calculator/calculator_viewmodel.dart';
@@ -258,9 +258,12 @@ class _CalculatorScreenState extends PonjiBaseScreenState<CalculatorScreen> {
               context, l10n, _formatYearsMonthsDays(l10n, result)),
         ),
 
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 4),
-          child: NativeAdWidget(style: NativeAdStyle.card),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: NativeAdWidget(
+            style: NativeAdStyle.card,
+            config: AdConfig.toEkushAdConfig(),
+          ),
         ),
 
         // ── Card 2: ___ Weeks ___ Days ────────────────────

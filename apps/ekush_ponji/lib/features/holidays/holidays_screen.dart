@@ -8,7 +8,8 @@ import 'package:ekush_ponji/app/router/route_names.dart';
 import 'package:ekush_ponji/core/base/ponji_base_screen.dart';
 import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_ponji/core/notifications/notification_permission_provider.dart';
-import 'package:ekush_ponji/core/widgets/ads/native_ad_widget.dart';
+import 'package:ekush_ads/ekush_ads.dart';
+import 'package:ekush_ponji/app/config/ad_config.dart';
 import 'package:ekush_ui/ekush_ui.dart';
 import 'package:ekush_ponji/features/holidays/models/holiday.dart';
 import 'package:ekush_ponji/features/holidays/holidays_viewmodel.dart';
@@ -382,7 +383,10 @@ class _GazetteTypeView extends StatelessWidget {
               holidays: entry.value,
             ),
             // Native ad as section separator after the 3rd gazette section.
-            if (index == 2) const NativeAdWidget(style: NativeAdStyle.section),
+            if (index == 2) NativeAdWidget(
+              style: NativeAdStyle.section,
+              config: AdConfig.toEkushAdConfig(),
+            ),
           ],
         );
       },
@@ -461,7 +465,10 @@ class _MonthWiseViewState extends State<_MonthWiseView> {
             ),
             // Dynamic native ad after the currently expanded month section.
             if (index == adAfterIndex && index < entries.length - 1)
-              const NativeAdWidget(style: NativeAdStyle.section),
+              NativeAdWidget(
+                style: NativeAdStyle.section,
+                config: AdConfig.toEkushAdConfig(),
+              ),
           ],
         );
       },

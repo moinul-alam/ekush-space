@@ -66,6 +66,10 @@ dependencies:
   ekush_core:
     path: ../../packages/ekush_core
   
+  # Ads package
+  ekush_ads:
+    path: ../../packages/ekush_ads
+  
   # UI package
   ekush_ui:
     path: ../../packages/ekush_ui

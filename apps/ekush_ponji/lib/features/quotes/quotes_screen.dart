@@ -11,7 +11,7 @@ import 'package:ekush_ponji/features/quotes/quotes_viewmodel.dart';
 import 'package:ekush_ponji/features/quotes/widgets/quote_share_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ekush_ponji/core/services/share_service.dart';
-import 'package:ekush_ponji/core/services/ad_service.dart';
+import 'package:ekush_ads/ekush_ads.dart';
 import 'package:ekush_ponji/features/quotes/services/quote_notification_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:ekush_ponji/core/notifications/notification_permission_service.dart';

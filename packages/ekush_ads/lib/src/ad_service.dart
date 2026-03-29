@@ -3,7 +3,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:ekush_ponji/app/config/ad_config.dart';
+import 'ekush_ad_config.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // BANNER NOTIFIER
@@ -26,10 +26,11 @@ final bannerLoadedProvider =
 
 class AdService {
   final Ref _ref;
+  final EkushAdConfig _config;
 
-  AdService(this._ref) {
-    if (AdConfig.enableBannerAds) _loadBanner();
-    if (AdConfig.enableInterstitialAds) _loadInterstitial();
+  AdService(this._ref, this._config) {
+    if (_config.enableBannerAds) _loadBanner();
+    if (_config.enableInterstitialAds) _loadInterstitial();
   }
 
   // ── Banner ────────────────────────────────────────────────────
@@ -57,7 +58,7 @@ class AdService {
   // ─────────────────────────────────────────────────────────────
 
   Future<void> _loadBanner() async {
-    if (!AdConfig.enableBannerAds) return;
+    if (!_config.enableBannerAds) return;
 
     // Read real logical screen width from the platform view.
     // This is safe inside an async method — the view is always
@@ -83,7 +84,7 @@ class AdService {
     }
 
     _bannerAd = BannerAd(
-      adUnitId: AdConfig.banner,
+      adUnitId: _config.bannerAdUnitId,
       size: adSize,
       request: const AdRequest(),
       listener: BannerAdListener(
@@ -111,10 +112,10 @@ class AdService {
   // ─────────────────────────────────────────────────────────────
 
   void _loadInterstitial() {
-    if (!AdConfig.enableInterstitialAds) return;
+    if (!_config.enableInterstitialAds) return;
 
     InterstitialAd.load(
-      adUnitId: AdConfig.interstitial,
+      adUnitId: _config.interstitialAdUnitId,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
@@ -150,7 +151,7 @@ class AdService {
   }
 
   bool get _canShow {
-    if (!AdConfig.enableInterstitialAds) return false;
+    if (!_config.enableInterstitialAds) return false;
     if (!_interstitialReady || _interstitialAd == null) return false;
     if (_interstitialsShownThisSession >= _maxPerSession) return false;
     if (_lastShownAt != null &&
@@ -206,9 +207,17 @@ class AdService {
 // ─────────────────────────────────────────────────────────────────────────────
 
 final adServiceProvider = Provider<AdService>((ref) {
-  final service = AdService(ref);
-  ref.onDispose(service.dispose);
-  return service;
+  throw UnimplementedError('AdService provider must be overridden with EkushAdConfig');
 });
 
+// ─────────────────────────────────────────────────────────────────────────────
+// CONFIGURED PROVIDER FACTORY
+// ─────────────────────────────────────────────────────────────────────────────
 
+Provider<AdService> createAdServiceProvider(EkushAdConfig config) {
+  return Provider<AdService>((ref) {
+    final service = AdService(ref, config);
+    ref.onDispose(service.dispose);
+    return service;
+  });
+}

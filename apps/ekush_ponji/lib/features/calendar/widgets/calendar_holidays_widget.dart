@@ -1,7 +1,8 @@
 // lib/features/calendar/widgets/calendar_holidays_widget.dart
 
 import 'package:flutter/material.dart';
-import 'package:ekush_ponji/core/widgets/ads/native_ad_widget.dart';
+import 'package:ekush_ads/ekush_ads.dart';
+import 'package:ekush_ponji/app/config/ad_config.dart';
 import 'package:ekush_ponji/features/holidays/models/holiday.dart';
 import 'package:ekush_core/ekush_core.dart';
 
@@ -58,7 +59,10 @@ class CalendarHolidaysWidget extends StatelessWidget {
 
           // ─── Native ad between sections (only if optional exist) ──
           if (optional.isNotEmpty) ...[
-            const NativeAdWidget(style: NativeAdStyle.section),
+            NativeAdWidget(
+              style: NativeAdStyle.section,
+              config: AdConfig.toEkushAdConfig(),
+            ),
 
             // ─── Optional Section ───────────────────────────
             _HolidaySection(
