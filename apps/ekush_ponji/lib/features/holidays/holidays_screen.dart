@@ -10,7 +10,7 @@ import 'package:ekush_ponji/core/base/view_state.dart';
 import 'package:ekush_ponji/core/localization/app_localizations.dart';
 import 'package:ekush_ponji/core/notifications/notification_permission_provider.dart';
 import 'package:ekush_ponji/core/widgets/ads/native_ad_widget.dart';
-import 'package:ekush_ponji/core/widgets/loading/app_loading_spinner.dart';
+import 'package:ekush_ui/ekush_ui.dart';
 import 'package:ekush_ponji/features/holidays/models/holiday.dart';
 import 'package:ekush_ponji/features/holidays/holidays_viewmodel.dart';
 import 'package:ekush_ponji/features/holidays/widgets/holiday_gazette_section_widget.dart';

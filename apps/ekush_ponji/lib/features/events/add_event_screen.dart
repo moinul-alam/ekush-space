@@ -9,7 +9,8 @@ import 'package:ekush_ponji/features/events/models/event.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ekush_ponji/core/services/local_notification_service.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:ekush_ponji/core/widgets/pickers/app_date_time_picker.dart';
+import 'package:ekush_ui/ekush_ui.dart';
+import 'package:ekush_ui/date_picker_localizations.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_header.dart';
 
 class AddEventScreen extends ConsumerStatefulWidget {
@@ -415,7 +416,7 @@ class _DateTimePicker extends ConsumerWidget {
     final result = await AppDateTimePicker.show(
       context: context,
       initial: dateTime ?? DateTime.now(),
-      l10n: l10n,
+      l10n: l10n as DatePickerLocalizations,
     );
     if (result != null) onPick(result);
   }

@@ -8,7 +8,8 @@ import 'package:ekush_ponji/core/base/view_state.dart';
 import 'package:ekush_ponji/core/localization/app_localizations.dart';
 import 'package:ekush_ponji/core/services/ad_service.dart';
 import 'package:ekush_ponji/core/widgets/ads/native_ad_widget.dart';
-import 'package:ekush_ponji/core/widgets/pickers/app_date_picker.dart';
+import 'package:ekush_ui/ekush_ui.dart';
+import 'package:ekush_ui/date_picker_localizations.dart';
 import 'package:ekush_ponji/features/calculator/calculator_viewmodel.dart';
 import 'package:ekush_ponji/features/calculator/widgets/date_input_field.dart';
 import 'package:ekush_ponji/features/calculator/widgets/result_card.dart';
@@ -158,7 +159,7 @@ class _CalculatorScreenState extends BaseScreenState<CalculatorScreen> {
     final selected = await AppDatePicker.show(
       context: context,
       initial: initial,
-      l10n: l10n,
+      l10n: l10n as DatePickerLocalizations,
     );
 
     if (selected != null && context.mounted) {

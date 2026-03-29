@@ -62,6 +62,10 @@ dependencies:
   ekush_theme:
     path: ../../packages/ekush_theme
   
+  # UI package
+  ekush_ui:
+    path: ../../packages/ekush_ui
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

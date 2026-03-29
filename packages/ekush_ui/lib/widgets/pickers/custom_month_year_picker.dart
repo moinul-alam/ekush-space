@@ -3,12 +3,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
+import '../../date_picker_localizations.dart';
 
 class MonthYearPickerDialog extends StatefulWidget {
   final int initialYear;
   final int initialMonth;
-  final AppLocalizations l10n;
+  final DatePickerLocalizations l10n;
   final void Function(int year, int month) onSelected;
 
   const MonthYearPickerDialog({

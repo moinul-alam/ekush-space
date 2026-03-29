@@ -6,8 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:ekush_ponji/app/app.dart';
 import 'package:ekush_ponji/app/config/app_initializer.dart';
-import 'package:ekush_ponji/core/widgets/error/app_init_error_screen.dart';
-import 'package:ekush_ponji/core/widgets/error/app_error_boundary.dart';
+import 'package:ekush_ui/ekush_ui.dart';
 import 'package:ekush_ponji/features/about/about_content.dart';
 
 String? pendingNotificationPayload;
