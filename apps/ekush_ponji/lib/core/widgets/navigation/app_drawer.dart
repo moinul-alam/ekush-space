@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ekush_ponji/app/router/route_names.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
+import 'package:ekush_core/ekush_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ekush_ponji/features/quotes/quotes_viewmodel.dart';
 import 'package:ekush_ponji/features/words/words_viewmodel.dart';
@@ -231,3 +231,5 @@ class _SectionLabel extends StatelessWidget {
     );
   }
 }
+
+

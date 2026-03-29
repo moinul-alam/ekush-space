@@ -62,6 +62,10 @@ dependencies:
   ekush_theme:
     path: ../../packages/ekush_theme
   
+  # Core package
+  ekush_core:
+    path: ../../packages/ekush_core
+  
   # UI package
   ekush_ui:
     path: ../../packages/ekush_ui

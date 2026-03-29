@@ -70,3 +70,5 @@ class NotificationPermissionPrefs {
     return prefs.getInt(_denialCountKey) ?? 0;
   }
 }
+
+

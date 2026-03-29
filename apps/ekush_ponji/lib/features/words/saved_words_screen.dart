@@ -3,8 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ekush_ponji/core/base/ponji_base_screen.dart';
-import 'package:ekush_ponji/core/base/view_state.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
+import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_ponji/core/widgets/ads/native_ad_widget.dart';
 import 'package:ekush_ponji/features/words/models/word.dart';
 import 'package:ekush_ponji/features/words/words_viewmodel.dart';
@@ -243,3 +242,5 @@ class _SavedWordCard extends StatelessWidget {
     );
   }
 }
+
+

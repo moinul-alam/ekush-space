@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:ekush_ponji/core/base/base_screen.dart';
+import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_ponji/core/notifications/notification_permission_dialog.dart';
 import 'package:ekush_ponji/core/notifications/notification_permission_service.dart';
 
@@ -64,3 +64,5 @@ abstract class PonjiBaseScreenState<T extends PonjiBaseScreen>
     super.dispose();
   }
 }
+
+

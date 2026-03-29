@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ekush_ponji/core/notifications/notification_permission_prefs.dart';
 import 'package:ekush_ponji/core/notifications/notification_permission_service.dart';
 import 'package:ekush_ponji/core/notifications/notification_permission_provider.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
+import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_ponji/features/quotes/services/quote_notification_prefs.dart';
 import 'package:ekush_ponji/features/quotes/services/quote_notification_service.dart';
 import 'package:ekush_ponji/features/quotes/providers/quote_notification_prefs_provider.dart';
@@ -138,3 +138,5 @@ class NotificationPermissionDialog extends ConsumerWidget {
     );
   }
 }
+
+

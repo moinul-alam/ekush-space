@@ -1,6 +1,6 @@
 // lib/core/utils/string_formatter.dart
 
-import 'package:ekush_ponji/core/utils/number_converter.dart';
+import 'package:ekush_core/utils/number_converter.dart';
 
 /// Handles string formatting with dynamic values and localization
 ///

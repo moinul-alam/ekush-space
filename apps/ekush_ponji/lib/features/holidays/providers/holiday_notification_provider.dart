@@ -88,3 +88,5 @@ final holidayNotificationProvider =
     NotifierProvider<HolidayNotificationNotifier, HolidayNotificationPrefs>(
   HolidayNotificationNotifier.new,
 );
+
+

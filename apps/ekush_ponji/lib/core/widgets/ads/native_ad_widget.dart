@@ -252,3 +252,5 @@ class _NativeAdWidgetState extends State<NativeAdWidget> {
     );
   }
 }
+
+

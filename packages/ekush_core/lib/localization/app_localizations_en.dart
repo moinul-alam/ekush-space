@@ -1,7 +1,7 @@
 // lib/core/localization/app_localizations_en.dart
 
 import 'package:flutter/material.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
+import 'package:ekush_core/localization/app_localizations.dart';
 
 class AppLocalizationsEn extends AppLocalizations {
   @override

@@ -49,3 +49,5 @@ final quoteNotificationPrefsProvider =
     NotifierProvider<QuoteNotificationPrefsNotifier, QuoteNotificationPrefs>(
   QuoteNotificationPrefsNotifier.new,
 );
+
+

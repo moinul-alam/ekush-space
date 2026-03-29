@@ -219,3 +219,5 @@ class AppDataVersionNotifier extends Notifier<int> {
 
 final appDataVersionProvider =
     NotifierProvider<AppDataVersionNotifier, int>(AppDataVersionNotifier.new);
+
+

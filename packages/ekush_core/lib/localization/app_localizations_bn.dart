@@ -1,7 +1,7 @@
 // lib/core/localization/app_localizations_bn.dart
 
 import 'package:flutter/material.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
+import 'package:ekush_core/localization/app_localizations.dart';
 
 class AppLocalizationsBn extends AppLocalizations {
   @override
@@ -579,7 +579,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get eventTitle => 'ইভেন্টের বিষয়';
 
   @override
-  String get eventSubtitle => 'ইভেন্টের বিষয় যোগ করুন';
+  String get eventSubtitle => 'ইভেন্টের বিষয় যোগ করুন';
 
   @override
   String get reminderTitle => 'রিমাইন্ডারের বিষয়';
@@ -939,27 +939,4 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get seasonWinter => 'শীত';
-
-  // ═══════════════════════════════════════════════════════════
-  // MONTH ABBREVIATIONS (override base)
-  // ═══════════════════════════════════════════════════════════
-
-  @override
-  String getMonthAbbreviation(int month) {
-    const abbreviations = {
-      1: 'জানু',
-      2: 'ফেব্রু',
-      3: 'মার্চ',
-      4: 'এপ্রি',
-      5: 'মে',
-      6: 'জুন',
-      7: 'জুলা',
-      8: 'আগস্ট',
-      9: 'সেপ্টে',
-      10: 'অক্টো',
-      11: 'নভে',
-      12: 'ডিসে',
-    };
-    return abbreviations[month] ?? '';
-  }
 }

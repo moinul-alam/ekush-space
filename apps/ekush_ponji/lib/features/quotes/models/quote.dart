@@ -89,3 +89,5 @@ class QuoteModelAdapter extends TypeAdapter<QuoteModel> {
     writer.writeBool(obj.isSaved);
   }
 }
+
+

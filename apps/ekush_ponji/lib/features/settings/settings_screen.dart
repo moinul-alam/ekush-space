@@ -4,11 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:ekush_ponji/core/base/ponji_base_screen.dart';
-import 'package:ekush_ponji/core/base/view_state.dart';
+import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_ponji/core/notifications/notification_permission_provider.dart';
 import 'package:ekush_ponji/features/settings/settings_viewmodel.dart';
 import 'package:ekush_ponji/app/providers/app_providers.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
 import 'package:ekush_theme/ekush_theme.dart';
 import 'package:ekush_ponji/app/router/route_names.dart';
 import 'package:ekush_ponji/features/holidays/providers/holiday_notification_provider.dart';
@@ -16,7 +15,6 @@ import 'package:ekush_ponji/features/holidays/holidays_viewmodel.dart';
 import 'package:ekush_ponji/features/quotes/providers/quote_notification_prefs_provider.dart';
 import 'package:ekush_ponji/features/words/providers/word_notification_prefs_provider.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_header.dart';
-import 'package:ekush_ponji/core/services/app_version_service.dart';
 
 abstract class _SettingsFonts {
   static const double sectionHeader = 13.0;
@@ -631,3 +629,5 @@ class _SettingsSwitchTile extends StatelessWidget {
     );
   }
 }
+
+

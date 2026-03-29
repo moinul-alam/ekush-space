@@ -1,7 +1,7 @@
 // lib/features/calendar/widgets/calendar_day_cell.dart
 
 import 'package:flutter/material.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
+import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_ponji/features/calendar/models/calendar_day.dart';
 import 'package:ekush_ponji/features/calendar/models/hijri_date.dart';
 import 'package:ekush_theme/ekush_theme.dart';
@@ -425,3 +425,5 @@ class CalendarDayCell extends StatelessWidget {
 
 // ─── Color Slot Enums ─────────────────────────────────────────
 enum _BengaliColorSlot { primary, secondary, tertiary, onSurface }
+
+

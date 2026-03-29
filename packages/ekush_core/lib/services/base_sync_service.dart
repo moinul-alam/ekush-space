@@ -1,6 +1,6 @@
 // lib/core/services/base_sync_service.dart
 
-import 'package:ekush_ponji/core/models/app_manifest.dart';
+import 'package:ekush_core/models/app_manifest.dart';
 
 abstract class BaseSyncService {
   Future<void> seed();

@@ -107,3 +107,5 @@ class QuotesLocalDatasource {
   bool isQuoteSaved(QuoteModel quote) =>
       _savedBox.containsKey(quote.storageKey);
 }
+
+

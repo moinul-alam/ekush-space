@@ -486,3 +486,5 @@ class HijriCalendarService {
 final hijriCalendarServiceProvider = Provider<HijriCalendarService>((ref) {
   return HijriCalendarService();
 });
+
+

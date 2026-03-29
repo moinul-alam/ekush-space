@@ -172,3 +172,5 @@ class QuoteShareCard extends StatelessWidget {
     );
   }
 }
+
+

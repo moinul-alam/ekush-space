@@ -82,3 +82,4 @@ final calendarVisibilityProvider =
     NotifierProvider<CalendarVisibilityNotifier, CalendarVisibilityState>(
   CalendarVisibilityNotifier.new,
 );
+

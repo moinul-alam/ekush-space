@@ -1,7 +1,7 @@
 // lib/features/holidays/widgets/holiday_type_legend_widget.dart
 
 import 'package:flutter/material.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
+import 'package:ekush_core/ekush_core.dart';
 
 /// Pinned bottom panel explaining the 3 official gazette holiday types
 /// as defined by Bangladesh Ministry of Public Administration.
@@ -222,3 +222,5 @@ class _LegendCard extends StatelessWidget {
     );
   }
 }
+
+

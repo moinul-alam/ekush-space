@@ -1,7 +1,7 @@
 // lib/features/calendar/widgets/week_days_row.dart
 
 import 'package:flutter/material.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
+import 'package:ekush_core/ekush_core.dart';
 
 class WeekDaysRow extends StatelessWidget {
   const WeekDaysRow({super.key});
@@ -55,3 +55,5 @@ class WeekDaysRow extends StatelessWidget {
     );
   }
 }
+
+

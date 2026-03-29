@@ -62,3 +62,5 @@ class NotificationPermissionService {
     return LocalNotificationService.ensurePermission();
   }
 }
+
+

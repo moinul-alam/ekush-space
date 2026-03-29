@@ -29,3 +29,5 @@ class QuotesRepository {
 
   bool isQuoteSaved(QuoteModel quote) => _localDatasource.isQuoteSaved(quote);
 }
+
+

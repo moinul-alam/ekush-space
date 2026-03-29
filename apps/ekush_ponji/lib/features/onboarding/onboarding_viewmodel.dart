@@ -80,3 +80,5 @@ final onboardingProvider =
     NotifierProvider<OnboardingNotifier, OnboardingState>(
   OnboardingNotifier.new,
 );
+
+

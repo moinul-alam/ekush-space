@@ -80,3 +80,4 @@ class WordNotificationPrefs {
   String toString() => 'WordNotificationPrefs(enabled=$enabled, '
       'time=$notifyHour:${notifyMinute.toString().padLeft(2, "0")})';
 }
+

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:ekush_ponji/core/widgets/ads/native_ad_widget.dart';
 import 'package:ekush_ponji/features/holidays/models/holiday.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
+import 'package:ekush_core/ekush_core.dart';
 
 /// Displays all holidays for the selected calendar month in two sections:
 /// 1. সরকারি ছুটি  — Mandatory (সাধারণ + নির্বাহী আদেশে ছুটি)
@@ -491,3 +491,5 @@ class _HolidayItem extends StatelessWidget {
     }
   }
 }
+
+

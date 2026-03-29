@@ -1,10 +1,10 @@
 // lib/core/localization/app_localizations.dart
 
 import 'package:flutter/material.dart';
-import 'package:ekush_ponji/core/localization/app_localizations_en.dart';
-import 'package:ekush_ponji/core/localization/app_localizations_bn.dart';
-import 'package:ekush_ponji/core/utils/string_formatter.dart';
-import 'package:ekush_ponji/core/utils/number_converter.dart';
+import 'package:ekush_core/localization/app_localizations_en.dart';
+import 'package:ekush_core/localization/app_localizations_bn.dart';
+import 'package:ekush_core/utils/string_formatter.dart';
+import 'package:ekush_core/utils/number_converter.dart';
 
 abstract class AppLocalizations {
   Locale get locale;
@@ -119,7 +119,7 @@ abstract class AppLocalizations {
   String get appTitle;
   String get welcomeToApp;
 
-  // ═══════════════════════════════════════════════════════════
+  // ═════════════════════════════════════════════════════════
   // NAVIGATION
   // ═══════════════════════════════════════════════════════════
 
@@ -314,7 +314,7 @@ abstract class AppLocalizations {
   String get showLess;
   String showMore(int count);
 
-  // ═══════════════════════════════════════════════════════════
+  // ═════════════════════════════════════════════════════════
   // CALENDAR SCREEN
   // ═══════════════════════════════════════════════════════════
 
@@ -481,7 +481,7 @@ abstract class AppLocalizations {
   String get falgun;
   String get choitra;
 
-  // ═══════════════════════════════════════════════════════════
+  // ═════════════════════════════════════════════════════════
   // SEASONS
   // ═══════════════════════════════════════════════════════════
 

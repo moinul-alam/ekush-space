@@ -2,7 +2,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ekush_ponji/core/base/view_state.dart';
+import 'package:ekush_core/base/view_state.dart';
 
 /// Base ViewModel class using Riverpod's Notifier pattern
 /// All ViewModels should extend this class

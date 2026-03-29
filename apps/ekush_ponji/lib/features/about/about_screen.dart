@@ -3,8 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
-import 'package:ekush_ponji/core/services/app_version_service.dart';
+import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_ponji/features/about/about_content.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_header.dart';
 
@@ -264,3 +263,5 @@ class AboutScreen extends ConsumerWidget {
     );
   }
 }
+
+

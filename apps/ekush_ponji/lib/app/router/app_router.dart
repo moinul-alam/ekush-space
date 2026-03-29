@@ -20,7 +20,7 @@ import 'package:ekush_ponji/core/widgets/navigation/more_bottom_sheet.dart';
 import 'package:ekush_ponji/core/widgets/ads/app_ad_banner_bottom.dart';
 import 'package:ekush_ponji/features/events/models/event.dart';
 import 'package:ekush_ponji/features/reminders/models/reminder.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
+import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_ponji/features/holidays/holidays_screen.dart';
 import 'package:ekush_ponji/features/about/about_screen.dart';
 import 'package:ekush_ponji/features/onboarding/onboarding_screen.dart';
@@ -392,3 +392,5 @@ class _ErrorScreen extends StatelessWidget {
     );
   }
 }
+
+

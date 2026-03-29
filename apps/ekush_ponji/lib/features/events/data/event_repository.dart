@@ -94,3 +94,5 @@ class EventRepository {
 final eventRepositoryProvider = Provider<EventRepository>((ref) {
   return EventRepository();
 });
+
+

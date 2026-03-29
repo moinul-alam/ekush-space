@@ -86,3 +86,5 @@ class EventNotificationService {
     await LocalNotificationService.cancel(NotificationId.forEvent(event.id));
   }
 }
+
+

@@ -1,6 +1,4 @@
-import 'package:ekush_ponji/core/base/base_viewmodel.dart';
-import 'package:ekush_ponji/core/base/view_state.dart';
-import 'package:ekush_ponji/core/localization/app_localizations.dart';
+import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_ponji/core/services/data_sync_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -214,3 +212,5 @@ final settingsViewModelProvider =
     NotifierProvider<SettingsViewModel, ViewState>(
   SettingsViewModel.new,
 );
+
+

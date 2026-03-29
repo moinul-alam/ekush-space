@@ -70,3 +70,5 @@ class HolidayNotificationPrefs {
   String toString() => 'HolidayNotificationPrefs(enabled=$enabled, '
       'time=$notifyHour:${notifyMinute.toString().padLeft(2, "0")})';
 }
+
+
