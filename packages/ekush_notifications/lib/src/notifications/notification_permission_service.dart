@@ -18,7 +18,7 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:ekush_ponji/core/services/local_notification_service.dart';
+import 'package:ekush_notifications/ekush_notifications.dart';
 
 class NotificationPermissionService {
   NotificationPermissionService._();
@@ -62,5 +62,3 @@ class NotificationPermissionService {
     return LocalNotificationService.ensurePermission();
   }
 }
-
-

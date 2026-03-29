@@ -12,7 +12,7 @@
 //   ref.read(notificationPermissionProvider.notifier).refresh();
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ekush_ponji/core/notifications/notification_permission_service.dart';
+import 'package:ekush_notifications/ekush_notifications.dart';
 
 class NotificationPermissionNotifier extends AsyncNotifier<bool> {
   @override
@@ -33,5 +33,3 @@ final notificationPermissionProvider =
     AsyncNotifierProvider<NotificationPermissionNotifier, bool>(
   NotificationPermissionNotifier.new,
 );
-
-

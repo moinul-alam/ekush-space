@@ -3,7 +3,7 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ekush_ponji/core/notifications/notification_permission_dialog.dart';
-import 'package:ekush_ponji/core/notifications/notification_permission_service.dart';
+import 'package:ekush_notifications/ekush_notifications.dart';
 
 mixin NotificationPromptMixin on ConsumerState {
   Timer? _promptTimer;

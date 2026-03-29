@@ -74,6 +74,10 @@ dependencies:
   ekush_ui:
     path: ../../packages/ekush_ui
   
+  # Notifications package
+  ekush_notifications:
+    path: ../../packages/ekush_notifications
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

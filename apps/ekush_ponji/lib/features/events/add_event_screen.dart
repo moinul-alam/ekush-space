@@ -6,7 +6,7 @@ import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_ponji/features/events/add_event_viewmodel.dart';
 import 'package:ekush_ponji/features/events/models/event.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ekush_ponji/core/services/local_notification_service.dart';
+import 'package:ekush_notifications/ekush_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:ekush_ui/ekush_ui.dart';
 import 'package:ekush_ui/date_picker_localizations.dart';

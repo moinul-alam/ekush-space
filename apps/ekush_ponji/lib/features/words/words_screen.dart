@@ -14,9 +14,7 @@ import 'package:ekush_ads/ekush_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ekush_ponji/features/words/services/word_notification_service.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:ekush_ponji/core/notifications/notification_permission_service.dart';
-import 'package:ekush_ponji/core/notifications/notification_permission_prefs.dart';
-import 'package:ekush_ponji/core/notifications/notification_permission_provider.dart';
+import 'package:ekush_notifications/ekush_notifications.dart';
 import 'package:ekush_ponji/features/words/services/word_notification_prefs.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_header.dart';
 

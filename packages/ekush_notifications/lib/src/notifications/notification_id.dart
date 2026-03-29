@@ -80,5 +80,3 @@ class NotificationId {
     return base + (hash % range);
   }
 }
-
-

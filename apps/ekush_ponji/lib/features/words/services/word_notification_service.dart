@@ -2,9 +2,7 @@
 
 import 'package:flutter/material.dart' show Color, debugPrint;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:ekush_ponji/core/notifications/notification_id.dart';
-import 'package:ekush_ponji/core/notifications/notification_permission_service.dart';
-import 'package:ekush_ponji/core/services/local_notification_service.dart';
+import 'package:ekush_notifications/ekush_notifications.dart';
 import 'package:ekush_ponji/features/words/data/repositories/words_repository.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ekush_ponji/features/words/data/datasources/local/words_local_datasource.dart';

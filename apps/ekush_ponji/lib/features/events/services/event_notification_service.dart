@@ -5,9 +5,7 @@
 
 import 'package:flutter/material.dart' show Color;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:ekush_ponji/core/notifications/notification_id.dart';
-import 'package:ekush_ponji/core/notifications/notification_permission_service.dart';
-import 'package:ekush_ponji/core/services/local_notification_service.dart';
+import 'package:ekush_notifications/ekush_notifications.dart';
 import 'package:ekush_ponji/features/events/models/event.dart';
 
 class EventNotificationService {

@@ -12,7 +12,7 @@ import 'package:ekush_ponji/features/holidays/models/holiday.dart';
 import 'package:ekush_ponji/features/quotes/models/quote.dart';
 import 'package:ekush_ponji/features/words/models/word.dart';
 import 'package:ekush_core/ekush_core.dart';
-import 'package:ekush_ponji/core/services/local_notification_service.dart';
+import 'package:ekush_notifications/ekush_notifications.dart';
 import 'package:ekush_ponji/core/services/background_task_dispatcher.dart';
 import 'package:ekush_ponji/app/router/app_router.dart';
 import 'package:ekush_ponji/app/router/route_names.dart';

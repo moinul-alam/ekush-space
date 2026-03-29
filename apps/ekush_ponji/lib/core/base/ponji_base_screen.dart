@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_ponji/core/notifications/notification_permission_dialog.dart';
-import 'package:ekush_ponji/core/notifications/notification_permission_service.dart';
+import 'package:ekush_notifications/ekush_notifications.dart';
 
 abstract class PonjiBaseScreen extends BaseScreen {
   const PonjiBaseScreen({super.key});

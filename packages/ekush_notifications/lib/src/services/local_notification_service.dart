@@ -174,5 +174,3 @@ class LocalNotificationService {
     return offsetToTimezone[offsetMinutes] ?? 'Asia/Dhaka';
   }
 }
-
-

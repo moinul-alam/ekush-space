@@ -2,9 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ekush_ponji/core/notifications/notification_permission_prefs.dart';
-import 'package:ekush_ponji/core/notifications/notification_permission_service.dart';
-import 'package:ekush_ponji/core/notifications/notification_permission_provider.dart';
+import 'package:ekush_notifications/ekush_notifications.dart';
 import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_ponji/features/quotes/services/quote_notification_prefs.dart';
 import 'package:ekush_ponji/features/quotes/services/quote_notification_service.dart';

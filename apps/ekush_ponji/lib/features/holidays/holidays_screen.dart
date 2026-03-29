@@ -7,7 +7,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:ekush_ponji/app/router/route_names.dart';
 import 'package:ekush_ponji/core/base/ponji_base_screen.dart';
 import 'package:ekush_core/ekush_core.dart';
-import 'package:ekush_ponji/core/notifications/notification_permission_provider.dart';
+import 'package:ekush_notifications/ekush_notifications.dart';
 import 'package:ekush_ads/ekush_ads.dart';
 import 'package:ekush_ponji/app/config/ad_config.dart';
 import 'package:ekush_ui/ekush_ui.dart';
