@@ -1,12 +1,13 @@
 // lib/core/localization/app_localizations.dart
 
 import 'package:flutter/material.dart';
+import 'package:ekush_ui/date_picker_localizations.dart';
 import 'package:ekush_core/localization/app_localizations_en.dart';
 import 'package:ekush_core/localization/app_localizations_bn.dart';
 import 'package:ekush_core/utils/string_formatter.dart';
 import 'package:ekush_core/utils/number_converter.dart';
 
-abstract class AppLocalizations {
+abstract class AppLocalizations implements DatePickerLocalizations {
   Locale get locale;
   String get languageCode => locale.languageCode;
   String translate(String key);

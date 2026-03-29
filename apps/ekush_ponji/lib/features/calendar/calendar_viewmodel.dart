@@ -19,6 +19,9 @@ class CalendarViewModel extends BaseViewModel {
   bool _isDayDetailsPanelExpanded = true;
   bool _hasDateBeenSelected = false;
 
+  // FIX 1: Disposal guard flag
+  bool _disposed = false;
+
   bool get hasDateBeenSelected => _hasDateBeenSelected;
 
   /// Cache for months: 'year-month' -> MonthData
@@ -61,10 +64,15 @@ class CalendarViewModel extends BaseViewModel {
   }
 
   Future<void> _reloadAfterExternalDataChange() async {
+    // FIX 2: Guard against running after disposal
+    if (_disposed) return;
+
     final targetDate = _selectedDate ?? DateTime.now();
     final monthKey = '${targetDate.year}-${targetDate.month}';
     _monthCache.remove(monthKey);
     await jumpToMonth(targetDate.year, targetDate.month);
+
+    if (_disposed) return;
     selectDate(targetDate);
   }
 
@@ -146,6 +154,7 @@ class CalendarViewModel extends BaseViewModel {
 
   /// Force refresh the currently selected day by invalidating its cache
   Future<void> refreshSelectedDay() async {
+    if (_disposed) return;
     if (_selectedDate == null) return;
     await invalidateCacheForDate(_selectedDate!);
   }
@@ -164,6 +173,7 @@ class CalendarViewModel extends BaseViewModel {
       await jumpToMonth(date.year, date.month);
       // Re-select the date so DayDetailsScreen updates too
       if (preserved != null) {
+        if (_disposed) return;
         selectDate(preserved);
       }
     }
@@ -220,8 +230,13 @@ class CalendarViewModel extends BaseViewModel {
 
   void _prefetchAdjacentMonths(int year, int month) {
     Future.microtask(() async {
+      // FIX 3: Guard against running after disposal
+      if (_disposed) return;
+
       try {
         for (int i = 1; i <= 2; i++) {
+          if (_disposed) return;
+
           int prevMonth = month - i;
           int prevYear = year;
           if (prevMonth < 1) {
@@ -232,6 +247,8 @@ class CalendarViewModel extends BaseViewModel {
           if (!_monthCache.containsKey(key)) {
             _monthCache[key] = await _generateMonthData(prevYear, prevMonth);
           }
+
+          if (_disposed) return;
 
           int nextMonth = month + i;
           int nextYear = year;
@@ -257,6 +274,8 @@ class CalendarViewModel extends BaseViewModel {
 
   @override
   void onDispose() {
+    // FIX 1: Set disposal flag before clearing cache
+    _disposed = true;
     _monthCache.clear();
     super.onDispose();
   }
@@ -264,5 +283,3 @@ class CalendarViewModel extends BaseViewModel {
 
 final calendarViewModelProvider =
     NotifierProvider<CalendarViewModel, ViewState>(() => CalendarViewModel());
-
-
