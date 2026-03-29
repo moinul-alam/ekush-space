@@ -78,6 +78,10 @@ dependencies:
   ekush_notifications:
     path: ../../packages/ekush_notifications
   
+  # Share package
+  ekush_share:
+    path: ../../packages/ekush_share
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

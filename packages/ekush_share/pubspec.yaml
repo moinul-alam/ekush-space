@@ -1,4 +1,21 @@
 name: ekush_share
+description: Shared widget-to-image sharing utility for Ekush Labs apps.
+version: 0.0.1
+publish_to: none
+
 environment:
   sdk: '>=3.5.0 <4.0.0'
+  flutter: '>=3.24.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  path_provider: ^2.1.5
+  share_plus: ^11.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
 resolution: workspace

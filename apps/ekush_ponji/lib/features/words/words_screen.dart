@@ -9,7 +9,7 @@ import 'package:ekush_ponji/app/router/route_names.dart';
 import 'package:ekush_ponji/features/words/models/word.dart';
 import 'package:ekush_ponji/features/words/words_viewmodel.dart';
 import 'package:ekush_ponji/features/words/widgets/word_share_card.dart';
-import 'package:ekush_ponji/core/services/share_service.dart';
+import 'package:ekush_share/ekush_share.dart';
 import 'package:ekush_ads/ekush_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ekush_ponji/features/words/services/word_notification_service.dart';

@@ -1,4 +1,4 @@
-// lib/core/services/share_service.dart
+// lib/src/share_service.dart
 import 'dart:io';
 import 'dart:ui' as ui;
 
@@ -145,5 +145,3 @@ class ShareService {
     debugPrint('✅ ShareService: shared $fileBaseName.png');
   }
 }
-
-
