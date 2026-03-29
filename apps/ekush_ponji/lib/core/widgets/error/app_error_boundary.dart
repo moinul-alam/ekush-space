@@ -1,7 +1,7 @@
 // lib/core/widgets/error/app_error_boundary.dart
 
 import 'package:flutter/material.dart';
-import 'package:ekush_ponji/core/themes/color_schemes.dart';
+import 'package:ekush_theme/ekush_theme.dart';
 
 class AppErrorBoundary extends StatefulWidget {
   final Widget child;

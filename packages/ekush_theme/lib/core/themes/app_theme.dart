@@ -1,8 +1,8 @@
 // lib/core/themes/app_theme.dart
 
 import 'package:flutter/material.dart';
-import 'package:ekush_ponji/core/themes/color_schemes.dart';
-import 'package:ekush_ponji/core/themes/app_theme_extensions.dart';
+import 'package:ekush_theme/core/themes/color_schemes.dart';
+import 'package:ekush_theme/core/themes/app_theme_extensions.dart';
 
 class AppTheme {
   AppTheme._();

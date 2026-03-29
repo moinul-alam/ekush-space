@@ -5,12 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ekush_ponji/app/router/app_router.dart';
-import 'package:ekush_ponji/core/themes/app_theme.dart';
+import 'package:ekush_theme/ekush_theme.dart';
 import 'package:ekush_ponji/app/providers/app_providers.dart';
 import 'package:ekush_ponji/app/config/app_config.dart';
 import 'package:ekush_ponji/app/config/app_initializer.dart';
 import 'package:ekush_ponji/core/localization/app_localizations.dart';
-import 'package:ekush_ponji/core/constants/app_constants.dart';
 
 class EkushPonjiApp extends ConsumerStatefulWidget {
   const EkushPonjiApp({super.key});

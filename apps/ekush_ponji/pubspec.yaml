@@ -58,6 +58,10 @@ dependencies:
   # Version number centralization
   package_info_plus: ^9.0.0
   
+  # Theme package
+  ekush_theme:
+    path: ../../packages/ekush_theme
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

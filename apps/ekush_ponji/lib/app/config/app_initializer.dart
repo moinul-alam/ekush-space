@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 
 import 'package:ekush_ponji/app/providers/app_providers.dart';
-import 'package:ekush_ponji/core/themes/app_theme.dart';
+import 'package:ekush_theme/ekush_theme.dart';
 import 'package:ekush_ponji/features/holidays/models/holiday.dart';
 import 'package:ekush_ponji/features/quotes/models/quote.dart';
 import 'package:ekush_ponji/features/words/models/word.dart';

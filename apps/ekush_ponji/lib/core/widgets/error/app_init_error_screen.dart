@@ -1,7 +1,7 @@
 // lib/core/widgets/error/app_init_error_screen.dart
 
 import 'package:flutter/material.dart';
-import 'package:ekush_ponji/core/themes/color_schemes.dart';
+import 'package:ekush_theme/ekush_theme.dart';
 import 'package:ekush_ponji/features/about/about_content.dart';
 import 'package:url_launcher/url_launcher.dart';
 

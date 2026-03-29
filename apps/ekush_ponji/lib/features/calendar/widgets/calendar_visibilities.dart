@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ekush_ponji/core/localization/app_localizations.dart';
 import 'package:ekush_ponji/features/calendar/providers/calendar_visibility_provider.dart';
-import 'package:ekush_ponji/core/themes/app_theme_extensions.dart';
+import 'package:ekush_theme/ekush_theme.dart';
 
 class CalendarLegend extends ConsumerWidget {
   const CalendarLegend({super.key});
