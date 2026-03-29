@@ -383,15 +383,8 @@ class _SettingsScreenState extends PonjiBaseScreenState<SettingsScreen>
         title: Text(l10n.theme),
         content: Column(
           mainAxisSize: MainAxisSize.min,
-          children: ThemeMode.values.map((mode) {
-            final label = mode == ThemeMode.light
-                ? l10n.lightMode
-                : mode == ThemeMode.dark
-                    ? l10n.darkMode
-                    : l10n.systemDefault;
-            return RadioListTile<ThemeMode>(
-              title: Text(label),
-              value: mode,
+          children: [
+            RadioGroup<ThemeMode>(
               groupValue: currentTheme,
               onChanged: (value) {
                 if (value != null) {
@@ -399,8 +392,21 @@ class _SettingsScreenState extends PonjiBaseScreenState<SettingsScreen>
                   Navigator.pop(context);
                 }
               },
-            );
-          }).toList(),
+              child: Column(
+                children: ThemeMode.values.map((mode) {
+                  final label = mode == ThemeMode.light
+                      ? l10n.lightMode
+                      : mode == ThemeMode.dark
+                          ? l10n.darkMode
+                          : l10n.systemDefault;
+                  return RadioListTile<ThemeMode>(
+                    title: Text(label),
+                    value: mode,
+                  );
+                }).toList(),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -421,9 +427,7 @@ class _SettingsScreenState extends PonjiBaseScreenState<SettingsScreen>
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            RadioListTile<String>(
-              title: Text(l10n.languageBangla),
-              value: 'bn',
+            RadioGroup<String>(
               groupValue: currentLanguage,
               onChanged: (value) {
                 if (value != null) {
@@ -431,17 +435,18 @@ class _SettingsScreenState extends PonjiBaseScreenState<SettingsScreen>
                   Navigator.pop(context);
                 }
               },
-            ),
-            RadioListTile<String>(
-              title: Text(l10n.languageEnglish),
-              value: 'en',
-              groupValue: currentLanguage,
-              onChanged: (value) {
-                if (value != null) {
-                  viewModel.changeLanguage(value, ref);
-                  Navigator.pop(context);
-                }
-              },
+              child: Column(
+                children: [
+                  RadioListTile<String>(
+                    title: Text(l10n.languageBangla),
+                    value: 'bn',
+                  ),
+                  RadioListTile<String>(
+                    title: Text(l10n.languageEnglish),
+                    value: 'en',
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -629,5 +634,3 @@ class _SettingsSwitchTile extends StatelessWidget {
     );
   }
 }
-
-

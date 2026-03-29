@@ -275,9 +275,11 @@ class _QuotesScreenState extends PonjiBaseScreenState<QuotesScreen>
     return GestureDetector(
       onHorizontalDragEnd: (details) {
         if (details.primaryVelocity == null) return;
-        if (details.primaryVelocity! < -300)
+        if (details.primaryVelocity! < -300) {
           _goToNext(quotes);
-        else if (details.primaryVelocity! > 300) _goToPrevious(quotes);
+        } else if (details.primaryVelocity! > 300) {
+          _goToPrevious(quotes);
+        }
       },
       child: Stack(
         children: [
@@ -522,5 +524,3 @@ class _QuoteCard extends StatelessWidget {
     );
   }
 }
-
-

@@ -75,7 +75,8 @@ class AppInitializer {
               final date = DateTime.parse(dateStr);
               AppRouter.router.go(RouteNames.calendar);
               Future.delayed(const Duration(milliseconds: 300), () {
-                AppRouter.router.push(RouteNames.calendarDayDetails, extra: date);
+                AppRouter.router
+                    .push(RouteNames.calendarDayDetails, extra: date);
               });
             } catch (e) {
               AppRouter.router.go(RouteNames.calendar);
@@ -88,7 +89,8 @@ class AppInitializer {
               final date = DateTime.parse(dateStr);
               AppRouter.router.go(RouteNames.calendar);
               Future.delayed(const Duration(milliseconds: 300), () {
-                AppRouter.router.push(RouteNames.calendarDayDetails, extra: date);
+                AppRouter.router
+                    .push(RouteNames.calendarDayDetails, extra: date);
               });
             } catch (e) {
               AppRouter.router.go(RouteNames.calendar);
@@ -163,7 +165,7 @@ class AppInitializer {
 
   static Future<void> _initializeWorkManager() async {
     try {
-      await Workmanager().initialize(callbackDispatcher, isInDebugMode: false);
+      await Workmanager().initialize(callbackDispatcher);
       if (!(_prefs.getBool('wm_initialized') ?? false)) {
         await Future.wait([
           Workmanager().registerOneOffTask(
@@ -272,5 +274,3 @@ class AppInitializer {
     await Hive.close();
   }
 }
-
-
