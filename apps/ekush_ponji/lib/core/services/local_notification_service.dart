@@ -7,19 +7,22 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:ekush_ponji/app/router/app_router.dart';
-import 'package:ekush_ponji/app/router/route_names.dart';
 
 class LocalNotificationService {
   static final FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
 
   static bool _initialized = false;
+  static void Function(String? payload)? _onTap;
 
   // ── Initialization ────────────────────────────────────────────────────────
 
-  static Future<void> initialize() async {
+  static Future<void> initialize({
+    void Function(String? payload)? onNotificationTap,
+  }) async {
     if (_initialized) return;
+    
+    _onTap = onNotificationTap;
 
     tz.initializeTimeZones();
 
@@ -140,67 +143,7 @@ class LocalNotificationService {
   static void _onNotificationTapped(NotificationResponse response) {
     final payload = response.payload;
     debugPrint('🔔 Notification tapped: id=${response.id}, payload=$payload');
-
-    if (payload == null || payload.isEmpty) {
-      AppRouter.router.go(RouteNames.home);
-      return;
-    }
-
-    if (payload == 'holiday') {
-      AppRouter.router.push(RouteNames.holidays);
-      return;
-    }
-
-    // 'quote:INDEX' — push quotes screen at today's quote position
-    if (payload.startsWith('quote:')) {
-      final index = int.tryParse(payload.substring('quote:'.length)) ?? 0;
-      AppRouter.router.push(RouteNames.quotes, extra: index);
-      return;
-    }
-
-    // 'word:INDEX' — push words screen at today's word position
-    if (payload.startsWith('word:')) {
-      final index = int.tryParse(payload.substring('word:'.length)) ?? 0;
-      AppRouter.router.push(RouteNames.words, extra: index);
-      return;
-    }
-
-    // 'event:YYYY-MM-DD' — navigate to that day's calendar details
-    if (payload.startsWith('event:')) {
-      _navigateToCalendarDay(payload.substring('event:'.length));
-      return;
-    }
-
-    // 'reminder:YYYY-MM-DD' — navigate to that day's calendar details
-    if (payload.startsWith('reminder:')) {
-      _navigateToCalendarDay(payload.substring('reminder:'.length));
-      return;
-    }
-
-    AppRouter.router.go(RouteNames.home);
-  }
-
-  /// Navigates to the calendar tab then pushes the day-details screen
-  /// with [dateStr] (YYYY-MM-DD) as extra so [DayDetailsScreen] can
-  /// jump to and select the correct day.
-  static void _navigateToCalendarDay(String dateStr) {
-    try {
-      final date = DateTime.parse(dateStr);
-
-      // Go to the calendar shell branch first
-      AppRouter.router.go(RouteNames.calendar);
-
-      // Wait one frame for the shell to settle, then push day details
-      Future.delayed(const Duration(milliseconds: 300), () {
-        AppRouter.router.push(
-          RouteNames.calendarDayDetails,
-          extra: date,
-        );
-      });
-    } catch (e) {
-      debugPrint('⚠️ _navigateToCalendarDay error: $e');
-      AppRouter.router.go(RouteNames.calendar);
-    }
+    _onTap?.call(payload);
   }
 
   // ── Timezone Resolution ───────────────────────────────────────────────────
