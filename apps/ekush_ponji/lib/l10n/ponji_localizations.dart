@@ -667,14 +667,14 @@ abstract class PonjiLocalizations extends AppLocalizations {
   String get seasonWinter;
 }
 
-class PonjiLocalizationsDelegate extends LocalizationsDelegate<PonjiLocalizations> {
+class PonjiLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const PonjiLocalizationsDelegate();
 
   @override
   bool isSupported(Locale locale) => AppLocalizations.isSupported(locale);
 
   @override
-  Future<PonjiLocalizations> load(Locale locale) async {
+  Future<AppLocalizations> load(Locale locale) async {
     switch (locale.languageCode) {
       case 'bn':
         return PonjiLocalizationsBn();
