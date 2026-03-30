@@ -13,28 +13,31 @@ import 'package:ekush_ponji/app/providers/app_providers.dart';
 class CalendarViewModel extends BaseViewModel {
   late final CalendarRepository _repository;
   late final BengaliCalendarService _bengaliService;
-
+ 
   MonthData? _currentMonthData;
   DateTime? _selectedDate;
   bool _isDayDetailsPanelExpanded = true;
   bool _hasDateBeenSelected = false;
-
+ 
+  // FIX 1: Disposal guard flag
+  bool _disposed = false;
+ 
   bool get hasDateBeenSelected => _hasDateBeenSelected;
-
+ 
   /// Cache for months: 'year-month' -> MonthData
   final Map<String, MonthData> _monthCache = {};
-
+ 
   MonthData? get currentMonthData => _currentMonthData;
   DateTime? get selectedDate => _selectedDate;
   bool get isDayDetailsPanelExpanded => _isDayDetailsPanelExpanded;
-
+ 
   List<CalendarDay> get calendarDays => _currentMonthData?.days ?? [];
   String get bengaliMonthsDisplay =>
       _currentMonthData?.getBengaliMonthsDisplay() ?? '';
-
+ 
   List<Holiday> get monthHolidays => _currentMonthData?.holidays ?? [];
   List<Event> get upcomingEvents => _currentMonthData?.upcomingEvents ?? [];
-
+ 
   CalendarDay? get selectedDay {
     if (_selectedDate == null || _currentMonthData == null) return null;
     return _currentMonthData!.days.firstWhere(
@@ -42,7 +45,7 @@ class CalendarViewModel extends BaseViewModel {
       orElse: () => _currentMonthData!.days.first,
     );
   }
-
+ 
   @override
   void onSyncSetup() {
     _repository = ref.read(calendarRepositoryProvider);
@@ -53,21 +56,26 @@ class CalendarViewModel extends BaseViewModel {
       }
     });
   }
-
+ 
   @override
   void onInit() {
     super.onInit();
     loadCurrentMonth();
   }
-
+ 
   Future<void> _reloadAfterExternalDataChange() async {
+    // FIX 2: Guard against running after disposal
+    if (_disposed) return;
+ 
     final targetDate = _selectedDate ?? DateTime.now();
     final monthKey = '${targetDate.year}-${targetDate.month}';
     _monthCache.remove(monthKey);
     await jumpToMonth(targetDate.year, targetDate.month);
+ 
+    if (_disposed) return;
     selectDate(targetDate);
   }
-
+ 
   Future<void> loadCurrentMonth() async {
     final now = DateTime.now();
     _hasDateBeenSelected = false;
@@ -75,20 +83,20 @@ class CalendarViewModel extends BaseViewModel {
     await jumpToMonth(now.year, now.month);
     selectDate(now);
   }
-
+ 
   Future<void> jumpToMonth(int year, int month) async {
     final cacheKey = '$year-$month';
-
+ 
     if (_monthCache.containsKey(cacheKey)) {
       _currentMonthData = _monthCache[cacheKey];
       state = ViewStateSuccess();
       return;
     }
-
+ 
     if (_currentMonthData == null) {
       state = ViewStateLoading();
     }
-
+ 
     try {
       final monthData = await _generateMonthData(year, month);
       _monthCache[cacheKey] = monthData;
@@ -99,7 +107,7 @@ class CalendarViewModel extends BaseViewModel {
       state = ViewStateError(e.toString());
     }
   }
-
+ 
   Future<void> goToPreviousMonth() async {
     if (_currentMonthData == null) return;
     int prevMonth = _currentMonthData!.gregorianMonth - 1;
@@ -110,7 +118,7 @@ class CalendarViewModel extends BaseViewModel {
     }
     await jumpToMonth(prevYear, prevMonth);
   }
-
+ 
   Future<void> goToNextMonth() async {
     if (_currentMonthData == null) return;
     int nextMonth = _currentMonthData!.gregorianMonth + 1;
@@ -121,40 +129,41 @@ class CalendarViewModel extends BaseViewModel {
     }
     await jumpToMonth(nextYear, nextMonth);
   }
-
+ 
   void selectDate(DateTime date) {
     _selectedDate = date;
     _hasDateBeenSelected = true;
-
+ 
     if (_currentMonthData != null) {
       final updatedDays = _currentMonthData!.days.map((day) {
         return day.copyWith(
           isSelected: _isSameDay(day.gregorianDate, date),
         );
       }).toList();
-
+ 
       _currentMonthData = _currentMonthData!.copyWith(days: updatedDays);
       _isDayDetailsPanelExpanded = true;
       state = ViewStateSuccess();
     }
   }
-
+ 
   void toggleDayDetailsPanel() {
     _isDayDetailsPanelExpanded = !_isDayDetailsPanelExpanded;
     state = ViewStateSuccess();
   }
-
+ 
   /// Force refresh the currently selected day by invalidating its cache
   Future<void> refreshSelectedDay() async {
+    if (_disposed) return;
     if (_selectedDate == null) return;
     await invalidateCacheForDate(_selectedDate!);
   }
-
+ 
   /// Invalidate cache for a specific month and reload if it's currently displayed
   Future<void> invalidateCacheForDate(DateTime date) async {
     final key = '${date.year}-${date.month}';
     _monthCache.remove(key);
-
+ 
     // If the invalidated month is currently displayed, reload it
     if (_currentMonthData != null &&
         _currentMonthData!.gregorianYear == date.year &&
@@ -164,11 +173,12 @@ class CalendarViewModel extends BaseViewModel {
       await jumpToMonth(date.year, date.month);
       // Re-select the date so DayDetailsScreen updates too
       if (preserved != null) {
+        if (_disposed) return;
         selectDate(preserved);
       }
     }
   }
-
+ 
   Future<MonthData> _generateMonthData(int year, int month) async {
     final firstDate = DateTime(year, month, 1);
     final firstWeekday = firstDate.weekday % 7;
@@ -176,18 +186,18 @@ class CalendarViewModel extends BaseViewModel {
     final totalCells = firstWeekday + daysInMonth;
     final numRows = (totalCells + 6) ~/ 7;
     final cellCount = numRows * 7;
-
+ 
     final gridStart = firstDate.subtract(Duration(days: firstWeekday));
     final days = <CalendarDay>[];
     final today = DateTime.now();
-
+ 
     final dateList =
         List.generate(cellCount, (i) => gridStart.add(Duration(days: i)));
-
+ 
     final holidaysMap = await _repository.getHolidaysForDates(dateList);
     final eventsMap = await _repository.getEventsForDates(dateList);
     final remindersMap = await _repository.getRemindersForDates(dateList);
-
+ 
     for (final date in dateList) {
       days.add(CalendarDay(
         gregorianDate: date,
@@ -200,13 +210,13 @@ class CalendarViewModel extends BaseViewModel {
         reminders: remindersMap[date] ?? [],
       ));
     }
-
+ 
     final bengaliMonths =
         _bengaliService.getBengaliMonthsForGregorianMonth(year, month);
     final monthHolidays = await _repository.getHolidaysForMonth(year, month);
     final monthEvents = await _repository.getEventsForMonth(year, month);
     final monthReminders = await _repository.getRemindersForMonth(year, month);
-
+ 
     return MonthData(
       gregorianYear: year,
       gregorianMonth: month,
@@ -217,11 +227,16 @@ class CalendarViewModel extends BaseViewModel {
       reminders: monthReminders,
     );
   }
-
+ 
   void _prefetchAdjacentMonths(int year, int month) {
     Future.microtask(() async {
+      // FIX 3: Guard against running after disposal
+      if (_disposed) return;
+ 
       try {
         for (int i = 1; i <= 2; i++) {
+          if (_disposed) return;
+ 
           int prevMonth = month - i;
           int prevYear = year;
           if (prevMonth < 1) {
@@ -232,7 +247,9 @@ class CalendarViewModel extends BaseViewModel {
           if (!_monthCache.containsKey(key)) {
             _monthCache[key] = await _generateMonthData(prevYear, prevMonth);
           }
-
+ 
+          if (_disposed) return;
+ 
           int nextMonth = month + i;
           int nextYear = year;
           if (nextMonth > 12) {
@@ -248,21 +265,21 @@ class CalendarViewModel extends BaseViewModel {
       } catch (_) {}
     });
   }
-
+ 
   bool _isSameDay(DateTime date1, DateTime date2) {
     return date1.year == date2.year &&
         date1.month == date2.month &&
         date1.day == date2.day;
   }
-
+ 
   @override
   void onDispose() {
+    // FIX 1: Set disposal flag before clearing cache
+    _disposed = true;
     _monthCache.clear();
     super.onDispose();
   }
 }
-
+ 
 final calendarViewModelProvider =
     NotifierProvider<CalendarViewModel, ViewState>(() => CalendarViewModel());
-
-
