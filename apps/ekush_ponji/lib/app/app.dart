@@ -9,7 +9,7 @@ import 'package:ekush_theme/ekush_theme.dart';
 import 'package:ekush_ponji/app/providers/app_providers.dart';
 import 'package:ekush_ponji/app/config/app_config.dart';
 import 'package:ekush_ponji/app/config/app_initializer.dart';
-import 'package:ekush_core/ekush_core.dart';
+import 'package:ekush_ponji/l10n/ponji_localizations.dart';
 
 class EkushPonjiApp extends ConsumerStatefulWidget {
   const EkushPonjiApp({super.key});
@@ -57,7 +57,7 @@ class _EkushPonjiAppState extends ConsumerState<EkushPonjiApp> {
         locale: locale,
         supportedLocales: AppConstants.supportedLocales,
         localizationsDelegates: const [
-          AppLocalizationsDelegate(),
+          PonjiLocalizationsDelegate(),
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,

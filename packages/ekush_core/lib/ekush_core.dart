@@ -7,8 +7,6 @@ export 'base/view_state.dart';
 
 // Localization
 export 'localization/app_localizations.dart';
-export 'localization/app_localizations_bn.dart';
-export 'localization/app_localizations_en.dart';
 export 'localization/localization_extensions.dart';
 
 // Utilities
