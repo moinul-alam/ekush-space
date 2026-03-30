@@ -15,6 +15,7 @@ import 'package:ekush_ponji/features/holidays/holidays_viewmodel.dart';
 import 'package:ekush_ponji/features/quotes/providers/quote_notification_prefs_provider.dart';
 import 'package:ekush_ponji/features/words/providers/word_notification_prefs_provider.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_header.dart';
+import '../../../config/ponji_constants.dart';
 
 abstract class _SettingsFonts {
   static const double sectionHeader = 13.0;
@@ -110,7 +111,7 @@ class _SettingsScreenState extends PonjiBaseScreenState<SettingsScreen>
         _SettingsTile(
           icon: Icons.language_outlined,
           title: l10n.language,
-          subtitle: AppConstants.getLanguageName(currentLanguage),
+          subtitle: PonjiConstants.getLanguageName(currentLanguage),
           trailing: const Icon(Icons.chevron_right),
           onTap: () => _showLanguageDialog(context, ref, l10n, viewModel),
         ),

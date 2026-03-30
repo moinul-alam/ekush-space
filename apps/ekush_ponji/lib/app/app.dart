@@ -10,7 +10,7 @@ import 'package:ekush_ponji/app/providers/app_providers.dart';
 import 'package:ekush_ponji/app/config/app_config.dart';
 import 'package:ekush_ponji/app/config/app_initializer.dart';
 import 'package:ekush_ponji/l10n/ponji_localizations.dart';
-import 'package:ekush_ponji/core/constants/app_constants.dart';
+import '../config/ponji_constants.dart';
 
 class EkushPonjiApp extends ConsumerStatefulWidget {
   const EkushPonjiApp({super.key});
@@ -56,7 +56,7 @@ class _EkushPonjiAppState extends ConsumerState<EkushPonjiApp> {
 
         // Localization
         locale: locale,
-        supportedLocales: AppConstants.supportedLocales,
+        supportedLocales: PonjiConstants.supportedLocales,
         localizationsDelegates: const [
           PonjiLocalizationsDelegate(),
           GlobalMaterialLocalizations.delegate,
@@ -71,7 +71,7 @@ class _EkushPonjiAppState extends ConsumerState<EkushPonjiApp> {
               }
             }
           }
-          return AppConstants.defaultLocale;
+          return PonjiConstants.defaultLocale;
         },
 
         // Router — wrapped in RootScaffold for persistent banner + nav bar
