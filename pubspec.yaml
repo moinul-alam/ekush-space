@@ -2,6 +2,7 @@ name: ekush_space
 publish_to: none
 environment:
   sdk: ^3.9.0
+  flutter: '>=3.24.0'
 workspace:
   - apps/ekush_ponji
   - packages/ekush_core
