@@ -50,6 +50,7 @@ class AppInitializer {
         Hive.openBox<WordModel>(savedWordsBoxName),
       ]);
       await LocalNotificationService.initialize(
+        fallbackTimezone: 'Asia/Dhaka',
         onNotificationTap: (payload) {
           if (payload == null || payload.isEmpty) {
             AppRouter.router.go(RouteNames.home);
@@ -75,7 +76,8 @@ class AppInitializer {
               final date = DateTime.parse(dateStr);
               AppRouter.router.go(RouteNames.calendar);
               Future.delayed(const Duration(milliseconds: 300), () {
-                AppRouter.router.push(RouteNames.calendarDayDetails, extra: date);
+                AppRouter.router
+                    .push(RouteNames.calendarDayDetails, extra: date);
               });
             } catch (e) {
               AppRouter.router.go(RouteNames.calendar);
@@ -88,7 +90,8 @@ class AppInitializer {
               final date = DateTime.parse(dateStr);
               AppRouter.router.go(RouteNames.calendar);
               Future.delayed(const Duration(milliseconds: 300), () {
-                AppRouter.router.push(RouteNames.calendarDayDetails, extra: date);
+                AppRouter.router
+                    .push(RouteNames.calendarDayDetails, extra: date);
               });
             } catch (e) {
               AppRouter.router.go(RouteNames.calendar);
@@ -272,5 +275,3 @@ class AppInitializer {
     await Hive.close();
   }
 }
-
-
