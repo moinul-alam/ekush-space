@@ -258,9 +258,11 @@ class _WordsScreenState extends PonjiBaseScreenState<WordsScreen>
     return GestureDetector(
       onHorizontalDragEnd: (details) {
         if (details.primaryVelocity == null) return;
-        if (details.primaryVelocity! < -300)
+        if (details.primaryVelocity! < -300) {
           _goToNext(words);
-        else if (details.primaryVelocity! > 300) _goToPrevious(words);
+        } else if (details.primaryVelocity! > 300) {
+          _goToPrevious(words);
+        }
       },
       child: Stack(
         children: [

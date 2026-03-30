@@ -939,4 +939,51 @@ class PonjiLocalizationsBn extends PonjiLocalizations {
 
   @override
   String get seasonWinter => 'শীত';
+
+  // ═══════════════════════════════════════════════════════════
+  // DATE PICKER LOCALIZATIONS
+  // ═══════════════════════════════════════════════════════════
+
+  @override
+  String get languageCode => 'bn';
+
+  @override
+  String getMonthName(int month) {
+    const months = [
+      '',
+      'জানুয়ারি',
+      'ফেব্রুয়ারি',
+      'মার্চ',
+      'এপ্রিল',
+      'মে',
+      'জুন',
+      'জুলাই',
+      'আগস্ট',
+      'সেপ্টেম্বর',
+      'অক্টোবর',
+      'নভেম্বর',
+      'ডিসেম্বর',
+    ];
+    return months[month];
+  }
+
+  @override
+  String localizeNumber(dynamic number) {
+    if (number is int) {
+      final bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+      return number.toString().split('').map((digit) {
+        if (digit == '-') return '-';
+        return bengaliDigits[int.parse(digit)];
+      }).join('');
+    } else if (number is String) {
+      final bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+      return number.split('').map((digit) {
+        if (digit == '-') return '-';
+        if (digit == ':') return ':';
+        if (digit == ' ') return ' ';
+        return bengaliDigits[int.parse(digit)];
+      }).join('');
+    }
+    return number.toString();
+  }
 }

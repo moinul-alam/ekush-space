@@ -963,4 +963,36 @@ class PonjiLocalizationsEn extends PonjiLocalizations {
     ];
     return months[month];
   }
+
+  // ═══════════════════════════════════════════════════════════
+  // DATE PICKER LOCALIZATIONS
+  // ═══════════════════════════════════════════════════════════
+
+  @override
+  String get languageCode => 'en';
+
+  @override
+  String getMonthName(int month) {
+    const months = [
+      '',
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+    return months[month];
+  }
+
+  @override
+  String localizeNumber(dynamic number) {
+    return number.toString();
+  }
 }

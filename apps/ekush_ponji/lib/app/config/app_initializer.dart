@@ -163,7 +163,7 @@ class AppInitializer {
 
   static Future<void> _initializeWorkManager() async {
     try {
-      await Workmanager().initialize(callbackDispatcher, isInDebugMode: false);
+      await Workmanager().initialize(callbackDispatcher);
       if (!(_prefs.getBool('wm_initialized') ?? false)) {
         await Future.wait([
           Workmanager().registerOneOffTask(

@@ -2,10 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:ekush_core/ekush_core.dart';
+import 'package:ekush_ui/date_picker_localizations.dart';
 import 'ponji_localizations_en.dart';
 import 'ponji_localizations_bn.dart';
 
-abstract class PonjiLocalizations extends AppLocalizations {
+abstract class PonjiLocalizations extends AppLocalizations implements DatePickerLocalizations {
   // ═══════════════════════════════════════════════════════════
   // APP INFO
   // ═══════════════════════════════════════════════════════════

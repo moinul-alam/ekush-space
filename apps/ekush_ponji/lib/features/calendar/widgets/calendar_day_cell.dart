@@ -46,7 +46,7 @@ class CalendarDayCell extends StatelessWidget {
   static const double _subDateHolidayOpacity = 0.75;
   static const double _subDateWeekendOpacity = 0.65;
 
-  static const _BengaliColorSlot bengaliColorSlot = _BengaliColorSlot.primary;
+  static const BengaliColorSlot bengaliColorSlot = BengaliColorSlot.primary;
 
   static const double cellBorderRadius = 4;
   static const double todayGlowOpacity1 = 0.55;
@@ -381,8 +381,9 @@ class CalendarDayCell extends StatelessWidget {
     final base = _resolveBengaliColor(theme);
     if (!day.isCurrentMonth) return base.withValues(alpha: 0.3);
     if (day.isToday) return theme.colorScheme.onPrimary.withValues(alpha: 0.80);
-    if (_isHoliday)
+    if (_isHoliday) {
       return _holidayTextColor.withValues(alpha: _subDateHolidayOpacity);
+    }
     if (_isWeekendOnly) {
       return (isDark ? _weekendTextDark : _weekendTextLight)
           .withValues(alpha: _subDateWeekendOpacity);
@@ -411,19 +412,19 @@ class CalendarDayCell extends StatelessWidget {
 
   Color _resolveBengaliColor(ThemeData theme) {
     switch (bengaliColorSlot) {
-      case _BengaliColorSlot.primary:
+      case BengaliColorSlot.primary:
         return theme.colorScheme.primary;
-      case _BengaliColorSlot.secondary:
+      case BengaliColorSlot.secondary:
         return theme.colorScheme.secondary;
-      case _BengaliColorSlot.tertiary:
+      case BengaliColorSlot.tertiary:
         return theme.colorScheme.tertiary;
-      case _BengaliColorSlot.onSurface:
+      case BengaliColorSlot.onSurface:
         return theme.colorScheme.onSurface;
     }
   }
 }
 
 // ─── Color Slot Enums ─────────────────────────────────────────
-enum _BengaliColorSlot { primary, secondary, tertiary, onSurface }
+enum BengaliColorSlot { primary, secondary, tertiary, onSurface }
 
 
