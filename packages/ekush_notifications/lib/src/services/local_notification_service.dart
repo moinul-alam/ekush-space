@@ -19,21 +19,22 @@ class LocalNotificationService {
 
   static Future<void> initialize({
     void Function(String? payload)? onNotificationTap,
+    String fallbackTimezone = 'UTC',
   }) async {
     if (_initialized) return;
-    
+
     _onTap = onNotificationTap;
 
     tz.initializeTimeZones();
 
     try {
-      final String tzName = _resolveLocalTimezoneName();
+      final String tzName = _resolveLocalTimezoneName(fallbackTimezone);
       tz.setLocalLocation(tz.getLocation(tzName));
       debugPrint('✅ Timezone set to: $tzName');
     } catch (e) {
       debugPrint(
-          '❌ Failed to resolve timezone, falling back to Asia/Dhaka: $e');
-      tz.setLocalLocation(tz.getLocation('Asia/Dhaka'));
+          '❌ Failed to resolve timezone, falling back to $fallbackTimezone: $e');
+      tz.setLocalLocation(tz.getLocation(fallbackTimezone));
     }
 
     const androidSettings =
@@ -148,7 +149,7 @@ class LocalNotificationService {
 
   // ── Timezone Resolution ───────────────────────────────────────────────────
 
-  static String _resolveLocalTimezoneName() {
+  static String _resolveLocalTimezoneName(String fallbackTimezone) {
     final offsetMinutes = DateTime.now().timeZoneOffset.inMinutes;
 
     const Map<int, String> offsetToTimezone = {
@@ -171,6 +172,6 @@ class LocalNotificationService {
       -480: 'America/Los_Angeles',
     };
 
-    return offsetToTimezone[offsetMinutes] ?? 'Asia/Dhaka';
+    return offsetToTimezone[offsetMinutes] ?? fallbackTimezone;
   }
 }

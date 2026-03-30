@@ -6,6 +6,7 @@ homepage: https://github.com/moinul-alam/ekush-space
 
 environment:
   sdk: '>=3.5.0 <4.0.0'
+  flutter: '>=3.24.0'
 resolution: workspace
 
 dependencies:
@@ -13,8 +14,6 @@ dependencies:
     sdk: flutter
   flutter_riverpod: ^3.2.1
   google_mobile_ads: ^7.0.0
-  ekush_core:
-    path: ../ekush_core
 
 dev_dependencies:
   flutter_test:

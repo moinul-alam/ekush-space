@@ -421,26 +421,4 @@ class _HolidayListItem extends StatelessWidget {
         return Icons.festival_rounded;
     }
   }
-
-  // String _typeLabel(HolidayCategory category) {
-  //   final isBangla = l10n.languageCode == 'bn';
-  //   switch (category) {
-  //     case HolidayCategory.national:
-  //       return isBangla ? 'জাতীয়' : 'National';
-  //     case HolidayCategory.islamic:
-  //       return isBangla ? 'ইসলামী' : 'Islamic';
-  //     case HolidayCategory.hindu:
-  //       return isBangla ? 'হিন্দু' : 'Hindu';
-  //     case HolidayCategory.christian:
-  //       return isBangla ? 'খ্রিষ্টান' : 'Christian';
-  //     case HolidayCategory.buddhist:
-  //       return isBangla ? 'বৌদ্ধ' : 'Buddhist';
-  //     case HolidayCategory.ethnicMinority:
-  //       return isBangla ? 'নৃ-গোষ্ঠী' : 'Ethnic';
-  //     case HolidayCategory.cultural:
-  //       return isBangla ? 'সাংস্কৃতিক' : 'Cultural';
-  //   }
-  // }
 }
-
-

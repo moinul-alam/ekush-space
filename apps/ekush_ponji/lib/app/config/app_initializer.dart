@@ -50,6 +50,7 @@ class AppInitializer {
         Hive.openBox<WordModel>(savedWordsBoxName),
       ]);
       await LocalNotificationService.initialize(
+        fallbackTimezone: 'Asia/Dhaka',
         onNotificationTap: (payload) {
           if (payload == null || payload.isEmpty) {
             AppRouter.router.go(RouteNames.home);
