@@ -8,7 +8,6 @@ import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_notifications/ekush_notifications.dart';
 import 'package:ekush_ponji/features/settings/settings_viewmodel.dart';
 import 'package:ekush_ponji/app/providers/app_providers.dart';
-import 'package:ekush_theme/ekush_theme.dart';
 import 'package:ekush_ponji/app/router/route_names.dart';
 import 'package:ekush_ponji/features/holidays/providers/holiday_notification_provider.dart';
 import 'package:ekush_ponji/features/holidays/holidays_viewmodel.dart';
@@ -378,13 +377,13 @@ class _SettingsScreenState extends PonjiBaseScreenState<SettingsScreen>
       BuildContext context, WidgetRef ref, AppLocalizations l10n) {
     final currentTheme = ref.read(themeModeProvider);
     final viewModel = ref.read(settingsViewModelProvider.notifier);
-    
+
     final themeOptions = <ThemeMode, String>{
       ThemeMode.light: l10n.lightMode,
       ThemeMode.dark: l10n.darkMode,
       ThemeMode.system: l10n.systemDefault,
     };
-    
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -416,12 +415,12 @@ class _SettingsScreenState extends PonjiBaseScreenState<SettingsScreen>
   ) {
     final currentLocale = ref.read(localeProvider);
     final currentLanguage = currentLocale.languageCode;
-    
+
     final languageOptions = <String, String>{
       'bn': l10n.languageBangla,
       'en': l10n.languageEnglish,
     };
-    
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -625,5 +624,3 @@ class _SettingsSwitchTile extends StatelessWidget {
     );
   }
 }
-
-
