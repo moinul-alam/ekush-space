@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:ekush_core/utils/string_formatter.dart';
 import 'package:ekush_core/utils/number_converter.dart';
+import 'package:ekush_ui/date_picker_localizations.dart';
 
 abstract class AppLocalizations implements DatePickerLocalizations {
   Locale get locale;
