@@ -15,6 +15,7 @@ import 'package:ekush_ponji/features/holidays/holidays_viewmodel.dart';
 import 'package:ekush_ponji/features/quotes/providers/quote_notification_prefs_provider.dart';
 import 'package:ekush_ponji/features/words/providers/word_notification_prefs_provider.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_header.dart';
+import '../../../config/ponji_constants.dart';
 
 abstract class _SettingsFonts {
   static const double sectionHeader = 13.0;
@@ -110,7 +111,7 @@ class _SettingsScreenState extends PonjiBaseScreenState<SettingsScreen>
         _SettingsTile(
           icon: Icons.language_outlined,
           title: l10n.language,
-          subtitle: AppConstants.getLanguageName(currentLanguage),
+          subtitle: PonjiConstants.getLanguageName(currentLanguage),
           trailing: const Icon(Icons.chevron_right),
           onTap: () => _showLanguageDialog(context, ref, l10n, viewModel),
         ),
@@ -377,36 +378,31 @@ class _SettingsScreenState extends PonjiBaseScreenState<SettingsScreen>
       BuildContext context, WidgetRef ref, AppLocalizations l10n) {
     final currentTheme = ref.read(themeModeProvider);
     final viewModel = ref.read(settingsViewModelProvider.notifier);
+    
+    final themeOptions = <ThemeMode, String>{
+      ThemeMode.light: l10n.lightMode,
+      ThemeMode.dark: l10n.darkMode,
+      ThemeMode.system: l10n.systemDefault,
+    };
+    
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(l10n.theme),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            RadioGroup<ThemeMode>(
-              groupValue: currentTheme,
-              onChanged: (value) {
-                if (value != null) {
-                  viewModel.changeTheme(value, ref);
-                  Navigator.pop(context);
-                }
-              },
-              child: Column(
-                children: ThemeMode.values.map((mode) {
-                  final label = mode == ThemeMode.light
-                      ? l10n.lightMode
-                      : mode == ThemeMode.dark
-                          ? l10n.darkMode
-                          : l10n.systemDefault;
-                  return RadioListTile<ThemeMode>(
-                    title: Text(label),
-                    value: mode,
-                  );
-                }).toList(),
-              ),
-            ),
-          ],
+        content: SegmentedButton<ThemeMode>(
+          segments: themeOptions.entries.map((entry) {
+            return ButtonSegment<ThemeMode>(
+              value: entry.key,
+              label: Text(entry.value),
+            );
+          }).toList(),
+          selected: {currentTheme},
+          onSelectionChanged: (Set<ThemeMode> selection) {
+            if (selection.isNotEmpty) {
+              viewModel.changeTheme(selection.first, ref);
+              Navigator.pop(context);
+            }
+          },
         ),
       ),
     );
@@ -420,35 +416,30 @@ class _SettingsScreenState extends PonjiBaseScreenState<SettingsScreen>
   ) {
     final currentLocale = ref.read(localeProvider);
     final currentLanguage = currentLocale.languageCode;
+    
+    final languageOptions = <String, String>{
+      'bn': l10n.languageBangla,
+      'en': l10n.languageEnglish,
+    };
+    
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(l10n.language),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            RadioGroup<String>(
-              groupValue: currentLanguage,
-              onChanged: (value) {
-                if (value != null) {
-                  viewModel.changeLanguage(value, ref);
-                  Navigator.pop(context);
-                }
-              },
-              child: Column(
-                children: [
-                  RadioListTile<String>(
-                    title: Text(l10n.languageBangla),
-                    value: 'bn',
-                  ),
-                  RadioListTile<String>(
-                    title: Text(l10n.languageEnglish),
-                    value: 'en',
-                  ),
-                ],
-              ),
-            ),
-          ],
+        content: SegmentedButton<String>(
+          segments: languageOptions.entries.map((entry) {
+            return ButtonSegment<String>(
+              value: entry.key,
+              label: Text(entry.value),
+            );
+          }).toList(),
+          selected: {currentLanguage},
+          onSelectionChanged: (Set<String> selection) {
+            if (selection.isNotEmpty) {
+              viewModel.changeLanguage(selection.first, ref);
+              Navigator.pop(context);
+            }
+          },
         ),
       ),
     );

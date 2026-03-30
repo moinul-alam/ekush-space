@@ -5,11 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ekush_ponji/app/router/app_router.dart';
-import 'package:ekush_theme/ekush_theme.dart';
+import 'package:ekush_theme/ekush_theme.dart' as theme;
 import 'package:ekush_ponji/app/providers/app_providers.dart';
 import 'package:ekush_ponji/app/config/app_config.dart';
 import 'package:ekush_ponji/app/config/app_initializer.dart';
-import 'package:ekush_core/ekush_core.dart';
+import 'package:ekush_ponji/l10n/ponji_localizations.dart';
+import '../config/ponji_constants.dart';
 
 class EkushPonjiApp extends ConsumerStatefulWidget {
   const EkushPonjiApp({super.key});
@@ -49,15 +50,15 @@ class _EkushPonjiAppState extends ConsumerState<EkushPonjiApp> {
         debugShowCheckedModeBanner: false,
 
         // Theme
-        theme: AppTheme.lightTheme,
-        darkTheme: AppTheme.darkTheme,
+        theme: theme.AppTheme.lightTheme,
+        darkTheme: theme.AppTheme.darkTheme,
         themeMode: themeMode,
 
         // Localization
         locale: locale,
-        supportedLocales: AppConstants.supportedLocales,
+        supportedLocales: PonjiConstants.supportedLocales,
         localizationsDelegates: const [
-          AppLocalizationsDelegate(),
+          PonjiLocalizationsDelegate(),
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
@@ -70,7 +71,7 @@ class _EkushPonjiAppState extends ConsumerState<EkushPonjiApp> {
               }
             }
           }
-          return AppConstants.defaultLocale;
+          return PonjiConstants.defaultLocale;
         },
 
         // Router — wrapped in RootScaffold for persistent banner + nav bar

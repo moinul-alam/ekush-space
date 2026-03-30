@@ -46,8 +46,7 @@ class CalendarDayCell extends StatelessWidget {
   static const double _subDateHolidayOpacity = 0.75;
   static const double _subDateWeekendOpacity = 0.65;
 
-  // ignore: library_private_types_in_public_api
-  static const _BengaliColorSlot bengaliColorSlot = _BengaliColorSlot.primary;
+  static const BengaliColorSlot bengaliColorSlot = BengaliColorSlot.primary;
 
   static const double cellBorderRadius = 4;
   static const double todayGlowOpacity1 = 0.55;
@@ -413,17 +412,19 @@ class CalendarDayCell extends StatelessWidget {
 
   Color _resolveBengaliColor(ThemeData theme) {
     switch (bengaliColorSlot) {
-      case _BengaliColorSlot.primary:
+      case BengaliColorSlot.primary:
         return theme.colorScheme.primary;
-      case _BengaliColorSlot.secondary:
+      case BengaliColorSlot.secondary:
         return theme.colorScheme.secondary;
-      case _BengaliColorSlot.tertiary:
+      case BengaliColorSlot.tertiary:
         return theme.colorScheme.tertiary;
-      case _BengaliColorSlot.onSurface:
+      case BengaliColorSlot.onSurface:
         return theme.colorScheme.onSurface;
     }
   }
 }
 
 // ─── Color Slot Enums ─────────────────────────────────────────
-enum _BengaliColorSlot { primary, secondary, tertiary, onSurface }
+enum BengaliColorSlot { primary, secondary, tertiary, onSurface }
+
+
