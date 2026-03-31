@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'jhuri_theme_extension.dart';
 
 class JhuriTheme {
   JhuriTheme._();
 
-  // Google Fonts
-  static final _hindSiliguri = GoogleFonts.hindSiliguri();
-  static final _notoSansBengali = GoogleFonts.notoSansBengali();
+  // Font family
+  static const String _fontFamily = 'HindSiliguri';
 
   // ── Light Theme ────────────────────────────────────────────
   static ThemeData get lightTheme {
@@ -31,6 +29,7 @@ class JhuriTheme {
         shadow: Color(0x1F000000),
       ),
       scaffoldBackgroundColor: const Color(0xFFFDFAF4),
+      fontFamily: _fontFamily,
       textTheme: _buildTextTheme(),
       appBarTheme: _lightAppBarTheme,
       cardTheme: _cardTheme,
@@ -68,6 +67,7 @@ class JhuriTheme {
         shadow: Color(0x3F000000),
       ),
       scaffoldBackgroundColor: const Color(0xFF1A1A1A),
+      fontFamily: _fontFamily,
       textTheme: _buildTextTheme(),
       appBarTheme: _darkAppBarTheme,
       cardTheme: _cardTheme,
@@ -87,10 +87,10 @@ class JhuriTheme {
   static TextStyle _s({
     required double fontSize,
     required FontWeight fontWeight,
-    TextStyle? baseStyle,
     double letterSpacing = 0,
   }) {
-    return (baseStyle ?? _hindSiliguri).copyWith(
+    return TextStyle(
+      fontFamily: _fontFamily,
       fontSize: fontSize,
       fontWeight: fontWeight,
       letterSpacing: letterSpacing,
@@ -101,32 +101,23 @@ class JhuriTheme {
   static TextTheme _buildTextTheme() {
     return TextTheme(
       displayLarge:
-          _s(fontSize: 57, fontWeight: FontWeight.w400, letterSpacing: -0.25),
-      displayMedium: _s(fontSize: 45, fontWeight: FontWeight.w400),
-      displaySmall: _s(fontSize: 36, fontWeight: FontWeight.w400),
-      headlineLarge: _s(fontSize: 32, fontWeight: FontWeight.w600),
-      headlineMedium: _s(fontSize: 28, fontWeight: FontWeight.w600),
-      headlineSmall: _s(fontSize: 24, fontWeight: FontWeight.w600),
-      titleLarge: _s(fontSize: 22, fontWeight: FontWeight.w500),
+          _s(fontSize: 57, fontWeight: FontWeight.w700, letterSpacing: -0.25),
+      displayMedium: _s(fontSize: 45, fontWeight: FontWeight.w700),
+      displaySmall: _s(fontSize: 36, fontWeight: FontWeight.w700),
+      headlineLarge: _s(fontSize: 32, fontWeight: FontWeight.w700),
+      headlineMedium: _s(fontSize: 28, fontWeight: FontWeight.w700),
+      headlineSmall: _s(fontSize: 24, fontWeight: FontWeight.w700),
+      titleLarge: _s(fontSize: 22, fontWeight: FontWeight.w600),
       titleMedium:
-          _s(fontSize: 16, fontWeight: FontWeight.w500, letterSpacing: 0.15),
+          _s(fontSize: 16, fontWeight: FontWeight.w600, letterSpacing: 0.15),
       titleSmall:
-          _s(fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.1),
-      bodyLarge: _s(
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-          letterSpacing: 0.5,
-          baseStyle: _notoSansBengali),
-      bodyMedium: _s(
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-          letterSpacing: 0.25,
-          baseStyle: _notoSansBengali),
-      bodySmall: _s(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-          letterSpacing: 0.4,
-          baseStyle: _notoSansBengali),
+          _s(fontSize: 14, fontWeight: FontWeight.w600, letterSpacing: 0.1),
+      bodyLarge:
+          _s(fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.5),
+      bodyMedium:
+          _s(fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.25),
+      bodySmall:
+          _s(fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.4),
       labelLarge:
           _s(fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.1),
       labelMedium:
