@@ -6,7 +6,9 @@ import 'package:ekush_ui/date_picker_localizations.dart';
 import 'ponji_localizations_en.dart';
 import 'ponji_localizations_bn.dart';
 
-abstract class PonjiLocalizations extends AppLocalizations implements DatePickerLocalizations {
+abstract class PonjiLocalizations extends AppLocalizations 
+    with EkushCommonLocalizations
+    implements DatePickerLocalizations {
   // ═══════════════════════════════════════════════════════════
   // APP INFO
   // ═══════════════════════════════════════════════════════════
@@ -48,51 +50,8 @@ abstract class PonjiLocalizations extends AppLocalizations implements DatePicker
   String get navAbout;
 
   // ═══════════════════════════════════════════════════════════
-  // COMMON ACTIONS
+  // COMMON ACTIONS (now provided by EkushCommonLocalizations mixin)
   // ═══════════════════════════════════════════════════════════
-
-  @override
-  String get ok;
-  @override
-  String get cancel;
-  @override
-  String get save;
-  @override
-  String get delete;
-  @override
-  String get edit;
-  @override
-  String get add;
-  @override
-  String get search;
-  @override
-  String get refresh;
-  @override
-  String get close;
-  @override
-  String get done;
-  @override
-  String get back;
-  @override
-  String get next;
-  @override
-  String get previous;
-  @override
-  String get loading;
-  @override
-  String get error;
-  @override
-  String get success;
-  @override
-  String get retry;
-  @override
-  String get confirm;
-  @override
-  String get reset;
-  @override
-  String get share;
-  @override
-  String get sync;
 
   // ═══════════════════════════════════════════════════════════
   // CALENDAR SYSTEM LABELS
@@ -105,26 +64,16 @@ abstract class PonjiLocalizations extends AppLocalizations implements DatePicker
   @override
   String get calendarShortHijri;
 
-  // ═════════════════════════════════════════════════════════
-  // MESSAGES
+  // ═══════════════════════════════════════════════════════════
+  // MESSAGES (partial - common ones provided by EkushCommonLocalizations mixin)
   // ═══════════════════════════════════════════════════════════
 
-  @override
-  String get comingSoon;
   @override
   String get featureComingSoon;
   @override
   String get loadingData;
   @override
   String get failedToLoadData;
-  @override
-  String get noDataAvailable;
-  @override
-  String get pageNotFound;
-  @override
-  String get goToHome;
-  @override
-  String get backToHome;
 
   // ═══════════════════════════════════════════════════════════
   // HOME SCREEN
@@ -178,19 +127,8 @@ abstract class PonjiLocalizations extends AppLocalizations implements DatePicker
   String get dayDetails;
 
   // ═══════════════════════════════════════════════════════════
-  // DRAWER
+  // DRAWER (partial - common ones provided by EkushCommonLocalizations mixin)
   // ═══════════════════════════════════════════════════════════
-
-  @override
-  String get welcome;
-  @override
-  String get profile;
-  @override
-  String get about;
-  @override
-  String get helpSupport;
-  @override
-  String get settings;
 
   // ═══════════════════════════════════════════════════════════
   // SETTINGS
@@ -293,11 +231,9 @@ abstract class PonjiLocalizations extends AppLocalizations implements DatePicker
   String get lastSyncedUnknown;
 
   // ═══════════════════════════════════════════════════════════
-  // NOTIFICATIONS
+  // NOTIFICATIONS (partial - common ones provided by EkushCommonLocalizations mixin)
   // ═══════════════════════════════════════════════════════════
 
-  @override
-  String get notifications;
   @override
   String get notificationSubtitle;
   @override
@@ -309,12 +245,6 @@ abstract class PonjiLocalizations extends AppLocalizations implements DatePicker
   @override
   String get notificationPermissionDeniedBanner;
   @override
-  String get openSettings;
-  @override
-  String get notificationsOn;
-  @override
-  String get notificationsOff;
-  @override
   String get holidayNotifications;
   @override
   String get holidayNotificationsSubtitle;
@@ -324,14 +254,6 @@ abstract class PonjiLocalizations extends AppLocalizations implements DatePicker
   String get holidayNotifOnMessage;
   @override
   String get holidayNotifOffMessage;
-  @override
-  String get turnOn;
-  @override
-  String get turnOff;
-  @override
-  String get enable;
-  @override
-  String get notNow;
   @override
   String get quoteNotifications;
   @override
@@ -531,87 +453,16 @@ abstract class PonjiLocalizations extends AppLocalizations implements DatePicker
   String get weeksAndDays;
 
   // ═══════════════════════════════════════════════════════════
-  // TIME UNITS
+  // TIME UNITS (now provided by EkushCommonLocalizations mixin)
   // ═══════════════════════════════════════════════════════════
 
-  @override
-  String get year;
-  @override
-  String get years;
-  @override
-  String get month;
-  @override
-  String get months;
-  @override
-  String get day;
-  @override
-  String get days;
-  @override
-  String get week;
-  @override
-  String get weeks;
-
   // ═══════════════════════════════════════════════════════════
-  // DAYS OF WEEK
+  // DAYS OF WEEK (now provided by EkushCommonLocalizations mixin)
   // ═══════════════════════════════════════════════════════════
 
-  @override
-  String get monday;
-  @override
-  String get tuesday;
-  @override
-  String get wednesday;
-  @override
-  String get thursday;
-  @override
-  String get friday;
-  @override
-  String get saturday;
-  @override
-  String get sunday;
-  @override
-  String get shortSunday;
-  @override
-  String get shortMonday;
-  @override
-  String get shortTuesday;
-  @override
-  String get shortWednesday;
-  @override
-  String get shortThursday;
-  @override
-  String get shortFriday;
-  @override
-  String get shortSaturday;
-
   // ═══════════════════════════════════════════════════════════
-  // MONTHS — GREGORIAN
+  // MONTHS — GREGORIAN (now provided by EkushCommonLocalizations mixin)
   // ═══════════════════════════════════════════════════════════
-
-  @override
-  String get january;
-  @override
-  String get february;
-  @override
-  String get march;
-  @override
-  String get april;
-  @override
-  String get may;
-  @override
-  String get june;
-  @override
-  String get july;
-  @override
-  String get august;
-  @override
-  String get september;
-  @override
-  String get october;
-  @override
-  String get november;
-  @override
-  String get december;
 
   // ═══════════════════════════════════════════════════════════
   // MONTHS — BENGALI
