@@ -3,6 +3,7 @@
 // Base classes
 export 'base/base_screen.dart';
 export 'base/base_viewmodel.dart';
+export 'base/base_repository.dart';
 export 'base/view_state.dart';
 
 // Localization
@@ -21,3 +22,4 @@ export 'models/app_manifest.dart';
 export 'services/base_sync_service.dart';
 export 'services/app_version_service.dart';
 export 'services/app_review_service.dart';
+export 'services/database_service.dart';
