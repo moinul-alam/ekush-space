@@ -7,6 +7,7 @@ export 'base/view_state.dart';
 
 // Localization
 export 'localization/app_localizations.dart';
+export 'localization/ekush_common_localizations.dart';
 export 'localization/localization_extensions.dart';
 
 // Utilities
