@@ -394,156 +394,160 @@ class _WordCard extends StatelessWidget {
             ),
           ),
           padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Stack(
             children: [
-              // ── Share + Save actions (top right) ──────────
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  IconButton(
-                    onPressed: () => ShareService.shareWidget(
-                      widget: WordShareCard(word: word),
-                      fileBaseName: 'ekush_ponji_word_${word.storageKey}',
-                    ),
-                    icon: Icon(Icons.share_rounded,
-                        color: colorScheme.onSurfaceVariant),
-                    tooltip: l10n.share,
-                    visualDensity: VisualDensity.compact,
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
-                  ),
-                  const SizedBox(width: 12),
-                  IconButton(
-                    onPressed: onToggleSave,
-                    icon: Icon(
-                      word.isSaved
-                          ? Icons.favorite_rounded
-                          : Icons.favorite_outline_rounded,
-                      color: word.isSaved
-                          ? colorScheme.primary
-                          : colorScheme.onSurfaceVariant,
-                    ),
-                    tooltip: word.isSaved ? 'Unsave' : 'Save',
-                    visualDensity: VisualDensity.compact,
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 12),
-
-              // ── Word (large, prominent) ────────────────────
-              Text(
-                word.word,
-                style: theme.textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: colorScheme.tertiary,
-                  fontSize: (32 * fontScale).roundToDouble(),
-                ),
-              ),
-
-              const SizedBox(height: 8),
-
-              // ── Part of speech chip ────────────────────────
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-                decoration: BoxDecoration(
-                  color: colorScheme.tertiaryContainer,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  word.partOfSpeech,
-                  style: theme.textTheme.labelSmall?.copyWith(
-                    color: colorScheme.onTertiaryContainer,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 10),
-
-              // ── Pronunciation (with speaker icon) ──────────
-              Row(
-                children: [
-                  Icon(
-                    Icons.volume_up_rounded,
-                    size: 16,
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-                  const SizedBox(width: 6),
-                  Text(
-                    word.pronunciation,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: colorScheme.onSurfaceVariant,
-                      fontStyle: FontStyle.italic,
-                      fontSize: (14 * fontScale).roundToDouble(),
-                    ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 16),
-
-              // ── Bengali meaning ────────────────────────────
-              Text(
-                word.meaningBn,
-                style: theme.textTheme.titleLarge?.copyWith(
-                  color: colorScheme.onSurface,
-                  fontWeight: FontWeight.w600,
-                  fontSize: (24 * fontScale).roundToDouble(),
-                  height: 1.4,
-                ),
-              ),
-
-              // ── Divider ───────────────────────────────────
-              const SizedBox(height: 20),
-              Divider(
-                  color: colorScheme.outline.withValues(alpha: 0.3), height: 1),
-              const SizedBox(height: 20),
-
-              // ── Scrollable lower sections ──────────────────
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  // ── Share + Save actions (top right) ──────────
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      _buildSection(context,
-                          icon: Icons.lightbulb_outline_rounded,
-                          title: l10n.meaningEnglish,
-                          content: word.meaningEn,
-                          fontScale: fontScale),
-                      const SizedBox(height: 16),
-                      _buildSection(context,
-                          icon: Icons.sync_alt_rounded,
-                          title: l10n.synonym,
-                          content: word.synonym,
-                          fontScale: fontScale),
-                      const SizedBox(height: 16),
-                      _buildSection(context,
-                          icon: Icons.chat_bubble_outline_rounded,
-                          title: l10n.example,
-                          content: word.example,
-                          isItalic: true,
-                          fontScale: fontScale),
-                      const SizedBox(height: 18),
-
-                      // ── Brand watermark (bottom right) ─────
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Image.asset('assets/images/app_logo.png', height: 20),
-                          const SizedBox(width: 6),
-                          Image.asset('assets/images/app_title.png', height: 14),
-                        ],
+                      IconButton(
+                        onPressed: () => ShareService.shareWidget(
+                          widget: WordShareCard(word: word),
+                          fileBaseName: 'ekush_ponji_word_${word.storageKey}',
+                        ),
+                        icon: Icon(Icons.share_rounded,
+                            color: colorScheme.onSurfaceVariant),
+                        tooltip: l10n.share,
+                        visualDensity: VisualDensity.compact,
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
                       ),
+                      const SizedBox(width: 12),
+                      IconButton(
+                        onPressed: onToggleSave,
+                        icon: Icon(
+                          word.isSaved
+                              ? Icons.favorite_rounded
+                              : Icons.favorite_outline_rounded,
+                          color: word.isSaved
+                              ? colorScheme.primary
+                              : colorScheme.onSurfaceVariant,
+                        ),
+                        tooltip: word.isSaved ? 'Unsave' : 'Save',
+                        visualDensity: VisualDensity.compact,
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
                       ),
                     ],
                   ),
+
+                  const SizedBox(height: 12),
+
+                  // ── Word (large, prominent) ────────────────────
+                  Text(
+                    word.word,
+                    style: theme.textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: colorScheme.tertiary,
+                      fontSize: (32 * fontScale).roundToDouble(),
+                    ),
+                  ),
+
+                  const SizedBox(height: 8),
+
+                  // ── Part of speech chip ────────────────────────
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                    decoration: BoxDecoration(
+                      color: colorScheme.tertiaryContainer,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      word.partOfSpeech,
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: colorScheme.onTertiaryContainer,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  // ── Pronunciation (with speaker icon) ──────────
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.volume_up_rounded,
+                        size: 16,
+                        color: colorScheme.onSurfaceVariant,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        word.pronunciation,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                          fontStyle: FontStyle.italic,
+                          fontSize: (14 * fontScale).roundToDouble(),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // ── Bengali meaning ────────────────────────────
+                  Text(
+                    word.meaningBn,
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      color: colorScheme.onSurface,
+                      fontWeight: FontWeight.w600,
+                      fontSize: (24 * fontScale).roundToDouble(),
+                      height: 1.4,
+                    ),
+                  ),
+
+                  // ── Divider ───────────────────────────────────
+                  const SizedBox(height: 20),
+                  Divider(
+                      color: colorScheme.outline.withValues(alpha: 0.3), height: 1),
+                  const SizedBox(height: 20),
+
+                  // ── Scrollable lower sections ──────────────────
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildSection(context,
+                              icon: Icons.lightbulb_outline_rounded,
+                              title: l10n.meaningEnglish,
+                              content: word.meaningEn,
+                              fontScale: fontScale),
+                          const SizedBox(height: 16),
+                          _buildSection(context,
+                              icon: Icons.sync_alt_rounded,
+                              title: l10n.synonym,
+                              content: word.synonym,
+                              fontScale: fontScale),
+                          const SizedBox(height: 16),
+                          _buildSection(context,
+                              icon: Icons.chat_bubble_outline_rounded,
+                              title: l10n.example,
+                              content: word.example,
+                              isItalic: true,
+                              fontScale: fontScale),
+                          const SizedBox(height: 18),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              // ── Brand watermark (bottom right) ─────
+              Positioned(
+                bottom: 24,
+                right: 24,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset('assets/images/app_logo.png', height: 20),
+                    const SizedBox(width: 6),
+                    Image.asset('assets/images/app_title.png', height: 14),
+                  ],
                 ),
               ),
             ],
