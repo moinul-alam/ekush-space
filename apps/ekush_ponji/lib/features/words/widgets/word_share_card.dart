@@ -150,24 +150,13 @@ class WordShareCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(
-                  color: accentTeal.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      color: accentTeal.withValues(alpha: 0.2)),
-                ),
-                child: const Text(
-                  'একুশ পঞ্জি',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                    color: accentTeal,
-                    letterSpacing: 0.3,
-                  ),
-                ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset('assets/images/app_logo.png', height: 20),
+                  const SizedBox(width: 6),
+                  Image.asset('assets/images/app_title.png', height: 14),
+                ],
               ),
             ],
           ),
