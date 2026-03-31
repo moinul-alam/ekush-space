@@ -148,7 +148,7 @@ class QuoteShareCard extends StatelessWidget {
                       children: [
                         Image.asset('assets/images/app_logo.png', height: 20),
                         const SizedBox(width: 6),
-                        Image.asset('assets/images/app_title.png', height: 14),
+                        Image.asset('assets/images/app_title.png', height: 18),
                       ],
                     ),
                   ],

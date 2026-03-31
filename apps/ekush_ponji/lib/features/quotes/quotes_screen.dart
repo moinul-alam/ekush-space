@@ -506,14 +506,13 @@ class _QuoteCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  Text(
-                    'Ekush Ponji',
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color:
-                          colorScheme.onSurfaceVariant.withValues(alpha: 0.55),
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.6,
-                    ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Image.asset('assets/images/app_logo.png', height: 20),
+                      const SizedBox(width: 6),
+                      Image.asset('assets/images/app_title.png', height: 14),
+                    ],
                   ),
                 ],
               ),

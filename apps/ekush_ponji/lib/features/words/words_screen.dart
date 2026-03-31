@@ -533,15 +533,14 @@ class _WordCard extends StatelessWidget {
                       // ── Brand watermark (bottom right) ─────
                       Align(
                         alignment: Alignment.centerRight,
-                        child: Text(
-                          'একুশ পঞ্জি',
-                          style: theme.textTheme.labelSmall?.copyWith(
-                            color: colorScheme.onSurfaceVariant
-                                .withValues(alpha: 0.55),
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 0.6,
-                          ),
-                        ),
+                        child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Image.asset('assets/images/app_logo.png', height: 20),
+                          const SizedBox(width: 6),
+                          Image.asset('assets/images/app_title.png', height: 14),
+                        ],
+                      ),
                       ),
                     ],
                   ),
