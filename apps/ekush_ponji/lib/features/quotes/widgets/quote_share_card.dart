@@ -55,32 +55,36 @@ class QuoteShareCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Category chip
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: chipBg,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    quote.category,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: chipText,
-                      letterSpacing: 0.4,
+                // Quote icon and category chip in Row
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Opening quote icon on the left
+                    const Icon(
+                      Icons.format_quote_rounded,
+                      color: accentGreen,
+                      size: 32,
                     ),
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-
-                // Opening quote icon
-                const Icon(
-                  Icons.format_quote_rounded,
-                  color: accentGreen,
-                  size: 32,
+                    // Category chip on the right
+                    Container(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: chipBg,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        quote.category,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: chipText,
+                          letterSpacing: 0.4,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
 
                 const SizedBox(height: 12),
