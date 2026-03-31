@@ -266,6 +266,17 @@ class _WordsScreenState extends PonjiBaseScreenState<WordsScreen>
       },
       child: Stack(
         children: [
+          // Watermark layer
+          Center(
+            child: Opacity(
+              opacity: 0.08,
+              child: Image.asset(
+                'assets/images/app_logo.png',
+                width: MediaQuery.of(context).size.width / 3,
+              ),
+            ),
+          ),
+          // Original content on top
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             child: AnimatedBuilder(
@@ -351,6 +362,16 @@ class _WordsScreenState extends PonjiBaseScreenState<WordsScreen>
                 ),
               ),
             ),
+          // Watermark overlay (painted on top)
+          Center(
+            child: Opacity(
+              opacity: 0.06,
+              child: Image.asset(
+                'assets/images/app_logo.png',
+                width: MediaQuery.of(context).size.width / 3,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -481,7 +502,7 @@ class _WordCard extends StatelessWidget {
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: colorScheme.onSurfaceVariant,
                           fontStyle: FontStyle.italic,
-                          fontSize: (14 * fontScale).roundToDouble(),
+                          fontSize: (16 * fontScale).roundToDouble(),
                         ),
                       ),
                     ],
@@ -537,19 +558,6 @@ class _WordCard extends StatelessWidget {
                   ),
                 ],
               ),
-              // ── Brand watermark (bottom right) ─────
-              Positioned(
-                bottom: 24,
-                right: 24,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Image.asset('assets/images/app_logo.png', height: 20),
-                    const SizedBox(width: 6),
-                    Image.asset('assets/images/app_title.png', height: 14),
-                  ],
-                ),
-              ),
             ],
           ),
         ),
@@ -579,6 +587,7 @@ class _WordCard extends StatelessWidget {
               style: theme.textTheme.labelLarge?.copyWith(
                 color: colorScheme.tertiary,
                 fontWeight: FontWeight.w600,
+                fontSize: (16 * fontScale).roundToDouble(),
               ),
             ),
           ],
@@ -590,7 +599,7 @@ class _WordCard extends StatelessWidget {
             color: colorScheme.onSurface,
             fontStyle: isItalic ? FontStyle.italic : FontStyle.normal,
             height: 1.5,
-            fontSize: (14 * fontScale).roundToDouble(),
+            fontSize: (16 * fontScale).roundToDouble(),
           ),
         ),
       ],

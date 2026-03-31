@@ -352,6 +352,7 @@ class _QuotesScreenState extends PonjiBaseScreenState<QuotesScreen>
               right: 0,
               top: 0,
               bottom: 0,
+              left: null,
               child: Center(
                 child: GestureDetector(
                   onTap: () => _goToNext(quotes),
@@ -368,6 +369,16 @@ class _QuotesScreenState extends PonjiBaseScreenState<QuotesScreen>
                 ),
               ),
             ),
+          // Watermark overlay (painted on top)
+          Center(
+            child: Opacity(
+              opacity: 0.06,
+              child: Image.asset(
+                'assets/images/app_logo.png',
+                width: MediaQuery.of(context).size.width / 3,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -505,14 +516,6 @@ class _QuoteCard extends StatelessWidget {
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Image.asset('assets/images/app_logo.png', height: 20),
-                      const SizedBox(width: 6),
-                      Image.asset('assets/images/app_title.png', height: 14),
-                    ],
                   ),
                 ],
               ),
