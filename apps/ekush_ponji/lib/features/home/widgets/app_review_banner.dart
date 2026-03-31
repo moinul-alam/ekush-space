@@ -54,19 +54,10 @@ class AppReviewBanner extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  isBn ? 'অ্যাপটি কি উপকারী?' : 'Enjoying Ekush Ponji?',
+                  isBn ? 'অ্যাপটি ব্যবহার করে উপকৃত হলে রেটিং দিয়ে উৎসাহিত করুন' : 'If you enjoy using Ekush Ponji, please consider leaving us a rating!',
                   style: theme.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.w700,
                     color: cs.onPrimaryContainer,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  isBn
-                      ? 'রেটিং দিলে আমাদের অনেক সাহায্য হয়'
-                      : 'A quick rating helps us a lot',
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: cs.onPrimaryContainer.withValues(alpha: 0.75),
                   ),
                 ),
               ],

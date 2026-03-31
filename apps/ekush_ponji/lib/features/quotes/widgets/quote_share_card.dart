@@ -55,32 +55,36 @@ class QuoteShareCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Category chip
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: chipBg,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    quote.category,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: chipText,
-                      letterSpacing: 0.4,
+                // Quote icon and category chip in Row
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Opening quote icon on the left
+                    const Icon(
+                      Icons.format_quote_rounded,
+                      color: accentGreen,
+                      size: 32,
                     ),
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-
-                // Opening quote icon
-                const Icon(
-                  Icons.format_quote_rounded,
-                  color: accentGreen,
-                  size: 32,
+                    // Category chip on the right
+                    Container(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: chipBg,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        quote.category,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: chipText,
+                          letterSpacing: 0.4,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
 
                 const SizedBox(height: 12),
@@ -143,24 +147,13 @@ class QuoteShareCard extends StatelessWidget {
                       ),
                     ),
                     // App logo / watermark
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
-                      decoration: BoxDecoration(
-                        color: accentGreen.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(
-                            color: accentGreen.withValues(alpha: 0.2)),
-                      ),
-                      child: const Text(
-                        'একুশ পঞ্জি',
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700,
-                          color: accentGreen,
-                          letterSpacing: 0.3,
-                        ),
-                      ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset('assets/images/app_logo.png', height: 20),
+                        const SizedBox(width: 6),
+                        Image.asset('assets/images/app_title.png', height: 18),
+                      ],
                     ),
                   ],
                 ),

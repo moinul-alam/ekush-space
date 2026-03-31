@@ -242,7 +242,7 @@ class _QuotesScreenState extends PonjiBaseScreenState<QuotesScreen>
         ),
         // ── Saved quotes ─────────────────────────────────
         IconButton(
-          icon: const Icon(Icons.favorite_rounded),
+          icon: const Icon(Icons.favorite_rounded, color: Colors.red),
           tooltip: l10n.savedQuotes,
           onPressed: () => context.push(RouteNames.savedQuotes),
         ),
@@ -352,6 +352,7 @@ class _QuotesScreenState extends PonjiBaseScreenState<QuotesScreen>
               right: 0,
               top: 0,
               bottom: 0,
+              left: null,
               child: Center(
                 child: GestureDetector(
                   onTap: () => _goToNext(quotes),
@@ -368,6 +369,54 @@ class _QuotesScreenState extends PonjiBaseScreenState<QuotesScreen>
                 ),
               ),
             ),
+          // Floating FAB column
+          Positioned(
+            right: 16,
+            bottom: 70, // Above ad banner (50dp) + some padding
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Share FAB
+                FloatingActionButton.small(
+                  onPressed: () => ShareService.shareWidget(
+                    widget: QuoteShareCard(quote: quote),
+                    fileBaseName: 'ekush_ponji_quote_${quote.storageKey}',
+                  ),
+                  heroTag: "share_fab",
+                  backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
+                  foregroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
+                  elevation: 4,
+                  child: const Icon(Icons.share_rounded),
+                ),
+                const SizedBox(height: 12),
+                // Heart/Save FAB
+                FloatingActionButton.small(
+                  onPressed: () => vm.toggleSave(quote),
+                  heroTag: "save_fab",
+                  backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
+                  foregroundColor: quote.isSaved
+                      ? Colors.red
+                      : Colors.black,
+                  elevation: 4,
+                  child: Icon(
+                    quote.isSaved
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_border_rounded,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Watermark overlay (painted on top)
+          Center(
+            child: Opacity(
+              opacity: 0.06,
+              child: Image.asset(
+                'assets/images/app_logo.png',
+                width: MediaQuery.of(context).size.width / 3,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -390,7 +439,6 @@ class _QuoteCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final l10n = AppLocalizations.of(context);
 
     return SizedBox(
       width: double.infinity,
@@ -414,9 +462,9 @@ class _QuoteCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Category + actions
+              // Category only
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
                     padding:
@@ -432,31 +480,6 @@ class _QuoteCard extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: () => ShareService.shareWidget(
-                          widget: QuoteShareCard(quote: quote),
-                          fileBaseName: 'ekush_ponji_quote_${quote.storageKey}',
-                        ),
-                        icon: Icon(Icons.share_rounded,
-                            color: colorScheme.onSurfaceVariant),
-                        tooltip: l10n.share,
-                      ),
-                      IconButton(
-                        onPressed: onToggleSave,
-                        icon: Icon(
-                          quote.isSaved
-                              ? Icons.favorite_rounded
-                              : Icons.favorite_border_rounded,
-                          color: quote.isSaved
-                              ? colorScheme.primary
-                              : colorScheme.onSurfaceVariant,
-                        ),
-                        tooltip: quote.isSaved ? 'Unsave' : 'Save',
-                      ),
-                    ],
                   ),
                 ],
               ),
@@ -504,15 +527,6 @@ class _QuoteCard extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                       overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Text(
-                    'Ekush Ponji',
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color:
-                          colorScheme.onSurfaceVariant.withValues(alpha: 0.55),
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.6,
                     ),
                   ),
                 ],

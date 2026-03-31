@@ -37,6 +37,20 @@ class WordShareCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Word
+          Text(
+            word.word,
+            style: const TextStyle(
+              fontSize: 36,
+              fontWeight: FontWeight.w800,
+              color: accentTeal,
+              height: 1.1,
+              letterSpacing: -0.5,
+            ),
+          ),
+
+          const SizedBox(height: 8),
+
           // Part-of-speech chip
           Container(
             padding:
@@ -56,31 +70,27 @@ class WordShareCard extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(height: 20),
+          const SizedBox(height: 8),
 
-          // Word
-          Text(
-            word.word,
-            style: const TextStyle(
-              fontSize: 36,
-              fontWeight: FontWeight.w800,
-              color: accentTeal,
-              height: 1.1,
-              letterSpacing: -0.5,
-            ),
-          ),
-
-          const SizedBox(height: 6),
-
-          // Pronunciation
-          Text(
-            word.pronunciation,
-            style: const TextStyle(
-              fontSize: 14,
-              fontStyle: FontStyle.italic,
-              color: textMid,
-              letterSpacing: 0.2,
-            ),
+          // Pronunciation with speaker icon
+          Row(
+            children: [
+              Icon(
+                Icons.volume_up_rounded,
+                size: 16,
+                color: textMid,
+              ),
+              const SizedBox(width: 6),
+              Text(
+                word.pronunciation,
+                style: const TextStyle(
+                  fontSize: 16, // Increased from 14
+                  fontStyle: FontStyle.italic,
+                  color: textMid,
+                  letterSpacing: 0.2,
+                ),
+              ),
+            ],
           ),
 
           const SizedBox(height: 20),
@@ -150,24 +160,13 @@ class WordShareCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(
-                  color: accentTeal.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      color: accentTeal.withValues(alpha: 0.2)),
-                ),
-                child: const Text(
-                  'একুশ পঞ্জি',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                    color: accentTeal,
-                    letterSpacing: 0.3,
-                  ),
-                ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset('assets/images/app_logo.png', height: 20),
+                  const SizedBox(width: 6),
+                  Image.asset('assets/images/app_title.png', height: 18),
+                ],
               ),
             ],
           ),
@@ -216,7 +215,7 @@ class _Section extends StatelessWidget {
         Text(
           content,
           style: TextStyle(
-            fontSize: 14,
+            fontSize: 16, // Increased from 14
             color: const Color(0xFF1A2535),
             fontStyle: isItalic ? FontStyle.italic : FontStyle.normal,
             height: 1.5,

@@ -225,7 +225,7 @@ class _WordsScreenState extends PonjiBaseScreenState<WordsScreen>
           onPressed: _toggleNotification,
         ),
         IconButton(
-          icon: const Icon(Icons.favorite_rounded),
+          icon: const Icon(Icons.favorite_rounded, color: Colors.red),
           tooltip: l10n.savedWords,
           onPressed: () => context.push(RouteNames.savedWords),
         ),
@@ -266,6 +266,17 @@ class _WordsScreenState extends PonjiBaseScreenState<WordsScreen>
       },
       child: Stack(
         children: [
+          // Watermark layer
+          Center(
+            child: Opacity(
+              opacity: 0.08,
+              child: Image.asset(
+                'assets/images/app_logo.png',
+                width: MediaQuery.of(context).size.width / 3,
+              ),
+            ),
+          ),
+          // Original content on top
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             child: AnimatedBuilder(
@@ -351,6 +362,54 @@ class _WordsScreenState extends PonjiBaseScreenState<WordsScreen>
                 ),
               ),
             ),
+          // Floating FAB column
+          Positioned(
+            right: 16,
+            bottom: 70, // Above ad banner (50dp) + some padding
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Share FAB
+                FloatingActionButton.small(
+                  onPressed: () => ShareService.shareWidget(
+                    widget: WordShareCard(word: word),
+                    fileBaseName: 'ekush_ponji_word_${word.storageKey}',
+                  ),
+                  heroTag: "share_fab",
+                  backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
+                  foregroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
+                  elevation: 4,
+                  child: const Icon(Icons.share_rounded),
+                ),
+                const SizedBox(height: 12),
+                // Heart/Save FAB
+                FloatingActionButton.small(
+                  onPressed: () => vm.toggleSave(word),
+                  heroTag: "save_fab",
+                  backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
+                  foregroundColor: word.isSaved
+                      ? Colors.red
+                      : Colors.black,
+                  elevation: 4,
+                  child: Icon(
+                    word.isSaved
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_border_rounded,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Watermark overlay (painted on top)
+          Center(
+            child: Opacity(
+              opacity: 0.06,
+              child: Image.asset(
+                'assets/images/app_logo.png',
+                width: MediaQuery.of(context).size.width / 3,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -397,41 +456,6 @@ class _WordCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // ── Share + Save actions (top right) ──────────
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                    onPressed: () => ShareService.shareWidget(
-                      widget: WordShareCard(word: word),
-                      fileBaseName: 'ekush_ponji_word_${word.storageKey}',
-                    ),
-                    icon: Icon(Icons.share_rounded,
-                        color: colorScheme.onSurfaceVariant),
-                    tooltip: l10n.share,
-                    visualDensity: VisualDensity.compact,
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
-                  ),
-                  const SizedBox(width: 12),
-                  IconButton(
-                    onPressed: onToggleSave,
-                    icon: Icon(
-                      word.isSaved
-                          ? Icons.favorite_rounded
-                          : Icons.favorite_outline_rounded,
-                      color: word.isSaved
-                          ? colorScheme.primary
-                          : colorScheme.onSurfaceVariant,
-                    ),
-                    tooltip: word.isSaved ? 'Unsave' : 'Save',
-                    visualDensity: VisualDensity.compact,
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
-                  ),
-                ],
-              ),
-
               const SizedBox(height: 12),
 
               // ── Word (large, prominent) ────────────────────
@@ -479,7 +503,7 @@ class _WordCard extends StatelessWidget {
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: colorScheme.onSurfaceVariant,
                       fontStyle: FontStyle.italic,
-                      fontSize: (14 * fontScale).roundToDouble(),
+                      fontSize: (16 * fontScale).roundToDouble(),
                     ),
                   ),
                 ],
@@ -529,20 +553,6 @@ class _WordCard extends StatelessWidget {
                           isItalic: true,
                           fontScale: fontScale),
                       const SizedBox(height: 18),
-
-                      // ── Brand watermark (bottom right) ─────
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          'একুশ পঞ্জি',
-                          style: theme.textTheme.labelSmall?.copyWith(
-                            color: colorScheme.onSurfaceVariant
-                                .withValues(alpha: 0.55),
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 0.6,
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -576,6 +586,7 @@ class _WordCard extends StatelessWidget {
               style: theme.textTheme.labelLarge?.copyWith(
                 color: colorScheme.tertiary,
                 fontWeight: FontWeight.w600,
+                fontSize: (18 * fontScale).roundToDouble(), // Increased from 16
               ),
             ),
           ],
@@ -587,7 +598,7 @@ class _WordCard extends StatelessWidget {
             color: colorScheme.onSurface,
             fontStyle: isItalic ? FontStyle.italic : FontStyle.normal,
             height: 1.5,
-            fontSize: (14 * fontScale).roundToDouble(),
+            fontSize: (18 * fontScale).roundToDouble(), // Increased from 16
           ),
         ),
       ],
