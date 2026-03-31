@@ -15,9 +15,12 @@ dependencies:
   intl: ^0.20.2
   in_app_review: ^2.0.11
   package_info_plus: ^9.0.0
+  path_provider: ^2.1.5
 
   ekush_ui:
     path: ../ekush_ui
+  ekush_models:
+    path: ../ekush_models
 
 dev_dependencies:
   flutter_test:
