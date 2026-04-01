@@ -40,5 +40,12 @@ class JhuriConstants {
     'বোতল',
     'কৌটা',
     'আঁটি',
+    'ডজন',
   ];
+
+  static const Map<String, List<String>> unitGroups = {
+    'weight': ['গ্রাম', 'কেজি'],
+    'volume': ['মিলি', 'লিটার'],
+    'count': ['পিস', 'ডজন'],
+  };
 }

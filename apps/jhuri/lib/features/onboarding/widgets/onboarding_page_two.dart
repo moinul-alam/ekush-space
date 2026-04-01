@@ -58,133 +58,145 @@ class _OnboardingPageTwoState extends ConsumerState<OnboardingPageTwo> {
     final colorScheme = theme.colorScheme;
     final isCompleting = ref.watch(onboardingProvider).isCompleting;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 28),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(height: 32),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraints.maxHeight),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 28),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 32),
 
-          // ── Icon ───────────────────────────────────
-          Container(
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              color: const Color(0xFFE9A23B).withValues(alpha: 0.1),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              Icons.notifications_outlined,
-              size: 64,
-              color: const Color(0xFFE9A23B),
-            ),
-          ),
-
-          const SizedBox(height: 20),
-
-          // ── Title ──────────────────────────────────
-          Text(
-            'বিজ্ঞপ্তি চালু করুন',
-            style: theme.textTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: colorScheme.onSurface,
-            ),
-            textAlign: TextAlign.center,
-          ),
-
-          const SizedBox(height: 16),
-
-          // ── Subtitle ───────────────────────────
-          Text(
-            'বাজারের সময় মনে করিয়ে দিতে অনুমতি দিন',
-            style: theme.textTheme.bodyLarge?.copyWith(
-              color: colorScheme.onSurfaceVariant,
-              height: 1.5,
-            ),
-            textAlign: TextAlign.center,
-          ),
-
-          const SizedBox(height: 28),
-
-          // ── Notification card ──────────────────────
-          _TransparencyCard(
-            icon: Icons.notifications_outlined,
-            iconColor: const Color(0xFFE9A23B),
-            iconBg: const Color(0xFFE9A23B).withValues(alpha: 0.1),
-            title: 'নোটিফিকেশন',
-            body: Text(
-              'কেনাকাটার তালিকা রিমাইন্ডার, অফার ও ছাড়ের আপডেট, আর বাজার দরের তথ্য পেতে নোটিফিকেশন চালু রাখুন।',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: colorScheme.onSurfaceVariant,
-                height: 1.6,
-                fontSize: 15,
-              ),
-            ),
-            action: _notifEnabled
-                ? _EnabledBadge()
-                : _EnableButton(
-                    onTap: _handleEnableNotification,
-                  ),
-          ),
-
-          const Spacer(),
-
-          // ── Back + Get Started ─────────────────────
-          Row(
-            children: [
-              OutlinedButton(
-                onPressed: widget.onBack,
-                style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 18,
-                    horizontal: 24,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18),
-                  ),
-                ),
-                child: Text(
-                  'পিছনে',
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: const Color(0xFF2D6A4F),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: FilledButton(
-                  onPressed: isCompleting ? null : _handleGetStarted,
-                  style: FilledButton.styleFrom(
-                    backgroundColor: const Color(0xFF2D6A4F),
-                    padding: const EdgeInsets.symmetric(vertical: 18),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18),
+                  // ── Icon ───────────────────────────────────
+                  Container(
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      color: colorScheme.secondary.withValues(alpha: 0.1),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.notifications_outlined,
+                      size: 64,
+                      color: colorScheme.secondary,
                     ),
                   ),
-                  child: isCompleting
-                      ? SizedBox(
-                          width: 22,
-                          height: 22,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: Colors.white,
+
+                  const SizedBox(height: 20),
+
+                  // ── Title ──────────────────────────────────
+                  Text(
+                    'বিজ্ঞপ্তি চালু করুন',
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: colorScheme.onSurface,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // ── Subtitle ───────────────────────────
+                  Text(
+                    'বাজারের সময় মনে করিয়ে দিতে অনুমতি দিন',
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                      height: 1.5,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+
+                  const SizedBox(height: 28),
+
+                  // ── Notification card ──────────────────────
+                  _TransparencyCard(
+                    icon: Icons.notifications_outlined,
+                    iconColor: colorScheme.tertiary,
+                    iconBg:
+                        colorScheme.tertiaryContainer.withValues(alpha: 0.5),
+                    title: 'নোটিফিকেশন',
+                    body: Text(
+                      'কেনাকাটার তালিকা রিমাইন্ডার, অফার ও ছাড়ের আপডেট, আর বাজার দরের তথ্য পেতে নোটিফিকেশন চালু রাখুন।',
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: colorScheme.onSurfaceVariant,
+                        height: 1.6,
+                        fontSize: 15,
+                      ),
+                    ),
+                    action: _notifEnabled
+                        ? const _EnabledBadge()
+                        : _EnableButton(
+                            onTap: _handleEnableNotification,
                           ),
-                        )
-                      : Text(
-                          'শুরু করুন',
-                          style: theme.textTheme.titleLarge?.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
+                  ),
+
+                  const SizedBox(height: 40),
+
+                  // ── Back + Get Started ─────────────────────
+                  Padding(
+                    padding: const EdgeInsets.only(top: 24, bottom: 32),
+                    child: Row(
+                      children: [
+                        OutlinedButton(
+                          onPressed: widget.onBack,
+                          style: OutlinedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 18,
+                              horizontal: 24,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18),
+                            ),
+                            side: BorderSide(color: colorScheme.primary),
+                          ),
+                          child: Text(
+                            'পিছনে',
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: colorScheme.primary,
+                            ),
                           ),
                         ),
-                ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: FilledButton(
+                            onPressed: isCompleting ? null : _handleGetStarted,
+                            style: FilledButton.styleFrom(
+                              backgroundColor: colorScheme.primary,
+                              padding: const EdgeInsets.symmetric(vertical: 18),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                            ),
+                            child: isCompleting
+                                ? SizedBox(
+                                    width: 22,
+                                    height: 22,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      color: colorScheme.onPrimary,
+                                    ),
+                                  )
+                                : Text(
+                                    'শুরু করুন',
+                                    style: theme.textTheme.titleLarge?.copyWith(
+                                      color: colorScheme.onPrimary,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-
-          const SizedBox(height: 32),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -278,6 +290,7 @@ class _EnableButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return SizedBox(
       width: double.infinity,
       child: FilledButton.tonal(
@@ -287,18 +300,18 @@ class _EnableButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          backgroundColor: const Color(0xFFE9A23B).withValues(alpha: 0.1),
+          backgroundColor: colorScheme.tertiaryContainer.withValues(alpha: 0.3),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.notifications_outlined,
-                size: 20, color: const Color(0xFFE9A23B)),
+                size: 20, color: colorScheme.tertiary),
             const SizedBox(width: 8),
             Text(
               'নোটিফিকেশন চালু করুন',
               style: TextStyle(
-                color: const Color(0xFFE9A23B),
+                color: colorScheme.tertiary,
                 fontWeight: FontWeight.w600,
                 fontSize: 15,
               ),
@@ -315,14 +328,15 @@ class _EnabledBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Row(
       children: [
-        Icon(Icons.check_circle_rounded, color: const Color(0xFF2D6A4F), size: 20),
+        Icon(Icons.check_circle_rounded, color: colorScheme.primary, size: 20),
         const SizedBox(width: 8),
         Text(
           'নোটিফিকেশন চালু আছে',
           style: TextStyle(
-            color: const Color(0xFF2D6A4F),
+            color: colorScheme.primary,
             fontWeight: FontWeight.w600,
             fontSize: 15,
           ),

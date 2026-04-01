@@ -114,6 +114,9 @@ class _ListCreateScreenState extends ConsumerState<ListCreateScreen> {
                         // Title field
                         TextFormField(
                           controller: _titleController,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                           decoration: const InputDecoration(
                             labelText: 'শিরোনাম',
                             hintText: 'যেমন: সাপ্তাহিক বাজার',
@@ -271,16 +274,23 @@ class _ListCreateScreenState extends ConsumerState<ListCreateScreen> {
                                     );
                                   }
 
-                                  return Wrap(
-                                    spacing: 8,
-                                    runSpacing: 8,
-                                    children:
-                                        items.asMap().entries.map((entry) {
-                                      final index = entry.key;
-                                      final item = entry.value;
-                                      return _buildItemChip(
+                                  return ListView.separated(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount: items.length,
+                                    separatorBuilder: (context, index) =>
+                                        Divider(
+                                      height: 1,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .outlineVariant,
+                                    ),
+                                    itemBuilder: (context, index) {
+                                      final item = items[index];
+                                      return _buildItemRow(
                                           context, viewModel, item, index);
-                                    }).toList(),
+                                    },
                                   );
                                 },
                               ),
@@ -353,67 +363,87 @@ class _ListCreateScreenState extends ConsumerState<ListCreateScreen> {
 
       final success = await viewModel.save();
       if (success && mounted) {
+        // Navigate to shopping mode instead of just popping
         Navigator.pop(context);
+        // Navigate to shopping mode for the newly created list
+        // Note: This would require the listId from the save operation
+        // For now, we'll just pop as the original implementation
       }
     }
   }
 
-  Widget _buildItemChip(BuildContext context, CreateListViewModel viewModel,
+  Widget _buildItemRow(BuildContext context, CreateListViewModel viewModel,
       SelectedItem item, int index) {
-    return GestureDetector(
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
+    return InkWell(
       onTap: () => _showItemEditDialog(context, viewModel, item, index),
       onLongPress: () => _showItemRemoveDialog(context, viewModel, index),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Theme.of(context).colorScheme.outline),
-        ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
         child: Row(
-          mainAxisSize: MainAxisSize.min,
           children: [
-            // Icon placeholder
+            // Serial number
             Container(
-              width: 20,
-              height: 20,
+              width: 24,
+              height: 24,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                borderRadius: BorderRadius.circular(10),
+                color: colorScheme.secondaryContainer,
+                shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.shopping_basket, size: 12),
-            ),
-            const SizedBox(width: 8),
-            // Item info
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  item.nameBangla,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
+              child: Center(
+                child: Text(
+                  _formatBanglaNumber((index + 1).toString()),
+                  style: textTheme.labelSmall?.copyWith(
+                    color: colorScheme.onSecondaryContainer,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                if (item.price != null && item.price! > 0)
-                  Text(
-                    '${JhuriConstants.defaultCurrencySymbol} ${_formatBanglaNumber(item.price!.toStringAsFixed(0))}',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-              ],
-            ),
-            const SizedBox(width: 8),
-            // Quantity and unit
-            Text(
-              '${_formatBanglaNumber(item.quantity.toStringAsFixed(1))} ${item.unit}',
-              style: TextStyle(
-                fontSize: 12,
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
+            ),
+            const SizedBox(width: 12),
+            // Item name
+            Expanded(
+              flex: 3,
+              child: Text(
+                item.nameBangla,
+                style: textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            // Amount
+            Expanded(
+              flex: 2,
+              child: Text(
+                '${_formatBanglaNumber(item.quantity.toStringAsFixed(1))} ${item.unit}',
+                style: textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
+                textAlign: TextAlign.end,
+              ),
+            ),
+            // Price (hide if 0)
+            if (item.price != null && item.price! > 0) ...[
+              const SizedBox(width: 12),
+              Expanded(
+                flex: 2,
+                child: Text(
+                  '${JhuriConstants.defaultCurrencySymbol} ${_formatBanglaNumber(item.price!.toStringAsFixed(0))}',
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: colorScheme.primary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.end,
+                ),
+              ),
+            ],
+            const SizedBox(width: 8),
+            Icon(
+              Icons.chevron_right,
+              size: 20,
+              color: colorScheme.outline,
             ),
           ],
         ),

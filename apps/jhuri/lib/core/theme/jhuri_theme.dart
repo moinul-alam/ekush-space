@@ -9,35 +9,37 @@ class JhuriTheme {
 
   // ── Light Theme ────────────────────────────────────────────
   static ThemeData get lightTheme {
+    final colors = const ColorScheme.light(
+      brightness: Brightness.light,
+      primary: Color(0xFF2D6A4F),
+      onPrimary: Color(0xFFFFFFFF),
+      primaryContainer: Color(0xFFE8F5E8),
+      onPrimaryContainer: Color(0xFF1A1A1A),
+      secondary: Color(0xFFE9A23B),
+      onSecondary: Color(0xFFFFFFFF),
+      secondaryContainer: Color(0xFFFDF4E3),
+      onSecondaryContainer: Color(0xFF1A1A1A),
+      error: Color(0xFFD62828),
+      onError: Color(0xFFFFFFFF),
+      surface: Color(0xFFFFFFFF),
+      onSurface: Color(0xFF1C1C1C),
+      outline: Color(0xFFE0E0E0),
+      shadow: Color(0x1F000000),
+    );
+
     return ThemeData(
       useMaterial3: true,
-      colorScheme: const ColorScheme.light(
-        brightness: Brightness.light,
-        primary: Color(0xFF2D6A4F),
-        onPrimary: Color(0xFFFFFFFF),
-        primaryContainer: Color(0xFFE8F5E8),
-        onPrimaryContainer: Color(0xFF1A1A1A),
-        secondary: Color(0xFFE9A23B),
-        onSecondary: Color(0xFFFFFFFF),
-        secondaryContainer: Color(0xFFFDF4E3),
-        onSecondaryContainer: Color(0xFF1A1A1A),
-        error: Color(0xFFD62828),
-        onError: Color(0xFFFFFFFF),
-        surface: Color(0xFFFFFFFF),
-        onSurface: Color(0xFF1C1C1C),
-        outline: Color(0xFFE0E0E0),
-        shadow: Color(0x1F000000),
-      ),
+      colorScheme: colors,
       scaffoldBackgroundColor: const Color(0xFFFDFAF4),
       fontFamily: _fontFamily,
       textTheme: _buildTextTheme(),
       appBarTheme: _lightAppBarTheme,
       cardTheme: _cardTheme,
-      elevatedButtonTheme: _elevatedButtonTheme,
-      outlinedButtonTheme: _outlinedButtonTheme,
-      textButtonTheme: _textButtonTheme,
-      inputDecorationTheme: _inputDecorationTheme,
-      floatingActionButtonTheme: _fabTheme,
+      elevatedButtonTheme: _elevatedButtonTheme(colors),
+      outlinedButtonTheme: _outlinedButtonTheme(colors),
+      textButtonTheme: _textButtonTheme(colors),
+      inputDecorationTheme: _inputDecorationTheme(colors),
+      floatingActionButtonTheme: _fabTheme(colors),
       snackBarTheme: _snackBarTheme,
       dialogTheme: _dialogTheme,
       bottomSheetTheme: _bottomSheetTheme,
@@ -47,35 +49,37 @@ class JhuriTheme {
 
   // ── Dark Theme ─────────────────────────────────────────────
   static ThemeData get darkTheme {
+    final colors = const ColorScheme.dark(
+      brightness: Brightness.dark,
+      primary: Color(0xFF2D6A4F),
+      onPrimary: Color(0xFFFFFFFF),
+      primaryContainer: Color(0xFF1A3D2E),
+      onPrimaryContainer: Color(0xFFF5F5F5),
+      secondary: Color(0xFFE9A23B),
+      onSecondary: Color(0xFF1A1A1A),
+      secondaryContainer: Color(0xFF3D2E1A),
+      onSecondaryContainer: Color(0xFFF5F5F5),
+      error: Color(0xFFD62828),
+      onError: Color(0xFFFFFFFF),
+      surface: Color(0xFF242424),
+      onSurface: Color(0xFFF5F5F5),
+      outline: Color(0xFF424242),
+      shadow: Color(0x3F000000),
+    );
+
     return ThemeData(
       useMaterial3: true,
-      colorScheme: const ColorScheme.dark(
-        brightness: Brightness.dark,
-        primary: Color(0xFF2D6A4F),
-        onPrimary: Color(0xFFFFFFFF),
-        primaryContainer: Color(0xFF1A3D2E),
-        onPrimaryContainer: Color(0xFFF5F5F5),
-        secondary: Color(0xFFE9A23B),
-        onSecondary: Color(0xFF1A1A1A),
-        secondaryContainer: Color(0xFF3D2E1A),
-        onSecondaryContainer: Color(0xFFF5F5F5),
-        error: Color(0xFFD62828),
-        onError: Color(0xFFFFFFFF),
-        surface: Color(0xFF242424),
-        onSurface: Color(0xFFF5F5F5),
-        outline: Color(0xFF424242),
-        shadow: Color(0x3F000000),
-      ),
+      colorScheme: colors,
       scaffoldBackgroundColor: const Color(0xFF1A1A1A),
       fontFamily: _fontFamily,
       textTheme: _buildTextTheme(),
       appBarTheme: _darkAppBarTheme,
       cardTheme: _cardTheme,
-      elevatedButtonTheme: _elevatedButtonTheme,
-      outlinedButtonTheme: _outlinedButtonTheme,
-      textButtonTheme: _textButtonTheme,
-      inputDecorationTheme: _inputDecorationTheme,
-      floatingActionButtonTheme: _fabTheme,
+      elevatedButtonTheme: _elevatedButtonTheme(colors),
+      outlinedButtonTheme: _outlinedButtonTheme(colors),
+      textButtonTheme: _textButtonTheme(colors),
+      inputDecorationTheme: _inputDecorationTheme(colors),
+      floatingActionButtonTheme: _fabTheme(colors),
       snackBarTheme: _snackBarTheme,
       dialogTheme: _dialogTheme,
       bottomSheetTheme: _bottomSheetTheme,
@@ -152,11 +156,11 @@ class JhuriTheme {
       );
 
   // ── Buttons ────────────────────────────────────────────────
-  static ElevatedButtonThemeData get _elevatedButtonTheme =>
+  static ElevatedButtonThemeData _elevatedButtonTheme(ColorScheme colors) =>
       ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF2D6A4F),
-          foregroundColor: Colors.white,
+          backgroundColor: colors.primary,
+          foregroundColor: colors.onPrimary,
           elevation: 2,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           shape:
@@ -164,28 +168,32 @@ class JhuriTheme {
         ),
       );
 
-  static OutlinedButtonThemeData get _outlinedButtonTheme =>
+  static OutlinedButtonThemeData _outlinedButtonTheme(ColorScheme colors) =>
       OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: const Color(0xFF2D6A4F),
+          foregroundColor: colors.primary,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
       );
 
-  static TextButtonThemeData get _textButtonTheme => TextButtonThemeData(
+  static TextButtonThemeData _textButtonTheme(ColorScheme colors) =>
+      TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: const Color(0xFF2D6A4F),
+          foregroundColor: colors.primary,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
       );
 
   // ── Input ──────────────────────────────────────────────────
-  static InputDecorationTheme get _inputDecorationTheme => InputDecorationTheme(
+  static InputDecorationTheme _inputDecorationTheme(ColorScheme colors) =>
+      InputDecorationTheme(
         filled: true,
-        fillColor: const Color(0xFFF5F5F5),
+        fillColor: colors.brightness == Brightness.light
+            ? const Color(0xFFF5F5F5)
+            : colors.surfaceContainerHighest,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
@@ -196,21 +204,24 @@ class JhuriTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Color(0xFF2D6A4F), width: 2),
+          borderSide: BorderSide(color: colors.primary, width: 2),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Color(0xFFD62828)),
+          borderSide: BorderSide(color: colors.error),
         ),
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        labelStyle: TextStyle(color: colors.onSurfaceVariant),
+        hintStyle:
+            TextStyle(color: colors.onSurfaceVariant.withValues(alpha: 0.6)),
       );
 
   // ── FAB ────────────────────────────────────────────────────
-  static FloatingActionButtonThemeData get _fabTheme =>
+  static FloatingActionButtonThemeData _fabTheme(ColorScheme colors) =>
       FloatingActionButtonThemeData(
-        backgroundColor: const Color(0xFF2D6A4F),
-        foregroundColor: Colors.white,
+        backgroundColor: colors.primary,
+        foregroundColor: colors.onPrimary,
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       );

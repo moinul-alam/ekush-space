@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_models/ekush_models.dart';
 import '../../../config/jhuri_constants.dart';
+import '../../../shared/widgets/jhuri_app_bar.dart';
+import '../list_create/list_create_viewmodel.dart';
 import 'item_picker_viewmodel.dart';
 
 class ItemPickerScreen extends BaseScreen {
@@ -46,12 +48,8 @@ class _ItemPickerScreenState extends BaseScreenState<ItemPickerScreen> {
 
   @override
   PreferredSizeWidget? buildAppBar(BuildContext context, WidgetRef ref) {
-    return AppBar(
-      title: Text(widget.categoryName),
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back),
-        onPressed: () => Navigator.pop(context),
-      ),
+    return JhuriAppBar(
+      title: widget.categoryName,
     );
   }
 
@@ -133,6 +131,7 @@ class _ItemPickerScreenState extends BaseScreenState<ItemPickerScreen> {
 
   Widget _buildItemCard(BuildContext context, ItemTemplate item,
       bool isSelected, ItemPickerViewModel viewModel) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -144,7 +143,7 @@ class _ItemPickerScreenState extends BaseScreenState<ItemPickerScreen> {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color: Theme.of(context).colorScheme.surface,
+            color: colorScheme.surface,
           ),
           child: Stack(
             children: [
@@ -152,7 +151,7 @@ class _ItemPickerScreenState extends BaseScreenState<ItemPickerScreen> {
               Container(
                 width: double.infinity,
                 height: double.infinity,
-                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                color: colorScheme.surfaceContainerHighest,
               ),
               // Item name at bottom
               Positioned(
@@ -167,13 +166,14 @@ class _ItemPickerScreenState extends BaseScreenState<ItemPickerScreen> {
                       bottomLeft: Radius.circular(12),
                       bottomRight: Radius.circular(12),
                     ),
-                    color: Theme.of(context).colorScheme.surface,
+                    color: colorScheme.surface,
                   ),
                   child: Text(
                     item.nameBangla,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
+                      color: colorScheme.onSurface,
                     ),
                     textAlign: TextAlign.center,
                     maxLines: 2,
@@ -190,12 +190,12 @@ class _ItemPickerScreenState extends BaseScreenState<ItemPickerScreen> {
                     width: 24,
                     height: 24,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
+                      color: colorScheme.primary,
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
                       Icons.check,
-                      color: Theme.of(context).colorScheme.onPrimary,
+                      color: colorScheme.onPrimary,
                       size: 16,
                     ),
                   ),
@@ -215,8 +215,26 @@ class _ItemPickerScreenState extends BaseScreenState<ItemPickerScreen> {
       builder: (context) => _QuantityBottomSheet(
         item: item,
         onAdd: (quantity, unit, price) {
+          // Add to picker's selected items for UI feedback (checkmark)
           viewModel.addItem(item, quantity, unit, price);
+
+          // If we're currently creating a list, also add it there
+          ref.read(createListViewModelProvider.notifier).addItem(
+                item,
+                quantity,
+                unit,
+                price,
+              );
+
           Navigator.pop(context);
+
+          // Show a small feedback
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('${item.nameBangla} যোগ করা হয়েছে'),
+              duration: const Duration(seconds: 1),
+            ),
+          );
         },
       ),
     );
@@ -280,118 +298,126 @@ class _QuantityBottomSheetState extends State<_QuantityBottomSheet> {
                 ),
               ),
 
-              // Item name
-              Text(
-                widget.item.nameBangla,
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.w600,
+              // Scrollable content
+              Expanded(
+                child: ListView(
+                  controller: scrollController,
+                  children: [
+                    // Item name
+                    Text(
+                      widget.item.nameBangla,
+                      style:
+                          Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
                     ),
-              ),
 
-              const SizedBox(height: 24),
+                    const SizedBox(height: 24),
 
-              // Quantity stepper
-              Text(
-                'পরিমাণ',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _quantity =
-                            (_quantity - 0.5).clamp(0.5, double.infinity);
-                      });
-                    },
-                    icon: const Icon(Icons.remove),
-                  ),
-                  Expanded(
-                    child: Text(
-                      _quantity.toStringAsFixed(1),
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.titleLarge,
+                    // Quantity stepper
+                    Text(
+                      'পরিমাণ',
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _quantity += 0.5;
-                      });
-                    },
-                    icon: const Icon(Icons.add),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 16),
-
-              // Unit selector
-              Text(
-                'একক',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              const SizedBox(height: 8),
-              SizedBox(
-                height: 40,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: JhuriConstants.availableUnits.length,
-                  itemBuilder: (context, index) {
-                    final unit = JhuriConstants.availableUnits[index];
-                    final isSelected = unit == _selectedUnit;
-
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 8),
-                      child: FilterChip(
-                        label: Text(unit),
-                        selected: isSelected,
-                        onSelected: (selected) {
-                          if (selected) {
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
                             setState(() {
-                              _selectedUnit = unit;
+                              _quantity =
+                                  (_quantity - 0.5).clamp(0.5, double.infinity);
                             });
-                          }
-                        },
+                          },
+                          icon: const Icon(Icons.remove),
+                        ),
+                        Expanded(
+                          child: Text(
+                            _quantity.toStringAsFixed(1),
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _quantity += 0.5;
+                            });
+                          },
+                          icon: const Icon(Icons.add),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    // Unit selector
+                    Text(
+                      'একক',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 12),
+                    StatefulBuilder(
+                      builder: (context, setInnerState) {
+                        final availableUnits =
+                            JhuriConstants.unitGroups[widget.item.unitType] ??
+                                JhuriConstants.availableUnits;
+
+                        return SegmentedButton<String>(
+                          segments: availableUnits.map((unit) {
+                            return ButtonSegment<String>(
+                              value: unit,
+                              label: Text(unit),
+                            );
+                          }).toList(),
+                          selected: {_selectedUnit},
+                          onSelectionChanged: (Set<String> newSelection) {
+                            setState(() {
+                              _selectedUnit = newSelection.first;
+                            });
+                            setInnerState(() {});
+                          },
+                        );
+                      },
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    // Price field (optional)
+                    Text(
+                      'মূল্য (ঐচ্ছিক)',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 8),
+                    TextField(
+                      controller: _priceController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        hintText: 'মূল্য লিখুন',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
-                    );
-                  },
+                    ),
+                    const SizedBox(height: 16),
+                  ],
                 ),
               ),
-
-              const SizedBox(height: 16),
-
-              // Price field (optional)
-              Text(
-                'মূল্য (ঐচ্ছিক)',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                controller: _priceController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  hintText: 'মূল্য লিখুন',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-
-              const Spacer(),
 
               // Add button
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    final price = _priceController.text.isNotEmpty
-                        ? double.tryParse(_priceController.text)
-                        : null;
-                    widget.onAdd(_quantity, _selectedUnit, price);
-                  },
-                  child: const Text('যোগ করুন'),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      final price = _priceController.text.isNotEmpty
+                          ? double.tryParse(_priceController.text)
+                          : null;
+                      widget.onAdd(_quantity, _selectedUnit, price);
+                    },
+                    child: const Text('যোগ করুন'),
+                  ),
                 ),
               ),
             ],

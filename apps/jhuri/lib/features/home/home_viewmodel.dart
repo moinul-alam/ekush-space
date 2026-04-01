@@ -27,9 +27,9 @@ class HomeViewModel extends BaseViewModel<List<ShoppingList>> {
   void _loadLists() {
     setLoading();
 
-    // Initial load - the actual data will be watched in the UI
+    // Watch all lists using the provider
     final repository = ref.read(shoppingListRepositoryProvider);
-    repository.watchActiveLists().listen((lists) {
+    repository.watchAllLists().listen((lists) {
       if (lists.isEmpty) {
         setEmpty(message: 'বাজারের কোনো ফর্দ নেই');
       } else {
@@ -40,7 +40,7 @@ class HomeViewModel extends BaseViewModel<List<ShoppingList>> {
 
   Future<bool> deleteList(int id) async {
     return await executeAsync(
-      operation: () => _shoppingListRepository.delete(id),
+      operation: () => _shoppingListRepository.deleteList(id),
       successMessage: 'ফর্দটি ডিলেট করা হয়েছে',
       errorMessage: 'ফর্দ ডিলেট করতে ব্যর্থ হয়েছে',
     );
@@ -48,14 +48,14 @@ class HomeViewModel extends BaseViewModel<List<ShoppingList>> {
 
   Future<bool> toggleListComplete(int id) async {
     return await executeAsync(
-      operation: () => _shoppingListRepository.markComplete(id),
+      operation: () => _shoppingListRepository.markListComplete(id),
       errorMessage: 'ফর্দ আপডেট করতে ব্যর্থ হয়েছে',
     );
   }
 
   Future<bool> archiveList(int id) async {
     return await executeAsync(
-      operation: () => _shoppingListRepository.archive(id),
+      operation: () => _shoppingListRepository.archiveList(id),
       successMessage: 'ফর্দটি আর্কাইভ করা হয়েছে',
       errorMessage: 'ফর্দ আর্কাইভ করতে ব্যর্থ হয়েছে',
     );
@@ -63,10 +63,21 @@ class HomeViewModel extends BaseViewModel<List<ShoppingList>> {
 
   Future<ShoppingList?> getListById(int id) async {
     try {
-      return await _shoppingListRepository.getById(id);
+      return await _shoppingListRepository.getListById(id);
     } catch (e) {
       return null;
     }
+  }
+
+  Future<bool> duplicateList(int id) async {
+    return await executeAsync(
+      operation: () async {
+        await _shoppingListRepository.duplicateList(id);
+        return true;
+      },
+      successMessage: 'ফর্ডটি ডুপ্লিকেট করা হয়েছে',
+      errorMessage: 'ফর্ড ডুপ্লিকেট করতে ব্যর্থ হয়েছে',
+    );
   }
 
   @override
@@ -98,9 +109,25 @@ class HomeViewModel extends BaseViewModel<List<ShoppingList>> {
     if (data == null || data.isEmpty) return {};
 
     final Map<String, List<ShoppingList>> grouped = {};
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final tomorrow = today.add(const Duration(days: 1));
 
     for (final list in data) {
-      final dateLabel = _getDateLabel(list.buyDate);
+      final dateOnly =
+          DateTime(list.buyDate.year, list.buyDate.month, list.buyDate.day);
+      String dateLabel;
+
+      if (dateOnly.isAtSameMomentAs(today)) {
+        dateLabel = 'আজ';
+      } else if (dateOnly.isAtSameMomentAs(tomorrow)) {
+        dateLabel = 'আগামীকাল';
+      } else if (dateOnly.isBefore(today)) {
+        dateLabel = 'অতীত';
+      } else {
+        dateLabel = 'আসন্ন';
+      }
+
       if (!grouped.containsKey(dateLabel)) {
         grouped[dateLabel] = [];
       }
@@ -108,20 +135,5 @@ class HomeViewModel extends BaseViewModel<List<ShoppingList>> {
     }
 
     return grouped;
-  }
-
-  String _getDateLabel(DateTime date) {
-    final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
-    final tomorrow = today.add(const Duration(days: 1));
-    final dateOnly = DateTime(date.year, date.month, date.day);
-
-    if (dateOnly.isAtSameMomentAs(today)) {
-      return 'আজ';
-    } else if (dateOnly.isAtSameMomentAs(tomorrow)) {
-      return 'আগামীকাল';
-    } else {
-      return '${date.day}/${date.month}/${date.year}';
-    }
   }
 }

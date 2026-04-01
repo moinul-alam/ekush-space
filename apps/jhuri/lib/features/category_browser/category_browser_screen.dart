@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_models/ekush_models.dart';
+import '../../core/providers/jhuri_providers.dart';
+import '../../shared/widgets/jhuri_app_bar.dart';
+import '../../shared/widgets/jhuri_drawer.dart';
 import 'category_browser_viewmodel.dart';
-import '../item_picker/item_picker_screen.dart';
 
 class CategoryBrowserScreen extends BaseScreen {
   const CategoryBrowserScreen({super.key});
@@ -15,19 +18,28 @@ class CategoryBrowserScreen extends BaseScreen {
 
 class _CategoryBrowserScreenState
     extends BaseScreenState<CategoryBrowserScreen> {
+  final _searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
   @override
   NotifierProvider<CategoryBrowserViewModel, ViewState> get viewModelProvider =>
       categoryBrowserViewModelProvider;
 
   @override
   PreferredSizeWidget? buildAppBar(BuildContext context, WidgetRef ref) {
-    return AppBar(
-      title: const Text('কী কিনবেন?'),
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back),
-        onPressed: () => Navigator.pop(context),
-      ),
+    return const JhuriAppBar(
+      title: 'কী কিনবেন?',
     );
+  }
+
+  @override
+  Widget? buildDrawer(BuildContext context, WidgetRef ref) {
+    return const JhuriDrawer();
   }
 
   @override
@@ -56,6 +68,24 @@ class _CategoryBrowserScreenState
 
     return Column(
       children: [
+        // Search bar
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: TextField(
+            controller: _searchController,
+            decoration: InputDecoration(
+              hintText: 'ক্যাটাগরি খুঁজুন...',
+              prefixIcon: const Icon(Icons.search),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            onChanged: (query) {
+              viewModel.filterCategories(query);
+            },
+          ),
+        ),
+
         Expanded(
           child: GridView.builder(
             padding: const EdgeInsets.all(16),
@@ -92,22 +122,26 @@ class _CategoryBrowserScreenState
   }
 
   Widget _buildCategoryCard(BuildContext context, Category category) {
+    final isFrequent = category.id == kFrequentlyUsedCategoryId;
+
     return Card(
-      elevation: 2,
+      elevation: isFrequent ? 4 : 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
+        side: isFrequent
+            ? BorderSide(
+                color: Theme.of(context)
+                    .colorScheme
+                    .primary
+                    .withValues(alpha: 0.5),
+                width: 2,
+              )
+            : BorderSide.none,
       ),
       child: InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ItemPickerScreen(
-                categoryId: category.id,
-                categoryName: category.nameBangla,
-              ),
-            ),
-          );
+          context.push('/categories/${category.id}/items',
+              extra: category.nameBangla);
         },
         borderRadius: BorderRadius.circular(12),
         child: Container(
@@ -116,19 +150,31 @@ class _CategoryBrowserScreenState
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [
-                Theme.of(context).colorScheme.surfaceContainerHighest,
-                Theme.of(context).colorScheme.surfaceContainer,
-              ],
+              colors: isFrequent
+                  ? [
+                      Theme.of(context).colorScheme.primaryContainer,
+                      Theme.of(context).colorScheme.surfaceContainer,
+                    ]
+                  : [
+                      Theme.of(context).colorScheme.surfaceContainerHighest,
+                      Theme.of(context).colorScheme.surfaceContainer,
+                    ],
             ),
           ),
           child: Stack(
             children: [
-              // Grey placeholder for image
-              Container(
-                width: double.infinity,
-                height: double.infinity,
-                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+              // Icon or placeholder
+              Center(
+                child: Icon(
+                  isFrequent ? Icons.star : Icons.category_outlined,
+                  size: 32,
+                  color: isFrequent
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context)
+                          .colorScheme
+                          .onSurfaceVariant
+                          .withValues(alpha: 0.5),
+                ),
               ),
               // Category name overlay at bottom
               Positioned(
@@ -143,13 +189,18 @@ class _CategoryBrowserScreenState
                       bottomLeft: Radius.circular(12),
                       bottomRight: Radius.circular(12),
                     ),
-                    color: Colors.black.withValues(alpha: 0.6),
+                    color: isFrequent
+                        ? Theme.of(context)
+                            .colorScheme
+                            .primary
+                            .withValues(alpha: 0.8)
+                        : Colors.black.withValues(alpha: 0.6),
                   ),
                   child: Text(
                     category.nameBangla,
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 12,
+                      fontSize: 11,
                       fontWeight: FontWeight.w600,
                     ),
                     textAlign: TextAlign.center,
@@ -166,17 +217,15 @@ class _CategoryBrowserScreenState
   }
 
   Widget _buildCustomCategoryCard(BuildContext context) {
+    final viewModel = ref.read(categoryBrowserViewModelProvider.notifier);
+
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
       child: InkWell(
-        onTap: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('শীঘ্রই আসছে')),
-          );
-        },
+        onTap: () => _showAddCategoryDialog(context, viewModel),
         borderRadius: BorderRadius.circular(12),
         child: Container(
           decoration: BoxDecoration(
@@ -191,7 +240,7 @@ class _CategoryBrowserScreenState
                 size: 32,
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               Text(
                 '➕ কাস্টম',
                 style: TextStyle(
@@ -204,6 +253,41 @@ class _CategoryBrowserScreenState
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void _showAddCategoryDialog(
+      BuildContext context, CategoryBrowserViewModel viewModel) {
+    final controller = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('নতুন ক্যাটাগরি'),
+        content: TextField(
+          controller: controller,
+          decoration: const InputDecoration(
+            hintText: 'ক্যাটাগরির নাম লিখুন',
+            labelText: 'নাম',
+          ),
+          autofocus: true,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('বাতিল'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final name = controller.text.trim();
+              if (name.isNotEmpty) {
+                await viewModel.addCategory(name);
+                if (context.mounted) Navigator.pop(context);
+              }
+            },
+            child: const Text('যোগ করুন'),
+          ),
+        ],
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_models/ekush_models.dart';
 import 'package:ekush_notifications/ekush_notifications.dart';
+import 'package:ekush_ads/ekush_ads.dart';
 import 'package:drift/drift.dart';
 import '../../../core/utils/bangla_date_formatter.dart';
 import '../../../core/providers/jhuri_providers.dart';
@@ -19,6 +20,7 @@ final createListViewModelProvider =
 class CreateListViewModel extends BaseViewModel<void> {
   late final ShoppingListRepository _shoppingListRepository;
   late final ListItemRepository _listItemRepository;
+  late final AdService _adService;
 
   // Form fields
   String _title = '';
@@ -37,6 +39,7 @@ class CreateListViewModel extends BaseViewModel<void> {
   void onSyncSetup() {
     _shoppingListRepository = ref.read(shoppingListRepositoryProvider);
     _listItemRepository = ref.read(listItemRepositoryProvider);
+    _adService = ref.read(adServiceProvider);
   }
 
   // Getters
@@ -188,12 +191,11 @@ class CreateListViewModel extends BaseViewModel<void> {
 
     return await executeAsync(
       operation: () async {
-        final now = DateTime.now();
         int listId;
 
         if (isEditMode) {
           // Update existing list
-          await _shoppingListRepository.update(
+          await _shoppingListRepository.updateList(
             ShoppingListsCompanion(
               id: Value(_editingList!.id),
               title: Value(_title.trim().isEmpty ? 'ফর্দ' : _title.trim()),
@@ -216,41 +218,33 @@ class CreateListViewModel extends BaseViewModel<void> {
           listId = _editingList!.id;
         } else {
           // Create new list
-          final insertedList = await _shoppingListRepository.insert(
-            ShoppingListsCompanion.insert(
-              title: Value(_title.trim().isEmpty ? 'ফর্দ' : _title.trim()),
-              buyDate: _buyDate,
-              isReminderOn: Value(_isReminderOn),
-              reminderTime: Value(_isReminderOn
-                  ? DateTime(
-                      _buyDate.year,
-                      _buyDate.month,
-                      _buyDate.day,
-                      _reminderTime.hour,
-                      _reminderTime.minute,
-                    )
-                  : null),
-              createdAt: now,
-              sourceListId: Value(_duplicateFrom?.id),
-            ),
+          listId = await _shoppingListRepository.createList(
+            buyDate: _buyDate,
+            title: _title.trim().isEmpty ? 'ফর্দ' : _title.trim(),
+            reminderTime: _isReminderOn
+                ? DateTime(
+                    _buyDate.year,
+                    _buyDate.month,
+                    _buyDate.day,
+                    _reminderTime.hour,
+                    _reminderTime.minute,
+                  )
+                : null,
+            isReminderOn: _isReminderOn,
           );
-          listId = insertedList;
         }
 
         // Insert all list items
         for (int i = 0; i < _items.length; i++) {
           final item = _items[i];
-          await _listItemRepository.insert(
-            ListItemsCompanion.insert(
-              listId: listId,
-              templateId: Value(item.templateId),
-              nameBangla: item.nameBangla,
-              quantity: Value(item.quantity),
-              unit: item.unit,
-              price: Value(item.price),
-              sortOrder: Value(i),
-              addedAt: now,
-            ),
+          await _listItemRepository.addItem(
+            listId: listId,
+            templateId: item.templateId == 0 ? null : item.templateId,
+            nameBangla: item.nameBangla,
+            quantity: item.quantity,
+            unit: item.unit,
+            price: item.price,
+            sortOrder: i,
           );
         }
 
@@ -259,8 +253,8 @@ class CreateListViewModel extends BaseViewModel<void> {
           await scheduleReminder(listId);
         }
 
-        // Show interstitial ad placeholder (Step 11 will have real ads)
-        debugPrint('Interstitial ad placeholder shown');
+        // Show real interstitial ad
+        _adService.showInterstitialIfAvailable();
 
         return true;
       },

@@ -23,15 +23,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     super.dispose();
   }
 
-  void _goToPage(int page) {
-    _pageController.animateToPage(
-      page,
-      duration: const Duration(milliseconds: 350),
-      curve: Curves.easeInOut,
-    );
-    setState(() => _currentPage = page);
-  }
-
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(onboardingProvider);
@@ -56,7 +47,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     height: 8,
                     decoration: BoxDecoration(
                       color: isActive
-                          ? const Color(0xFF2D6A4F) // Jhuri primary
+                          ? colorScheme.primary
                           : colorScheme.outlineVariant,
                       borderRadius: BorderRadius.circular(4),
                     ),
@@ -75,12 +66,24 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   OnboardingPageOne(
                     isBn: isBn,
                     state: state,
-                    onNext: () => _goToPage(1),
+                    onNext: () {
+                      _pageController.animateToPage(
+                        1,
+                        duration: const Duration(milliseconds: 350),
+                        curve: Curves.easeInOut,
+                      );
+                    },
                   ),
                   OnboardingPageTwo(
                     isBn: isBn,
                     state: state,
-                    onBack: () => _goToPage(0),
+                    onBack: () {
+                      _pageController.animateToPage(
+                        0,
+                        duration: const Duration(milliseconds: 350),
+                        curve: Curves.easeInOut,
+                      );
+                    },
                     onComplete: () {
                       // This is handled internally by the page itself
                     },

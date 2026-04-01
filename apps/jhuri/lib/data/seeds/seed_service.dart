@@ -47,6 +47,7 @@ class SeedService {
           categoryId: item['categoryId'] as int,
           defaultQuantity: Value(item['defaultQuantity'] as double),
           defaultUnit: item['defaultUnit'] as String,
+          unitType: Value(item['unitType'] as String?), // Added unitType
           iconIdentifier: item['iconIdentifier'] as String,
           isCustom: const Value(false),
           usageCount: const Value(0),

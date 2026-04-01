@@ -41,18 +41,36 @@ class OnboardingNotifier extends Notifier<OnboardingState> {
   /// Persists all choices and marks onboarding complete.
   /// Called when the user taps "Get Started".
   Future<void> complete(WidgetRef ref, BuildContext context) async {
-    state = state.copyWith(isCompleting: true);
+    try {
+      state = state.copyWith(isCompleting: true);
 
-    final appSettingsRepository = ref.read(appSettingsRepositoryProvider);
-    final seedService = ref.read(seedServiceProvider);
+      final appSettingsRepository = ref.read(appSettingsRepositoryProvider);
+      final seedService = ref.read(seedServiceProvider);
 
-    await appSettingsRepository.setOnboardingComplete();
-    await seedService.seedIfNeeded();
+      // 1. Mark as complete in database
+      await appSettingsRepository.setOnboardingComplete();
+      
+      // 2. Ensure seed data is present
+      await seedService.seedIfNeeded();
 
-    state = state.copyWith(isCompleting: false);
+      state = state.copyWith(isCompleting: false);
 
-    if (context.mounted) {
-      context.go('/');
+      // The router will automatically refresh and redirect to / 
+      // because we're now watching appSettingsProvider as a Stream.
+      // But we still call go('/') to be explicit.
+      if (context.mounted) {
+        context.go('/');
+      }
+    } catch (e, st) {
+      debugPrint('🔥 Error completing onboarding: $e');
+      debugPrintStack(stackTrace: st);
+      state = state.copyWith(isCompleting: false);
+      
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('অ্যাপ শুরু করতে সমস্যা হয়েছে: $e')),
+        );
+      }
     }
   }
 

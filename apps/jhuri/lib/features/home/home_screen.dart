@@ -7,7 +7,8 @@ import '../list_create/list_create_screen.dart';
 import 'home_viewmodel.dart';
 import 'widgets/shopping_list_card.dart';
 import 'widgets/empty_state_widget.dart';
-import 'widgets/ad_banner_widget.dart';
+import '../../shared/widgets/jhuri_app_bar.dart';
+import '../../shared/widgets/jhuri_drawer.dart';
 
 class HomeScreen extends BaseScreen {
   const HomeScreen({super.key});
@@ -31,14 +32,8 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> {
 
   @override
   PreferredSizeWidget? buildAppBar(BuildContext context, WidgetRef ref) {
-    return AppBar(
-      title: const Text(
-        'ঝুড়ি',
-        style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
+    return JhuriAppBar(
+      title: 'ঝুড়ি',
       actions: [
         IconButton(
           icon: const Icon(Icons.settings_outlined),
@@ -63,6 +58,11 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> {
       },
       child: const Icon(Icons.add),
     );
+  }
+
+  @override
+  Widget? buildDrawer(BuildContext context, WidgetRef ref) {
+    return const JhuriDrawer();
   }
 
   @override
@@ -121,7 +121,6 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> {
             },
           ),
         ),
-        const AdBannerWidget(),
       ],
     );
   }
@@ -141,7 +140,8 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> {
   }
 
   void _toggleComplete(int id) async {
-    await ref.read(homeViewModelProvider.notifier).toggleListComplete(id);
+    // Navigate to shopping mode instead of just toggling complete
+    context.go('/shopping/$id');
   }
 
   void _editList(ShoppingList list) {

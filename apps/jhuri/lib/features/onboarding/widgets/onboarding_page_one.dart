@@ -54,13 +54,13 @@ class OnboardingPageOne extends ConsumerWidget {
                             width: _logoSize,
                             height: _logoSize,
                             decoration: BoxDecoration(
-                              color: const Color(0xFF2D6A4F).withValues(alpha: 0.1),
+                              color: colorScheme.primary.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Icon(
                               Icons.shopping_basket_rounded,
                               size: 60,
-                              color: const Color(0xFF2D6A4F),
+                              color: colorScheme.primary,
                             ),
                           ),
                         ),
@@ -73,7 +73,7 @@ class OnboardingPageOne extends ConsumerWidget {
                         'ঝুড়ি',
                         style: theme.textTheme.headlineLarge?.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: const Color(0xFF2D6A4F),
+                          color: colorScheme.primary,
                           fontSize: 48,
                         ),
                         textAlign: TextAlign.center,
@@ -97,19 +97,19 @@ class OnboardingPageOne extends ConsumerWidget {
                       _FeatureItem(
                         icon: Icons.check_circle_rounded,
                         text: 'স্মার্ট কেনাকাটার তালিকা',
-                        color: const Color(0xFF2D6A4F),
+                        color: colorScheme.primary,
                       ),
                       const SizedBox(height: 12),
                       _FeatureItem(
-                        icon: Icons.check_circle_rounded,
-                        text: 'ক্যাটাগরি ভিত্তিক আইটেম',
-                        color: const Color(0xFFE9A23B),
+                        icon: Icons.history_rounded,
+                        text: 'বাজারের পুরনো রেকর্ড',
+                        color: colorScheme.secondary,
                       ),
                       const SizedBox(height: 12),
                       _FeatureItem(
-                        icon: Icons.check_circle_rounded,
-                        text: 'বাজেট ট্র্যাকিং',
-                        color: const Color(0xFF2D6A4F),
+                        icon: Icons.notifications_active_rounded,
+                        text: 'রিমাইন্ডার ও নোটিফিকেশন',
+                        color: colorScheme.tertiary,
                       ),
 
                       const SizedBox(height: 32),
@@ -152,7 +152,6 @@ class OnboardingPageOne extends ConsumerWidget {
                       ),
                     ],
                   ),
-
                   Padding(
                     padding: const EdgeInsets.only(top: 12, bottom: 12),
                     child: SizedBox(
@@ -160,7 +159,7 @@ class OnboardingPageOne extends ConsumerWidget {
                       child: FilledButton(
                         onPressed: onNext,
                         style: FilledButton.styleFrom(
-                          backgroundColor: const Color(0xFF2D6A4F),
+                          backgroundColor: colorScheme.primary,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
@@ -169,7 +168,7 @@ class OnboardingPageOne extends ConsumerWidget {
                         child: Text(
                           'পরবর্তী',
                           style: theme.textTheme.titleMedium?.copyWith(
-                            color: Colors.white,
+                            color: colorScheme.onPrimary,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -256,13 +255,11 @@ class _LanguageCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           decoration: BoxDecoration(
             color: isSelected
-                ? const Color(0xFF2D6A4F).withValues(alpha: 0.1)
+                ? colorScheme.primary.withValues(alpha: 0.1)
                 : colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: isSelected
-                  ? const Color(0xFF2D6A4F)
-                  : colorScheme.outlineVariant,
+              color: isSelected ? colorScheme.primary : colorScheme.outlineVariant,
               width: isSelected ? 2 : 1,
             ),
           ),
@@ -275,9 +272,7 @@ class _LanguageCard extends StatelessWidget {
                 label,
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.w600,
-                  color: isSelected
-                      ? const Color(0xFF2D6A4F)
-                      : colorScheme.onSurface,
+                  color: isSelected ? colorScheme.primary : colorScheme.onSurface,
                 ),
               ),
               const SizedBox(height: 2),
@@ -285,7 +280,7 @@ class _LanguageCard extends StatelessWidget {
                 sublabel,
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: isSelected
-                      ? const Color(0xFF2D6A4F).withValues(alpha: 0.7)
+                      ? colorScheme.primary.withValues(alpha: 0.7)
                       : colorScheme.onSurfaceVariant,
                 ),
               ),

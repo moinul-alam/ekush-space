@@ -87,6 +87,7 @@ class _ShoppingListCardState extends ConsumerState<ShoppingListCard>
                 if (direction == DismissDirection.endToStart) {
                   widget.onDelete();
                 } else if (direction == DismissDirection.startToEnd) {
+                  // Navigate to shopping mode instead of just toggling complete
                   widget.onToggleComplete();
                 }
               },

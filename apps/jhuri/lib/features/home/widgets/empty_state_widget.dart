@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../list_create/list_create_screen.dart';
 
 class EmptyStateWidget extends StatelessWidget {
   const EmptyStateWidget({super.key});
@@ -37,7 +38,7 @@ class EmptyStateWidget extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              "'+' বাটন চেপে নতুন ফর্দ তৈরি করুন",
+              "নিচের '+' বাটন চেপে অথবা সরাসরি এখান থেকেই শুরু করুন",
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Theme.of(context)
                         .colorScheme
@@ -45,6 +46,26 @@ class EmptyStateWidget extends StatelessWidget {
                         .withValues(alpha: 0.7),
                   ),
               textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 32),
+            ElevatedButton.icon(
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: Theme.of(context).colorScheme.surface,
+                  builder: (context) => const ListCreateScreen(),
+                );
+              },
+              icon: const Icon(Icons.add_shopping_cart),
+              label: const Text('নতুন ফর্দ তৈরি করুন'),
+              style: ElevatedButton.styleFrom(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
             ),
           ],
         ),

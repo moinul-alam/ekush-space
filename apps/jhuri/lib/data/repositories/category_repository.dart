@@ -22,10 +22,6 @@ class CategoryRepository extends BaseRepository {
   }
 
   Future<int> countAll() {
-    return _db
-        .selectOnly(_db.categories)
-        .map((row) => row.read(_db.categories.id))
-        .get()
-        .then((ids) => ids.length);
+    return _db.categories.count().getSingle();
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path_provider/path_provider.dart';
@@ -41,6 +42,7 @@ class ItemTemplates extends Table {
   IntColumn get categoryId => integer()();
   RealColumn get defaultQuantity => real().withDefault(const Constant(1.0))();
   TextColumn get defaultUnit => text()();
+  TextColumn get unitType => text().nullable()(); // Added unitType field
   TextColumn get iconIdentifier => text()();
   BoolColumn get isCustom => boolean().withDefault(const Constant(false))();
   IntColumn get usageCount => integer().withDefault(const Constant(0))();
@@ -64,17 +66,23 @@ class AppSettingsTable extends Table {
   IntColumn get id => integer().withDefault(const Constant(1))();
   TextColumn get themeMode => text().withDefault(const Constant('system'))();
   TextColumn get language => text().withDefault(const Constant('bangla'))();
-  BoolColumn get showPriceTotal => boolean().withDefault(const Constant(true))();
+  BoolColumn get showPriceTotal =>
+      boolean().withDefault(const Constant(true))();
   TextColumn get defaultUnit => text().withDefault(const Constant('কেজি'))();
   TextColumn get currencySymbol => text().withDefault(const Constant('৳'))();
-  BoolColumn get notificationsEnabled => boolean().withDefault(const Constant(true))();
-  TextColumn get defaultReminderTime => text().withDefault(const Constant('18:00'))();
-  TextColumn get listSortOrder => text().withDefault(const Constant('dateDesc'))();
+  BoolColumn get notificationsEnabled =>
+      boolean().withDefault(const Constant(true))();
+  TextColumn get defaultReminderTime =>
+      text().withDefault(const Constant('18:00'))();
+  TextColumn get listSortOrder =>
+      text().withDefault(const Constant('dateDesc'))();
   IntColumn get appOpenCount => integer().withDefault(const Constant(0))();
   DateTimeColumn get lastInterstitialShown => dateTime().nullable()();
   DateTimeColumn get lastExportDate => dateTime().nullable()();
-  BoolColumn get onboardingComplete => boolean().withDefault(const Constant(false))();
-  BoolColumn get reviewPrompted => boolean().withDefault(const Constant(false))();
+  BoolColumn get onboardingComplete =>
+      boolean().withDefault(const Constant(false))();
+  BoolColumn get reviewPrompted =>
+      boolean().withDefault(const Constant(false))();
 
   @override
   Set<Column> get primaryKey => {id};
@@ -99,33 +107,43 @@ class JhuriDatabase extends _$JhuriDatabase {
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
-    onCreate: (m) async {
-      await m.createAll();
-      // Insert default AppSettings row (singleton, id=1)
-      await into(appSettingsTable).insert(
-        AppSettingsTableCompanion.insert(
-          id: const Value(1),
-          themeMode: const Value('system'),
-          language: const Value('bangla'),
-          showPriceTotal: const Value(true),
-          defaultUnit: const Value('কেজি'),
-          currencySymbol: const Value('৳'),
-          notificationsEnabled: const Value(true),
-          defaultReminderTime: const Value('18:00'),
-          listSortOrder: const Value('dateDesc'),
-          appOpenCount: const Value(0),
-          onboardingComplete: const Value(false),
-          reviewPrompted: const Value(false),
-        ),
+        onCreate: (m) async {
+          await m.createAll();
+          // Insert default AppSettings row (singleton, id=1)
+          await into(appSettingsTable).insert(
+            AppSettingsTableCompanion.insert(
+              id: const Value(1),
+              themeMode: const Value('system'),
+              language: const Value('bangla'),
+              showPriceTotal: const Value(true),
+              defaultUnit: const Value('কেজি'),
+              currencySymbol: const Value('৳'),
+              notificationsEnabled: const Value(true),
+              defaultReminderTime: const Value('18:00'),
+              listSortOrder: const Value('dateDesc'),
+              appOpenCount: const Value(0),
+              onboardingComplete: const Value(false),
+              reviewPrompted: const Value(false),
+            ),
+          );
+        },
       );
-    },
-  );
 }
 
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
-    final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, 'jhuri.db'));
-    return NativeDatabase.createInBackground(file);
+    try {
+      debugPrint('📂 Opening Database Connection...');
+      final dbFolder = await getApplicationDocumentsDirectory();
+      final file = File(p.join(dbFolder.path, 'jhuri.db'));
+      debugPrint('📂 Database File Path: ${file.path}');
+
+      // Use synchronous connection for maximum compatibility during startup debugging
+      return NativeDatabase(file);
+    } catch (e, st) {
+      debugPrint('🔥 Error in _openConnection: $e');
+      debugPrintStack(stackTrace: st);
+      rethrow;
+    }
   });
 }
