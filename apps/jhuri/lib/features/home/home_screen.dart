@@ -3,9 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_models/ekush_models.dart';
-import '../list_create/list_create_screen.dart';
 import 'home_viewmodel.dart';
-import 'widgets/shopping_list_card.dart';
+import 'widgets/simple_list_card.dart';
 import 'widgets/empty_state_widget.dart';
 import '../../shared/widgets/jhuri_app_bar.dart';
 import '../../shared/widgets/jhuri_drawer.dart';
@@ -49,12 +48,7 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> {
   Widget? buildFloatingActionButton(BuildContext context, WidgetRef ref) {
     return FloatingActionButton(
       onPressed: () {
-        showModalBottomSheet(
-          context: context,
-          isScrollControlled: true,
-          backgroundColor: Theme.of(context).colorScheme.surface,
-          builder: (context) => const ListCreateScreen(),
-        );
+        context.go('/list/create');
       },
       child: const Icon(Icons.add),
     );
@@ -107,7 +101,7 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> {
                           ),
                     ),
                   ),
-                  ...lists.map((list) => ShoppingListCard(
+                  ...lists.map((list) => SimpleListCard(
                         key: ValueKey(list.id),
                         list: list,
                         onDelete: () => _deleteList(list.id),
@@ -145,21 +139,11 @@ class _HomeScreenState extends BaseScreenState<HomeScreen> {
   }
 
   void _editList(ShoppingList list) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      builder: (context) => ListCreateScreen(list: list),
-    );
+    context.go('/list/create', extra: list);
   }
 
   void _duplicateList(ShoppingList list) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      builder: (context) => ListCreateScreen(duplicateFrom: list),
-    );
+    context.go('/list/create', extra: {'duplicate': list});
   }
 
   void _archiveList(int id) async {

@@ -8,7 +8,6 @@ import '../../../config/jhuri_constants.dart';
 import '../../../core/utils/bangla_date_formatter.dart';
 import 'shopping_mode_viewmodel.dart';
 import '../../shared/widgets/jhuri_app_bar.dart';
-import '../home/widgets/ad_banner_widget.dart';
 
 class ShoppingModeScreen extends ConsumerStatefulWidget {
   final int listId;

@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_models/ekush_models.dart';
-import 'package:ekush_ui/ekush_ui.dart';
 import 'package:ekush_ads/ekush_ads.dart';
-import 'core/theme/jhuri_theme.dart';
+import 'package:ekush_ui/ekush_ui.dart';
+import 'package:ekush_theme/ekush_theme.dart';
+import 'core/services/banner_only_ad_service.dart';
 import 'core/providers/jhuri_providers.dart';
 import 'core/router/app_router.dart';
 import 'data/repositories/app_settings_repository.dart';
@@ -123,12 +124,25 @@ Future<void> _performInitialization(
       overrides: [
         databaseProvider.overrideWithValue(database),
         adServiceProvider.overrideWith((ref) {
-          const config = EkushAdConfig(
+          // Create a completely custom AdService that only supports banners
+          final config = EkushAdConfig(
             bannerAdUnitId: 'ca-app-pub-3940256099942544/6300978111',
-            interstitialAdUnitId: 'ca-app-pub-3940256099942544/1033173712',
-            nativeAdUnitId: 'ca-app-pub-3940256099942544/2247696110',
+            interstitialAdUnitId:
+                'ca-app-pub-3940256099942544/1033173712', // Test ID but disabled
+            nativeAdUnitId:
+                'ca-app-pub-3940256099942544/2247696110', // Test ID but disabled
+            enableBannerAds: true,
+            enableInterstitialAds: false, // Explicitly disabled
+            enableNativeAds: false, // Explicitly disabled
           );
-          final service = AdService(ref, config);
+
+          debugPrint(
+              '🔧 AdConfig: Banner=${config.enableBannerAds}, Interstitial=${config.enableInterstitialAds}, Native=${config.enableNativeAds}');
+          debugPrint(
+              '🔧 Ad Unit IDs: Banner=${config.bannerAdUnitId}, Interstitial=${config.interstitialAdUnitId}');
+
+          // Create a custom AdService wrapper that blocks interstitials
+          final service = BannerOnlyAdService(ref, config);
           ref.onDispose(service.dispose);
           return service;
         }),
@@ -149,8 +163,8 @@ class JhuriApp extends ConsumerWidget {
     return MaterialApp.router(
       title: 'ঝুড়ি',
       debugShowCheckedModeBanner: false,
-      theme: JhuriTheme.lightTheme,
-      darkTheme: JhuriTheme.darkTheme,
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
       routerConfig: router,
     );

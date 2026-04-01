@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../features/shopping_mode/shopping_mode_screen.dart';
-import '../../features/settings/settings_screen.dart';
-import '../../features/onboarding/onboarding_screen.dart';
-import '../../features/home/home_screen.dart';
-import '../../features/list_create/list_create_screen.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ekush_core/ekush_core.dart';
+import 'package:ekush_models/ekush_models.dart';
+import '../providers/jhuri_providers.dart';
+import '../../features/home/minimal_home_screen.dart';
 import '../../features/category_browser/category_browser_screen.dart';
 import '../../features/item_picker/item_picker_screen.dart';
-import '../../shared/widgets/jhuri_drawer.dart';
+import '../../features/list_create/list_create_screen.dart';
+import '../../features/settings/settings_screen.dart';
+import '../../features/shopping_mode/shopping_mode_screen.dart';
+import '../../features/onboarding/onboarding_screen.dart';
 import '../../features/home/widgets/ad_banner_widget.dart';
-import '../providers/jhuri_providers.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final GlobalKey<NavigatorState> rootNavigatorKey =
@@ -40,11 +41,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ShellRoute(
         builder: (context, state, child) {
           final String location = state.uri.toString();
-          final bool isPopUpScreen = location == '/list/create' || 
-                                   location.contains('/shopping/');
+          final bool isShoppingMode = location.contains('/shopping/');
           final bool isOnboarding = location == '/onboarding';
-          
-          final bool showAd = !isPopUpScreen && !isOnboarding;
+
+          final bool showAd = !isShoppingMode && !isOnboarding;
 
           return Scaffold(
             body: Column(
@@ -58,12 +58,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         routes: [
           GoRoute(
             path: '/',
-            parentNavigatorKey: rootNavigatorKey,
-            builder: (context, state) => const HomeScreen(),
+            builder: (context, state) => const MinimalHomeScreen(),
           ),
           GoRoute(
             path: '/categories',
-            parentNavigatorKey: rootNavigatorKey,
             builder: (context, state) => const CategoryBrowserScreen(),
             routes: [
               GoRoute(
@@ -82,8 +80,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: '/settings',
-            parentNavigatorKey: rootNavigatorKey,
             builder: (context, state) => const SettingsScreen(),
+          ),
+          GoRoute(
+            path: '/list/create',
+            builder: (context, state) => const ListCreateScreen(),
           ),
         ],
       ),
@@ -91,11 +92,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/onboarding',
         parentNavigatorKey: rootNavigatorKey,
         builder: (context, state) => const OnboardingScreen(),
-      ),
-      GoRoute(
-        path: '/list/create',
-        parentNavigatorKey: rootNavigatorKey,
-        builder: (context, state) => const ListCreateScreen(),
       ),
       GoRoute(
         path: '/shopping/:listId',

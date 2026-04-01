@@ -4,7 +4,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_models/ekush_models.dart';
 import 'package:ekush_notifications/ekush_notifications.dart';
-import 'package:ekush_ads/ekush_ads.dart';
 import 'package:drift/drift.dart';
 import '../../../core/utils/bangla_date_formatter.dart';
 import '../../../core/providers/jhuri_providers.dart';
@@ -20,7 +19,6 @@ final createListViewModelProvider =
 class CreateListViewModel extends BaseViewModel<void> {
   late final ShoppingListRepository _shoppingListRepository;
   late final ListItemRepository _listItemRepository;
-  late final AdService _adService;
 
   // Form fields
   String _title = '';
@@ -39,7 +37,6 @@ class CreateListViewModel extends BaseViewModel<void> {
   void onSyncSetup() {
     _shoppingListRepository = ref.read(shoppingListRepositoryProvider);
     _listItemRepository = ref.read(listItemRepositoryProvider);
-    _adService = ref.read(adServiceProvider);
   }
 
   // Getters
@@ -252,9 +249,6 @@ class CreateListViewModel extends BaseViewModel<void> {
         if (_isReminderOn) {
           await scheduleReminder(listId);
         }
-
-        // Show real interstitial ad
-        _adService.showInterstitialIfAvailable();
 
         return true;
       },

@@ -7,6 +7,8 @@ import '../../../config/jhuri_constants.dart';
 import '../../../core/utils/bangla_date_formatter.dart';
 import 'list_create_viewmodel.dart';
 import '../item_picker/item_picker_viewmodel.dart';
+import 'item_picker_bottom_sheet.dart';
+import '../../../shared/widgets/jhuri_app_bar.dart';
 
 class ListCreateScreen extends ConsumerStatefulWidget {
   final ShoppingList? list;
@@ -32,12 +34,21 @@ class _ListCreateScreenState extends ConsumerState<ListCreateScreen> {
 
     final viewModel = ref.read(createListViewModelProvider.notifier);
 
-    if (widget.list != null) {
-      viewModel.initializeForEdit(widget.list!);
-      _titleController.text = widget.list!.title;
-    } else if (widget.duplicateFrom != null) {
-      viewModel.initializeForDuplicate(widget.duplicateFrom!);
-      _titleController.text = viewModel.title;
+    // Check for route parameters
+    final extra = widget.list;
+    if (extra != null) {
+      viewModel.initializeForEdit(extra);
+      _titleController.text = extra.title;
+    } else {
+      // Check if we're in duplicate mode via route extra
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final routeExtra = GoRouterState.of(context).extra;
+        if (routeExtra is Map && routeExtra['duplicate'] != null) {
+          final duplicateList = routeExtra['duplicate'] as ShoppingList;
+          viewModel.initializeForDuplicate(duplicateList);
+          _titleController.text = viewModel.title;
+        }
+      });
     }
   }
 
@@ -52,282 +63,214 @@ class _ListCreateScreenState extends ConsumerState<ListCreateScreen> {
     final viewModel = ref.watch(createListViewModelProvider.notifier);
     final viewState = ref.watch(createListViewModelProvider);
 
-    return DraggableScrollableSheet(
-      initialChildSize: 0.9,
-      minChildSize: 0.5,
-      maxChildSize: 0.95,
-      expand: false,
-      builder: (context, scrollController) {
-        return Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    return Scaffold(
+      appBar: JhuriAppBar(
+        title: viewModel.isEditMode
+            ? 'ফর্দ এডিট করুন'
+            : viewModel.isDuplicateMode
+                ? 'ফর্দ ডুপ্লিকেট করুন'
+                : 'নতুন ফর্দ তৈরি করুন',
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+        actions: [
+          TextButton(
+            onPressed:
+                viewState is ViewStateLoading ? null : () => _save(viewModel),
+            child: viewState is ViewStateLoading
+                ? const SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : const Text('সংরক্ষণ করুন'),
           ),
+        ],
+      ),
+      body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Handle bar
-              Container(
-                width: 40,
-                height: 4,
-                margin: const EdgeInsets.symmetric(vertical: 12),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.outline,
-                  borderRadius: BorderRadius.circular(2),
+              // Title field
+              TextFormField(
+                controller: _titleController,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+                decoration: const InputDecoration(
+                  labelText: 'শিরোনাম',
+                  hintText: 'যেমন: সাপ্তাহিক বাজার',
+                ),
+                onChanged: (value) {
+                  viewModel.setTitle(value);
+                },
+              ),
+
+              const SizedBox(height: 16),
+
+              // Date picker
+              InkWell(
+                onTap: () => _selectDate(context, viewModel),
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Theme.of(context).colorScheme.outline),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.calendar_today),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'কেনার তারিখ',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              BanglaDateFormatter.formatDate(viewModel.buyDate),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Icon(Icons.arrow_drop_down),
+                    ],
+                  ),
                 ),
               ),
 
-              // Header
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  children: [
-                    Text(
-                      viewModel.isEditMode
-                          ? 'ফর্দ এডিট করুন'
-                          : viewModel.isDuplicateMode
-                              ? 'ফর্দ ডুপ্লিকেট করুন'
-                              : 'নতুন ফর্দ তৈরি করুন',
-                      style:
-                          Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                fontWeight: FontWeight.w600,
-                              ),
+              const SizedBox(height: 16),
+
+              // Reminder toggle
+              SwitchListTile(
+                title: const Text('রিমাইন্ডার'),
+                subtitle: const Text('নির্দিষ্ট সময়ে রিমাইন্ডার পাঠানো হবে'),
+                value: viewModel.isReminderOn,
+                onChanged: (value) {
+                  viewModel.setReminderOn(value);
+                },
+              ),
+
+              // Time picker (only when reminder is on)
+              if (viewModel.isReminderOn) ...[
+                const SizedBox(height: 8),
+                InkWell(
+                  onTap: () => _selectTime(context, viewModel),
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Theme.of(context).colorScheme.outline),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    const Spacer(),
-                    IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(Icons.close),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.access_time),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'রিমাইন্ডারের সময়',
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                BanglaDateFormatter.formatTime(
+                                    viewModel.reminderTime),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Icon(Icons.arrow_drop_down),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+
+              const SizedBox(height: 24),
+
+              // Items section
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ElevatedButton.icon(
+                      onPressed: () => _showItemPicker(context),
+                      icon: const Icon(Icons.add),
+                      label: const Text('আইটেম যোগ করুন'),
+                    ),
+                    const SizedBox(height: 16),
+                    // Display added items
+                    Consumer(
+                      builder: (context, ref, child) {
+                        final items = viewModel.items;
+
+                        if (items.isEmpty) {
+                          return Text(
+                            'কোনো আইটেম যোগ করা হয়নি',
+                            style: TextStyle(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurfaceVariant,
+                              fontSize: 14,
+                            ),
+                          );
+                        }
+
+                        return ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: items.length,
+                          separatorBuilder: (context, index) => Divider(
+                            height: 1,
+                            color: Theme.of(context).colorScheme.outlineVariant,
+                          ),
+                          itemBuilder: (context, index) {
+                            final item = items[index];
+                            return _buildItemRow(
+                                context, viewModel, item, index);
+                          },
+                        );
+                      },
                     ),
                   ],
                 ),
               ),
 
-              // Form
-              Expanded(
-                child: Form(
-                  key: _formKey,
-                  child: SingleChildScrollView(
-                    controller: scrollController,
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Title field
-                        TextFormField(
-                          controller: _titleController,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.onSurface,
-                          ),
-                          decoration: const InputDecoration(
-                            labelText: 'শিরোনাম',
-                            hintText: 'যেমন: সাপ্তাহিক বাজার',
-                          ),
-                          onChanged: (value) {
-                            viewModel.setTitle(value);
-                          },
-                        ),
-
-                        const SizedBox(height: 16),
-
-                        // Date picker
-                        InkWell(
-                          onTap: () => _selectDate(context, viewModel),
-                          child: Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Theme.of(context).colorScheme.outline),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Row(
-                              children: [
-                                const Icon(Icons.calendar_today),
-                                const SizedBox(width: 12),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'কেনার তারিখ',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall,
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        BanglaDateFormatter.formatDate(
-                                            viewModel.buyDate),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium
-                                            ?.copyWith(
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const Icon(Icons.arrow_drop_down),
-                              ],
-                            ),
-                          ),
-                        ),
-
-                        const SizedBox(height: 16),
-
-                        // Reminder toggle
-                        SwitchListTile(
-                          title: const Text('রিমাইন্ডার'),
-                          subtitle: const Text(
-                              'নির্দিষ্ট সময়ে রিমাইন্ডার পাঠানো হবে'),
-                          value: viewModel.isReminderOn,
-                          onChanged: (value) {
-                            viewModel.setReminderOn(value);
-                          },
-                        ),
-
-                        // Time picker (only when reminder is on)
-                        if (viewModel.isReminderOn) ...[
-                          const SizedBox(height: 8),
-                          InkWell(
-                            onTap: () => _selectTime(context, viewModel),
-                            child: Container(
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                    color:
-                                        Theme.of(context).colorScheme.outline),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Row(
-                                children: [
-                                  const Icon(Icons.access_time),
-                                  const SizedBox(width: 12),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'রিমাইন্ডারের সময়',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall,
-                                        ),
-                                        const SizedBox(height: 4),
-                                        Text(
-                                          BanglaDateFormatter.formatTime(
-                                              viewModel.reminderTime),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium
-                                              ?.copyWith(
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const Icon(Icons.arrow_drop_down),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-
-                        const SizedBox(height: 24),
-
-                        // Items section
-                        Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .surfaceContainerHighest,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ElevatedButton.icon(
-                                onPressed: () =>
-                                    GoRouter.of(context).push('/categories'),
-                                icon: const Icon(Icons.add),
-                                label: const Text('আইটেম যোগ করুন'),
-                              ),
-                              const SizedBox(height: 16),
-                              // Display added items
-                              Consumer(
-                                builder: (context, ref, child) {
-                                  final items = viewModel.items;
-
-                                  if (items.isEmpty) {
-                                    return Text(
-                                      'কোনো আইটেম যোগ করা হয়নি',
-                                      style: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSurfaceVariant,
-                                        fontSize: 14,
-                                      ),
-                                    );
-                                  }
-
-                                  return ListView.separated(
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemCount: items.length,
-                                    separatorBuilder: (context, index) =>
-                                        Divider(
-                                      height: 1,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .outlineVariant,
-                                    ),
-                                    itemBuilder: (context, index) {
-                                      final item = items[index];
-                                      return _buildItemRow(
-                                          context, viewModel, item, index);
-                                    },
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        const SizedBox(height: 32),
-
-                        // Save button
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: viewState is ViewStateLoading
-                                ? null
-                                : () => _save(viewModel),
-                            child: viewState is ViewStateLoading
-                                ? const SizedBox(
-                                    height: 20,
-                                    width: 20,
-                                    child: CircularProgressIndicator(
-                                        strokeWidth: 2),
-                                  )
-                                : const Text('সংরক্ষণ করুন'),
-                          ),
-                        ),
-
-                        const SizedBox(height: 32),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              const SizedBox(height: 32),
             ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
@@ -363,13 +306,17 @@ class _ListCreateScreenState extends ConsumerState<ListCreateScreen> {
 
       final success = await viewModel.save();
       if (success && mounted) {
-        // Navigate to shopping mode instead of just popping
         Navigator.pop(context);
-        // Navigate to shopping mode for the newly created list
-        // Note: This would require the listId from the save operation
-        // For now, we'll just pop as the original implementation
       }
     }
+  }
+
+  void _showItemPicker(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => const ItemPickerBottomSheet(),
+    );
   }
 
   Widget _buildItemRow(BuildContext context, CreateListViewModel viewModel,
