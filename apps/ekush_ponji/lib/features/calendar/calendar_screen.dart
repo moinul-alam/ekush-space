@@ -20,7 +20,9 @@ import 'package:go_router/go_router.dart';
 import 'package:ekush_ponji/core/widgets/navigation/app_header.dart';
 
 class CalendarScreen extends PonjiBaseScreen {
-  const CalendarScreen({super.key});
+  final DateTime? initialDate;
+  
+  const CalendarScreen({super.key, this.initialDate});
 
   @override
   PonjiBaseScreenState<CalendarScreen> createState() => _CalendarScreenState();
@@ -186,6 +188,22 @@ class _CalendarScreenState extends PonjiBaseScreenState<CalendarScreen> {
   @override
   void onRetry() {
     ref.read(calendarViewModelProvider.notifier).loadCurrentMonth();
+  }
+
+  @override
+  void onScreenInit() {
+    super.onScreenInit();
+    if (widget.initialDate != null) {
+      // Jump to the month of the initial date
+      ref.read(calendarViewModelProvider.notifier).jumpToMonth(
+        widget.initialDate!.year,
+        widget.initialDate!.month,
+      );
+      // Select the initial date
+      ref.read(calendarViewModelProvider.notifier).selectDate(widget.initialDate!);
+    } else {
+      ref.read(calendarViewModelProvider.notifier).loadCurrentMonth();
+    }
   }
 
   Future<void> _showMonthPicker(BuildContext context, WidgetRef ref) async {

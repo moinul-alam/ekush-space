@@ -53,6 +53,21 @@ class ShareService {
     buildOwner.buildScope(rootElement);
     buildOwner.finalizeTree();
     pipelineOwner.flushLayout();
+    
+    // Get the actual rendered height from the widget
+    final actualHeight = renderView.size.height;
+    
+    // Update the view configuration with the actual height
+    renderView2.configuration = ViewConfiguration(
+      logicalConstraints: BoxConstraints(
+        maxWidth: logicalSize.width,
+        maxHeight: actualHeight,
+      ),
+      devicePixelRatio: pixelRatio,
+    );
+    
+    // Re-layout with the correct height
+    pipelineOwner.flushLayout();
     pipelineOwner.flushCompositingBits();
     pipelineOwner.flushPaint();
 
