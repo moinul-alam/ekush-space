@@ -968,6 +968,26 @@ class PonjiLocalizationsBn extends PonjiLocalizations {
   }
 
   @override
+  String getMonthAbbreviation(int month) {
+    const months = [
+      '',
+      'জানু',
+      'ফেব্রু',
+      'মার্চ',
+      'এপ্রিল',
+      'মে',
+      'জুন',
+      'জুলাই',
+      'আগস্ট',
+      'সেপ্টে.',
+      'অক্টো.',
+      'নভে.',
+      'ডিসে.',
+    ];
+    return months[month];
+  }
+
+  @override
   String localizeNumber(dynamic number) {
     if (number is int) {
       final bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];

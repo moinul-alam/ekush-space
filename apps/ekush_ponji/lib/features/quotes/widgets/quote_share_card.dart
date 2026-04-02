@@ -32,133 +32,112 @@ class QuoteShareCard extends StatelessWidget {
           end: Alignment.bottomRight,
         ),
       ),
-      child: Stack(
+      padding: const EdgeInsets.fromLTRB(32, 36, 32, 28),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Decorative large quote mark background
-          Positioned(
-            top: -10,
-            left: 16,
-            child: Text(
-              '\u201C',
-              style: TextStyle(
-                fontSize: 180,
-                height: 1,
-                color: accentGreen.withValues(alpha: 0.07),
-                fontFamily: 'Georgia',
+          // Quote icon and category chip in Row
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Opening quote icon on the left
+              const Icon(
+                Icons.format_quote_rounded,
+                color: accentGreen,
+                size: 32,
               ),
+              // Category chip on the right
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                decoration: BoxDecoration(
+                  color: chipBg,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  quote.category,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: chipText,
+                    letterSpacing: 0.4,
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 12),
+
+          // Quote text
+          Text(
+            quote.text,
+            style: const TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w500,
+              fontStyle: FontStyle.italic,
+              color: textDark,
+              height: 1.55,
+              letterSpacing: 0.1,
             ),
           ),
 
-          Padding(
-            padding: const EdgeInsets.fromLTRB(32, 36, 32, 28),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Quote icon and category chip in Row
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // Opening quote icon on the left
-                    const Icon(
-                      Icons.format_quote_rounded,
-                      color: accentGreen,
-                      size: 32,
-                    ),
-                    // Category chip on the right
-                    Container(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                      decoration: BoxDecoration(
-                        color: chipBg,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Text(
-                        quote.category,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: chipText,
-                          letterSpacing: 0.4,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+          const SizedBox(height: 28),
 
-                const SizedBox(height: 12),
+          // Divider line
+          Container(
+            height: 1,
+            color: accentGreen.withValues(alpha: 0.15),
+          ),
 
-                // Quote text
-                Text(
-                  quote.text,
-                  style: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w500,
-                    fontStyle: FontStyle.italic,
-                    color: textDark,
-                    height: 1.55,
-                    letterSpacing: 0.1,
+          const SizedBox(height: 20),
+
+          // Author row + watermark
+          Row(
+            children: [
+              // Color bar accent
+              Container(
+                width: 3,
+                height: 36,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [accentGreen, accentTeal],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
                   ),
+                  borderRadius: BorderRadius.circular(2),
                 ),
-
-                const SizedBox(height: 28),
-
-                // Divider line
-                Container(
-                  height: 1,
-                  color: accentGreen.withValues(alpha: 0.15),
-                ),
-
-                const SizedBox(height: 20),
-
-                // Author row + watermark
-                Row(
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Color bar accent
-                    Container(
-                      width: 3,
-                      height: 36,
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [accentGreen, accentTeal],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
-                        borderRadius: BorderRadius.circular(2),
+                    Text(
+                      quote.author,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        color: textDark,
+                        letterSpacing: 0.1,
                       ),
                     ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            quote.author,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700,
-                              color: textDark,
-                              letterSpacing: 0.1,
-                            ),
-                          ),
-                          const SizedBox(height: 2),
-                        ],
-                      ),
-                    ),
-                    // App logo / watermark
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Image.asset('assets/images/app_logo.png', height: 20),
-                        const SizedBox(width: 6),
-                        Image.asset('assets/images/app_title.png', height: 18),
-                      ],
-                    ),
+                    const SizedBox(height: 2),
                   ],
                 ),
-              ],
-            ),
+              ),
+              // App logo / watermark
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset('assets/images/app_logo.png', height: 20),
+                  const SizedBox(width: 6),
+                  Image.asset('assets/images/app_title.png', height: 18),
+                ],
+              ),
+            ],
           ),
         ],
       ),

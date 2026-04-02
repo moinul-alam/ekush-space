@@ -111,13 +111,12 @@ class HolidayNotificationService {
           : '${holiday.category.displayName} • Ekush Ponji';
     }
 
-    // Payload uses the holiday's actual start date in 'event:YYYY-MM-DD' format.
-    // This routes the tap to CalendarDayDetails for that specific day,
-    // showing holidays, events, and reminders — same as tapping a day on the calendar.
+    // Payload uses the holiday's actual start date in 'holiday:YYYY-MM-DD' format.
+    // This routes the tap to Calendar screen showing the month of that holiday.
     final startDate = holiday.startDate;
     final dateStr =
         '${startDate.year}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}';
-    final payload = 'event:$dateStr';
+    final payload = 'holiday:$dateStr';
 
     await LocalNotificationService.scheduleZoned(
       id: NotificationId.forHoliday(holiday.id),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ekush_core/ekush_core.dart';
-import 'package:ekush_models/ekush_models.dart';
 import '../providers/jhuri_providers.dart';
 import '../../features/home/minimal_home_screen.dart';
 import '../../features/category_browser/category_browser_screen.dart';

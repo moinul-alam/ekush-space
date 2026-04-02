@@ -89,7 +89,9 @@ class AppRouter {
                   GoRoute(
                     path: RouteNames.calendar,
                     name: 'calendar',
-                    builder: (context, state) => const CalendarScreen(),
+                    builder: (context, state) => CalendarScreen(
+                      initialDate: state.extra as DateTime?,
+                    ),
                     routes: [
                       GoRoute(
                         path: 'day-details',

@@ -4,7 +4,6 @@
   "source": "Ministry of Public Administration, Bangladesh. Gazette dated 09 November 2025 (24 Kartik 1432).",
   "generatedAt": "2026-01-01T00:00:00.000Z",
   "holidays": [
-
     {
       "id": "bd_2026_001",
       "name": "Martyr Day & International Mother Language Day",
@@ -12,8 +11,8 @@
       "startDate": "2026-02-21",
       "gazetteType": "mandatoryGeneral",
       "category": "national",
-      "description": "Tribute to 1952 Language Movement martyrs and international mother language day",
-      "descriptionbn": "১৯৫২ সালের ভাষা আন্দোলনের শহীদদের প্রতি শ্রদ্ধা ও আন্তর্জাতিক মাতৃভাষা দিবস",
+      "description": "Martyr Day — a tribute to those who gave their lives for the Bengali language, now honored worldwide as International Mother Language Day.",
+      "descriptionbn": "শহিদ দিবস — মাতৃভাষার জন্য যাঁরা প্রাণ দিয়েছিলেন, তাঁদের স্মরণে এবং বিশ্বজুড়ে মাতৃভাষার মর্যাদা উদযাপনের দিন।",
       "isApproximate": false
     },
     {
@@ -23,8 +22,8 @@
       "startDate": "2026-03-20",
       "gazetteType": "mandatoryGeneral",
       "category": "islamic",
-      "description": "Last Friday of Ramadan",
-      "descriptionbn": "রমজান মাসের শেষ শুক্রবার",
+      "description": "Jumatul Bidah — the last Friday of Ramadan, a farewell to the blessed month with special prayers and reflection.",
+      "descriptionbn": "জুমাতুল বিদা — রমজানের শেষ জুমা, বিশেষ ইবাদত ও কৃতজ্ঞতায় বরকতময় মাসকে বিদায় জানানোর দিন।",
       "isApproximate": false
     },
     {
@@ -34,8 +33,8 @@
       "startDate": "2026-03-21",
       "gazetteType": "mandatoryGeneral",
       "category": "islamic",
-      "description": "Festival marking the end of Ramadan",
-      "descriptionbn": "রমজান মাসের সমাপ্তিতে ঈদ উদযাপন",
+      "description": "Eid ul-Fitr — a joyful celebration marking the end of Ramadan, a day of gratitude, togetherness and festivity.",
+      "descriptionbn": "ঈদ-উল-ফিতর — রমজানের সিয়াম সাধনার পর আনন্দ, কৃতজ্ঞতা ও ভ্রাতৃত্বের উৎসব।",
       "isApproximate": true
     },
     {
@@ -45,8 +44,8 @@
       "startDate": "2026-03-26",
       "gazetteType": "mandatoryGeneral",
       "category": "national",
-      "description": "Commemorates Bangladesh's declaration of independence on March 26, 1971",
-      "descriptionbn": "১৯৭১ সালের ২৬ মার্চ বাংলাদেশের স্বাধীনতা ঘোষণার স্মরণে",
+      "description": "Independence Day — a day to honor Bangladesh's freedom struggle, the courage of its people, and the spirit of a nation.",
+      "descriptionbn": "স্বাধীনতা দিবস — বাংলাদেশের স্বাধীনতা সংগ্রামের গৌরব ও আত্মত্যাগকে স্মরণ করার দিন।",
       "isApproximate": false
     },
     {
@@ -56,8 +55,8 @@
       "startDate": "2026-04-13",
       "gazetteType": "mandatoryGeneral",
       "category": "ethnicMinority",
-      "description": "Last day of the Bengali year. Applicable only for Rangamati, Khagrachari and Bandarban Hill Districts.",
-      "descriptionbn": "বাংলা বছরের শেষ দিন। শুধুমাত্র রাঙামাটি, খাগড়াছড়ি ও বান্দরবান পার্বত্য জেলায় প্রযোজ্য।",
+      "description": "Chaitra Sankranti — the last day of the Bengali year, celebrated by indigenous communities of the Chittagong Hill Districts with traditional rituals and farewell to the old year.",
+      "descriptionbn": "চৈত্র সংক্রান্তি — বাংলা বছরের শেষ দিন, পার্বত্য জেলাসমূহের ক্ষুদ্র নৃ-গোষ্ঠী কর্তৃক ঐতিহ্যবাহী উৎসব ও পুরনো বছরকে বিদায় জানানোর দিন।",
       "isApproximate": false,
       "isRegional": true,
       "regionNote": "Hill Districts only (Rangamati, Khagrachari, Bandarban)",
@@ -70,8 +69,8 @@
       "startDate": "2026-05-01",
       "gazetteType": "mandatoryGeneral",
       "category": "cultural",
-      "description": "International Workers' Day for labor rights and solidarity",
-      "descriptionbn": "শ্রমিক অধিকার এবং সংহতি প্রকাশের আন্তর্জাতিক শ্রমিক দিবস",
+      "description": "May Day — a global tribute to workers and their struggles, a reminder of the dignity of labor and the rights hard won.",
+      "descriptionbn": "মে দিবস — শ্রমজীবী মানুষের অধিকার ও সংগ্রামের প্রতি সম্মান জানানোর আন্তর্জাতিক দিন।",
       "isApproximate": false
     },
     {
@@ -81,8 +80,8 @@
       "startDate": "2026-05-01",
       "gazetteType": "mandatoryGeneral",
       "category": "buddhist",
-      "description": "Sacred day for birth, enlightenment, and passing of Gautama Buddha",
-      "descriptionbn": "গৌতম বুদ্ধের জন্ম, বোধিলাভ ও মহাপরিনির্বাণের স্মরণে বৌদ্ধ ধর্মাবলম্বীদের উৎসব",
+      "description": "Buddha Purnima — a sacred day marking the birth, enlightenment and passing of Gautama Buddha, observed with reverence by Buddhist communities.",
+      "descriptionbn": "বুদ্ধ পূর্ণিমা — গৌতম বুদ্ধের জন্ম, বোধিলাভ ও মহাপরিনির্বাণের স্মরণে বৌদ্ধ ধর্মাবলম্বীদের পবিত্র উৎসব।",
       "isApproximate": true
     },
     {
@@ -92,8 +91,8 @@
       "startDate": "2026-05-28",
       "gazetteType": "mandatoryGeneral",
       "category": "islamic",
-      "description": "Festival of Sacrifice",
-      "descriptionbn": "কুরবানীর ঈদ",
+      "description": "Eid ul-Adha — the festival of sacrifice, a time of devotion, generosity and togetherness.",
+      "descriptionbn": "ঈদ-উল-আজহা — ত্যাগ, ভক্তি ও উদারতার উৎসব, কুরবানীর মাধ্যমে আল্লাহর প্রতি আনুগত্যের প্রকাশ।",
       "isApproximate": true
     },
     {
@@ -103,8 +102,8 @@
       "startDate": "2026-08-05",
       "gazetteType": "mandatoryGeneral",
       "category": "national",
-      "description": "Commemorates the student-led mass uprising of 2024",
-      "descriptionbn": "২০২৪ সালের ছাত্র-জনতার গণঅভ্যুত্থান স্মরণে দিবস",
+      "description": "July Mass Uprising Day — honoring the student-led movement of 2024 that stood for justice and reshaped Bangladesh's history.",
+      "descriptionbn": "জুলাই গণঅভ্যুত্থান দিবস — ন্যায়ের দাবিতে ২০২৪ সালের ছাত্র-জনতার ঐতিহাসিক আন্দোলনকে স্মরণ ও সম্মান জানানোর দিন।",
       "isApproximate": false
     },
     {
@@ -114,8 +113,8 @@
       "startDate": "2026-08-26",
       "gazetteType": "mandatoryGeneral",
       "category": "islamic",
-      "description": "Birth anniversary of Prophet Muhammad (PBUH), 12th of Rabi al-Awwal",
-      "descriptionbn": "রবিউল আউয়ালের ১২ তারিখ, হযরত মুহাম্মদ (সা.)-এর জন্মদিন",
+      "description": "Eid-e-Miladunnabi — celebrating the birth of Prophet Muhammad (PBUH), a day of gratitude, remembrance and love for the Prophet.",
+      "descriptionbn": "ঈদ-এ-মিলাদুন্নবী — হযরত মুহাম্মদ (সা.)-এর জন্মদিন উপলক্ষে কৃতজ্ঞতা, স্মরণ ও ভালোবাসার দিন।",
       "isApproximate": true
     },
     {
@@ -125,8 +124,8 @@
       "startDate": "2026-09-04",
       "gazetteType": "mandatoryGeneral",
       "category": "hindu",
-      "description": "Hindu festival celebrating the birth of Lord Krishna",
-      "descriptionbn": "শ্রীকৃষ্ণের জন্মদিন উপলক্ষে সনাতন ধর্মাবলম্বীদের উৎসব",
+      "description": "Janmashtami — the birth anniversary of Lord Krishna, celebrated with devotion and joy by Hindu communities.",
+      "descriptionbn": "জন্মাষ্টমী — শ্রীকৃষ্ণের জন্মদিন উপলক্ষে সনাতন ধর্মাবলম্বীদের ভক্তি ও আনন্দের উৎসব।",
       "isApproximate": false
     },
     {
@@ -136,8 +135,8 @@
       "startDate": "2026-10-21",
       "gazetteType": "mandatoryGeneral",
       "category": "hindu",
-      "description": "Hindu festival — Vijaya Dashami",
-      "descriptionbn": "সনাতন ধর্মাবলম্বীদের দুর্গাপূজা — বিজয়া দশমী",
+      "description": "Vijaya Dashami — the final day of Durga Puja, marking the triumph of good over evil and a bittersweet farewell to the goddess.",
+      "descriptionbn": "বিজয়া দশমী — দুর্গাপূজার সমাপনী দিন, অশুভের বিরুদ্ধে শুভের জয় ও দেবীকে বিদায় জানানোর আবেগময় উৎসব।",
       "isApproximate": false
     },
     {
@@ -147,8 +146,8 @@
       "startDate": "2026-12-16",
       "gazetteType": "mandatoryGeneral",
       "category": "national",
-      "description": "Historical victory of Bangladesh in the Liberation War of 1971",
-      "descriptionbn": "১৯৭১ সালের মুক্তিযুদ্ধে বাংলাদেশের ঐতিহাসিক বিজয় উদযাপন",
+      "description": "Victory Day — celebrating Bangladesh's hard-won independence, the sacrifices of millions and the pride of a free nation.",
+      "descriptionbn": "বিজয় দিবস — লক্ষ শহিদের রক্ত ও আত্মত্যাগের বিনিময়ে অর্জিত স্বাধীনতার গৌরব উদযাপনের দিন।",
       "isApproximate": false
     },
     {
@@ -158,11 +157,10 @@
       "startDate": "2026-12-25",
       "gazetteType": "mandatoryGeneral",
       "category": "christian",
-      "description": "Christian holiday celebrating the birth of Jesus Christ",
-      "descriptionbn": "যিশু খ্রিস্টের জন্মদিন উপলক্ষে খ্রিস্টান ধর্মাবলম্বীদের উৎসব",
+      "description": "Christmas Day — celebrating the birth of Jesus Christ, a day of joy, faith and warmth for Christian communities.",
+      "descriptionbn": "বড়দিন — যিশু খ্রিস্টের জন্মদিন উপলক্ষে খ্রিস্টান ধর্মাবলম্বীদের আনন্দ, বিশ্বাস ও উৎসবের দিন।",
       "isApproximate": false
     },
-
     {
       "id": "bd_2026_015",
       "name": "Shab-e-Barat",
@@ -170,8 +168,8 @@
       "startDate": "2026-02-04",
       "gazetteType": "mandatoryExecutive",
       "category": "islamic",
-      "description": "Night of forgiveness, 15th of Shaban",
-      "descriptionbn": "শাবান মাসের ১৫তম তারিখ, সৌভাগ্যের রজনী এবং বিশেষ ইবাদত ও ক্ষমার রাত",
+      "description": "Shab-e-Barat — the night of forgiveness and divine mercy, spent in prayer, reflection and seeking Allah's blessing.",
+      "descriptionbn": "শব-ই-বরাত — ক্ষমা ও রহমতের রজনী, ইবাদত ও আল্লাহর অনুগ্রহ প্রার্থনায় কাটানোর বিশেষ রাত।",
       "isApproximate": true
     },
     {
@@ -181,8 +179,8 @@
       "startDate": "2026-03-17",
       "gazetteType": "mandatoryExecutive",
       "category": "islamic",
-      "description": "Glorious night of the Holy Quran's revelation",
-      "descriptionbn": "মহিমান্বিত রজনী এবং পবিত্র কোরআন নাজিলের রাত",
+      "description": "Shab-e-Qadr — the Night of Power, the most blessed night of Ramadan when the Holy Quran was revealed.",
+      "descriptionbn": "শব-ই-ক্বদর — হাজার মাসের চেয়ে শ্রেষ্ঠ এই রজনীতে পবিত্র কোরআন নাজিল হয়েছিল, ইবাদতে কাটানোর মহিমান্বিত রাত।",
       "isApproximate": true
     },
     {
@@ -193,8 +191,8 @@
       "endDate": "2026-03-23",
       "gazetteType": "mandatoryExecutive",
       "category": "islamic",
-      "description": "Executive holidays: 3 days before and 2 days after Eid ul-Fitr (18–20 Mar before, 22–23 Mar after)",
-      "descriptionbn": "ঈদ-উল-ফিতরের পূর্বের ০৩ দিন (১৮–২০ মার্চ) ও পরের ০২ দিন (২২–২৩ মার্চ) নির্বাহী আদেশে ছুটি",
+      "description": "Eid ul-Fitr extended holidays — 3 days before and 2 days after Eid, giving families time to travel, celebrate and be together.",
+      "descriptionbn": "ঈদ-উল-ফিতরের আনন্দকে দীর্ঘায়িত করতে ঈদের আগে ৩ দিন ও পরে ২ দিন সরকারি ছুটি, যাতে পরিবারের সাথে উৎসব উপভোগের সুযোগ মেলে।",
       "isApproximate": true
     },
     {
@@ -204,8 +202,8 @@
       "startDate": "2026-04-14",
       "gazetteType": "mandatoryExecutive",
       "category": "cultural",
-      "description": "First day of the Bengali calendar",
-      "descriptionbn": "বাংলা নববর্ষের প্রথম দিন",
+      "description": "Pohela Boishakh — the Bengali New Year, a vibrant celebration of culture, renewal and the spirit of Bangladesh.",
+      "descriptionbn": "পহেলা বৈশাখ — বাংলা নববর্ষ, বাংলাদেশের প্রাণবন্ত সংস্কৃতি, নবজীবন ও উৎসবের আনন্দে ভরা দিন।",
       "isApproximate": false
     },
     {
@@ -217,8 +215,8 @@
       "generalHolidayDate": "2026-05-28",
       "gazetteType": "mandatoryExecutive",
       "category": "islamic",
-      "description": "Executive holidays: 2 days before Eid ul-Adha (26–27 May) and 3 days after (29–31 May). General holiday is 28 May.",
-      "descriptionbn": "ঈদ-উল-আজহার পূর্বের ০২ দিন (২৬–২৭ মে) ও পরের ০৩ দিন (২৯–৩১ মে) নির্বাহী ছুটি। সাধারণ ছুটি ২৮ মে।",
+      "description": "Eid ul-Adha extended holidays — 2 days before and 3 days after Eid, allowing families to gather, sacrifice and celebrate together.",
+      "descriptionbn": "ঈদ-উল-আজহার আনন্দ ভাগ করে নিতে ঈদের আগে ২ দিন ও পরে ৩ দিন সরকারি ছুটি, পরিবারের সাথে কুরবানি ও উৎসবের সুযোগ।",
       "isApproximate": true
     },
     {
@@ -228,8 +226,8 @@
       "startDate": "2026-06-26",
       "gazetteType": "mandatoryExecutive",
       "category": "islamic",
-      "description": "10th day of Muharram",
-      "descriptionbn": "মহররমের ১০ম দিন",
+      "description": "Ashura — a solemn day of remembrance, reflection and mourning observed on the 10th of Muharram.",
+      "descriptionbn": "আশুরা — মহররমের ১০ তারিখ, স্মরণ, শোক ও আত্মশুদ্ধির গভীর তাৎপর্যপূর্ণ দিন।",
       "isApproximate": true
     },
     {
@@ -239,11 +237,10 @@
       "startDate": "2026-10-20",
       "gazetteType": "mandatoryExecutive",
       "category": "hindu",
-      "description": "Maha Navami, day before Vijaya Dashami",
-      "descriptionbn": "মহানবমী, বিজয়া দশমীর আগের দিন",
+      "description": "Maha Navami — the penultimate day of Durga Puja, marked by deep devotion and celebration before the farewell of the goddess.",
+      "descriptionbn": "মহানবমী — দুর্গাপূজার শেষ পূজার দিন, বিদায়ের আগে ভক্তি ও উৎসবের পরিপূর্ণ আনন্দে মেতে ওঠার দিন।",
       "isApproximate": false
     },
-
     {
       "id": "bd_2026_022",
       "name": "Shab-e-Miraj",
@@ -251,8 +248,8 @@
       "startDate": "2026-01-17",
       "gazetteType": "optionalMuslim",
       "category": "islamic",
-      "description": "Night Journey and Ascension of the Prophet (PBUH), 27th of Rajab",
-      "descriptionbn": "রজবের ২৭ তারিখ, মেরাজুন্নবী (সা.)",
+      "description": "Shab-e-Miraj — commemorating the miraculous night journey and ascension of Prophet Muhammad (PBUH) to the heavens.",
+      "descriptionbn": "শব-ই-মিরাজ — হযরত মুহাম্মদ (সা.)-এর মেরাজের অলৌকিক রজনীর স্মরণে ইবাদত ও কৃতজ্ঞতার রাত।",
       "isApproximate": true
     },
     {
@@ -262,8 +259,8 @@
       "startDate": "2026-03-24",
       "gazetteType": "optionalMuslim",
       "category": "islamic",
-      "description": "Third day after Eid ul-Fitr",
-      "descriptionbn": "ঈদ-উল-ফিতরের পরের তৃতীয় দিন",
+      "description": "Third day after Eid ul-Fitr — extending the spirit of Eid with continued celebrations and family time.",
+      "descriptionbn": "ঈদ-উল-ফিতরের পরের তৃতীয় দিন — ঈদের আনন্দ ও পারিবারিক মিলনের ধারাবাহিকতায় ছুটির বিস্তার।",
       "isApproximate": true
     },
     {
@@ -273,8 +270,8 @@
       "startDate": "2026-06-01",
       "gazetteType": "optionalMuslim",
       "category": "islamic",
-      "description": "Fourth day after Eid ul-Adha",
-      "descriptionbn": "ঈদ-উল-আজহার পরের চতুর্থ দিন",
+      "description": "Fourth day after Eid ul-Adha — a final day to carry the warmth of Eid with family and loved ones.",
+      "descriptionbn": "ঈদ-উল-আজহার পরের চতুর্থ দিন — পরিবার ও প্রিয়জনের সাথে ঈদের উষ্ণতা ধরে রাখার শেষ দিন।",
       "isApproximate": true
     },
     {
@@ -284,8 +281,8 @@
       "startDate": "2026-08-12",
       "gazetteType": "optionalMuslim",
       "category": "islamic",
-      "description": "Last Wednesday of the month of Safar",
-      "descriptionbn": "সফর মাসের শেষ বুধবার",
+      "description": "Akheri Chahar Somba — the last Wednesday of Safar, observed with prayers and gratitude for the Prophet's recovery from illness.",
+      "descriptionbn": "আখেরি চাহার সোম্বা — সফর মাসের শেষ বুধবার, নবী (সা.)-এর রোগমুক্তির শুকরিয়ায় ইবাদত ও দোয়ার দিন।",
       "isApproximate": true
     },
     {
@@ -295,11 +292,10 @@
       "startDate": "2026-09-24",
       "gazetteType": "optionalMuslim",
       "category": "islamic",
-      "description": "Death anniversary of Hazrat Abdul Qadir Jilani (RA), 11th of Rabi al-Thani",
-      "descriptionbn": "হযরত আবদুল কাদের জিলানী (রহ.)-এর ওফাত দিবস, রবিউস সানির ১১ তারিখ",
+      "description": "Fateh-e-Yazdaham — honoring the memory of Hazrat Abdul Qadir Jilani (RA), a revered Islamic scholar and saint.",
+      "descriptionbn": "ফাতেহা-ই-ইয়াজদাহম — ইসলামের মহান আলেম ও অলি হযরত আবদুল কাদের জিলানী (রহ.)-এর স্মরণ ও শ্রদ্ধার দিন।",
       "isApproximate": true
     },
-
     {
       "id": "bd_2026_027",
       "name": "Shri Shri Saraswati Puja",
@@ -307,8 +303,8 @@
       "startDate": "2026-01-23",
       "gazetteType": "optionalHindu",
       "category": "hindu",
-      "description": "Worship of Goddess Saraswati, deity of knowledge and arts",
-      "descriptionbn": "বিদ্যা ও শিল্পের দেবী সরস্বতীর পূজা",
+      "description": "Saraswati Puja — honoring the goddess of knowledge and arts, this festival holds special significance for Hindu communities and students alike.",
+      "descriptionbn": "সরস্বতী পূজা — বিদ্যা, জ্ঞান ও শিল্পের দেবীকে শ্রদ্ধা জানানোর এই উৎসব সনাতন ধর্মাবলম্বীদের কাছে বিশেষ তাৎপর্যপূর্ণ।",
       "isApproximate": false
     },
     {
@@ -318,8 +314,8 @@
       "startDate": "2026-02-15",
       "gazetteType": "optionalHindu",
       "category": "hindu",
-      "description": "Hindu festival in honour of Lord Shiva",
-      "descriptionbn": "ভগবান শিবের সম্মানে সনাতন উৎসব",
+      "description": "Shivaratri — a night of devotion and fasting in honor of Lord Shiva, observed with deep reverence by Hindu communities.",
+      "descriptionbn": "শিবরাত্রি — ভগবান শিবের আরাধনায় উপবাস ও ভক্তির রাত, সনাতন ধর্মাবলম্বীদের কাছে গভীর শ্রদ্ধার উৎসব।",
       "isApproximate": false
     },
     {
@@ -329,8 +325,8 @@
       "startDate": "2026-03-03",
       "gazetteType": "optionalHindu",
       "category": "hindu",
-      "description": "Festival of Colours, Love and Spring, celebrated on the full moon of Falgun",
-      "descriptionbn": "দোলযাত্রা বা হোলি, বসন্ত, প্রেম এবং রঙের উৎসব ",
+      "description": "Dol Yatra — the festival of colours and spring, a joyful celebration of love and renewal observed by Hindu communities.",
+      "descriptionbn": "দোলযাত্রা — বসন্তের আগমনে রঙ ও আনন্দের উৎসব, সনাতন ধর্মাবলম্বীদের ভালোবাসা ও নবজীবনের উদযাপন।",
       "isApproximate": false
     },
     {
@@ -340,8 +336,8 @@
       "startDate": "2026-03-17",
       "gazetteType": "optionalHindu",
       "category": "hindu",
-      "description": "Birthday of Shri Shri Harichand Thakur",
-      "descriptionbn": "শ্রী শ্রী হরিচাঁদ ঠাকুরের জন্মদিন",
+      "description": "Harichand Thakur's Birthday — commemorating the birth of the revered spiritual leader, celebrated with devotion by his followers.",
+      "descriptionbn": "হরিচাঁদ ঠাকুরের আবির্ভাব — শ্রদ্ধেয় এই আধ্যাত্মিক মহাপুরুষের জন্মদিন তাঁর অনুসারীদের কাছে ভক্তি ও উৎসবের দিন।",
       "isApproximate": false
     },
     {
@@ -351,8 +347,8 @@
       "startDate": "2026-10-10",
       "gazetteType": "optionalHindu",
       "category": "hindu",
-      "description": "Beginning of Durga Puja festivities",
-      "descriptionbn": "দুর্গাপূজার সূচনা",
+      "description": "Mahalaya — the auspicious beginning of Durga Puja festivities, marking the goddess's descent to earth.",
+      "descriptionbn": "মহালয়া — দুর্গাপূজার শুভ সূচনা, দেবী দুর্গার আগমনের প্রতীক্ষায় সনাতন ধর্মাবলম্বীদের আনন্দের দিন।",
       "isApproximate": false
     },
     {
@@ -363,8 +359,8 @@
       "endDate": "2026-10-19",
       "gazetteType": "optionalHindu",
       "category": "hindu",
-      "description": "Maha Saptami and Maha Ashtami of Durga Puja",
-      "descriptionbn": "দুর্গাপূজার মহাসপ্তমী ও মহাষ্টমী",
+      "description": "Durga Puja Saptami & Ashtami — two of the most vibrant days of the festival, filled with rituals, devotion and celebration.",
+      "descriptionbn": "দুর্গাপূজার মহাসপ্তমী ও মহাষ্টমী — উৎসবের সবচেয়ে প্রাণবন্ত দুটি দিন, পূজা, ভক্তি ও আনন্দে পরিপূর্ণ।",
       "isApproximate": false
     },
     {
@@ -374,8 +370,8 @@
       "startDate": "2026-10-25",
       "gazetteType": "optionalHindu",
       "category": "hindu",
-      "description": "Worship of Goddess Lakshmi, deity of wealth and prosperity",
-      "descriptionbn": "ধন ও সমৃদ্ধির দেবী লক্ষ্মীর পূজা",
+      "description": "Lakshmi Puja — honoring the goddess of wealth and prosperity, observed with devotion and gratitude by Hindu communities.",
+      "descriptionbn": "লক্ষ্মী পূজা — ধন ও সমৃদ্ধির দেবীকে শ্রদ্ধা ও কৃতজ্ঞতায় বরণ করার উৎসব, সনাতন ধর্মাবলম্বীদের কাছে বিশেষ তাৎপর্যপূর্ণ।",
       "isApproximate": false
     },
     {
@@ -385,11 +381,10 @@
       "startDate": "2026-11-08",
       "gazetteType": "optionalHindu",
       "category": "hindu",
-      "description": "Worship of Goddess Kali (Shyama Puja / Diwali)",
-      "descriptionbn": "দেবী কালীর পূজা (শ্যামাপূজা / দীপাবলি)",
+      "description": "Shyama Puja — the worship of Goddess Kali, observed on Diwali night with lamps, devotion and reverence by Hindu communities.",
+      "descriptionbn": "শ্যামাপূজা — দীপাবলির রাতে দেবী কালীর আরাধনা, আলো ও ভক্তিতে সনাতন ধর্মাবলম্বীদের গভীর শ্রদ্ধার উৎসব।",
       "isApproximate": false
     },
-
     {
       "id": "bd_2026_035",
       "name": "English New Year",
@@ -397,8 +392,8 @@
       "startDate": "2026-01-01",
       "gazetteType": "optionalChristian",
       "category": "christian",
-      "description": "Celebration of English New Year's Day",
-      "descriptionbn": "ইংরেজি নববর্ষ উদযাপন",
+      "description": "English New Year — welcoming the first day of the year with hope, reflection and fresh beginnings.",
+      "descriptionbn": "ইংরেজি নববর্ষ — নতুন বছরকে আশা, প্রত্যয় ও নতুন শুরুর আনন্দে স্বাগত জানানোর দিন।",
       "isApproximate": false
     },
     {
@@ -408,8 +403,8 @@
       "startDate": "2026-02-18",
       "gazetteType": "optionalChristian",
       "category": "christian",
-      "description": "Day of repentance and the start of 40 days of Lent for Christians",
-      "descriptionbn": "খ্রিস্টান ধর্মাবলম্বীদের অনুশোচনা ও ৪০ দিনের উপবাসের সূচনা",
+      "description": "Ash Wednesday — marking the beginning of Lent, a season of repentance, fasting and spiritual reflection for Christian communities.",
+      "descriptionbn": "ভস্ম বুধবার — খ্রিস্টান ধর্মাবলম্বীদের লেন্টের সূচনা, অনুশোচনা, উপবাস ও আত্মিক চিন্তার পবিত্র সময়ের শুরু।",
       "isApproximate": false
     },
     {
@@ -419,8 +414,8 @@
       "startDate": "2026-04-02",
       "gazetteType": "optionalChristian",
       "category": "christian",
-      "description": "Maundy Thursday, day before Good Friday",
-      "descriptionbn": "গুড ফ্রাইডের আগের দিন",
+      "description": "Holy Thursday — commemorating the Last Supper of Jesus Christ, observed with solemnity by Christian communities.",
+      "descriptionbn": "পুণ্য বৃহস্পতিবার — যিশু খ্রিস্টের শেষ ভোজের স্মরণে খ্রিস্টান ধর্মাবলম্বীদের গভীর ভক্তি ও শ্রদ্ধার দিন।",
       "isApproximate": false
     },
     {
@@ -430,8 +425,8 @@
       "startDate": "2026-04-03",
       "gazetteType": "optionalChristian",
       "category": "christian",
-      "description": "Day of mourning for the crucifixion and sacrifice of Jesus Christ",
-      "descriptionbn": "যিশু খ্রিস্টের আত্মত্যাগ এবং ক্রুশবিদ্ধ হওয়ার স্মরণে শোকের দিন",
+      "description": "Good Friday — a solemn day of mourning and reflection on the crucifixion and sacrifice of Jesus Christ.",
+      "descriptionbn": "পুণ্য শুক্রবার — যিশু খ্রিস্টের আত্মত্যাগ ও ক্রুশবিদ্ধ হওয়ার স্মরণে খ্রিস্টান ধর্মাবলম্বীদের শোক ও ধ্যানের দিন।",
       "isApproximate": false
     },
     {
@@ -441,8 +436,8 @@
       "startDate": "2026-04-04",
       "gazetteType": "optionalChristian",
       "category": "christian",
-      "description": "Day before Easter Sunday",
-      "descriptionbn": "ইস্টার সানডের আগের দিন",
+      "description": "Holy Saturday — a day of quiet anticipation between Good Friday and Easter, observed in prayer and reflection.",
+      "descriptionbn": "পুণ্য শনিবার — গুড ফ্রাইডে ও ইস্টারের মাঝে নীরব প্রতীক্ষার দিন, প্রার্থনা ও চিন্তায় কাটানো পবিত্র সময়।",
       "isApproximate": false
     },
     {
@@ -452,8 +447,8 @@
       "startDate": "2026-04-05",
       "gazetteType": "optionalChristian",
       "category": "christian",
-      "description": "Celebration of the resurrection of Jesus Christ",
-      "descriptionbn": "যিশু খ্রিস্টের পুনরুত্থান উদযাপন",
+      "description": "Easter Sunday — celebrating the resurrection of Jesus Christ, the most joyful and significant day in the Christian faith.",
+      "descriptionbn": "ইস্টার সানডে — যিশু খ্রিস্টের পুনরুত্থান উদযাপনে খ্রিস্টান ধর্মাবলম্বীদের সবচেয়ে আনন্দময় ও তাৎপর্যপূর্ণ দিন।",
       "isApproximate": false
     },
     {
@@ -464,11 +459,10 @@
       "endDate": "2026-12-26",
       "gazetteType": "optionalChristian",
       "category": "christian",
-      "description": "Day before and day after Christmas Day",
-      "descriptionbn": "বড়দিনের পূর্বের ও পরের দিন",
+      "description": "Christmas extended — the day before and day after Christmas, allowing Christian communities to fully celebrate the festive season.",
+      "descriptionbn": "বড়দিনের বিস্তারিত উৎসব — বড়দিনের আগের ও পরের দিন, খ্রিস্টান ধর্মাবলম্বীদের উৎসবের আনন্দকে পরিপূর্ণভাবে উদযাপনের সুযোগ।",
       "isApproximate": false
     },
-
     {
       "id": "bd_2026_042",
       "name": "Maghi Purnima",
@@ -476,8 +470,8 @@
       "startDate": "2026-02-01",
       "gazetteType": "optionalBuddhist",
       "category": "buddhist",
-      "description": "Buddhist observance on the full moon of Magh",
-      "descriptionbn": "মাঘ মাসের পূর্ণিমায় বৌদ্ধ ধর্মীয় অনুষ্ঠান",
+      "description": "Maghi Purnima — a sacred full moon observance of the Buddhist faith, marked by prayer and spiritual reflection.",
+      "descriptionbn": "মাঘী পূর্ণিমা — মাঘ মাসের পূর্ণিমায় বৌদ্ধ ধর্মাবলম্বীদের প্রার্থনা ও আত্মিক চিন্তার পবিত্র উৎসব।",
       "isApproximate": true
     },
     {
@@ -487,8 +481,8 @@
       "startDate": "2026-04-13",
       "gazetteType": "optionalBuddhist",
       "category": "buddhist",
-      "description": "Chaitra Sankranti for Buddhist communities outside the three Hill Districts",
-      "descriptionbn": "তিনটি পার্বত্য জেলার বাইরে বৌদ্ধ জনগোষ্ঠীর জন্য চৈত্র সংক্রান্তি",
+      "description": "Chaitra Sankranti — the last day of the Bengali year, observed by Buddhist communities outside the three Hill Districts with traditional celebrations.",
+      "descriptionbn": "চৈত্র সংক্রান্তি — বাংলা বছরের শেষ দিন, তিনটি পার্বত্য জেলার বাইরে বৌদ্ধ জনগোষ্ঠীর ঐতিহ্যবাহী উৎসব।",
       "isApproximate": false
     },
     {
@@ -499,19 +493,19 @@
       "endDate": "2026-05-02",
       "gazetteType": "optionalBuddhist",
       "category": "buddhist",
-      "description": "Day before and day after Buddha Purnima",
-      "descriptionbn": "বুদ্ধ পূর্ণিমার পূর্বের ও পরের দিন",
+      "description": "Buddha Purnima extended — the day before and day after, giving Buddhist communities time to fully observe this sacred festival.",
+      "descriptionbn": "বুদ্ধ পূর্ণিমার বিস্তারিত উৎসব — পূর্বের ও পরের দিন, বৌদ্ধ ধর্মাবলম্বীদের এই পবিত্র উৎসব সম্পূর্ণরূপে পালনের সুযোগ।",
       "isApproximate": false
     },
     {
       "id": "bd_2026_045",
       "name": "Asarhi Purnima",
-      "namebn": "আষাঢ়ী পূর্ণিমা",
+      "namebn": "আষাঢ়ী পূর্ণিমা",
       "startDate": "2026-07-29",
       "gazetteType": "optionalBuddhist",
       "category": "buddhist",
-      "description": "Buddhist full moon festival, marking the anniversary of Buddha's first sermon",
-      "descriptionbn": "বুদ্ধের প্রথম ধর্মপ্রচার স্মরণে বৌদ্ধ ধর্মীয় উৎসব",
+      "description": "Asarhi Purnima — marking the anniversary of Buddha's first sermon, observed with reverence and gratitude by Buddhist communities.",
+      "descriptionbn": "আষাঢ়ী পূর্ণিমা — বুদ্ধের প্রথম ধর্মপ্রচারের স্মরণে বৌদ্ধ ধর্মাবলম্বীদের শ্রদ্ধা ও কৃতজ্ঞতার উৎসব।",
       "isApproximate": true
     },
     {
@@ -521,8 +515,8 @@
       "startDate": "2026-09-26",
       "gazetteType": "optionalBuddhist",
       "category": "buddhist",
-      "description": "Buddhist full moon festival in the month of Bhadra",
-      "descriptionbn": "ভাদ্র মাসের পূর্ণিমায় বৌদ্ধ ধর্মীয় উৎসব",
+      "description": "Madhu Purnima — a full moon festival observed by Buddhist communities in the month of Bhadra with prayer and devotion.",
+      "descriptionbn": "মধু পূর্ণিমা — ভাদ্র মাসের পূর্ণিমায় বৌদ্ধ ধর্মাবলম্বীদের প্রার্থনা ও ভক্তিতে পালিত ধর্মীয় উৎসব।",
       "isApproximate": true
     },
     {
@@ -532,11 +526,10 @@
       "startDate": "2026-10-25",
       "gazetteType": "optionalBuddhist",
       "category": "buddhist",
-      "description": "End of Buddhist Vassa (rainy retreat), Ashwin full moon",
-      "descriptionbn": "বৌদ্ধ বর্ষাবাসের সমাপ্তি, আশ্বিন পূর্ণিমা",
+      "description": "Prabarana Purnima — marking the end of the Buddhist rainy retreat, celebrated with lanterns, joy and communal gatherings.",
+      "descriptionbn": "প্রবারণা পূর্ণিমা — বৌদ্ধ বর্ষাবাসের সমাপ্তিতে আলো, আনন্দ ও সম্প্রদায়ের মিলনে উদযাপিত পবিত্র উৎসব।",
       "isApproximate": true
     },
-
     {
       "id": "bd_2026_048",
       "name": "Boisabi / Sangrain / Bizu (Hill Tracts)",
@@ -545,8 +538,8 @@
       "endDate": "2026-04-15",
       "gazetteType": "optionalEthnicMinority",
       "category": "ethnicMinority",
-      "description": "New Year festival of the indigenous communities of the Chittagong Hill Tracts and ethnic minority employees elsewhere",
-      "descriptionbn": "পার্বত্য চট্টগ্রামের ক্ষুদ্র নৃ-গোষ্ঠীর নববর্ষ উৎসব এবং অন্যত্র কর্মরত সংশ্লিষ্ট কর্মচারীদের জন্য",
+      "description": "Boisabi — the vibrant New Year festival of the indigenous communities of the Chittagong Hill Tracts, a celebration of heritage, renewal and joy.",
+      "descriptionbn": "বৈসাবি — পার্বত্য চট্টগ্রামের ক্ষুদ্র নৃ-গোষ্ঠীর নববর্ষ উৎসব, ঐতিহ্য, নবজীবন ও আনন্দের প্রাণবন্ত উদযাপন।",
       "isApproximate": false,
       "isRegional": true,
       "regionNote": "For employees of indigenous communities in Hill Tracts and elsewhere",

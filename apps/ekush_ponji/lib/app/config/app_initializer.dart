@@ -60,14 +60,30 @@ class AppInitializer {
             AppRouter.router.push(RouteNames.holidays);
             return;
           }
+          if (payload.startsWith('holiday:')) {
+            final dateStr = payload.substring('holiday:'.length);
+            try {
+              final date = DateTime.parse(dateStr);
+              AppRouter.router.go(RouteNames.calendar, extra: date);
+            } catch (e) {
+              AppRouter.router.go(RouteNames.calendar);
+            }
+            return;
+          }
           if (payload.startsWith('quote:')) {
             final index = int.tryParse(payload.substring('quote:'.length)) ?? 0;
-            AppRouter.router.push(RouteNames.quotes, extra: index);
+            AppRouter.router.go(RouteNames.home);
+            Future.delayed(const Duration(milliseconds: 100), () {
+              AppRouter.router.push(RouteNames.quotes, extra: index);
+            });
             return;
           }
           if (payload.startsWith('word:')) {
             final index = int.tryParse(payload.substring('word:'.length)) ?? 0;
-            AppRouter.router.push(RouteNames.words, extra: index);
+            AppRouter.router.go(RouteNames.home);
+            Future.delayed(const Duration(milliseconds: 100), () {
+              AppRouter.router.push(RouteNames.words, extra: index);
+            });
             return;
           }
           if (payload.startsWith('event:')) {
