@@ -52,6 +52,8 @@ Update: Generating 25 item icons will consume significant amount of time. To get
 - [ ] Create Jhuri AdMob IDs and store in personal cloud — never commit to repo
 Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 - [x] Confirm Ekush Ponji APK builds clean (final pre-work safety check)
+- [x] Fix all flutter analyze issues (unused imports, missing @override, unreachable switch default, bare if statements)
+- [x] Launch on device and confirm error screen is gone
 
 ---
 

@@ -18,7 +18,8 @@ class JhuriConstants {
   static const double recencyWeightOlder = 0.1;
 
   // UI behaviour
-  static const int searchVisibleThreshold = 10; // categories with 10+ items show search
+  static const int searchVisibleThreshold =
+      10; // categories with 10+ items show search
 
   // Ad rules
   static const int interstitialSessionMax = 3;
@@ -84,7 +85,8 @@ class JhuriConstants {
   static const String storageKeyDefaultReminderTime = 'default_reminder_time';
   static const String storageKeyListSortOrder = 'list_sort_order';
   static const String storageKeyAppOpenCount = 'app_open_count';
-  static const String storageKeyLastInterstitialShown = 'last_interstitial_shown';
+  static const String storageKeyLastInterstitialShown =
+      'last_interstitial_shown';
   static const String storageKeyOnboardingComplete = 'onboarding_complete';
   static const String storageKeyReviewPrompted = 'review_prompted';
 
@@ -128,7 +130,6 @@ class JhuriConstants {
       case ThemeMode.dark:
         return 'dark';
       case ThemeMode.system:
-      default:
         return 'system';
     }
   }

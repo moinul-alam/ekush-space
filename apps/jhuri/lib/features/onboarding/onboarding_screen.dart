@@ -3,10 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ekush_core/ekush_core.dart';
-import '../../base/jhuri_base_screen.dart';
-import '../../l10n/jhuri_localizations.dart';
-import '../../config/jhuri_constants.dart';
 import 'onboarding_viewmodel.dart';
 import 'widgets/onboarding_page_one.dart';
 import 'widgets/onboarding_page_two.dart';
@@ -48,7 +44,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(onboardingProvider);
-    final l10n = JhuriLocalizations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(

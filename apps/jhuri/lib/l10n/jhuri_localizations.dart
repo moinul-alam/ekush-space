@@ -1,7 +1,6 @@
 // lib/l10n/jhuri_localizations.dart
 
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ekush_core/ekush_core.dart';
 import '../config/jhuri_constants.dart';
 
@@ -152,10 +151,13 @@ abstract class JhuriLocalizations extends AppLocalizations {
   String get onboardingNotNow => 'এখন না';
 
   // Home Screen
+  @override
   String get homeTitle => 'ঝুড়ি';
   String get homeEmptyTitle => 'বাজারের কোনো ফর্দ নেই';
   String get homeEmptyMessage => '"+" বাটন চেপে নতুন ফর্দ তৈরি করুন';
+  @override
   String get today => 'আজ';
+  @override
   String get tomorrow => 'আগামীকাল';
   String get upcoming => 'আসন্ন';
   String get past => 'অতীত';
@@ -198,17 +200,25 @@ abstract class JhuriLocalizations extends AppLocalizations {
   String get shareList => 'ফর্দ শেয়ার করুন';
 
   // Settings
+  @override
   String get settingsTitle => 'সেটিংস';
+  @override
   String get appearance => 'প্রদর্শনী';
+  @override
   String get language => 'ভাষা';
+  @override
   String get theme => 'থিম';
+  @override
   String get lightMode => 'লাইট মোড';
+  @override
   String get darkMode => 'ডার্ক মোড';
+  @override
   String get systemDefault => 'সিস্টেম ডিফল্ট';
   String get shopping => 'বাজার';
   String get showPriceTotal => 'মোট মূল্য দেখান';
   String get defaultUnit => 'ডিফল্ট একক';
   String get currencySymbol => 'মুদ্রা প্রতীক';
+  @override
   String get notifications => 'বিজ্ঞপ্তি';
   String get notificationsEnabled => 'বিজ্ঞপ্তি সক্রিয়';
   String get lists => 'তালিকা';
@@ -217,6 +227,7 @@ abstract class JhuriLocalizations extends AppLocalizations {
   String get oldestFirst => 'পুরনো আগে';
 
   // Messages
+  @override
   String get comingSoon => 'শীঘ্রই আসছে';
   String get englishComingSoon => 'শীঘ্রই আসছে';
   String get shareError => 'শেয়ার করতে সমস্যা হয়েছে। আবার চেষ্টা করুন';
@@ -1066,13 +1077,21 @@ class JhuriLocalizationsBn extends JhuriLocalizations {
 
   @override
   String getGregorianSeasonName(int bengaliMonthNumber) {
-    if (bengaliMonthNumber >= 1 && bengaliMonthNumber <= 2) return 'Summer';
-    if (bengaliMonthNumber >= 3 && bengaliMonthNumber <= 4)
+    if (bengaliMonthNumber >= 1 && bengaliMonthNumber <= 2) {
+      return 'Summer';
+    }
+    if (bengaliMonthNumber >= 3 && bengaliMonthNumber <= 4) {
       return 'Rainy Season';
-    if (bengaliMonthNumber >= 5 && bengaliMonthNumber <= 6) return 'Autumn';
-    if (bengaliMonthNumber >= 7 && bengaliMonthNumber <= 8)
+    }
+    if (bengaliMonthNumber >= 5 && bengaliMonthNumber <= 6) {
+      return 'Autumn';
+    }
+    if (bengaliMonthNumber >= 7 && bengaliMonthNumber <= 8) {
       return 'Late Autumn';
-    if (bengaliMonthNumber >= 9 && bengaliMonthNumber <= 10) return 'Winter';
+    }
+    if (bengaliMonthNumber >= 9 && bengaliMonthNumber <= 10) {
+      return 'Winter';
+    }
     return 'Spring';
   }
 
@@ -1100,13 +1119,10 @@ class JhuriLocalizationsBn extends JhuriLocalizations {
   @override
   String get dayDetails => 'দিনের বিবরণ';
 
-  @override
   String get pronunciation => 'উচ্চারণ';
 
-  @override
   String get pronunciationTitle => 'উচ্চারণ শিরোনাম';
 
-  @override
   String get pronunciationSubtitle => 'উচ্চারণ সাবটাইটেল';
 
   @override
@@ -2126,13 +2142,21 @@ class JhuriLocalizationsEn extends JhuriLocalizations {
 
   @override
   String getGregorianSeasonName(int bengaliMonthNumber) {
-    if (bengaliMonthNumber >= 1 && bengaliMonthNumber <= 2) return 'Summer';
-    if (bengaliMonthNumber >= 3 && bengaliMonthNumber <= 4)
+    if (bengaliMonthNumber >= 1 && bengaliMonthNumber <= 2) {
+      return 'Summer';
+    }
+    if (bengaliMonthNumber >= 3 && bengaliMonthNumber <= 4) {
       return 'Rainy Season';
-    if (bengaliMonthNumber >= 5 && bengaliMonthNumber <= 6) return 'Autumn';
-    if (bengaliMonthNumber >= 7 && bengaliMonthNumber <= 8)
+    }
+    if (bengaliMonthNumber >= 5 && bengaliMonthNumber <= 6) {
+      return 'Autumn';
+    }
+    if (bengaliMonthNumber >= 7 && bengaliMonthNumber <= 8) {
       return 'Late Autumn';
-    if (bengaliMonthNumber >= 9 && bengaliMonthNumber <= 10) return 'Winter';
+    }
+    if (bengaliMonthNumber >= 9 && bengaliMonthNumber <= 10) {
+      return 'Winter';
+    }
     return 'Spring';
   }
 
@@ -2149,13 +2173,10 @@ class JhuriLocalizationsEn extends JhuriLocalizations {
   @override
   String get dayDetails => 'Day Details';
 
-  @override
   String get pronunciation => 'Pronunciation';
 
-  @override
   String get pronunciationTitle => 'Pronunciation Title';
 
-  @override
   String get pronunciationSubtitle => 'Pronunciation Subtitle';
 
   @override
