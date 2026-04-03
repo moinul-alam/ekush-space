@@ -41,13 +41,15 @@
 These must all be done before Windsurf writes a single Flutter file.
 
 - [x] Doc 1 (Restoration Guide) fully executed and committed
-- [ ] Create `jhuri` branch off main
-- [ ] Generate 5 category images (AI, 256×256px PNG, consistent style)
+- [x] Create `jhuri` branch off main
+- [x] Generate 5 category images (AI, 256×256px PNG, consistent style)
 - [ ] Generate 25 item icons (AI, batched by category, 256×256px PNG)
-- [ ] Complete `items_seed.json` with all MVP items, defaults, and exact iconIdentifier values
-- [ ] Verify icon file names match iconIdentifier values exactly before committing assets
+Update: Generating 25 item icons will consume significant amount of time. To get started, I am using emojis.
+- [x] Complete `items_seed.json` with all MVP items, defaults, and exact iconIdentifier values
+- [x] Verify icon file names match iconIdentifier values exactly before committing assets
 - [ ] Create Jhuri AdMob IDs and store in personal cloud — never commit to repo
-- [ ] Confirm Ekush Ponji APK builds clean (final pre-work safety check)
+Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
+- [x] Confirm Ekush Ponji APK builds clean (final pre-work safety check)
 
 ---
 
@@ -55,7 +57,7 @@ These must all be done before Windsurf writes a single Flutter file.
 
 | Phase | Status | Commit |
 |---|---|---|
-| Phase 1 — Drift + ekush_models + ekush_core | ⏳ Not started | — |
+| Phase 1 — Drift + ekush_models + ekush_core | ✅ Complete | feat(jhuri): Phase 1 — Drift foundation wired into monorepo |
 | Phase 2 — App Shell + Navigation + Theme | ⏳ Not started | — |
 | Phase 3 — Core Loop | ⏳ Not started | — |
 | Phase 4 — Settings + Notifications + Share | ⏳ Not started | — |
@@ -103,9 +105,15 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 
 ## Next Action
 
-1. Create `jhuri` branch: `git checkout -b jhuri`
-2. Complete the Pre-Development Checklist above (assets, seed data, AdMob IDs)
-3. Open new Claude conversation, paste this file, begin Phase 1
+**Phase 2 — App Shell + Navigation + Theme**
+- main.dart: ProviderScope, Drift init, SharedPreferences init, theme setup
+- JhuriBaseScreen extending BaseScreen from ekush_core
+- JhuriLocalizations implementing AppLocalizations — all MVP strings in both Bangla and English
+- JhuriConstants file with all constants from Section 11
+- App router setup (go_router or Navigator 2.0 following Ponji pattern)
+- Jhuri theme registered (colours, typography from Section 4)
+- Onboarding flow — 3 screens, sets onboardingComplete in SharedPreferences
+- Home screen shell (empty state only, no real data yet)
 
 ---
 

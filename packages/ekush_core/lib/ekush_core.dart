@@ -4,6 +4,7 @@
 export 'base/base_screen.dart';
 export 'base/base_viewmodel.dart';
 export 'base/base_repository.dart';
+export 'base/database_initializer.dart';
 export 'base/view_state.dart';
 
 // Localization

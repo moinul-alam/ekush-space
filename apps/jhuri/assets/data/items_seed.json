@@ -1,0 +1,296 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "nameBangla": "শাকসবজি",
+      "nameEnglish": "Vegetables",
+      "imageIdentifier": "vegetables",
+      "iconIdentifier": "🥬",
+      "sortOrder": 1
+    },
+    {
+      "id": 2,
+      "nameBangla": "মাছ",
+      "nameEnglish": "Fish",
+      "imageIdentifier": "fish",
+      "iconIdentifier": "🐟",
+      "sortOrder": 2
+    },
+    {
+      "id": 3,
+      "nameBangla": "মাংস",
+      "nameEnglish": "Meat",
+      "imageIdentifier": "meat",
+      "iconIdentifier": "🍗",
+      "sortOrder": 3
+    },
+    {
+      "id": 4,
+      "nameBangla": "চাল ও আটা",
+      "nameEnglish": "Rice & Flour",
+      "imageIdentifier": "rice_flour",
+      "iconIdentifier": "🌾",
+      "sortOrder": 4
+    },
+    {
+      "id": 5,
+      "nameBangla": "ডাল ও মশলা",
+      "nameEnglish": "Lentils & Spices",
+      "imageIdentifier": "lentils_spices",
+      "iconIdentifier": "🫘",
+      "sortOrder": 5
+    }
+  ],
+  "itemTemplates": [
+    {
+      "id": 1,
+      "nameBangla": "আলু",
+      "nameEnglish": "Potato",
+      "categoryId": 1,
+      "defaultQuantity": 1.0,
+      "defaultUnit": "কেজি",
+      "iconIdentifier": "🥔",
+      "usageCount": 0
+    },
+    {
+      "id": 2,
+      "nameBangla": "পেঁয়াজ",
+      "nameEnglish": "Onion",
+      "categoryId": 1,
+      "defaultQuantity": 1.0,
+      "defaultUnit": "কেজি",
+      "iconIdentifier": "🧅",
+      "usageCount": 0
+    },
+    {
+      "id": 3,
+      "nameBangla": "রসুন",
+      "nameEnglish": "Garlic",
+      "categoryId": 1,
+      "defaultQuantity": 250.0,
+      "defaultUnit": "গ্রাম",
+      "iconIdentifier": "🧄",
+      "usageCount": 0
+    },
+    {
+      "id": 4,
+      "nameBangla": "আদা",
+      "nameEnglish": "Ginger",
+      "categoryId": 1,
+      "defaultQuantity": 250.0,
+      "defaultUnit": "গ্রাম",
+      "iconIdentifier": "🫚",
+      "usageCount": 0
+    },
+    {
+      "id": 5,
+      "nameBangla": "টমেটো",
+      "nameEnglish": "Tomato",
+      "categoryId": 1,
+      "defaultQuantity": 500.0,
+      "defaultUnit": "গ্রাম",
+      "iconIdentifier": "🍅",
+      "usageCount": 0
+    },
+    {
+      "id": 6,
+      "nameBangla": "রুই",
+      "nameEnglish": "Rohu",
+      "categoryId": 2,
+      "defaultQuantity": 1.0,
+      "defaultUnit": "কেজি",
+      "iconIdentifier": "🐟",
+      "usageCount": 0
+    },
+    {
+      "id": 7,
+      "nameBangla": "ইলিশ",
+      "nameEnglish": "Hilsa",
+      "categoryId": 2,
+      "defaultQuantity": 1.0,
+      "defaultUnit": "কেজি",
+      "iconIdentifier": "🐠",
+      "usageCount": 0
+    },
+    {
+      "id": 8,
+      "nameBangla": "কাতলা",
+      "nameEnglish": "Catla",
+      "categoryId": 2,
+      "defaultQuantity": 1.0,
+      "defaultUnit": "কেজি",
+      "iconIdentifier": "🐡",
+      "usageCount": 0
+    },
+    {
+      "id": 9,
+      "nameBangla": "চিংড়ি",
+      "nameEnglish": "Shrimp",
+      "categoryId": 2,
+      "defaultQuantity": 500.0,
+      "defaultUnit": "গ্রাম",
+      "iconIdentifier": "🦐",
+      "usageCount": 0
+    },
+    {
+      "id": 10,
+      "nameBangla": "পাঙ্গাস",
+      "nameEnglish": "Pangasius",
+      "categoryId": 2,
+      "defaultQuantity": 1.0,
+      "defaultUnit": "কেজি",
+      "iconIdentifier": "🐟",
+      "usageCount": 0
+    },
+    {
+      "id": 11,
+      "nameBangla": "মুরগি",
+      "nameEnglish": "Chicken",
+      "categoryId": 3,
+      "defaultQuantity": 1.0,
+      "defaultUnit": "কেজি",
+      "iconIdentifier": "🍗",
+      "usageCount": 0
+    },
+    {
+      "id": 12,
+      "nameBangla": "গরু",
+      "nameEnglish": "Beef",
+      "categoryId": 3,
+      "defaultQuantity": 500.0,
+      "defaultUnit": "গ্রাম",
+      "iconIdentifier": "🥩",
+      "usageCount": 0
+    },
+    {
+      "id": 13,
+      "nameBangla": "খাসি",
+      "nameEnglish": "Mutton",
+      "categoryId": 3,
+      "defaultQuantity": 500.0,
+      "defaultUnit": "গ্রাম",
+      "iconIdentifier": "🍖",
+      "usageCount": 0
+    },
+    {
+      "id": 14,
+      "nameBangla": "কলিজা",
+      "nameEnglish": "Liver",
+      "categoryId": 3,
+      "defaultQuantity": 500.0,
+      "defaultUnit": "গ্রাম",
+      "iconIdentifier": "🫀",
+      "usageCount": 0
+    },
+    {
+      "id": 15,
+      "nameBangla": "ডিম",
+      "nameEnglish": "Egg",
+      "categoryId": 3,
+      "defaultQuantity": 1.0,
+      "defaultUnit": "হালি",
+      "iconIdentifier": "🥚",
+      "usageCount": 0
+    },
+    {
+      "id": 16,
+      "nameBangla": "চাল",
+      "nameEnglish": "Rice",
+      "categoryId": 4,
+      "defaultQuantity": 1.0,
+      "defaultUnit": "কেজি",
+      "iconIdentifier": "🌾",
+      "usageCount": 0
+    },
+    {
+      "id": 17,
+      "nameBangla": "আটা",
+      "nameEnglish": "Wheat Flour",
+      "categoryId": 4,
+      "defaultQuantity": 1.0,
+      "defaultUnit": "কেজি",
+      "iconIdentifier": "🫓",
+      "usageCount": 0
+    },
+    {
+      "id": 18,
+      "nameBangla": "ময়দা",
+      "nameEnglish": "Maida",
+      "categoryId": 4,
+      "defaultQuantity": 500.0,
+      "defaultUnit": "গ্রাম",
+      "iconIdentifier": "🫙",
+      "usageCount": 0
+    },
+    {
+      "id": 19,
+      "nameBangla": "চিড়া",
+      "nameEnglish": "Flattened Rice",
+      "categoryId": 4,
+      "defaultQuantity": 500.0,
+      "defaultUnit": "গ্রাম",
+      "iconIdentifier": "🌾",
+      "usageCount": 0
+    },
+    {
+      "id": 20,
+      "nameBangla": "সুজি",
+      "nameEnglish": "Semolina",
+      "categoryId": 4,
+      "defaultQuantity": 500.0,
+      "defaultUnit": "গ্রাম",
+      "iconIdentifier": "🥣",
+      "usageCount": 0
+    },
+    {
+      "id": 21,
+      "nameBangla": "মসুর ডাল",
+      "nameEnglish": "Red Lentils",
+      "categoryId": 5,
+      "defaultQuantity": 500.0,
+      "defaultUnit": "গ্রাম",
+      "iconIdentifier": "🫘",
+      "usageCount": 0
+    },
+    {
+      "id": 22,
+      "nameBangla": "মুগ ডাল",
+      "nameEnglish": "Mung Lentils",
+      "categoryId": 5,
+      "defaultQuantity": 500.0,
+      "defaultUnit": "গ্রাম",
+      "iconIdentifier": "🫘",
+      "usageCount": 0
+    },
+    {
+      "id": 23,
+      "nameBangla": "হলুদ",
+      "nameEnglish": "Turmeric",
+      "categoryId": 5,
+      "defaultQuantity": 100.0,
+      "defaultUnit": "গ্রাম",
+      "iconIdentifier": "🟡",
+      "usageCount": 0
+    },
+    {
+      "id": 24,
+      "nameBangla": "মরিচ",
+      "nameEnglish": "Chili",
+      "categoryId": 5,
+      "defaultQuantity": 100.0,
+      "defaultUnit": "গ্রাম",
+      "iconIdentifier": "🌶️",
+      "usageCount": 0
+    },
+    {
+      "id": 25,
+      "nameBangla": "ধনিয়া",
+      "nameEnglish": "Coriander",
+      "categoryId": 5,
+      "defaultQuantity": 100.0,
+      "defaultUnit": "গ্রাম",
+      "iconIdentifier": "🌿",
+      "usageCount": 0
+    }
+  ]
+}

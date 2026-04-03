@@ -1,0 +1,122 @@
+name: jhuri
+description: ঝুড়ি — Smart Grocery List
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+  flutter: '>=3.24.0'
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # State Management
+  flutter_riverpod: ^3.2.1
+  riverpod_annotation: ^4.0.2
+  # Navigation
+  go_router: ^16.2.4
+  # Storage
+  shared_preferences: ^2.2.3
+  # Drift database
+  drift_flutter: ^0.2.0
+  # Network
+  dio: ^5.7.0
+  # UI
+  flutter_screenutil: ^5.9.3
+  # Utilities
+  intl: ^0.20.2
+  # Icons
+  cupertino_icons: ^1.0.8
+  # Localization
+  flutter_localizations:
+    sdk: flutter
+  # Notifications
+  flutter_local_notifications: ^19.4.2
+  timezone: ^0.10.0
+  permission_handler: ^11.3.1
+  # Sharing
+  share_plus: ^11.1.0
+  path_provider: ^2.1.5
+  auto_size_text: ^3.0.0
+  # Background
+  workmanager: ^0.9.0
+  flutter_native_splash: ^2.4.1
+  # Ads
+  google_mobile_ads: ^7.0.0
+  # App Review
+  in_app_review: ^2.0.11
+  # URL Launcher
+  url_launcher: ^6.3.2
+  # Version info
+  package_info_plus: ^9.0.0
+
+  # Theme package
+  ekush_theme:
+    path: ../../packages/ekush_theme
+  
+  # Core package
+  ekush_core:
+    path: ../../packages/ekush_core
+  
+  # Models package
+  ekush_models:
+    path: ../../packages/ekush_models
+  
+  # Ads package
+  ekush_ads:
+    path: ../../packages/ekush_ads
+  
+  # UI package
+  ekush_ui:
+    path: ../../packages/ekush_ui
+  
+  # Notifications package
+  ekush_notifications:
+    path: ../../packages/ekush_notifications
+  
+  # Share package
+  ekush_share:
+    path: ../../packages/ekush_share
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  # Code Generation
+  riverpod_generator: ^4.0.3
+  build_runner: ^2.4.12
+  # Icons
+  flutter_launcher_icons: ^0.13.1
+
+flutter:
+  uses-material-design: true
+  
+  # Assets
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/data/
+
+flutter_native_splash:
+  color: "#2D6A4F"
+  color_dark: "#2D6A4F"
+  image: assets/images/app_icon.png
+  image_dark: assets/images/app_icon.png
+  android_12:
+    color: "#2D6A4F"
+    color_dark: "#2D6A4F"
+    image: assets/images/app_icon.png
+    image_dark: assets/images/app_icon.png
+  fullscreen: false
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/app_icon.png"
+  adaptive_icon_background: "#2D6A4F"
+  adaptive_icon_foreground: "assets/images/app_icon.png"
+  min_sdk_android: 21
+  web:
+    generate: false
