@@ -1,6 +1,5 @@
 // lib/features/onboarding/onboarding_viewmodel.dart
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../config/jhuri_constants.dart';
@@ -44,11 +43,6 @@ class OnboardingNotifier extends Notifier<OnboardingState> {
 
     try {
       final prefs = await SharedPreferences.getInstance();
-
-      // Save language
-      final locale = state.selectedLanguage == 'bangla'
-          ? JhuriConstants.defaultLocale
-          : const Locale('en', 'US');
 
       // Save language preference
       await prefs.setString(

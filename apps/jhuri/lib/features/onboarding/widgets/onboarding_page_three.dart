@@ -1,7 +1,6 @@
 // lib/features/onboarding/widgets/onboarding_page_three.dart
 
 import 'package:flutter/material.dart';
-import '../../../config/jhuri_constants.dart';
 
 class OnboardingPageThree extends StatelessWidget {
   final VoidCallback onBack;
@@ -18,7 +17,7 @@ class OnboardingPageThree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    
+
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -38,9 +37,9 @@ class OnboardingPageThree extends StatelessWidget {
               color: colorScheme.primary,
             ),
           ),
-          
+
           const SizedBox(height: 40),
-          
+
           // ── Title ──────────────────────────────
           Text(
             'বিজ্ঞপ্তি',
@@ -52,9 +51,9 @@ class OnboardingPageThree extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           // ── Message ───────────────────────────
           Text(
             'বাজারের জন্য রিমাইন্ডার পেতে বিজ্ঞপ্তি অনুমতি দিন',
@@ -65,9 +64,9 @@ class OnboardingPageThree extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          
+
           const SizedBox(height: 32),
-          
+
           // ── Permission Benefits ─────────────────
           Container(
             width: double.infinity,
@@ -101,9 +100,9 @@ class OnboardingPageThree extends StatelessWidget {
               ],
             ),
           ),
-          
+
           const Spacer(),
-          
+
           // ── Navigation Buttons ─────────────────
           Row(
             children: [
@@ -126,9 +125,9 @@ class OnboardingPageThree extends StatelessWidget {
                   ),
                 ),
               ),
-              
+
               const SizedBox(width: 16),
-              
+
               // Allow button
               Expanded(
                 child: ElevatedButton(
@@ -148,7 +147,8 @@ class OnboardingPageThree extends StatelessWidget {
                           width: 20,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.white),
                           ),
                         )
                       : const Text(
@@ -162,7 +162,7 @@ class OnboardingPageThree extends StatelessWidget {
               ),
             ],
           ),
-          
+
           const SizedBox(height: 32),
         ],
       ),
@@ -176,7 +176,7 @@ class OnboardingPageThree extends StatelessWidget {
     required String description,
   }) {
     final colorScheme = Theme.of(context).colorScheme;
-    
+
     return Row(
       children: [
         Container(

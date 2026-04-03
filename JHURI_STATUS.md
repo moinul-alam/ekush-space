@@ -64,7 +64,7 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 |---|---|---|
 | Phase 1 — Drift + ekush_models + ekush_core | ✅ Complete | feat(jhuri): Phase 1 — Drift foundation wired into monorepo |
 | Phase 2 — App Shell + Navigation + Theme | ✅ Complete | feat(jhuri): Phase 2 — app shell, theme, navigation, onboarding |
-| Phase 3 — Core Loop | ⏳ Not started | — |
+| Phase 3 — Core Loop | ✅ Complete | feat(jhuri): Phase 3 — core loop complete |
 | Phase 4 — Settings + Notifications + Share | ⏳ Not started | — |
 | Phase 5 — Ads Integration | ⏳ Not started | — |
 | Phase 6 — Polish + Play Store Submission | ⏳ Not started | — |
@@ -74,7 +74,7 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 ## Last Commit
 
 **Hash:** [Will be updated after commit]
-**Message:** feat(jhuri): Phase 2 — app shell, theme, navigation, onboarding
+**Message:** feat(jhuri): Phase 3 — core loop complete
 **Branch:** jhuri
 
 ---
@@ -110,11 +110,10 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 
 ## Next Action
 
-**Phase 3 — Core Loop**
-- Build grocery list CRUD operations
-- Implement item management UI
-- Add shopping mode functionality
-- Create list sharing feature
+**Phase 4 — Settings + Notifications + Share**
+- Add app settings screen
+- Implement notification system
+- Create list sharing functionality
 
 ---
 
@@ -123,9 +122,9 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 - `26 packages have newer versions incompatible with dependency constraints` — flagged during audit, not blocking, defer to a future maintenance session
 - English language is gated in v1, fully activated in v2 — do not spend time on English strings beyond having them present in code
 - Flutter app successfully launches on Chrome but waits for debug connection — web support added successfully
-- 26 lint warnings remain (mostly unused imports) — not blocking for MVP
+- Phase 3 UI has minor cosmetic issues (not crashes) — deferred to Phase 6 polish
 
 ---
 
-*Last updated: 2026-04-04 — Phase 2 Complete*
-*Updated by: Windsurf (Phase 2 completion)*
+*Last updated: 2026-04-04 — Phase 3 Complete*
+*Updated by: Windsurf (Phase 3 completion)*

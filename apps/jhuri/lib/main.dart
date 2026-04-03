@@ -1,18 +1,12 @@
 // lib/main.dart
 
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:ekush_core/ekush_core.dart';
-import 'package:ekush_ui/ekush_ui.dart';
-import 'package:ekush_theme/ekush_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:drift_flutter/drift_flutter.dart';
 import 'app/app.dart';
-import 'config/jhuri_constants.dart';
-import 'l10n/jhuri_localizations.dart';
 
 // Simple error widgets for now
 class AppErrorWidget extends StatelessWidget {

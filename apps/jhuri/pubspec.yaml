@@ -21,6 +21,7 @@ dependencies:
   shared_preferences: ^2.2.3
   # Drift database
   drift_flutter: ^0.2.0
+  drift: ^2.14.1
   # Network
   dio: ^5.7.0
   # UI

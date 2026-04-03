@@ -3,8 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:ekush_theme/ekush_theme.dart';
-import 'package:ekush_ui/ekush_ui.dart';
 import '../config/jhuri_constants.dart';
 import '../config/jhuri_theme.dart';
 import '../l10n/jhuri_localizations.dart';

@@ -3,9 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ekush_core/ekush_core.dart';
 import '../features/onboarding/onboarding_screen.dart';
 import '../features/home/home_screen.dart';
+import '../features/shopping_list/create_edit_list_screen.dart';
+import '../features/category/category_browser_screen.dart';
+import '../features/item_template/item_picker_screen.dart';
+import '../features/shopping_list/shopping_mode_screen.dart';
 import '../config/jhuri_constants.dart';
 
 // Router provider
@@ -19,26 +22,67 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/splash',
         builder: (context, state) => const SplashScreen(),
       ),
-      
+
       GoRoute(
         path: '/onboarding',
         builder: (context, state) => const OnboardingScreen(),
       ),
-      
+
       // Main app
       GoRoute(
         path: '/',
         builder: (context, state) => const HomeScreen(),
       ),
+
+      // Create/Edit List
+      GoRoute(
+        path: '/list/create',
+        builder: (context, state) => const CreateEditListScreen(),
+      ),
+      GoRoute(
+        path: '/list/edit/:listId',
+        builder: (context, state) {
+          final listId = int.parse(state.pathParameters['listId']!);
+          return CreateEditListScreen(listId: listId);
+        },
+      ),
+
+      // Category Browser
+      GoRoute(
+        path: '/list/:listId/categories',
+        builder: (context, state) {
+          final listId = int.parse(state.pathParameters['listId']!);
+          return CategoryBrowserScreen(listId: listId);
+        },
+      ),
+
+      // Item Picker
+      GoRoute(
+        path: '/list/:listId/category/:categoryId/items',
+        builder: (context, state) {
+          final listId = int.parse(state.pathParameters['listId']!);
+          final categoryId = int.parse(state.pathParameters['categoryId']!);
+          return ItemPickerScreen(listId: listId, categoryId: categoryId);
+        },
+      ),
+
+      // Shopping Mode
+      GoRoute(
+        path: '/list/:listId/shop',
+        builder: (context, state) {
+          final listId = int.parse(state.pathParameters['listId']!);
+          return ShoppingModeScreen(listId: listId);
+        },
+      ),
     ],
-    
+
     // Redirect logic based on onboarding status
     redirect: (context, state) {
       // For Phase 2, we'll implement basic onboarding check
       // In Phase 3+, this will check SharedPreferences
       return null; // No redirect for now
     },
-    
+
     errorBuilder: (context, state) => ErrorScreen(error: state.error),
   );
 });
@@ -51,7 +95,7 @@ class SplashScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // For Phase 2, we'll show a simple splash and navigate to onboarding
     // In Phase 3+, this will check SharedPreferences and navigate accordingly
-    
+
     Future.delayed(const Duration(seconds: 2), () {
       if (context.mounted) {
         context.go('/onboarding');
@@ -118,7 +162,7 @@ class SplashScreen extends ConsumerWidget {
 // Error screen for routing errors
 class ErrorScreen extends StatelessWidget {
   final Object? error;
-  
+
   const ErrorScreen({super.key, this.error});
 
   @override

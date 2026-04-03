@@ -1,7 +1,6 @@
 // lib/features/onboarding/widgets/onboarding_page_one.dart
 
 import 'package:flutter/material.dart';
-import 'package:ekush_core/ekush_core.dart';
 import '../../../config/jhuri_constants.dart';
 
 class OnboardingPageOne extends StatelessWidget {
@@ -15,7 +14,7 @@ class OnboardingPageOne extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    
+
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -45,9 +44,9 @@ class OnboardingPageOne extends StatelessWidget {
               ),
             ),
           ),
-          
+
           const SizedBox(height: 40),
-          
+
           // ── App Name ───────────────────────────
           Text(
             JhuriConstants.appName,
@@ -59,9 +58,9 @@ class OnboardingPageOne extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          
+
           const SizedBox(height: 12),
-          
+
           // ── Tagline ─────────────────────────────
           Text(
             'বাজারের ফর্দ, হাতের মুঠোয়',
@@ -72,9 +71,9 @@ class OnboardingPageOne extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           // ── Description ─────────────────────────
           Text(
             'স্মার্ট গ্রোসারি লিস্ট\nপ্ল্যান বেটার, শপ ইজিয়ার',
@@ -85,9 +84,9 @@ class OnboardingPageOne extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          
+
           const Spacer(),
-          
+
           // ── Start Button ───────────────────────
           SizedBox(
             width: double.infinity,
@@ -112,7 +111,7 @@ class OnboardingPageOne extends StatelessWidget {
               ),
             ),
           ),
-          
+
           const SizedBox(height: 32),
         ],
       ),

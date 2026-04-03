@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ekush_core/ekush_core.dart';
 
 /// Base screen for all Jhuri screens
 /// Extends BaseScreen from ekush_core with Jhuri-specific functionality
