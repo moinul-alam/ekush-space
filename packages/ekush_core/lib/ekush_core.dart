@@ -22,4 +22,3 @@ export 'models/app_manifest.dart';
 export 'services/base_sync_service.dart';
 export 'services/app_version_service.dart';
 export 'services/app_review_service.dart';
-export 'services/database_service.dart';

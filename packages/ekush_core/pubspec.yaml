@@ -19,8 +19,6 @@ dependencies:
 
   ekush_ui:
     path: ../ekush_ui
-  ekush_models:
-    path: ../ekush_models
 
 dev_dependencies:
   flutter_test:
