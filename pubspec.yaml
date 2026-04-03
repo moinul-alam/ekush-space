@@ -5,7 +5,6 @@ environment:
   flutter: '>=3.24.0'
 workspace:
   - apps/ekush_ponji
-  - apps/jhuri
   - packages/ekush_core
   - packages/ekush_ui
   - packages/ekush_theme
