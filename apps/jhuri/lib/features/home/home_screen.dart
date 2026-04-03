@@ -16,16 +16,33 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          JhuriConstants.appName,
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'HindSiliguri',
-          ),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // App Logo
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                'assets/images/app_logo.png',
+                width: 32,
+                height: 32,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(width: 12),
+            // App Name
+            Text(
+              JhuriConstants.appName,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'HindSiliguri',
+              ),
+            ),
+          ],
         ),
         actions: [
           IconButton(
@@ -69,15 +86,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 color: colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(24),
               ),
-              child: Icon(
-                Icons.shopping_basket_outlined,
-                size: 60,
-                color: colorScheme.onSurface.withValues(alpha: 0.4),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(24),
+                child: Image.asset(
+                  'assets/images/app_logo.png',
+                  width: 120,
+                  height: 120,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-            
+
             const SizedBox(height: 32),
-            
+
             // ── Empty State Title ────────────────────
             Text(
               'বাজারের কোনো ফর্দ নেই',
@@ -89,9 +110,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
               textAlign: TextAlign.center,
             ),
-            
+
             const SizedBox(height: 12),
-            
+
             // ── Empty State Message ──────────────────
             Text(
               '"+", বাটন চেপে নতুন ফর্দ তৈরি করুন',
@@ -102,9 +123,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
               textAlign: TextAlign.center,
             ),
-            
+
             const SizedBox(height: 48),
-            
+
             // ── Quick Start Tips ────────────────────
             Container(
               width: double.infinity,
@@ -164,7 +185,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     required String description,
   }) {
     final colorScheme = Theme.of(context).colorScheme;
-    
+
     return Row(
       children: [
         Container(

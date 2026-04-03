@@ -54,6 +54,7 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 - [x] Confirm Ekush Ponji APK builds clean (final pre-work safety check)
 - [x] Fix all flutter analyze issues (unused imports, missing @override, unreachable switch default, bare if statements)
 - [x] Launch on device and confirm error screen is gone
+- [x] Integrate app_icon.png and app_logo.png (launcher icons, splash screen, onboarding, and home screen)
 
 ---
 
