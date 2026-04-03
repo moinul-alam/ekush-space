@@ -1,1 +1,1 @@
-export 'src/jhuri_database.dart';
+// Shared data models — populated by each app
