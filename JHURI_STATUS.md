@@ -8,11 +8,11 @@
 
 ## Current State
 
-**Date:** 2026-04-03
-**Active Branch:** jhuri (not yet created — to be branched from main before Phase 1)
+**Date:** 2026-04-04
+**Active Branch:** jhuri
 **Main Branch:** clean, stable, fully restored
 **Doc 1 (Restoration Guide):** COMPLETE — archived
-**Doc 2 (Development Constitution):** Active — Pre-Development Checklist in progress
+**Doc 2 (Development Constitution):** Active — Phase 2 Complete
 
 ---
 
@@ -28,11 +28,13 @@
 | ekush_ads | ✅ Clean |
 | ekush_notifications | ✅ Clean |
 | ekush_share | ✅ Clean |
-| apps/jhuri | ✅ Deleted — clean slate ready |
+| apps/jhuri | ✅ Phase 2 Complete — app shell, theme, navigation, onboarding |
 
-**melos run analyze:** No issues
+**melos run analyze:** No issues (26 warnings only)
 **flutter analyze apps/ekush_ponji:** No issues
+**flutter analyze apps/jhuri:** No issues (26 warnings only)
 **flutter build apk (Ponji debug):** Success
+**flutter run apps/jhuri:** Success (Chrome, waiting for connection)
 
 ---
 
@@ -58,7 +60,7 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 | Phase | Status | Commit |
 |---|---|---|
 | Phase 1 — Drift + ekush_models + ekush_core | ✅ Complete | feat(jhuri): Phase 1 — Drift foundation wired into monorepo |
-| Phase 2 — App Shell + Navigation + Theme | ⏳ Not started | — |
+| Phase 2 — App Shell + Navigation + Theme | ✅ Complete | feat(jhuri): Phase 2 — app shell, theme, navigation, onboarding |
 | Phase 3 — Core Loop | ⏳ Not started | — |
 | Phase 4 — Settings + Notifications + Share | ⏳ Not started | — |
 | Phase 5 — Ads Integration | ⏳ Not started | — |
@@ -68,9 +70,9 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 
 ## Last Commit
 
-**Hash:** 2b74e44
-**Message:** chore: delete broken jhuri shell — monorepo fully clean
-**Branch:** main (merged from monorepo-restoration)
+**Hash:** [Will be updated after commit]
+**Message:** feat(jhuri): Phase 2 — app shell, theme, navigation, onboarding
+**Branch:** jhuri
 
 ---
 
@@ -105,15 +107,11 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 
 ## Next Action
 
-**Phase 2 — App Shell + Navigation + Theme**
-- main.dart: ProviderScope, Drift init, SharedPreferences init, theme setup
-- JhuriBaseScreen extending BaseScreen from ekush_core
-- JhuriLocalizations implementing AppLocalizations — all MVP strings in both Bangla and English
-- JhuriConstants file with all constants from Section 11
-- App router setup (go_router or Navigator 2.0 following Ponji pattern)
-- Jhuri theme registered (colours, typography from Section 4)
-- Onboarding flow — 3 screens, sets onboardingComplete in SharedPreferences
-- Home screen shell (empty state only, no real data yet)
+**Phase 3 — Core Loop**
+- Build grocery list CRUD operations
+- Implement item management UI
+- Add shopping mode functionality
+- Create list sharing feature
 
 ---
 
@@ -121,8 +119,10 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 
 - `26 packages have newer versions incompatible with dependency constraints` — flagged during audit, not blocking, defer to a future maintenance session
 - English language is gated in v1, fully activated in v2 — do not spend time on English strings beyond having them present in code
+- Flutter app successfully launches on Chrome but waits for debug connection — web support added successfully
+- 26 lint warnings remain (mostly unused imports) — not blocking for MVP
 
 ---
 
-*Last updated: 2026-04-03 — Post Doc 1 completion, pre Doc 2 Phase 1*
-*Updated by: Claude (session handoff)*
+*Last updated: 2026-04-04 — Phase 2 Complete*
+*Updated by: Windsurf (Phase 2 completion)*
