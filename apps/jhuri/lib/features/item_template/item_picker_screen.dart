@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ekush_models/ekush_models.dart';
 import '../../providers/item_selection_provider.dart';
 import 'item_picker_viewmodel.dart';
@@ -31,7 +32,7 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => context.pop(),
         ),
         title: Text(
           widget.categoryName,

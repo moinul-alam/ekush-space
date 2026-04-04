@@ -38,26 +38,6 @@ class JhuriApp extends ConsumerWidget {
   }
 }
 
-// Providers for theme and locale management
-final themeModeProvider =
-    NotifierProvider<ThemeModeNotifier, ThemeMode>(ThemeModeNotifier.new);
-final localeProvider =
-    NotifierProvider<LocaleNotifier, Locale>(LocaleNotifier.new);
-
-class ThemeModeNotifier extends Notifier<ThemeMode> {
-  @override
-  ThemeMode build() => ThemeMode.system;
-
-  void setThemeMode(ThemeMode mode) {
-    state = mode;
-  }
-}
-
-class LocaleNotifier extends Notifier<Locale> {
-  @override
-  Locale build() => JhuriConstants.defaultLocale;
-
-  void setLocale(Locale locale) {
-    state = locale;
-  }
-}
+// Simple providers for theme and locale management
+final themeModeProvider = Provider<ThemeMode>((ref) => ThemeMode.system);
+final localeProvider = Provider<Locale>((ref) => JhuriConstants.defaultLocale);

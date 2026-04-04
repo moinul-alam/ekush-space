@@ -173,7 +173,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
           borderRadius: BorderRadius.circular(12),
           onTap: () {
             // Navigate to item picker using new route
-            context.go('/categories/${category.id}/items',
+            context.push('/categories/${category.id}/items',
                 extra: category.nameBangla);
           },
           child: Column(
@@ -348,7 +348,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
                   context.push('/list/new');
                 } else {
                   // Existing list flow - go back with selections
-                  Navigator.pop(context);
+                  context.pop();
                 }
               }
             : null, // Disable when no items selected
