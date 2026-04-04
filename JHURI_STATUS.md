@@ -257,8 +257,16 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
   - ✅ Analysis: melos run analyze (19 warnings) and flutter analyze apps/ekush_ponji (zero issues) both pass
   - ✅ Compatibility: No conflicts with existing ekush_ponji app
   - ✅ Phase 5: ✅ Complete — all ad placements implemented per JHURI_CONST.md Section 9
+- **Seed Service Bug Fixes Complete (2026-04-05):**
+  - ✅ FIX 1: Removed explicit IDs from seed INSERT statements — categories now use autoincrement IDs
+  - ✅ FIX 2: Seed check now uses database row count instead of SharedPreferences flag
+  - ✅ Category ID mapping: Implemented proper old-to-new ID mapping for item insertion
+  - ✅ Count query fix: Fixed ItemTemplateRepository.count() method using proper Drift pattern
+  - ✅ Analysis: melos run analyze and flutter analyze apps/ekush_ponji both return zero errors
+  - ✅ App launch: Successfully launches without crash, reaches Home screen
+  - ✅ Seed verification: Database-based seed guard working correctly
 
 ---
 
-*Last updated: 2026-04-04 — Phase 5 Ads Integration: Complete AdMob integration with banner and interstitial ads following EkushAdConfig pattern*
-*Updated by: Cascade (Phase 5 ads integration session)*
+*Last updated: 2026-04-05 — Seed Service Bug Fixes: Autoincrement IDs and database-based seed guard*
+*Updated by: Cascade (Seed service bug fixes session)*
