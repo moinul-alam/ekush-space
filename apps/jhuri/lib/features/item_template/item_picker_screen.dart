@@ -136,7 +136,7 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
                     children: [
                       const SizedBox(height: 8),
                       Text(
-                        item.iconIdentifier,
+                        item.iconIdentifier ?? item.emoji,
                         style: TextStyle(
                           fontSize: 32,
                           color: isSelected

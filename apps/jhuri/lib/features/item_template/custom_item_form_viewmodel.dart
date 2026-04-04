@@ -80,7 +80,7 @@ class CustomItemFormViewModel extends BaseViewModel {
         categoryId: int.parse(_selectedCategoryId),
         defaultQuantity: _selectedQuantity,
         defaultUnit: _selectedUnit,
-        iconIdentifier: _selectedIcon,
+        iconIdentifier: Value(_selectedIcon),
         isCustom: Value(true),
         usageCount: Value(0),
         lastUsedAt: DateTime.now(),

@@ -373,10 +373,13 @@ class _CustomItemFormBottomSheetState
         nameEnglish: _englishNameController.text.trim().isEmpty
             ? _nameController.text.trim()
             : _englishNameController.text.trim(),
+        phoneticName:
+            _nameController.text.trim().toLowerCase().replaceAll(' ', ''),
         categoryId: _selectedCategoryId,
         defaultQuantity: double.tryParse(_quantityController.text) ?? 1.0,
         defaultUnit: _selectedUnit,
-        iconIdentifier: '📦', // Default icon for custom items
+        emoji: '📦', // Default emoji for custom items
+        sortOrder: 999, // Custom items appear last
       );
 
       // Invalidate the item picker provider to refresh the grid

@@ -12,6 +12,7 @@ class ItemTemplateRepository extends BaseRepository<ItemTemplate> {
   @override
   Future<List<ItemTemplate>> getAll() async {
     return await (_database.select(_database.itemTemplates)
+          ..where((t) => t.isActive.equals(true))
           ..orderBy([(t) => OrderingTerm.asc(t.nameBangla)]))
         .get();
   }
@@ -61,10 +62,11 @@ class ItemTemplateRepository extends BaseRepository<ItemTemplate> {
 
   @override
   Future<int> count() async {
+    final count = _database.itemTemplates.id.count();
     final query = _database.selectOnly(_database.itemTemplates)
-      ..addColumns([_database.itemTemplates.id.count()]);
+      ..addColumns([count]);
     final result = await query.getSingle();
-    return result.read(_database.itemTemplates.id) as int;
+    return result.read(count) ?? 0;
   }
 
   @override
@@ -112,8 +114,9 @@ class ItemTemplateRepository extends BaseRepository<ItemTemplate> {
   /// Get item templates by category ID
   Future<List<ItemTemplate>> getByCategoryId(int categoryId) async {
     final items = await (_database.select(_database.itemTemplates)
-          ..where((t) => t.categoryId.equals(categoryId))
-          ..orderBy([(t) => OrderingTerm.asc(t.nameBangla)]))
+          ..where(
+              (t) => t.categoryId.equals(categoryId) & t.isActive.equals(true))
+          ..orderBy([(t) => OrderingTerm.asc(t.sortOrder)]))
         .get();
 
     debugPrint('🔍 Found ${items.length} items for categoryId $categoryId');
@@ -155,10 +158,15 @@ class ItemTemplateRepository extends BaseRepository<ItemTemplate> {
     return rowsAffected > 0;
   }
 
-  /// Search item templates by name
+  /// Search item templates by name (Bangla, English, and phonetic)
   Future<List<ItemTemplate>> searchByName(String searchTerm) async {
+    final lowerSearchTerm = searchTerm.toLowerCase();
     return await (_database.select(_database.itemTemplates)
-          ..where((t) => t.nameBangla.contains(searchTerm))
+          ..where((t) =>
+              (t.nameBangla.contains(searchTerm) |
+                  t.nameEnglish.contains(searchTerm) |
+                  t.phoneticName.contains(lowerSearchTerm)) &
+              t.isActive.equals(true))
           ..orderBy([(t) => OrderingTerm.asc(t.nameBangla)]))
         .get();
   }
@@ -167,21 +175,27 @@ class ItemTemplateRepository extends BaseRepository<ItemTemplate> {
   Future<int> createCustomItem({
     required String nameBangla,
     required String nameEnglish,
+    required String phoneticName,
     required int categoryId,
     required double defaultQuantity,
     required String defaultUnit,
-    required String iconIdentifier,
+    required String emoji,
+    required int sortOrder,
   }) {
     return _database.into(_database.itemTemplates).insert(
           ItemTemplatesCompanion.insert(
             nameBangla: nameBangla,
             nameEnglish: nameEnglish,
+            phoneticName: Value(phoneticName),
             categoryId: categoryId,
             defaultQuantity: defaultQuantity,
             defaultUnit: defaultUnit,
-            iconIdentifier: iconIdentifier,
+            emoji: Value(emoji),
+            iconIdentifier: const Value(null),
             isCustom: const Value(true),
+            isActive: const Value(true),
             usageCount: const Value(0),
+            sortOrder: Value(sortOrder),
             lastUsedAt: DateTime.now(),
             createdAt: Value(DateTime.now()),
           ),

@@ -99,6 +99,35 @@ final listSortOrderProvider = Provider<String>((ref) {
   return ref.watch(listSortOrderNotifierProvider).value ?? 'dateDesc';
 });
 
+// Last interstitial shown provider for ad timing logic
+final lastInterstitialShownProvider = Provider<String?>((ref) {
+  return ref.watch(lastInterstitialShownNotifierProvider).value;
+});
+
+final lastInterstitialShownNotifierProvider =
+    AsyncNotifierProvider<LastInterstitialShownNotifier, String?>(
+        LastInterstitialShownNotifier.new);
+
+class LastInterstitialShownNotifier extends AsyncNotifier<String?> {
+  static const String _key = 'lastInterstitialShown';
+
+  @override
+  Future<String?> build() async {
+    final prefs = ref.read(sharedPreferencesProvider);
+    return prefs.getString(_key);
+  }
+
+  Future<void> setLastInterstitialShown(String? dateTime) async {
+    final prefs = ref.read(sharedPreferencesProvider);
+    if (dateTime != null) {
+      await prefs.setString(_key, dateTime);
+    } else {
+      await prefs.remove(_key);
+    }
+    state = AsyncValue.data(dateTime);
+  }
+}
+
 // Settings notifiers for writable values
 final showPriceTotalNotifierProvider =
     AsyncNotifierProvider<ShowPriceTotalNotifier, bool>(

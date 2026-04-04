@@ -65,8 +65,8 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 | Phase 1 — Drift + ekush_models + ekush_core | ✅ Complete | feat(jhuri): Phase 1 — Drift foundation wired into monorepo |
 | Phase 2 — App Shell + Navigation + Theme | ✅ Complete | feat(jhuri): Phase 2 — app shell, theme, navigation, onboarding |
 | Phase 3 — Core Loop + Custom Categories/Items | ✅ Complete | feat(jhuri): custom categories, per-category item creation, drawer shortcuts |
-| Phase 4 — Settings + Notifications + Share | ⏳ Not started | — |
-| Phase 5 — Ads Integration | ⏳ Not started | — |
+| Phase 4 — Settings + Notifications + Share | ✅ Complete | feat(jhuri): Phase 4 — settings, notifications, share |
+| Phase 5 — Ads Integration | ✅ Complete | feat(jhuri): Phase 5 — ads integration |
 | Phase 6 — Polish + Play Store Submission | ⏳ Not started | — |
 
 ---
@@ -74,7 +74,7 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 ## Last Commit
 
 **Hash:** [pending commit]
-**Message:** feat(jhuri): custom categories, per-category item creation, drawer shortcuts
+**Message:** feat(jhuri): Phase 5 — ads integration
 **Branch:** jhuri
 
 ---
@@ -116,10 +116,14 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 
 ## Next Action
 
-**Phase 4 — Settings + Notifications + Share** 
-- Add app settings screen
-- Implement notification system via ekush_notifications  
-- Create list sharing functionality via ekush_share
+**Phase 6 — Polish + Play Store Submission** 
+- Replace all placeholder icons with final AI-generated assets
+- Expand item library to full MVP set (5 categories × 5 items minimum)
+- App icon and splash screen finalized
+- Review all Bangla strings for correctness and naturalness
+- Test all edge cases from Section 12
+- flutter build appbundle --release
+- Submit to Play Store internal testing track
 
 ---
 
@@ -243,8 +247,18 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
   - ✅ Removed all notification permission requests from onboarding flow
   - ✅ All analysis checks pass — zero errors, zero conflicts with ekush_ponji
   - ✅ Ready for device testing of all 5 steps as specified
+- **Phase 5 Complete — Ads Integration (2026-04-04):**
+  - ✅ AdConfig Class: Created following Ekush Ponji pattern with Google test IDs
+  - ✅ AdService Integration: Wired in main.dart with provider override
+  - ✅ SharedPreferences Provider: Added lastInterstitialShown tracking
+  - ✅ Banner Ads: Added to Home screen and Shopping Mode bottom
+  - ✅ Interstitial Ads: Added after list save and share image generation
+  - ✅ Session Logic: Implemented 5-minute minimum interval enforcement
+  - ✅ Analysis: melos run analyze (19 warnings) and flutter analyze apps/ekush_ponji (zero issues) both pass
+  - ✅ Compatibility: No conflicts with existing ekush_ponji app
+  - ✅ Phase 5: ✅ Complete — all ad placements implemented per JHURI_CONST.md Section 9
 
 ---
 
-*Last updated: 2026-04-04 — Notification Cancellation Fix: Added ShoppingListNotificationService.cancelNotification() call before list deletion with debug logging*
-*Updated by: Cascade (Notification cancellation fix session)*
+*Last updated: 2026-04-04 — Phase 5 Ads Integration: Complete AdMob integration with banner and interstitial ads following EkushAdConfig pattern*
+*Updated by: Cascade (Phase 5 ads integration session)*

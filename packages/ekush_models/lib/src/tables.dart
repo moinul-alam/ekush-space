@@ -10,6 +10,7 @@ class Categories extends Table {
   TextColumn get iconIdentifier => text()();
   IntColumn get sortOrder => integer()();
   BoolColumn get isCustom => boolean().withDefault(const Constant(false))();
+  BoolColumn get isActive => boolean().withDefault(const Constant(true))();
 }
 
 // ItemTemplates table
@@ -18,12 +19,16 @@ class ItemTemplates extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get nameBangla => text()();
   TextColumn get nameEnglish => text()();
+  TextColumn get phoneticName => text().nullable()();
   IntColumn get categoryId => integer().references(Categories, #id)();
   RealColumn get defaultQuantity => real()();
   TextColumn get defaultUnit => text()();
-  TextColumn get iconIdentifier => text()();
+  TextColumn get iconIdentifier => text().nullable()();
+  TextColumn get emoji => text().withDefault(const Constant('🛒'))();
   BoolColumn get isCustom => boolean().withDefault(const Constant(false))();
+  BoolColumn get isActive => boolean().withDefault(const Constant(true))();
   IntColumn get usageCount => integer().withDefault(const Constant(0))();
+  IntColumn get sortOrder => integer().withDefault(const Constant(0))();
   DateTimeColumn get lastUsedAt => dateTime()();
   DateTimeColumn get createdAt => dateTime().nullable()();
 }

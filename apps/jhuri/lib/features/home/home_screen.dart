@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ekush_models/ekush_models.dart';
+import 'package:ekush_ads/ekush_ads.dart';
 import '../../config/jhuri_constants.dart';
 import '../shopping_list/home_providers.dart';
 import '../../providers/database_provider.dart';
@@ -58,6 +59,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         foregroundColor: Colors.white,
         child: const Icon(Icons.add),
       ),
+      bottomNavigationBar: const AppAdBannerBottom(),
     );
   }
 
@@ -117,23 +119,23 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // ── Empty State Icon ──────────────────────
-              Container(
-                width: 120,
-                height: 120,
-                decoration: BoxDecoration(
-                  color: colorScheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(24),
-                  child: Image.asset(
-                    'assets/images/app_logo.png',
-                    width: 120,
-                    height: 120,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
+              // Container(
+              //   width: 120,
+              //   height: 120,
+              //   decoration: BoxDecoration(
+              //     color: colorScheme.surfaceContainerHighest,
+              //     borderRadius: BorderRadius.circular(24),
+              //   ),
+              //   child: ClipRRect(
+              //     borderRadius: BorderRadius.circular(24),
+              //     child: Image.asset(
+              //       'assets/images/app_logo.png',
+              //       width: 120,
+              //       height: 120,
+              //       fit: BoxFit.cover,
+              //     ),
+              //   ),
+              // ),
 
               const SizedBox(height: 32),
 

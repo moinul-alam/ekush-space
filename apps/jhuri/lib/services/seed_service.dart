@@ -3,29 +3,21 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:ekush_models/ekush_models.dart';
 import 'package:drift/drift.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../features/item_template/data/item_template_repository.dart';
 
 /// Service to seed the database with initial data from JSON file
 class SeedService {
   final JhuriDatabase _database;
-  static const String _seedCompleteKey = 'jhuri_seed_complete';
 
   SeedService(this._database);
 
-  /// Check if seed data has already been loaded
-  Future<bool> get isSeedComplete async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(_seedCompleteKey) ?? false;
-  }
-
   /// Load seed data from JSON and populate database tables
   Future<void> seedDatabaseIfNeeded() async {
-    // Check if categories table is empty - this is the definitive gate
-    final categories =
-        await (_database.select(_database.categories)..limit(1)).get();
-
-    if (categories.isNotEmpty) {
-      // Categories already exist, no need to seed
+    // Check if item templates table is empty - this is the definitive gate
+    final itemRepository = ItemTemplateRepository(_database);
+    final existingCount = await itemRepository.count();
+    if (existingCount > 0) {
+      // Items already exist, no need to seed
       return;
     }
 
@@ -37,43 +29,58 @@ class SeedService {
 
       // Use transaction to ensure all-or-nothing insertion
       await _database.transaction(() async {
-        // Seed categories
+        // Seed categories first
+        Map<int, int> categoryIdMap = {}; // Maps old ID -> new auto-assigned ID
+
         if (seedData['categories'] != null) {
           final categories = (seedData['categories'] as List)
               .map((cat) => CategoriesCompanion.insert(
-                    id: Value(cat['id']),
                     nameBangla: cat['nameBangla'],
                     nameEnglish: cat['nameEnglish'],
                     imageIdentifier: cat['imageIdentifier'],
                     iconIdentifier: cat['iconIdentifier'],
                     sortOrder: cat['sortOrder'],
+                    isActive: Value(cat['isActive'] ?? true),
                   ))
               .toList();
 
-          await _database.batch((batch) {
-            batch.insertAll(_database.categories, categories);
-          });
+          // Insert categories and get their auto-assigned IDs
+          for (int i = 0; i < categories.length; i++) {
+            final category = categories[i];
+            final oldId = (seedData['categories'] as List)[i]['id'] as int;
+            final newId =
+                await _database.into(_database.categories).insert(category);
+            categoryIdMap[oldId] = newId;
+          }
 
           debugPrint('✅ Seeded ${categories.length} categories');
         }
 
-        // Seed item templates
+        // Seed item templates with new category IDs
         if (seedData['itemTemplates'] != null) {
-          final itemTemplates = (seedData['itemTemplates'] as List)
-              .map((item) => ItemTemplatesCompanion.insert(
-                    id: Value(item['id']),
-                    nameBangla: item['nameBangla'],
-                    nameEnglish: item['nameEnglish'],
-                    categoryId: item['categoryId'],
-                    defaultQuantity: item['defaultQuantity'].toDouble(),
-                    defaultUnit: item['defaultUnit'],
-                    iconIdentifier: item['iconIdentifier'],
-                    isCustom: const Value(false),
-                    usageCount: Value(item['usageCount']),
-                    lastUsedAt: DateTime.now(),
-                    createdAt: const Value(null), // null for seeded items
-                  ))
-              .toList();
+          final itemTemplates = (seedData['itemTemplates'] as List).map((item) {
+            final oldCategoryId = item['categoryId'] as int;
+            final newCategoryId = categoryIdMap[oldCategoryId] ??
+                (throw Exception(
+                    'Category ID mapping not found for old ID: $oldCategoryId'));
+
+            return ItemTemplatesCompanion.insert(
+              nameBangla: item['nameBangla'],
+              nameEnglish: item['nameEnglish'],
+              phoneticName: Value(item['phoneticName']),
+              categoryId: newCategoryId,
+              defaultQuantity: item['defaultQuantity'].toDouble(),
+              defaultUnit: item['defaultUnit'],
+              iconIdentifier: Value(item['iconIdentifier']),
+              emoji: Value(item['emoji'] ?? '🛒'),
+              isCustom: const Value(false),
+              isActive: Value(item['isActive'] ?? true),
+              usageCount: Value(item['usageCount']),
+              sortOrder: Value(item['sortOrder']),
+              lastUsedAt: DateTime.now(),
+              createdAt: const Value(null), // null for seeded items
+            );
+          }).toList();
 
           await _database.batch((batch) {
             batch.insertAll(_database.itemTemplates, itemTemplates);
@@ -82,18 +89,8 @@ class SeedService {
           debugPrint('✅ Seeded ${itemTemplates.length} item templates');
         }
       });
-
-      // Mark seed as complete
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setBool(_seedCompleteKey, true);
     } catch (e) {
       throw Exception('Failed to seed database: $e');
     }
-  }
-
-  /// Reset seed status (for testing purposes)
-  Future<void> resetSeedStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_seedCompleteKey);
   }
 }

@@ -9,7 +9,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:ekush_models/ekush_models.dart';
+import 'package:ekush_ads/ekush_ads.dart';
 import 'app/app.dart';
+import 'app/config/ad_config.dart';
 import 'config/jhuri_constants.dart';
 import 'providers/database_provider.dart';
 import 'providers/settings_providers.dart';
@@ -143,6 +145,12 @@ Future<void> main() async {
           // Override SharedPreferences provider
           sharedPreferencesProvider
               .overrideWithValue(initData['prefs'] as SharedPreferences),
+          // Override AdService provider with Jhuri AdConfig
+          adServiceProvider.overrideWith((ref) {
+            final service = AdService(ref, AdConfig.toEkushAdConfig());
+            ref.onDispose(service.dispose);
+            return service;
+          }),
         ],
         child: JhuriApp(
           onboardingComplete: initData['onboardingComplete'] as bool,

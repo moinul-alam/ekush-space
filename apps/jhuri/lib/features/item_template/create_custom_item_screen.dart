@@ -377,10 +377,13 @@ class _CreateCustomItemScreenState
         nameEnglish: _englishNameController.text.trim().isEmpty
             ? _banglaNameController.text.trim()
             : _englishNameController.text.trim(),
+        phoneticName:
+            _banglaNameController.text.trim().toLowerCase().replaceAll(' ', ''),
         categoryId: _selectedCategoryId,
         defaultQuantity: double.parse(_quantityController.text.trim()),
         defaultUnit: _selectedUnit,
-        iconIdentifier: '📦', // Default icon for custom items
+        emoji: '📦', // Default emoji for custom items
+        sortOrder: 999, // Custom items appear last
       );
 
       if (mounted) {

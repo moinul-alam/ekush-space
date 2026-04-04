@@ -80,7 +80,7 @@ class _ItemQuantityBottomSheetState
                       ),
                       child: Center(
                         child: Text(
-                          widget.item.iconIdentifier,
+                          widget.item.iconIdentifier ?? widget.item.emoji,
                           style: const TextStyle(fontSize: 32),
                         ),
                       ),

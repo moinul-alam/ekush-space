@@ -11,6 +11,7 @@ class CategoryRepository extends BaseRepository<Category> {
   @override
   Future<List<Category>> getAll() async {
     return await (_database.select(_database.categories)
+          ..where((t) => t.isActive.equals(true))
           ..orderBy([(t) => OrderingTerm.asc(t.sortOrder)]))
         .get();
   }
@@ -135,6 +136,7 @@ class CategoryRepository extends BaseRepository<Category> {
             iconIdentifier: iconIdentifier,
             sortOrder: maxSortOrder + 1,
             isCustom: const Value(true),
+            isActive: const Value(true),
           ),
         );
   }
@@ -142,6 +144,7 @@ class CategoryRepository extends BaseRepository<Category> {
   // Watch all categories (seeded + custom), ordered by sortOrder
   Stream<List<Category>> watchAllCategories() =>
       (_database.select(_database.categories)
+            ..where((c) => c.isActive.equals(true))
             ..orderBy([(c) => OrderingTerm.asc(c.sortOrder)]))
           .watch();
 

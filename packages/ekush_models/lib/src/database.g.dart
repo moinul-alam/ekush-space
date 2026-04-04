@@ -58,6 +58,16 @@ class $CategoriesTable extends Categories
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('CHECK ("is_custom" IN (0, 1))'),
       defaultValue: const Constant(false));
+  static const VerificationMeta _isActiveMeta =
+      const VerificationMeta('isActive');
+  @override
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'),
+      defaultValue: const Constant(true));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -66,7 +76,8 @@ class $CategoriesTable extends Categories
         imageIdentifier,
         iconIdentifier,
         sortOrder,
-        isCustom
+        isCustom,
+        isActive
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -123,6 +134,10 @@ class $CategoriesTable extends Categories
       context.handle(_isCustomMeta,
           isCustom.isAcceptableOrUnknown(data['is_custom']!, _isCustomMeta));
     }
+    if (data.containsKey('is_active')) {
+      context.handle(_isActiveMeta,
+          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
+    }
     return context;
   }
 
@@ -146,6 +161,8 @@ class $CategoriesTable extends Categories
           .read(DriftSqlType.int, data['${effectivePrefix}sort_order'])!,
       isCustom: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}is_custom'])!,
+      isActive: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
     );
   }
 
@@ -163,6 +180,7 @@ class Category extends DataClass implements Insertable<Category> {
   final String iconIdentifier;
   final int sortOrder;
   final bool isCustom;
+  final bool isActive;
   const Category(
       {required this.id,
       required this.nameBangla,
@@ -170,7 +188,8 @@ class Category extends DataClass implements Insertable<Category> {
       required this.imageIdentifier,
       required this.iconIdentifier,
       required this.sortOrder,
-      required this.isCustom});
+      required this.isCustom,
+      required this.isActive});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -181,6 +200,7 @@ class Category extends DataClass implements Insertable<Category> {
     map['icon_identifier'] = Variable<String>(iconIdentifier);
     map['sort_order'] = Variable<int>(sortOrder);
     map['is_custom'] = Variable<bool>(isCustom);
+    map['is_active'] = Variable<bool>(isActive);
     return map;
   }
 
@@ -193,6 +213,7 @@ class Category extends DataClass implements Insertable<Category> {
       iconIdentifier: Value(iconIdentifier),
       sortOrder: Value(sortOrder),
       isCustom: Value(isCustom),
+      isActive: Value(isActive),
     );
   }
 
@@ -207,6 +228,7 @@ class Category extends DataClass implements Insertable<Category> {
       iconIdentifier: serializer.fromJson<String>(json['iconIdentifier']),
       sortOrder: serializer.fromJson<int>(json['sortOrder']),
       isCustom: serializer.fromJson<bool>(json['isCustom']),
+      isActive: serializer.fromJson<bool>(json['isActive']),
     );
   }
   @override
@@ -220,6 +242,7 @@ class Category extends DataClass implements Insertable<Category> {
       'iconIdentifier': serializer.toJson<String>(iconIdentifier),
       'sortOrder': serializer.toJson<int>(sortOrder),
       'isCustom': serializer.toJson<bool>(isCustom),
+      'isActive': serializer.toJson<bool>(isActive),
     };
   }
 
@@ -230,7 +253,8 @@ class Category extends DataClass implements Insertable<Category> {
           String? imageIdentifier,
           String? iconIdentifier,
           int? sortOrder,
-          bool? isCustom}) =>
+          bool? isCustom,
+          bool? isActive}) =>
       Category(
         id: id ?? this.id,
         nameBangla: nameBangla ?? this.nameBangla,
@@ -239,6 +263,7 @@ class Category extends DataClass implements Insertable<Category> {
         iconIdentifier: iconIdentifier ?? this.iconIdentifier,
         sortOrder: sortOrder ?? this.sortOrder,
         isCustom: isCustom ?? this.isCustom,
+        isActive: isActive ?? this.isActive,
       );
   Category copyWithCompanion(CategoriesCompanion data) {
     return Category(
@@ -255,6 +280,7 @@ class Category extends DataClass implements Insertable<Category> {
           : this.iconIdentifier,
       sortOrder: data.sortOrder.present ? data.sortOrder.value : this.sortOrder,
       isCustom: data.isCustom.present ? data.isCustom.value : this.isCustom,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
     );
   }
 
@@ -267,14 +293,15 @@ class Category extends DataClass implements Insertable<Category> {
           ..write('imageIdentifier: $imageIdentifier, ')
           ..write('iconIdentifier: $iconIdentifier, ')
           ..write('sortOrder: $sortOrder, ')
-          ..write('isCustom: $isCustom')
+          ..write('isCustom: $isCustom, ')
+          ..write('isActive: $isActive')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode => Object.hash(id, nameBangla, nameEnglish, imageIdentifier,
-      iconIdentifier, sortOrder, isCustom);
+      iconIdentifier, sortOrder, isCustom, isActive);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -285,7 +312,8 @@ class Category extends DataClass implements Insertable<Category> {
           other.imageIdentifier == this.imageIdentifier &&
           other.iconIdentifier == this.iconIdentifier &&
           other.sortOrder == this.sortOrder &&
-          other.isCustom == this.isCustom);
+          other.isCustom == this.isCustom &&
+          other.isActive == this.isActive);
 }
 
 class CategoriesCompanion extends UpdateCompanion<Category> {
@@ -296,6 +324,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
   final Value<String> iconIdentifier;
   final Value<int> sortOrder;
   final Value<bool> isCustom;
+  final Value<bool> isActive;
   const CategoriesCompanion({
     this.id = const Value.absent(),
     this.nameBangla = const Value.absent(),
@@ -304,6 +333,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     this.iconIdentifier = const Value.absent(),
     this.sortOrder = const Value.absent(),
     this.isCustom = const Value.absent(),
+    this.isActive = const Value.absent(),
   });
   CategoriesCompanion.insert({
     this.id = const Value.absent(),
@@ -313,6 +343,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     required String iconIdentifier,
     required int sortOrder,
     this.isCustom = const Value.absent(),
+    this.isActive = const Value.absent(),
   })  : nameBangla = Value(nameBangla),
         nameEnglish = Value(nameEnglish),
         imageIdentifier = Value(imageIdentifier),
@@ -326,6 +357,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     Expression<String>? iconIdentifier,
     Expression<int>? sortOrder,
     Expression<bool>? isCustom,
+    Expression<bool>? isActive,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -335,6 +367,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
       if (iconIdentifier != null) 'icon_identifier': iconIdentifier,
       if (sortOrder != null) 'sort_order': sortOrder,
       if (isCustom != null) 'is_custom': isCustom,
+      if (isActive != null) 'is_active': isActive,
     });
   }
 
@@ -345,7 +378,8 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
       Value<String>? imageIdentifier,
       Value<String>? iconIdentifier,
       Value<int>? sortOrder,
-      Value<bool>? isCustom}) {
+      Value<bool>? isCustom,
+      Value<bool>? isActive}) {
     return CategoriesCompanion(
       id: id ?? this.id,
       nameBangla: nameBangla ?? this.nameBangla,
@@ -354,6 +388,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
       iconIdentifier: iconIdentifier ?? this.iconIdentifier,
       sortOrder: sortOrder ?? this.sortOrder,
       isCustom: isCustom ?? this.isCustom,
+      isActive: isActive ?? this.isActive,
     );
   }
 
@@ -381,6 +416,9 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     if (isCustom.present) {
       map['is_custom'] = Variable<bool>(isCustom.value);
     }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
     return map;
   }
 
@@ -393,7 +431,8 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
           ..write('imageIdentifier: $imageIdentifier, ')
           ..write('iconIdentifier: $iconIdentifier, ')
           ..write('sortOrder: $sortOrder, ')
-          ..write('isCustom: $isCustom')
+          ..write('isCustom: $isCustom, ')
+          ..write('isActive: $isActive')
           ..write(')'))
         .toString();
   }
@@ -426,6 +465,12 @@ class $ItemTemplatesTable extends ItemTemplates
   late final GeneratedColumn<String> nameEnglish = GeneratedColumn<String>(
       'name_english', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _phoneticNameMeta =
+      const VerificationMeta('phoneticName');
+  @override
+  late final GeneratedColumn<String> phoneticName = GeneratedColumn<String>(
+      'phonetic_name', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _categoryIdMeta =
       const VerificationMeta('categoryId');
   @override
@@ -451,8 +496,15 @@ class $ItemTemplatesTable extends ItemTemplates
       const VerificationMeta('iconIdentifier');
   @override
   late final GeneratedColumn<String> iconIdentifier = GeneratedColumn<String>(
-      'icon_identifier', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      'icon_identifier', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _emojiMeta = const VerificationMeta('emoji');
+  @override
+  late final GeneratedColumn<String> emoji = GeneratedColumn<String>(
+      'emoji', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant('🛒'));
   static const VerificationMeta _isCustomMeta =
       const VerificationMeta('isCustom');
   @override
@@ -463,11 +515,29 @@ class $ItemTemplatesTable extends ItemTemplates
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('CHECK ("is_custom" IN (0, 1))'),
       defaultValue: const Constant(false));
+  static const VerificationMeta _isActiveMeta =
+      const VerificationMeta('isActive');
+  @override
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'),
+      defaultValue: const Constant(true));
   static const VerificationMeta _usageCountMeta =
       const VerificationMeta('usageCount');
   @override
   late final GeneratedColumn<int> usageCount = GeneratedColumn<int>(
       'usage_count', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
+  static const VerificationMeta _sortOrderMeta =
+      const VerificationMeta('sortOrder');
+  @override
+  late final GeneratedColumn<int> sortOrder = GeneratedColumn<int>(
+      'sort_order', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultValue: const Constant(0));
@@ -488,12 +558,16 @@ class $ItemTemplatesTable extends ItemTemplates
         id,
         nameBangla,
         nameEnglish,
+        phoneticName,
         categoryId,
         defaultQuantity,
         defaultUnit,
         iconIdentifier,
+        emoji,
         isCustom,
+        isActive,
         usageCount,
+        sortOrder,
         lastUsedAt,
         createdAt
       ];
@@ -526,6 +600,12 @@ class $ItemTemplatesTable extends ItemTemplates
     } else if (isInserting) {
       context.missing(_nameEnglishMeta);
     }
+    if (data.containsKey('phonetic_name')) {
+      context.handle(
+          _phoneticNameMeta,
+          phoneticName.isAcceptableOrUnknown(
+              data['phonetic_name']!, _phoneticNameMeta));
+    }
     if (data.containsKey('category_id')) {
       context.handle(
           _categoryIdMeta,
@@ -555,18 +635,28 @@ class $ItemTemplatesTable extends ItemTemplates
           _iconIdentifierMeta,
           iconIdentifier.isAcceptableOrUnknown(
               data['icon_identifier']!, _iconIdentifierMeta));
-    } else if (isInserting) {
-      context.missing(_iconIdentifierMeta);
+    }
+    if (data.containsKey('emoji')) {
+      context.handle(
+          _emojiMeta, emoji.isAcceptableOrUnknown(data['emoji']!, _emojiMeta));
     }
     if (data.containsKey('is_custom')) {
       context.handle(_isCustomMeta,
           isCustom.isAcceptableOrUnknown(data['is_custom']!, _isCustomMeta));
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(_isActiveMeta,
+          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
     }
     if (data.containsKey('usage_count')) {
       context.handle(
           _usageCountMeta,
           usageCount.isAcceptableOrUnknown(
               data['usage_count']!, _usageCountMeta));
+    }
+    if (data.containsKey('sort_order')) {
+      context.handle(_sortOrderMeta,
+          sortOrder.isAcceptableOrUnknown(data['sort_order']!, _sortOrderMeta));
     }
     if (data.containsKey('last_used_at')) {
       context.handle(
@@ -595,18 +685,26 @@ class $ItemTemplatesTable extends ItemTemplates
           .read(DriftSqlType.string, data['${effectivePrefix}name_bangla'])!,
       nameEnglish: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name_english'])!,
+      phoneticName: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}phonetic_name']),
       categoryId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}category_id'])!,
       defaultQuantity: attachedDatabase.typeMapping.read(
           DriftSqlType.double, data['${effectivePrefix}default_quantity'])!,
       defaultUnit: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}default_unit'])!,
-      iconIdentifier: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}icon_identifier'])!,
+      iconIdentifier: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}icon_identifier']),
+      emoji: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}emoji'])!,
       isCustom: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}is_custom'])!,
+      isActive: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
       usageCount: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}usage_count'])!,
+      sortOrder: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}sort_order'])!,
       lastUsedAt: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}last_used_at'])!,
       createdAt: attachedDatabase.typeMapping
@@ -624,24 +722,32 @@ class ItemTemplate extends DataClass implements Insertable<ItemTemplate> {
   final int id;
   final String nameBangla;
   final String nameEnglish;
+  final String? phoneticName;
   final int categoryId;
   final double defaultQuantity;
   final String defaultUnit;
-  final String iconIdentifier;
+  final String? iconIdentifier;
+  final String emoji;
   final bool isCustom;
+  final bool isActive;
   final int usageCount;
+  final int sortOrder;
   final DateTime lastUsedAt;
   final DateTime? createdAt;
   const ItemTemplate(
       {required this.id,
       required this.nameBangla,
       required this.nameEnglish,
+      this.phoneticName,
       required this.categoryId,
       required this.defaultQuantity,
       required this.defaultUnit,
-      required this.iconIdentifier,
+      this.iconIdentifier,
+      required this.emoji,
       required this.isCustom,
+      required this.isActive,
       required this.usageCount,
+      required this.sortOrder,
       required this.lastUsedAt,
       this.createdAt});
   @override
@@ -650,12 +756,20 @@ class ItemTemplate extends DataClass implements Insertable<ItemTemplate> {
     map['id'] = Variable<int>(id);
     map['name_bangla'] = Variable<String>(nameBangla);
     map['name_english'] = Variable<String>(nameEnglish);
+    if (!nullToAbsent || phoneticName != null) {
+      map['phonetic_name'] = Variable<String>(phoneticName);
+    }
     map['category_id'] = Variable<int>(categoryId);
     map['default_quantity'] = Variable<double>(defaultQuantity);
     map['default_unit'] = Variable<String>(defaultUnit);
-    map['icon_identifier'] = Variable<String>(iconIdentifier);
+    if (!nullToAbsent || iconIdentifier != null) {
+      map['icon_identifier'] = Variable<String>(iconIdentifier);
+    }
+    map['emoji'] = Variable<String>(emoji);
     map['is_custom'] = Variable<bool>(isCustom);
+    map['is_active'] = Variable<bool>(isActive);
     map['usage_count'] = Variable<int>(usageCount);
+    map['sort_order'] = Variable<int>(sortOrder);
     map['last_used_at'] = Variable<DateTime>(lastUsedAt);
     if (!nullToAbsent || createdAt != null) {
       map['created_at'] = Variable<DateTime>(createdAt);
@@ -668,12 +782,20 @@ class ItemTemplate extends DataClass implements Insertable<ItemTemplate> {
       id: Value(id),
       nameBangla: Value(nameBangla),
       nameEnglish: Value(nameEnglish),
+      phoneticName: phoneticName == null && nullToAbsent
+          ? const Value.absent()
+          : Value(phoneticName),
       categoryId: Value(categoryId),
       defaultQuantity: Value(defaultQuantity),
       defaultUnit: Value(defaultUnit),
-      iconIdentifier: Value(iconIdentifier),
+      iconIdentifier: iconIdentifier == null && nullToAbsent
+          ? const Value.absent()
+          : Value(iconIdentifier),
+      emoji: Value(emoji),
       isCustom: Value(isCustom),
+      isActive: Value(isActive),
       usageCount: Value(usageCount),
+      sortOrder: Value(sortOrder),
       lastUsedAt: Value(lastUsedAt),
       createdAt: createdAt == null && nullToAbsent
           ? const Value.absent()
@@ -688,12 +810,16 @@ class ItemTemplate extends DataClass implements Insertable<ItemTemplate> {
       id: serializer.fromJson<int>(json['id']),
       nameBangla: serializer.fromJson<String>(json['nameBangla']),
       nameEnglish: serializer.fromJson<String>(json['nameEnglish']),
+      phoneticName: serializer.fromJson<String?>(json['phoneticName']),
       categoryId: serializer.fromJson<int>(json['categoryId']),
       defaultQuantity: serializer.fromJson<double>(json['defaultQuantity']),
       defaultUnit: serializer.fromJson<String>(json['defaultUnit']),
-      iconIdentifier: serializer.fromJson<String>(json['iconIdentifier']),
+      iconIdentifier: serializer.fromJson<String?>(json['iconIdentifier']),
+      emoji: serializer.fromJson<String>(json['emoji']),
       isCustom: serializer.fromJson<bool>(json['isCustom']),
+      isActive: serializer.fromJson<bool>(json['isActive']),
       usageCount: serializer.fromJson<int>(json['usageCount']),
+      sortOrder: serializer.fromJson<int>(json['sortOrder']),
       lastUsedAt: serializer.fromJson<DateTime>(json['lastUsedAt']),
       createdAt: serializer.fromJson<DateTime?>(json['createdAt']),
     );
@@ -705,12 +831,16 @@ class ItemTemplate extends DataClass implements Insertable<ItemTemplate> {
       'id': serializer.toJson<int>(id),
       'nameBangla': serializer.toJson<String>(nameBangla),
       'nameEnglish': serializer.toJson<String>(nameEnglish),
+      'phoneticName': serializer.toJson<String?>(phoneticName),
       'categoryId': serializer.toJson<int>(categoryId),
       'defaultQuantity': serializer.toJson<double>(defaultQuantity),
       'defaultUnit': serializer.toJson<String>(defaultUnit),
-      'iconIdentifier': serializer.toJson<String>(iconIdentifier),
+      'iconIdentifier': serializer.toJson<String?>(iconIdentifier),
+      'emoji': serializer.toJson<String>(emoji),
       'isCustom': serializer.toJson<bool>(isCustom),
+      'isActive': serializer.toJson<bool>(isActive),
       'usageCount': serializer.toJson<int>(usageCount),
+      'sortOrder': serializer.toJson<int>(sortOrder),
       'lastUsedAt': serializer.toJson<DateTime>(lastUsedAt),
       'createdAt': serializer.toJson<DateTime?>(createdAt),
     };
@@ -720,24 +850,34 @@ class ItemTemplate extends DataClass implements Insertable<ItemTemplate> {
           {int? id,
           String? nameBangla,
           String? nameEnglish,
+          Value<String?> phoneticName = const Value.absent(),
           int? categoryId,
           double? defaultQuantity,
           String? defaultUnit,
-          String? iconIdentifier,
+          Value<String?> iconIdentifier = const Value.absent(),
+          String? emoji,
           bool? isCustom,
+          bool? isActive,
           int? usageCount,
+          int? sortOrder,
           DateTime? lastUsedAt,
           Value<DateTime?> createdAt = const Value.absent()}) =>
       ItemTemplate(
         id: id ?? this.id,
         nameBangla: nameBangla ?? this.nameBangla,
         nameEnglish: nameEnglish ?? this.nameEnglish,
+        phoneticName:
+            phoneticName.present ? phoneticName.value : this.phoneticName,
         categoryId: categoryId ?? this.categoryId,
         defaultQuantity: defaultQuantity ?? this.defaultQuantity,
         defaultUnit: defaultUnit ?? this.defaultUnit,
-        iconIdentifier: iconIdentifier ?? this.iconIdentifier,
+        iconIdentifier:
+            iconIdentifier.present ? iconIdentifier.value : this.iconIdentifier,
+        emoji: emoji ?? this.emoji,
         isCustom: isCustom ?? this.isCustom,
+        isActive: isActive ?? this.isActive,
         usageCount: usageCount ?? this.usageCount,
+        sortOrder: sortOrder ?? this.sortOrder,
         lastUsedAt: lastUsedAt ?? this.lastUsedAt,
         createdAt: createdAt.present ? createdAt.value : this.createdAt,
       );
@@ -748,6 +888,9 @@ class ItemTemplate extends DataClass implements Insertable<ItemTemplate> {
           data.nameBangla.present ? data.nameBangla.value : this.nameBangla,
       nameEnglish:
           data.nameEnglish.present ? data.nameEnglish.value : this.nameEnglish,
+      phoneticName: data.phoneticName.present
+          ? data.phoneticName.value
+          : this.phoneticName,
       categoryId:
           data.categoryId.present ? data.categoryId.value : this.categoryId,
       defaultQuantity: data.defaultQuantity.present
@@ -758,9 +901,12 @@ class ItemTemplate extends DataClass implements Insertable<ItemTemplate> {
       iconIdentifier: data.iconIdentifier.present
           ? data.iconIdentifier.value
           : this.iconIdentifier,
+      emoji: data.emoji.present ? data.emoji.value : this.emoji,
       isCustom: data.isCustom.present ? data.isCustom.value : this.isCustom,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
       usageCount:
           data.usageCount.present ? data.usageCount.value : this.usageCount,
+      sortOrder: data.sortOrder.present ? data.sortOrder.value : this.sortOrder,
       lastUsedAt:
           data.lastUsedAt.present ? data.lastUsedAt.value : this.lastUsedAt,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
@@ -773,12 +919,16 @@ class ItemTemplate extends DataClass implements Insertable<ItemTemplate> {
           ..write('id: $id, ')
           ..write('nameBangla: $nameBangla, ')
           ..write('nameEnglish: $nameEnglish, ')
+          ..write('phoneticName: $phoneticName, ')
           ..write('categoryId: $categoryId, ')
           ..write('defaultQuantity: $defaultQuantity, ')
           ..write('defaultUnit: $defaultUnit, ')
           ..write('iconIdentifier: $iconIdentifier, ')
+          ..write('emoji: $emoji, ')
           ..write('isCustom: $isCustom, ')
+          ..write('isActive: $isActive, ')
           ..write('usageCount: $usageCount, ')
+          ..write('sortOrder: $sortOrder, ')
           ..write('lastUsedAt: $lastUsedAt, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
@@ -790,12 +940,16 @@ class ItemTemplate extends DataClass implements Insertable<ItemTemplate> {
       id,
       nameBangla,
       nameEnglish,
+      phoneticName,
       categoryId,
       defaultQuantity,
       defaultUnit,
       iconIdentifier,
+      emoji,
       isCustom,
+      isActive,
       usageCount,
+      sortOrder,
       lastUsedAt,
       createdAt);
   @override
@@ -805,12 +959,16 @@ class ItemTemplate extends DataClass implements Insertable<ItemTemplate> {
           other.id == this.id &&
           other.nameBangla == this.nameBangla &&
           other.nameEnglish == this.nameEnglish &&
+          other.phoneticName == this.phoneticName &&
           other.categoryId == this.categoryId &&
           other.defaultQuantity == this.defaultQuantity &&
           other.defaultUnit == this.defaultUnit &&
           other.iconIdentifier == this.iconIdentifier &&
+          other.emoji == this.emoji &&
           other.isCustom == this.isCustom &&
+          other.isActive == this.isActive &&
           other.usageCount == this.usageCount &&
+          other.sortOrder == this.sortOrder &&
           other.lastUsedAt == this.lastUsedAt &&
           other.createdAt == this.createdAt);
 }
@@ -819,24 +977,32 @@ class ItemTemplatesCompanion extends UpdateCompanion<ItemTemplate> {
   final Value<int> id;
   final Value<String> nameBangla;
   final Value<String> nameEnglish;
+  final Value<String?> phoneticName;
   final Value<int> categoryId;
   final Value<double> defaultQuantity;
   final Value<String> defaultUnit;
-  final Value<String> iconIdentifier;
+  final Value<String?> iconIdentifier;
+  final Value<String> emoji;
   final Value<bool> isCustom;
+  final Value<bool> isActive;
   final Value<int> usageCount;
+  final Value<int> sortOrder;
   final Value<DateTime> lastUsedAt;
   final Value<DateTime?> createdAt;
   const ItemTemplatesCompanion({
     this.id = const Value.absent(),
     this.nameBangla = const Value.absent(),
     this.nameEnglish = const Value.absent(),
+    this.phoneticName = const Value.absent(),
     this.categoryId = const Value.absent(),
     this.defaultQuantity = const Value.absent(),
     this.defaultUnit = const Value.absent(),
     this.iconIdentifier = const Value.absent(),
+    this.emoji = const Value.absent(),
     this.isCustom = const Value.absent(),
+    this.isActive = const Value.absent(),
     this.usageCount = const Value.absent(),
+    this.sortOrder = const Value.absent(),
     this.lastUsedAt = const Value.absent(),
     this.createdAt = const Value.absent(),
   });
@@ -844,12 +1010,16 @@ class ItemTemplatesCompanion extends UpdateCompanion<ItemTemplate> {
     this.id = const Value.absent(),
     required String nameBangla,
     required String nameEnglish,
+    this.phoneticName = const Value.absent(),
     required int categoryId,
     required double defaultQuantity,
     required String defaultUnit,
-    required String iconIdentifier,
+    this.iconIdentifier = const Value.absent(),
+    this.emoji = const Value.absent(),
     this.isCustom = const Value.absent(),
+    this.isActive = const Value.absent(),
     this.usageCount = const Value.absent(),
+    this.sortOrder = const Value.absent(),
     required DateTime lastUsedAt,
     this.createdAt = const Value.absent(),
   })  : nameBangla = Value(nameBangla),
@@ -857,18 +1027,21 @@ class ItemTemplatesCompanion extends UpdateCompanion<ItemTemplate> {
         categoryId = Value(categoryId),
         defaultQuantity = Value(defaultQuantity),
         defaultUnit = Value(defaultUnit),
-        iconIdentifier = Value(iconIdentifier),
         lastUsedAt = Value(lastUsedAt);
   static Insertable<ItemTemplate> custom({
     Expression<int>? id,
     Expression<String>? nameBangla,
     Expression<String>? nameEnglish,
+    Expression<String>? phoneticName,
     Expression<int>? categoryId,
     Expression<double>? defaultQuantity,
     Expression<String>? defaultUnit,
     Expression<String>? iconIdentifier,
+    Expression<String>? emoji,
     Expression<bool>? isCustom,
+    Expression<bool>? isActive,
     Expression<int>? usageCount,
+    Expression<int>? sortOrder,
     Expression<DateTime>? lastUsedAt,
     Expression<DateTime>? createdAt,
   }) {
@@ -876,12 +1049,16 @@ class ItemTemplatesCompanion extends UpdateCompanion<ItemTemplate> {
       if (id != null) 'id': id,
       if (nameBangla != null) 'name_bangla': nameBangla,
       if (nameEnglish != null) 'name_english': nameEnglish,
+      if (phoneticName != null) 'phonetic_name': phoneticName,
       if (categoryId != null) 'category_id': categoryId,
       if (defaultQuantity != null) 'default_quantity': defaultQuantity,
       if (defaultUnit != null) 'default_unit': defaultUnit,
       if (iconIdentifier != null) 'icon_identifier': iconIdentifier,
+      if (emoji != null) 'emoji': emoji,
       if (isCustom != null) 'is_custom': isCustom,
+      if (isActive != null) 'is_active': isActive,
       if (usageCount != null) 'usage_count': usageCount,
+      if (sortOrder != null) 'sort_order': sortOrder,
       if (lastUsedAt != null) 'last_used_at': lastUsedAt,
       if (createdAt != null) 'created_at': createdAt,
     });
@@ -891,24 +1068,32 @@ class ItemTemplatesCompanion extends UpdateCompanion<ItemTemplate> {
       {Value<int>? id,
       Value<String>? nameBangla,
       Value<String>? nameEnglish,
+      Value<String?>? phoneticName,
       Value<int>? categoryId,
       Value<double>? defaultQuantity,
       Value<String>? defaultUnit,
-      Value<String>? iconIdentifier,
+      Value<String?>? iconIdentifier,
+      Value<String>? emoji,
       Value<bool>? isCustom,
+      Value<bool>? isActive,
       Value<int>? usageCount,
+      Value<int>? sortOrder,
       Value<DateTime>? lastUsedAt,
       Value<DateTime?>? createdAt}) {
     return ItemTemplatesCompanion(
       id: id ?? this.id,
       nameBangla: nameBangla ?? this.nameBangla,
       nameEnglish: nameEnglish ?? this.nameEnglish,
+      phoneticName: phoneticName ?? this.phoneticName,
       categoryId: categoryId ?? this.categoryId,
       defaultQuantity: defaultQuantity ?? this.defaultQuantity,
       defaultUnit: defaultUnit ?? this.defaultUnit,
       iconIdentifier: iconIdentifier ?? this.iconIdentifier,
+      emoji: emoji ?? this.emoji,
       isCustom: isCustom ?? this.isCustom,
+      isActive: isActive ?? this.isActive,
       usageCount: usageCount ?? this.usageCount,
+      sortOrder: sortOrder ?? this.sortOrder,
       lastUsedAt: lastUsedAt ?? this.lastUsedAt,
       createdAt: createdAt ?? this.createdAt,
     );
@@ -926,6 +1111,9 @@ class ItemTemplatesCompanion extends UpdateCompanion<ItemTemplate> {
     if (nameEnglish.present) {
       map['name_english'] = Variable<String>(nameEnglish.value);
     }
+    if (phoneticName.present) {
+      map['phonetic_name'] = Variable<String>(phoneticName.value);
+    }
     if (categoryId.present) {
       map['category_id'] = Variable<int>(categoryId.value);
     }
@@ -938,11 +1126,20 @@ class ItemTemplatesCompanion extends UpdateCompanion<ItemTemplate> {
     if (iconIdentifier.present) {
       map['icon_identifier'] = Variable<String>(iconIdentifier.value);
     }
+    if (emoji.present) {
+      map['emoji'] = Variable<String>(emoji.value);
+    }
     if (isCustom.present) {
       map['is_custom'] = Variable<bool>(isCustom.value);
     }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
     if (usageCount.present) {
       map['usage_count'] = Variable<int>(usageCount.value);
+    }
+    if (sortOrder.present) {
+      map['sort_order'] = Variable<int>(sortOrder.value);
     }
     if (lastUsedAt.present) {
       map['last_used_at'] = Variable<DateTime>(lastUsedAt.value);
@@ -959,12 +1156,16 @@ class ItemTemplatesCompanion extends UpdateCompanion<ItemTemplate> {
           ..write('id: $id, ')
           ..write('nameBangla: $nameBangla, ')
           ..write('nameEnglish: $nameEnglish, ')
+          ..write('phoneticName: $phoneticName, ')
           ..write('categoryId: $categoryId, ')
           ..write('defaultQuantity: $defaultQuantity, ')
           ..write('defaultUnit: $defaultUnit, ')
           ..write('iconIdentifier: $iconIdentifier, ')
+          ..write('emoji: $emoji, ')
           ..write('isCustom: $isCustom, ')
+          ..write('isActive: $isActive, ')
           ..write('usageCount: $usageCount, ')
+          ..write('sortOrder: $sortOrder, ')
           ..write('lastUsedAt: $lastUsedAt, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
@@ -2072,6 +2273,7 @@ typedef $$CategoriesTableCreateCompanionBuilder = CategoriesCompanion Function({
   required String iconIdentifier,
   required int sortOrder,
   Value<bool> isCustom,
+  Value<bool> isActive,
 });
 typedef $$CategoriesTableUpdateCompanionBuilder = CategoriesCompanion Function({
   Value<int> id,
@@ -2081,6 +2283,7 @@ typedef $$CategoriesTableUpdateCompanionBuilder = CategoriesCompanion Function({
   Value<String> iconIdentifier,
   Value<int> sortOrder,
   Value<bool> isCustom,
+  Value<bool> isActive,
 });
 
 final class $$CategoriesTableReferences
@@ -2135,6 +2338,9 @@ class $$CategoriesTableFilterComposer
   ColumnFilters<bool> get isCustom => $composableBuilder(
       column: $table.isCustom, builder: (column) => ColumnFilters(column));
 
+  ColumnFilters<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnFilters(column));
+
   Expression<bool> itemTemplatesRefs(
       Expression<bool> Function($$ItemTemplatesTableFilterComposer f) f) {
     final $$ItemTemplatesTableFilterComposer composer = $composerBuilder(
@@ -2188,6 +2394,9 @@ class $$CategoriesTableOrderingComposer
 
   ColumnOrderings<bool> get isCustom => $composableBuilder(
       column: $table.isCustom, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnOrderings(column));
 }
 
 class $$CategoriesTableAnnotationComposer
@@ -2219,6 +2428,9 @@ class $$CategoriesTableAnnotationComposer
 
   GeneratedColumn<bool> get isCustom =>
       $composableBuilder(column: $table.isCustom, builder: (column) => column);
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
 
   Expression<T> itemTemplatesRefs<T extends Object>(
       Expression<T> Function($$ItemTemplatesTableAnnotationComposer a) f) {
@@ -2272,6 +2484,7 @@ class $$CategoriesTableTableManager extends RootTableManager<
             Value<String> iconIdentifier = const Value.absent(),
             Value<int> sortOrder = const Value.absent(),
             Value<bool> isCustom = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
           }) =>
               CategoriesCompanion(
             id: id,
@@ -2281,6 +2494,7 @@ class $$CategoriesTableTableManager extends RootTableManager<
             iconIdentifier: iconIdentifier,
             sortOrder: sortOrder,
             isCustom: isCustom,
+            isActive: isActive,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
@@ -2290,6 +2504,7 @@ class $$CategoriesTableTableManager extends RootTableManager<
             required String iconIdentifier,
             required int sortOrder,
             Value<bool> isCustom = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
           }) =>
               CategoriesCompanion.insert(
             id: id,
@@ -2299,6 +2514,7 @@ class $$CategoriesTableTableManager extends RootTableManager<
             iconIdentifier: iconIdentifier,
             sortOrder: sortOrder,
             isCustom: isCustom,
+            isActive: isActive,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (
@@ -2352,12 +2568,16 @@ typedef $$ItemTemplatesTableCreateCompanionBuilder = ItemTemplatesCompanion
   Value<int> id,
   required String nameBangla,
   required String nameEnglish,
+  Value<String?> phoneticName,
   required int categoryId,
   required double defaultQuantity,
   required String defaultUnit,
-  required String iconIdentifier,
+  Value<String?> iconIdentifier,
+  Value<String> emoji,
   Value<bool> isCustom,
+  Value<bool> isActive,
   Value<int> usageCount,
+  Value<int> sortOrder,
   required DateTime lastUsedAt,
   Value<DateTime?> createdAt,
 });
@@ -2366,12 +2586,16 @@ typedef $$ItemTemplatesTableUpdateCompanionBuilder = ItemTemplatesCompanion
   Value<int> id,
   Value<String> nameBangla,
   Value<String> nameEnglish,
+  Value<String?> phoneticName,
   Value<int> categoryId,
   Value<double> defaultQuantity,
   Value<String> defaultUnit,
-  Value<String> iconIdentifier,
+  Value<String?> iconIdentifier,
+  Value<String> emoji,
   Value<bool> isCustom,
+  Value<bool> isActive,
   Value<int> usageCount,
+  Value<int> sortOrder,
   Value<DateTime> lastUsedAt,
   Value<DateTime?> createdAt,
 });
@@ -2430,6 +2654,9 @@ class $$ItemTemplatesTableFilterComposer
   ColumnFilters<String> get nameEnglish => $composableBuilder(
       column: $table.nameEnglish, builder: (column) => ColumnFilters(column));
 
+  ColumnFilters<String> get phoneticName => $composableBuilder(
+      column: $table.phoneticName, builder: (column) => ColumnFilters(column));
+
   ColumnFilters<double> get defaultQuantity => $composableBuilder(
       column: $table.defaultQuantity,
       builder: (column) => ColumnFilters(column));
@@ -2441,11 +2668,20 @@ class $$ItemTemplatesTableFilterComposer
       column: $table.iconIdentifier,
       builder: (column) => ColumnFilters(column));
 
+  ColumnFilters<String> get emoji => $composableBuilder(
+      column: $table.emoji, builder: (column) => ColumnFilters(column));
+
   ColumnFilters<bool> get isCustom => $composableBuilder(
       column: $table.isCustom, builder: (column) => ColumnFilters(column));
 
+  ColumnFilters<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnFilters(column));
+
   ColumnFilters<int> get usageCount => $composableBuilder(
       column: $table.usageCount, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get sortOrder => $composableBuilder(
+      column: $table.sortOrder, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<DateTime> get lastUsedAt => $composableBuilder(
       column: $table.lastUsedAt, builder: (column) => ColumnFilters(column));
@@ -2513,6 +2749,10 @@ class $$ItemTemplatesTableOrderingComposer
   ColumnOrderings<String> get nameEnglish => $composableBuilder(
       column: $table.nameEnglish, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<String> get phoneticName => $composableBuilder(
+      column: $table.phoneticName,
+      builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<double> get defaultQuantity => $composableBuilder(
       column: $table.defaultQuantity,
       builder: (column) => ColumnOrderings(column));
@@ -2524,11 +2764,20 @@ class $$ItemTemplatesTableOrderingComposer
       column: $table.iconIdentifier,
       builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<String> get emoji => $composableBuilder(
+      column: $table.emoji, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<bool> get isCustom => $composableBuilder(
       column: $table.isCustom, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<int> get usageCount => $composableBuilder(
       column: $table.usageCount, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get sortOrder => $composableBuilder(
+      column: $table.sortOrder, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<DateTime> get lastUsedAt => $composableBuilder(
       column: $table.lastUsedAt, builder: (column) => ColumnOrderings(column));
@@ -2575,6 +2824,9 @@ class $$ItemTemplatesTableAnnotationComposer
   GeneratedColumn<String> get nameEnglish => $composableBuilder(
       column: $table.nameEnglish, builder: (column) => column);
 
+  GeneratedColumn<String> get phoneticName => $composableBuilder(
+      column: $table.phoneticName, builder: (column) => column);
+
   GeneratedColumn<double> get defaultQuantity => $composableBuilder(
       column: $table.defaultQuantity, builder: (column) => column);
 
@@ -2584,11 +2836,20 @@ class $$ItemTemplatesTableAnnotationComposer
   GeneratedColumn<String> get iconIdentifier => $composableBuilder(
       column: $table.iconIdentifier, builder: (column) => column);
 
+  GeneratedColumn<String> get emoji =>
+      $composableBuilder(column: $table.emoji, builder: (column) => column);
+
   GeneratedColumn<bool> get isCustom =>
       $composableBuilder(column: $table.isCustom, builder: (column) => column);
 
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+
   GeneratedColumn<int> get usageCount => $composableBuilder(
       column: $table.usageCount, builder: (column) => column);
+
+  GeneratedColumn<int> get sortOrder =>
+      $composableBuilder(column: $table.sortOrder, builder: (column) => column);
 
   GeneratedColumn<DateTime> get lastUsedAt => $composableBuilder(
       column: $table.lastUsedAt, builder: (column) => column);
@@ -2665,12 +2926,16 @@ class $$ItemTemplatesTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             Value<String> nameBangla = const Value.absent(),
             Value<String> nameEnglish = const Value.absent(),
+            Value<String?> phoneticName = const Value.absent(),
             Value<int> categoryId = const Value.absent(),
             Value<double> defaultQuantity = const Value.absent(),
             Value<String> defaultUnit = const Value.absent(),
-            Value<String> iconIdentifier = const Value.absent(),
+            Value<String?> iconIdentifier = const Value.absent(),
+            Value<String> emoji = const Value.absent(),
             Value<bool> isCustom = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
             Value<int> usageCount = const Value.absent(),
+            Value<int> sortOrder = const Value.absent(),
             Value<DateTime> lastUsedAt = const Value.absent(),
             Value<DateTime?> createdAt = const Value.absent(),
           }) =>
@@ -2678,12 +2943,16 @@ class $$ItemTemplatesTableTableManager extends RootTableManager<
             id: id,
             nameBangla: nameBangla,
             nameEnglish: nameEnglish,
+            phoneticName: phoneticName,
             categoryId: categoryId,
             defaultQuantity: defaultQuantity,
             defaultUnit: defaultUnit,
             iconIdentifier: iconIdentifier,
+            emoji: emoji,
             isCustom: isCustom,
+            isActive: isActive,
             usageCount: usageCount,
+            sortOrder: sortOrder,
             lastUsedAt: lastUsedAt,
             createdAt: createdAt,
           ),
@@ -2691,12 +2960,16 @@ class $$ItemTemplatesTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             required String nameBangla,
             required String nameEnglish,
+            Value<String?> phoneticName = const Value.absent(),
             required int categoryId,
             required double defaultQuantity,
             required String defaultUnit,
-            required String iconIdentifier,
+            Value<String?> iconIdentifier = const Value.absent(),
+            Value<String> emoji = const Value.absent(),
             Value<bool> isCustom = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
             Value<int> usageCount = const Value.absent(),
+            Value<int> sortOrder = const Value.absent(),
             required DateTime lastUsedAt,
             Value<DateTime?> createdAt = const Value.absent(),
           }) =>
@@ -2704,12 +2977,16 @@ class $$ItemTemplatesTableTableManager extends RootTableManager<
             id: id,
             nameBangla: nameBangla,
             nameEnglish: nameEnglish,
+            phoneticName: phoneticName,
             categoryId: categoryId,
             defaultQuantity: defaultQuantity,
             defaultUnit: defaultUnit,
             iconIdentifier: iconIdentifier,
+            emoji: emoji,
             isCustom: isCustom,
+            isActive: isActive,
             usageCount: usageCount,
+            sortOrder: sortOrder,
             lastUsedAt: lastUsedAt,
             createdAt: createdAt,
           ),

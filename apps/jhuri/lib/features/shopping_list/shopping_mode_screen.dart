@@ -3,9 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_models/ekush_models.dart';
+import 'package:ekush_ads/ekush_ads.dart';
 import 'shopping_mode_viewmodel.dart';
 import '../../services/share_card_service.dart';
 import '../../providers/database_provider.dart';
+import '../../providers/settings_providers.dart';
+import '../../config/jhuri_constants.dart';
 
 class ShoppingModeScreen extends ConsumerStatefulWidget {
   final int listId;
@@ -59,6 +62,7 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
         ],
       ),
       body: _buildBody(viewModel, viewState, colorScheme),
+      bottomNavigationBar: const AppAdBannerBottom(),
     );
   }
 
@@ -545,11 +549,46 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
       categoryRepository: ref.read(categoryRepositoryProvider),
       context: context,
     );
+
+    // Show interstitial ad after share image generation
+    await _showInterstitialAdIfNeeded();
   }
 
   void _markAsCompleted(
       BuildContext context, ShoppingModeViewModel viewModel) async {
     await viewModel.markListAsCompleted();
     if (context.mounted) context.pop();
+  }
+
+  Future<void> _showInterstitialAdIfNeeded() async {
+    try {
+      final adService = ref.read(adServiceProvider);
+      final lastShownNotifier =
+          ref.read(lastInterstitialShownNotifierProvider.notifier);
+      final lastShown = ref.read(lastInterstitialShownProvider);
+
+      // Check if enough time has passed since last interstitial
+      final now = DateTime.now();
+      final minInterval =
+          Duration(minutes: JhuriConstants.interstitialMinIntervalMinutes);
+
+      bool shouldShowAd = true;
+      if (lastShown != null) {
+        final lastShownTime = DateTime.parse(lastShown);
+        final timeSinceLastAd = now.difference(lastShownTime);
+        if (timeSinceLastAd < minInterval) {
+          shouldShowAd = false;
+        }
+      }
+
+      if (shouldShowAd) {
+        adService.showInterstitialIfAvailable();
+        // Update last interstitial shown time
+        await lastShownNotifier.setLastInterstitialShown(now.toIso8601String());
+      }
+    } catch (e) {
+      // Silently fail ad display - don't block user flow
+      debugPrint('Failed to show interstitial ad: $e');
+    }
   }
 }

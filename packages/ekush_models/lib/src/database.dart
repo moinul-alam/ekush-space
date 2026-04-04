@@ -12,7 +12,7 @@ class JhuriDatabase extends _$JhuriDatabase {
   JhuriDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -22,6 +22,13 @@ class JhuriDatabase extends _$JhuriDatabase {
         onUpgrade: (Migrator m, int from, int to) async {
           if (from < 2) {
             await m.addColumn(categories, categories.isCustom);
+          }
+          if (from < 3) {
+            await m.addColumn(itemTemplates, itemTemplates.phoneticName);
+            await m.addColumn(itemTemplates, itemTemplates.emoji);
+            await m.addColumn(itemTemplates, itemTemplates.isActive);
+            await m.addColumn(itemTemplates, itemTemplates.sortOrder);
+            await m.addColumn(categories, categories.isActive);
           }
         },
       );
