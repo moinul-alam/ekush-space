@@ -64,7 +64,7 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 |---|---|---|
 | Phase 1 — Drift + ekush_models + ekush_core | ✅ Complete | feat(jhuri): Phase 1 — Drift foundation wired into monorepo |
 | Phase 2 — App Shell + Navigation + Theme | ✅ Complete | feat(jhuri): Phase 2 — app shell, theme, navigation, onboarding |
-| Phase 3 — Core Loop | ✅ Complete (Navigation Assertion Fix) | fix(jhuri): navigation assertion — remove context.go from build phase |
+| Phase 3 — Core Loop | ✅ Complete (All 10 Device Tests Passed) | fix(jhuri): item checkmark, home list refresh after save |
 | Phase 4 — Settings + Notifications + Share | ⏳ Not started | — |
 | Phase 5 — Ads Integration | ⏳ Not started | — |
 | Phase 6 — Polish + Play Store Submission | ⏳ Not started | — |
@@ -73,8 +73,8 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 
 ## Last Commit
 
-**Hash:** 5b71aab
-**Message:** fix(jhuri): navigation assertion — remove context.go from build phase
+**Hash:** dd72f0e
+**Message:** fix(jhuri): item checkmark, home list refresh after save
 **Branch:** jhuri
 
 ---
@@ -113,13 +113,10 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 
 ## Next Action
 
-**Phase 4 — Settings + Notifications + Share**
+**Phase 4 — Settings + Notifications + Share** 
 - Add app settings screen
 - Implement notification system via ekush_notifications  
 - Create list sharing functionality via ekush_share
-- Add app settings screen
-- Implement notification system
-- Create list sharing functionality
 
 ---
 
@@ -129,10 +126,11 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 - English language is gated in v1, fully activated in v2 — do not spend time on English strings beyond having them present in code
 - Flutter app successfully launches on Chrome but waits for debug connection — web support added successfully
 - **Navigation assertion fixed:** `debugLocked` error resolved by replacing `context.go()` with `context.push()` in CategoryBrowserScreen and `Navigator.pop()` with `context.pop()` in ItemPickerScreen
-- **Root cause:** `context.go()` was replacing the entire navigation stack, leaving no screen to pop back to; `context.push()` properly maintains navigation hierarchy
-- **All navigation patterns now use GoRouter:** Consistent use of `context.push()` and `context.pop()` throughout the app
+- **Item checkmarks fixed:** Checkmarks now appear immediately when items are added via proper `ref.watch(itemSelectionProvider)` implementation
+- **Home screen refresh fixed:** Home screen now properly shows new lists after save by using `ref.watch(homeViewModelProvider)` instead of `ref.read()`
+- **All 10 device test steps passed:** Complete end-to-end flow from item selection to list creation and display working correctly
 
 ---
 
-*Last updated: 2026-04-04 — Navigation Assertion Fix Complete*
-*Updated by: Windsurf (Navigation Assertion Fix session)*
+*Last updated: 2026-04-04 — Phase 3 Complete (All 10 Device Tests Passed)*
+*Updated by: Windsurf (Two Specific Fixes session)*
