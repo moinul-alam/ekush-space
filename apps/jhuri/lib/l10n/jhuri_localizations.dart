@@ -230,10 +230,14 @@ abstract class JhuriLocalizations extends AppLocalizations {
   String get personalItems => 'ব্যক্তিগত আইটেম';
   String get manageCustomItems => 'কাস্টম আইটেম ব্যবস্থাপনা';
   String get manageCustomItemsSubtitle => 'আপনার কাস্টম আইটেম দেখুন';
+  @override
   String get about => 'সম্পর্কে';
   String get appVersion => 'অ্যাপ সংস্করণ';
+  @override
   String get privacyPolicy => 'গোপনীয়তা নীতি';
+  @override
   String get privacyPolicySubtitle => 'আমাদের গোপনীয়তা নীতি';
+  @override
   String get settings => 'সেটিংস';
 
   // Messages

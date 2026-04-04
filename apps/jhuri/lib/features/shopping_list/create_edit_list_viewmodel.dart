@@ -5,7 +5,6 @@ import 'package:ekush_models/ekush_models.dart';
 import 'package:drift/drift.dart' show Value;
 import '../../providers/database_provider.dart';
 import '../../providers/item_selection_provider.dart';
-import '../../providers/settings_providers.dart';
 import '../shopping_list/data/shopping_list_repository.dart';
 import '../list_item/data/list_item_repository.dart';
 import '../../services/shopping_list_notification_service.dart';

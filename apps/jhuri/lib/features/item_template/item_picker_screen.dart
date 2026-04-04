@@ -102,17 +102,17 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
                 decoration: InputDecoration(
                   hintText: 'আইটেম খুঁজুন...',
                   hintStyle: TextStyle(
-                    color: colorScheme.onSurface.withOpacity(0.6),
+                    color: colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                   prefixIcon: Icon(
                     Icons.search,
-                    color: colorScheme.onSurface.withOpacity(0.6),
+                    color: colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                   suffixIcon: _searchController.text.isNotEmpty
                       ? IconButton(
                           icon: Icon(
                             Icons.clear,
-                            color: colorScheme.onSurface.withOpacity(0.6),
+                            color: colorScheme.onSurface.withValues(alpha: 0.6),
                           ),
                           onPressed: _clearSearch,
                         )
@@ -122,7 +122,7 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide(
-                      color: colorScheme.outline.withOpacity(0.3),
+                      color: colorScheme.outline.withValues(alpha: 0.3),
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
@@ -135,7 +135,7 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide(
-                      color: colorScheme.outline.withOpacity(0.3),
+                      color: colorScheme.outline.withValues(alpha: 0.3),
                     ),
                   ),
                   contentPadding: const EdgeInsets.symmetric(
@@ -211,7 +211,7 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
                 Icon(
                   Icons.search_off,
                   size: 64,
-                  color: colorScheme.onSurface.withOpacity(0.4),
+                  color: colorScheme.onSurface.withValues(alpha: 0.4),
                 ),
                 const SizedBox(height: 16),
                 Text(
@@ -219,7 +219,7 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
-                    color: colorScheme.onSurface.withOpacity(0.6),
+                    color: colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -227,7 +227,7 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
                   'অন্য কিওয়ার্ড দিয়ে চেষ্টা করুন',
                   style: TextStyle(
                     fontSize: 14,
-                    color: colorScheme.onSurface.withOpacity(0.4),
+                    color: colorScheme.onSurface.withValues(alpha: 0.4),
                   ),
                 ),
               ],

@@ -4,8 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ekush_models/ekush_models.dart';
 import 'package:go_router/go_router.dart';
 
-import '../lib/features/home/home_screen.dart';
-import '../lib/features/shopping_list/home_providers.dart';
+import 'package:jhuri/features/home/home_screen.dart';
+import 'package:jhuri/features/shopping_list/home_providers.dart';
 
 void main() {
   group('Home Screen Tests', () {

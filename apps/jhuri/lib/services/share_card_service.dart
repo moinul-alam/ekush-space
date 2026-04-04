@@ -1,7 +1,6 @@
 // lib/services/share_card_service.dart
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:ekush_share/ekush_share.dart';
 import 'package:ekush_models/ekush_models.dart';
 import '../features/list_item/data/list_item_repository.dart';
@@ -22,7 +21,7 @@ class ShareCardService {
     try {
       // Get all items for the list
       final items = await itemRepository.getByListId(listId);
-      
+
       if (items.isEmpty) {
         _showErrorToast(context);
         return;
@@ -60,9 +59,9 @@ class ShareCardService {
       // Share the widget as image
       await ShareService.shareWidget(
         widget: cardWidget,
-        fileBaseName: 'jhuri_shopping_list_${DateTime.now().millisecondsSinceEpoch}',
+        fileBaseName:
+            'jhuri_shopping_list_${DateTime.now().millisecondsSinceEpoch}',
       );
-
     } catch (e) {
       debugPrint('❌ Failed to share shopping list card: $e');
       _showErrorToast(context);
@@ -77,9 +76,8 @@ class ShareCardService {
     required Map<int, String> categoryNames,
     required BuildContext context,
   }) {
-    final l10n = JhuriLocalizations.of(context);
     final theme = Theme.of(context);
-    
+
     // Calculate totals
     int totalItems = 0;
     double totalPrice = 0.0;
@@ -153,9 +151,9 @@ class ShareCardService {
               ),
             ],
           ),
-          
+
           const SizedBox(height: 20),
-          
+
           // List title
           if (listTitle.isNotEmpty) ...[
             Text(
@@ -168,13 +166,13 @@ class ShareCardService {
             ),
             const SizedBox(height: 16),
           ],
-          
+
           // Items grouped by category
           ...itemsByCategory.entries.map((entry) {
             final categoryId = entry.key;
             final items = entry.value;
             final categoryName = categoryNames[categoryId] ?? 'অন্যান্য';
-            
+
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -188,42 +186,42 @@ class ShareCardService {
                   ),
                 ),
                 const SizedBox(height: 8),
-                
+
                 // Items in this category
                 ...items.map((item) => Padding(
-                  padding: const EdgeInsets.only(left: 12, bottom: 4),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          '• ${item.nameBangla}',
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: const Color(0xFF33691E),
-                            fontFamily: 'HindSiliguri',
+                      padding: const EdgeInsets.only(left: 12, bottom: 4),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              '• ${item.nameBangla}',
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: const Color(0xFF33691E),
+                                fontFamily: 'HindSiliguri',
+                              ),
+                            ),
                           ),
-                        ),
+                          if (item.price != null)
+                            Text(
+                              '৳${(item.price! * item.quantity).toStringAsFixed(0)}',
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.w500,
+                                color: const Color(0xFF558B2F),
+                                fontFamily: 'HindSiliguri',
+                              ),
+                            ),
+                        ],
                       ),
-                      if (item.price != null)
-                        Text(
-                          '৳${(item.price! * item.quantity).toStringAsFixed(0)}',
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.w500,
-                            color: const Color(0xFF558B2F),
-                            fontFamily: 'HindSiliguri',
-                          ),
-                        ),
-                    ],
-                  ),
-                )),
-                
+                    )),
+
                 const SizedBox(height: 12),
               ],
             );
           }),
-          
+
           const SizedBox(height: 20),
-          
+
           // Footer with totals and watermark
           Column(
             children: [
@@ -233,7 +231,7 @@ class ShareCardService {
                 color: const Color(0xFF8D6E63),
               ),
               const SizedBox(height: 12),
-              
+
               // Totals
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -257,9 +255,9 @@ class ShareCardService {
                     ),
                 ],
               ),
-              
+
               const SizedBox(height: 16),
-              
+
               // Watermark
               Center(
                 child: Text(
@@ -280,7 +278,7 @@ class ShareCardService {
   /// Format date in Bangla
   static String _formatBanglaDate(DateTime date) {
     final banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
-    
+
     String convertToBangla(String number) {
       return number.split('').map((char) {
         if (char.contains(RegExp(r'[0-9]'))) {
@@ -289,11 +287,11 @@ class ShareCardService {
         return char;
       }).join('');
     }
-    
+
     final day = convertToBangla(date.day.toString());
     final month = convertToBangla(date.month.toString());
     final year = convertToBangla(date.year.toString());
-    
+
     return '$day/$month/$year';
   }
 
