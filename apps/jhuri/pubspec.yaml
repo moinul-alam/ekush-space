@@ -96,9 +96,9 @@ flutter:
   
   # Assets
   assets:
-    - assets/images/
-    - assets/icons/
+    - assets/images/categories/
     - assets/data/
+    - assets/icons/items/
 
 flutter_native_splash:
   color: "#2D6A4F"
