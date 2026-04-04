@@ -473,36 +473,19 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
   }
 
   Future<void> _saveList(CreateEditListViewModel viewModel) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final router = GoRouter.of(context);
     try {
       final listId = await viewModel.saveList();
       if (listId != -1) {
-        final context = this.context;
-        if (!context.mounted) return;
-
-        // Clear item selection provider
         ref.read(itemSelectionProvider.notifier).clearSelections();
-
-        // Invalidate shopping lists provider to refresh home screen
         ref.invalidate(homeViewModelProvider);
-
-        // Show interstitial ad after list save
         await _showInterstitialAdIfNeeded();
-
-        // Navigate to home screen and clear the entire stack
         if (!mounted) return;
-        GoRouter.of(context).go('/home');
+        router.go('/home');
       }
     } catch (e) {
-      final context = this.context;
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'ত্রুটি: $e',
-            style: const TextStyle(),
-          ),
-        ),
-      );
+      messenger.showSnackBar(SnackBar(content: Text('ত্রুটি: $e')));
     }
   }
 

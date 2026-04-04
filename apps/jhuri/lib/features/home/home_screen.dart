@@ -486,6 +486,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               title: const Text('নকল করুন'),
               onTap: () async {
                 Navigator.pop(context);
+                final messenger = ScaffoldMessenger.of(this.context);
                 try {
                   final shoppingListRepo =
                       ref.read(shoppingListRepositoryProvider);
@@ -503,13 +504,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   await listItemRepo.duplicateItems(list.id, newListId);
 
                   // Show success message
-                  if (!mounted) return;
-                  ScaffoldMessenger.of(context).showSnackBar(
+                  messenger.showSnackBar(
                     const SnackBar(content: Text('নকল করা হয়েছে')),
                   );
                 } catch (e) {
-                  if (!mounted) return;
-                  ScaffoldMessenger.of(context).showSnackBar(
+                  messenger.showSnackBar(
                     SnackBar(content: Text('ত্রুটি: $e')),
                   );
                 }
@@ -520,19 +519,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               title: const Text('আর্কাইভ'),
               onTap: () async {
                 Navigator.pop(context);
+                final messenger = ScaffoldMessenger.of(this.context);
                 try {
                   final shoppingListRepo =
                       ref.read(shoppingListRepositoryProvider);
                   await shoppingListRepo.archive(list.id);
 
                   // Show success message
-                  if (!mounted) return;
-                  ScaffoldMessenger.of(context).showSnackBar(
+                  messenger.showSnackBar(
                     const SnackBar(content: Text('তালিকা আর্কাইভ করা হয়েছে')),
                   );
                 } catch (e) {
-                  if (!mounted) return;
-                  ScaffoldMessenger.of(context).showSnackBar(
+                  messenger.showSnackBar(
                     SnackBar(content: Text('ত্রুটি: $e')),
                   );
                 }
@@ -567,6 +565,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           TextButton(
             onPressed: () async {
               Navigator.pop(context);
+              final messenger = ScaffoldMessenger.of(this.context);
               try {
                 final shoppingListRepo =
                     ref.read(shoppingListRepositoryProvider);
@@ -586,13 +585,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 await shoppingListRepo.permanentDelete(list.id);
 
                 // Show success message
-                if (!mounted) return;
-                ScaffoldMessenger.of(context).showSnackBar(
+                messenger.showSnackBar(
                   const SnackBar(content: Text('তালিকা মুছে ফেলা হয়েছে')),
                 );
               } catch (e) {
-                if (!mounted) return;
-                ScaffoldMessenger.of(context).showSnackBar(
+                messenger.showSnackBar(
                   SnackBar(content: Text('ত্রুটি: $e')),
                 );
               }

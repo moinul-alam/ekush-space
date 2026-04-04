@@ -17,11 +17,11 @@ class ShareCardService {
     required CategoryRepository categoryRepository,
     required BuildContext context,
   }) async {
-    try {
-      // Capture scaffold messenger and theme before await to avoid context usage across async gaps
-      final scaffoldMessenger = ScaffoldMessenger.of(context);
-      final theme = Theme.of(context);
+    // Capture scaffold messenger and theme before await to avoid context usage across async gaps
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    final theme = Theme.of(context);
 
+    try {
       // Get all items for the list
       final items = await itemRepository.getByListId(listId);
 
@@ -64,8 +64,6 @@ class ShareCardService {
       );
     } catch (e) {
       debugPrint('❌ Failed to share shopping list card: $e');
-      // Need to capture scaffold messenger in catch block too
-      final scaffoldMessenger = ScaffoldMessenger.of(context);
       _showErrorToast(scaffoldMessenger);
     }
   }
