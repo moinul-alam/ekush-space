@@ -4,6 +4,7 @@ import 'package:ekush_models/ekush_models.dart';
 import 'package:drift/drift.dart' as drift;
 import '../../config/jhuri_constants.dart';
 import '../../providers/database_provider.dart';
+import 'item_picker_viewmodel.dart';
 
 class CreateCustomItemScreen extends ConsumerStatefulWidget {
   const CreateCustomItemScreen({super.key});
@@ -141,7 +142,7 @@ class _CreateCustomItemScreenState
 
               // Category (required)
               Text(
-                'বিভাগ *',
+                'ক্যাটাগরি *',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -149,57 +150,56 @@ class _CreateCustomItemScreenState
                 ),
               ),
               const SizedBox(height: 8),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                decoration: BoxDecoration(
-                  border: Border.all(color: colorScheme.outline),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<int>(
-                    value: _selectedCategoryId,
-                    isExpanded: true,
-                    hint: const Text('বিভাগ নির্বাচন করুন'),
-                    items: [
-                      ..._categories.map((category) {
-                        return DropdownMenuItem<int>(
-                          value: category.id,
-                          child: Row(
-                            children: [
-                              Text(
-                                category.iconIdentifier,
-                                style: const TextStyle(fontSize: 20),
-                              ),
-                              const SizedBox(width: 8),
-                              Text(category.nameBangla),
-                            ],
-                          ),
-                        );
-                      }),
-                      // Add new category option
-                      const DropdownMenuItem<int>(
-                        value: -1,
-                        child: Row(
-                          children: [
-                            Icon(Icons.add, size: 20),
-                            SizedBox(width: 8),
-                            Text('নতুন বিভাগ তৈরি'),
-                          ],
-                        ),
-                      ),
-                    ],
-                    onChanged: (value) {
-                      if (value == -1) {
-                        _showCreateCategoryDialog();
-                      } else if (value != null) {
-                        setState(() {
-                          _selectedCategoryId = value;
-                        });
-                      }
-                    },
+              DropdownButtonFormField<int>(
+                initialValue: _selectedCategoryId,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
                   ),
                 ),
+                validator: (value) {
+                  if (value == null || value == -1) {
+                    return 'ক্যাটাগরি বেছে নিন';
+                  }
+                  return null;
+                },
+                items: [
+                  ..._categories.map((category) {
+                    return DropdownMenuItem<int>(
+                      value: category.id,
+                      child: Row(
+                        children: [
+                          Text(
+                            category.iconIdentifier,
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(category.nameBangla),
+                        ],
+                      ),
+                    );
+                  }),
+                  // Add new category option
+                  const DropdownMenuItem<int>(
+                    value: -1,
+                    child: Row(
+                      children: [
+                        Icon(Icons.add, size: 20),
+                        SizedBox(width: 8),
+                        Text('নতুন ক্যাটাগরি তৈরি'),
+                      ],
+                    ),
+                  ),
+                ],
+                onChanged: (value) {
+                  if (value == -1) {
+                    _showCreateCategoryDialog();
+                  } else if (value != null) {
+                    setState(() {
+                      _selectedCategoryId = value;
+                    });
+                  }
+                },
               ),
               const SizedBox(height: 16),
 
@@ -341,9 +341,9 @@ class _CreateCustomItemScreenState
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('নতুন বিভাগ তৈরি'),
+        title: const Text('নতুন ক্যাটাগরি তৈরি'),
         content: const Text(
-            'এই ফিচারটি শীঘ্রই আসছে। অনুগ্রহ করে ক্যাটাগরি ব্রাউজার থেকে নতুন বিভাগ তৈরি করুন।'),
+            'এই ফিচারটি শীঘ্রই আসছে। অনুগ্রহ করে ক্যাটাগরি ব্রাউজার থেকে নতুন ক্যাটাগরি তৈরি করুন।'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -387,6 +387,8 @@ class _CreateCustomItemScreenState
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('আইটেম সংরক্ষণ হয়েছে')),
         );
+        // Invalidate the item picker provider for the saved category
+        ref.invalidate(itemPickerViewModelProvider(_selectedCategoryId));
         Navigator.pop(context);
       }
     } catch (e) {

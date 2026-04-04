@@ -135,7 +135,7 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
 
           // Category selection
           Text(
-            'বিভাগ',
+            'ক্যাটাগরি',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -146,7 +146,7 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
           DropdownButtonFormField<String>(
             initialValue: viewModel.selectedCategoryId,
             decoration: InputDecoration(
-              hintText: 'বিভাগ নির্ব',
+              hintText: 'ক্যাটাগরি নির্বাচন',
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
                 borderSide: BorderSide(

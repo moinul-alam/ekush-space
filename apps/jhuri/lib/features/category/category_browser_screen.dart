@@ -113,7 +113,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'বিভাগ নির্বাচন করুন',
+            'ক্যাটাগরি নির্বাচন করুন',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w600,
@@ -308,7 +308,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
                   const SizedBox(height: 12),
                   Flexible(
                     child: Text(
-                      'নতুন বিভাগ',
+                      'নতুন ক্যাটাগরি',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,

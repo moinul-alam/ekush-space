@@ -15,7 +15,7 @@ class _CustomCategoryFormBottomSheetState
   final _banglaNameController = TextEditingController();
   final _englishNameController = TextEditingController();
   final _emojiController = TextEditingController();
-  String _selectedEmoji = '';
+  String _selectedEmoji = '🏷️';
   bool _showEmojiPicker = false;
 
   final List<String> _suggestedEmojis = [
@@ -76,7 +76,7 @@ class _CustomCategoryFormBottomSheetState
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                      'নতুন বিভাগ তৈরি',
+                      'নতুন ক্যাটাগরি তৈরি',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -94,7 +94,7 @@ class _CustomCategoryFormBottomSheetState
 
               // Bangla Name (required)
               Text(
-                'বিভাগের নাম *',
+                'ক্যাটাগরিের নাম *',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -284,7 +284,7 @@ class _CustomCategoryFormBottomSheetState
       if (mounted) {
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('বিভাগ সংরক্ষণ হয়েছে')),
+          const SnackBar(content: Text('ক্যাটাগরি সংরক্ষণ হয়েছে')),
         );
       }
     } catch (e) {

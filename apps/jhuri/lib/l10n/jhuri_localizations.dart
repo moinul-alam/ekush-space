@@ -181,7 +181,7 @@ abstract class JhuriLocalizations extends AppLocalizations {
 
   // Category Browser
   String get whatToBuy => 'কী কিনবেন?';
-  String get categories => 'বিভাগ';
+  String get categories => 'ক্যাটাগরি';
   String get customItem => '➕ কাস্টম';
 
   // Item Picker
@@ -191,7 +191,7 @@ abstract class JhuriLocalizations extends AppLocalizations {
   String get addTo => 'যোগ করুন';
   String get customItemName => 'কাস্টম আইটেমের নাম';
   String get customItemNameHint => 'আইটেমের নাম লিখুন';
-  String get selectCategory => 'বিভাগ নির্বাচন করুন';
+  String get selectCategory => 'ক্যাটাগরি নির্বাচন করুন';
 
   // Shopping Mode
   String get shoppingMode => 'কেনাকাটা মোড';

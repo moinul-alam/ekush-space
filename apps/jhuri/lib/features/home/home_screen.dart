@@ -193,8 +193,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     _buildTipItem(
                       context,
                       icon: Icons.category_outlined,
-                      title: 'বিভাগ নির্বাচন',
-                      description: 'প্রয়োজনীয় আইটেমের বিভাগ বেছে নিন',
+                      title: 'ক্যাটাগরি নির্বাচন',
+                      description: 'প্রয়োজনীয় আইটেমের ক্যাটাগরি বেছে নিন',
                     ),
                     const SizedBox(height: 12),
                     _buildTipItem(
@@ -275,8 +275,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 Text(
                   list.title.isEmpty ? 'বাজারের ফর্দ' : list.title,
                   style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
                     color: colorScheme.onSurface,
                   ),
                   maxLines: 1,
@@ -299,7 +299,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     Text(
                       _formatDateForDisplay(list.buyDate),
                       style: TextStyle(
-                        fontSize: 10,
+                        fontSize: 13,
                         color: colorScheme.onSurface.withValues(alpha: 0.6),
                       ),
                     ),
@@ -396,7 +396,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           return Text(
             'কোনো আইটেম নেই',
             style: TextStyle(
-              fontSize: 10,
+              fontSize: 13,
               color: colorScheme.onSurface.withValues(alpha: 0.5),
             ),
           );
@@ -413,7 +413,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   child: Text(
                     '• ${item.nameBangla}',
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: 14,
                       color: colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
                   ),
@@ -728,7 +728,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ListTile(
             leading: const Icon(Icons.category),
             title: Text(
-              'নতুন বিভাগ তৈরি',
+              'নতুন ক্যাটাগরি তৈরি',
               style: TextStyle(fontFamily: 'HindSiliguri'),
             ),
             onTap: () {

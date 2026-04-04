@@ -139,7 +139,7 @@ class _CustomItemFormBottomSheetState
 
                   // Category dropdown
                   Text(
-                    'বিভাগ',
+                    'ক্যাটাগরি',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
