@@ -31,7 +31,7 @@ class ItemPickerViewModel extends AsyncNotifier<List<ItemTemplate>> {
     state = await AsyncValue.guard(() => _loadItemsForCategory(categoryId));
   }
 
-  /// Search items
+  /// Search items within the current category
   Future<void> searchItems(String query) async {
     if (query.isEmpty) {
       state = await AsyncValue.guard(() => _loadItemsForCategory(categoryId));
@@ -39,8 +39,17 @@ class ItemPickerViewModel extends AsyncNotifier<List<ItemTemplate>> {
     }
 
     try {
-      final items = await _itemTemplateRepository.searchByName(query);
-      state = AsyncValue.data(items);
+      // Get all items for the category first, then filter by search
+      final allCategoryItems = await _loadItemsForCategory(categoryId);
+      final lowerQuery = query.toLowerCase();
+
+      final filteredItems = allCategoryItems.where((item) {
+        return item.nameBangla.toLowerCase().contains(lowerQuery) ||
+            item.nameEnglish.toLowerCase().contains(lowerQuery) ||
+            (item.phoneticName?.toLowerCase().contains(lowerQuery) ?? false);
+      }).toList();
+
+      state = AsyncValue.data(filteredItems);
     } catch (e) {
       state = AsyncValue.error(e, StackTrace.current);
     }
