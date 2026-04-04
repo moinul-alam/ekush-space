@@ -92,7 +92,8 @@ class JhuriTheme {
       useMaterial3: true,
       fontFamily: 'HindSiliguri',
       colorScheme: lightColorScheme,
-      textTheme: _buildTextTheme(Brightness.light),
+      textTheme:
+          _buildTextTheme(Brightness.light).apply(fontFamily: 'HindSiliguri'),
       appBarTheme: _buildAppBarTheme(Brightness.light),
       cardTheme: _buildCardTheme(),
       elevatedButtonTheme: _buildElevatedButtonTheme(),
@@ -116,7 +117,8 @@ class JhuriTheme {
       useMaterial3: true,
       fontFamily: 'HindSiliguri',
       colorScheme: darkColorScheme,
-      textTheme: _buildTextTheme(Brightness.dark),
+      textTheme:
+          _buildTextTheme(Brightness.dark).apply(fontFamily: 'HindSiliguri'),
       appBarTheme: _buildAppBarTheme(Brightness.dark),
       cardTheme: _buildCardTheme(),
       elevatedButtonTheme: _buildElevatedButtonTheme(),

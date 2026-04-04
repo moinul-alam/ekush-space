@@ -39,7 +39,6 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            fontFamily: 'NotoSansBengali',
             color: Colors.white,
           ),
         ),
@@ -77,7 +76,6 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
                 color: Colors.red,
-                fontFamily: 'NotoSansBengali',
               ),
             ),
             const SizedBox(height: 8),
@@ -86,7 +84,6 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey[600],
-                fontFamily: 'NotoSansBengali',
               ),
               textAlign: TextAlign.center,
             ),
@@ -150,7 +147,6 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
                             color: isSelected
                                 ? colorScheme.primary
                                 : colorScheme.onSurface,
-                            fontFamily: 'NotoSansBengali',
                           ),
                           textAlign: TextAlign.center,
                           maxLines: 2,

@@ -195,12 +195,13 @@ class ShoppingListRepository extends SoftDeleteRepository<ShoppingList> {
         .get();
   }
 
-  /// Mark list as completed
+  /// Mark list as completed and archived
   Future<bool> markAsCompleted(int id) async {
     final rowsAffected = await (_database.update(_database.shoppingLists)
           ..where((t) => t.id.equals(id)))
         .write(ShoppingListsCompanion(
       isCompleted: const Value(true),
+      isArchived: const Value(true),
       completedAt: Value(DateTime.now()),
     ));
     return rowsAffected > 0;

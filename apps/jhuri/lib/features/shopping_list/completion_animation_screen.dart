@@ -22,7 +22,7 @@ class _CompletionAnimationScreenState
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref
           .read(completionAnimationViewModelProvider.notifier)
-          .showCompletionAnimation();
+          .completeListWithAnimation(widget.listId);
     });
   }
 
@@ -85,7 +85,6 @@ class _CompletionAnimationScreenState
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: Colors.green,
-                        fontFamily: 'NotoSansBengali',
                       ),
                     ),
 
@@ -97,7 +96,6 @@ class _CompletionAnimationScreenState
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.grey[600],
-                        fontFamily: 'NotoSansBengali',
                       ),
                     ),
 
@@ -108,8 +106,8 @@ class _CompletionAnimationScreenState
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pop(context);
-                          viewModel.hideCompletionAnimation();
+                          Navigator.of(context)
+                              .popUntil((route) => route.isFirst);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
@@ -121,12 +119,11 @@ class _CompletionAnimationScreenState
                           ),
                         ),
                         child: Text(
-                          'ঠিকের ফিরুন',
+                          'ঠিক আছে, ফিরুন',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                             color: Colors.white,
-                            fontFamily: 'NotoSansBengali',
                           ),
                         ),
                       ),

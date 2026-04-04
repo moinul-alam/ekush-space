@@ -27,6 +27,12 @@ final pastIncompleteListsProvider = StreamProvider<List<ShoppingList>>((ref) {
   return repo.watchPastIncompleteLists();
 });
 
+/// Provider for archived lists
+final archivedListsProvider = FutureProvider<List<ShoppingList>>((ref) async {
+  final repo = ref.watch(shoppingListRepositoryProvider);
+  return await repo.getArchived();
+});
+
 /// Combined provider for all lists data
 final homeListsProvider = Provider<HomeListsData>((ref) {
   final todayAsync = ref.watch(todayListsProvider);

@@ -49,7 +49,6 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            fontFamily: 'NotoSansBengali',
             color: Colors.white,
           ),
         ),
@@ -76,7 +75,6 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  fontFamily: 'NotoSansBengali',
                 ),
               ),
             )
@@ -109,7 +107,6 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
                 color: Colors.red,
-                fontFamily: 'NotoSansBengali',
               ),
             ),
             const SizedBox(height: 8),
@@ -118,7 +115,6 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey[600],
-                fontFamily: 'NotoSansBengali',
               ),
               textAlign: TextAlign.center,
             ),
@@ -180,7 +176,6 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
               fontSize: 18,
               fontWeight: FontWeight.w600,
               color: colorScheme.onSurface,
-              fontFamily: 'NotoSansBengali',
             ),
           ),
           const SizedBox(height: 16),
@@ -195,9 +190,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
-            style: const TextStyle(
-              fontFamily: 'NotoSansBengali',
-            ),
+            style: const TextStyle(),
           ),
           const SizedBox(height: 16),
 
@@ -209,7 +202,6 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
-                fontFamily: 'NotoSansBengali',
               ),
             ),
             subtitle: Text(
@@ -217,7 +209,6 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
               style: TextStyle(
                 fontSize: 14,
                 color: colorScheme.onSurface.withValues(alpha: 0.7),
-                fontFamily: 'NotoSansBengali',
               ),
             ),
             onTap: () => _selectDate(viewModel),
@@ -232,7 +223,6 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
-                fontFamily: 'NotoSansBengali',
               ),
             ),
             subtitle: Text(
@@ -242,7 +232,6 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
               style: TextStyle(
                 fontSize: 14,
                 color: colorScheme.onSurface.withValues(alpha: 0.7),
-                fontFamily: 'NotoSansBengali',
               ),
             ),
             secondary: Icon(Icons.notifications, color: colorScheme.primary),
@@ -258,7 +247,6 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    fontFamily: 'NotoSansBengali',
                   ),
                 ),
                 subtitle: Text(
@@ -266,7 +254,6 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
                   style: TextStyle(
                     fontSize: 14,
                     color: colorScheme.onSurface.withValues(alpha: 0.7),
-                    fontFamily: 'NotoSansBengali',
                   ),
                 ),
                 onTap: () => _selectTime(viewModel),
@@ -306,7 +293,6 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,
-                  fontFamily: 'NotoSansBengali',
                 ),
               ),
               TextButton.icon(
@@ -317,7 +303,6 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
-                    fontFamily: 'NotoSansBengali',
                   ),
                 ),
               ),
@@ -345,7 +330,6 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
                     style: TextStyle(
                       fontSize: 16,
                       color: colorScheme.onSurface.withValues(alpha: 0.7),
-                      fontFamily: 'NotoSansBengali',
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -354,7 +338,6 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
                     style: TextStyle(
                       fontSize: 12,
                       color: colorScheme.onSurface.withValues(alpha: 0.5),
-                      fontFamily: 'NotoSansBengali',
                     ),
                   ),
                 ],
@@ -400,7 +383,6 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
             fontSize: 16,
             fontWeight: FontWeight.w600,
             color: colorScheme.onSurface,
-            fontFamily: 'NotoSansBengali',
           ),
         ),
         subtitle: Text(
@@ -408,7 +390,6 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
           style: TextStyle(
             fontSize: 14,
             color: colorScheme.onSurface.withValues(alpha: 0.7),
-            fontFamily: 'NotoSansBengali',
           ),
         ),
         trailing: IconButton(
@@ -511,7 +492,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
         SnackBar(
           content: Text(
             'ত্রুটি: $e',
-            style: const TextStyle(fontFamily: 'NotoSansBengali'),
+            style: const TextStyle(),
           ),
         ),
       );

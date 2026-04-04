@@ -23,21 +23,20 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+        ),
         title: Row(
-          mainAxisSize: MainAxisSize.min,
           children: [
-            // App Logo
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                'assets/images/app_logo.png',
-                width: 32,
-                height: 32,
-                fit: BoxFit.cover,
-              ),
+            Image.asset(
+              'assets/images/app_logo.png',
+              height: 32,
+              errorBuilder: (_, __, ___) => const SizedBox.shrink(),
             ),
-            const SizedBox(width: 12),
-            // App Name
+            const SizedBox(width: 8),
             Text(
               JhuriConstants.appName,
               style: TextStyle(
@@ -48,18 +47,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
           ],
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              // Settings will be implemented in Phase 4
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Settings coming soon')),
-              );
-            },
-            icon: const Icon(Icons.settings_outlined),
-          ),
-        ],
       ),
+      drawer: _buildDrawer(context, colorScheme),
       body: _buildBody(homeListsAsync, colorScheme),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.push('/categories'),
@@ -94,7 +83,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
                 color: Colors.red,
-                fontFamily: 'NotoSansBengali',
               ),
             ),
             const SizedBox(height: 8),
@@ -103,7 +91,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey[600],
-                fontFamily: 'NotoSansBengali',
               ),
               textAlign: TextAlign.center,
             ),
@@ -155,7 +142,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   fontSize: 24,
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,
-                  fontFamily: 'NotoSansBengali',
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -168,7 +154,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 style: TextStyle(
                   fontSize: 16,
                   color: colorScheme.onSurface.withValues(alpha: 0.7),
-                  fontFamily: 'NotoSansBengali',
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -194,7 +179,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                         color: colorScheme.primary,
-                        fontFamily: 'NotoSansBengali',
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -293,7 +277,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: colorScheme.onSurface,
-                    fontFamily: 'NotoSansBengali',
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -317,7 +300,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       style: TextStyle(
                         fontSize: 10,
                         color: colorScheme.onSurface.withValues(alpha: 0.6),
-                        fontFamily: 'NotoSansBengali',
                       ),
                     ),
 
@@ -406,7 +388,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         style: TextStyle(
           fontSize: 10,
           color: colorScheme.error,
-          fontFamily: 'NotoSansBengali',
         ),
       ),
       data: (items) {
@@ -416,7 +397,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             style: TextStyle(
               fontSize: 10,
               color: colorScheme.onSurface.withValues(alpha: 0.5),
-              fontFamily: 'NotoSansBengali',
             ),
           );
         }
@@ -434,7 +414,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     style: TextStyle(
                       fontSize: 11,
                       color: colorScheme.onSurface.withValues(alpha: 0.7),
-                      fontFamily: 'NotoSansBengali',
                     ),
                   ),
                 )),
@@ -444,7 +423,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 style: TextStyle(
                   fontSize: 10,
                   color: colorScheme.onSurface.withValues(alpha: 0.5),
-                  fontFamily: 'NotoSansBengali',
                 ),
               ),
           ],
@@ -666,5 +644,147 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ),
       ],
     );
+  }
+
+  Widget _buildDrawer(BuildContext context, ColorScheme colorScheme) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          // Header
+          Container(
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).padding.top + 16,
+              left: 16,
+              right: 16,
+              bottom: 16,
+            ),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  colorScheme.primaryContainer,
+                  colorScheme.secondaryContainer,
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // App logo
+                Image.asset(
+                  'assets/images/app_logo.png',
+                  width: 40,
+                  height: 40,
+                  fit: BoxFit.contain,
+                  errorBuilder: (_, __, ___) => Icon(
+                    Icons.shopping_basket,
+                    size: 40,
+                    color: colorScheme.primary,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                // App name
+                Text(
+                  'ঝুড়ি',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: colorScheme.onPrimaryContainer,
+                    fontFamily: 'HindSiliguri',
+                  ),
+                ),
+                const SizedBox(height: 4),
+                // Tagline
+                Text(
+                  'বাজারের ফর্দ, হাতের মুঠোয়',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color:
+                        colorScheme.onPrimaryContainer.withValues(alpha: 0.8),
+                    fontFamily: 'HindSiliguri',
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 8),
+
+          // Menu items
+          ListTile(
+            leading: const Icon(Icons.home),
+            title: Text(
+              'হোম',
+              style: TextStyle(fontFamily: 'HindSiliguri'),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              context.go('/home');
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.archive),
+            title: Text(
+              'আর্কাইভ',
+              style: TextStyle(fontFamily: 'HindSiliguri'),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              context.go('/archive');
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: Text(
+              'সেটিংস',
+              style: TextStyle(fontFamily: 'HindSiliguri'),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              context.go('/settings');
+            },
+          ),
+
+          const Divider(),
+
+          // Footer
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Ekush Labs',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: colorScheme.onSurface.withValues(alpha: 0.6),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                FutureBuilder(
+                  future: _getAppVersion(),
+                  builder: (context, snapshot) {
+                    return Text(
+                      'Version ${snapshot.data ?? '1.0.0'}',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: colorScheme.onSurface.withValues(alpha: 0.6),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<String> _getAppVersion() async {
+    // TODO: Implement package_info_plus to get actual version
+    return '1.0.0';
   }
 }

@@ -12,7 +12,7 @@
 **Active Branch:** jhuri
 **Main Branch:** clean, stable, fully restored
 **Doc 1 (Restoration Guide):** COMPLETE — archived
-**Doc 2 (Development Constitution):** Active — Phase 3 Complete (Hotfix v2)
+**Doc 2 (Development Constitution):** Active — Phase 3 Final Fix Bundle in Progress
 
 ---
 
@@ -64,7 +64,7 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 |---|---|---|
 | Phase 1 — Drift + ekush_models + ekush_core | ✅ Complete | feat(jhuri): Phase 1 — Drift foundation wired into monorepo |
 | Phase 2 — App Shell + Navigation + Theme | ✅ Complete | feat(jhuri): Phase 2 — app shell, theme, navigation, onboarding |
-| Phase 3 — Home Reactivity + Layout + Checkmarks | ✅ Complete — Stream Provider, 2-col Grid, Item Checkmarks, 5 Critical Fixes | feat(jhuri): Phase 3 Fix Bundle — home cards, font, actions, form crash, checkmarks |
+| Phase 3 — Home Reactivity + Layout + Checkmarks | ⏳ Final Fix Bundle in Progress — Font Nuclear Option, Archive Complete, App Drawer | — |
 | Phase 4 — Settings + Notifications + Share | ⏳ Not started | — |
 | Phase 5 — Ads Integration | ⏳ Not started | — |
 | Phase 6 — Polish + Play Store Submission | ⏳ Not started | — |
@@ -147,8 +147,14 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
   - ✅ FIX 4: Custom item form crash fixed (removed initialValue + controller conflict)
   - ✅ FIX 5: Item picker checkmarks verified working (already correctly implemented)
   - ✅ All 8 device test steps passed - end-to-end flow fully functional
+- **Phase 3 Final Fix Bundle (2026-04-04):**
+  - ✅ Font Nuclear Option: Applied .apply(fontFamily: 'HindSiliguri') to force font on all text styles
+  - ✅ Archive Complete: Updated markAsCompleted to also archive lists and navigate to home
+  - ✅ App Drawer: Added drawer with logo, menu items (Home, Archive, Settings), and footer
+  - ✅ Archive Screen: Created screen to view archived lists with same 2-column grid layout
+  - ✅ Settings Screen: Created placeholder screen for Phase 4 implementation
 
 ---
 
-*Last updated: 2026-04-04 — Phase 3 Fix Bundle Complete (All 8 Device Steps Passed)*
-*Updated by: Cascade (Phase 3 Fix Bundle session)*
+*Last updated: 2026-04-04 — Phase 3 Final Fix Bundle in Progress*
+*Updated by: Cascade (Phase 3 Final Fix Bundle session)*

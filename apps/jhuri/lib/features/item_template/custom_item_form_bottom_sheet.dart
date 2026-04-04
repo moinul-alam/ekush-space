@@ -85,7 +85,6 @@ class _CustomItemFormBottomSheetState
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: colorScheme.onSurface,
-                      fontFamily: 'NotoSansBengali',
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -97,7 +96,6 @@ class _CustomItemFormBottomSheetState
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: colorScheme.onSurface,
-                      fontFamily: 'NotoSansBengali',
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -125,7 +123,6 @@ class _CustomItemFormBottomSheetState
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: colorScheme.onSurface,
-                      fontFamily: 'NotoSansBengali',
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -147,7 +144,6 @@ class _CustomItemFormBottomSheetState
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: colorScheme.onSurface,
-                      fontFamily: 'NotoSansBengali',
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -165,8 +161,7 @@ class _CustomItemFormBottomSheetState
                             value: category.id,
                             child: Text(
                               category.nameBangla,
-                              style: const TextStyle(
-                                  fontFamily: 'NotoSansBengali'),
+                              style: const TextStyle(),
                             ),
                           );
                         }).toList(),
@@ -192,7 +187,6 @@ class _CustomItemFormBottomSheetState
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: colorScheme.onSurface,
-                      fontFamily: 'NotoSansBengali',
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -225,7 +219,6 @@ class _CustomItemFormBottomSheetState
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: colorScheme.onSurface,
-                      fontFamily: 'NotoSansBengali',
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -264,7 +257,6 @@ class _CustomItemFormBottomSheetState
                               fontWeight: isSelected
                                   ? FontWeight.w600
                                   : FontWeight.normal,
-                              fontFamily: 'NotoSansBengali',
                             ),
                           ),
                         ),
@@ -280,7 +272,6 @@ class _CustomItemFormBottomSheetState
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: colorScheme.onSurface,
-                      fontFamily: 'NotoSansBengali',
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -319,7 +310,6 @@ class _CustomItemFormBottomSheetState
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              fontFamily: 'NotoSansBengali',
                             ),
                           ),
                         ),
@@ -351,7 +341,6 @@ class _CustomItemFormBottomSheetState
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
-                                    fontFamily: 'NotoSansBengali',
                                   ),
                                 ),
                         ),

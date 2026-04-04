@@ -9,6 +9,8 @@ import '../features/shopping_list/create_edit_list_screen.dart';
 import '../features/category/category_browser_screen.dart';
 import '../features/item_template/item_picker_screen.dart';
 import '../features/shopping_list/shopping_mode_screen.dart';
+import '../features/archive/archive_screen.dart';
+import '../features/settings/settings_screen.dart';
 
 // Router provider
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -72,6 +74,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           final listId = int.parse(state.pathParameters['listId']!);
           return ShoppingModeScreen(listId: listId);
         },
+      ),
+
+      GoRoute(
+        path: '/archive',
+        builder: (context, state) => const ArchiveScreen(),
+      ),
+
+      GoRoute(
+        path: '/settings',
+        builder: (context, state) => const SettingsScreen(),
       ),
     ],
     errorBuilder: (context, state) => ErrorScreen(error: state.error),

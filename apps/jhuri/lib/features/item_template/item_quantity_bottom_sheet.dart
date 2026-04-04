@@ -13,10 +13,12 @@ class ItemQuantityBottomSheet extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<ItemQuantityBottomSheet> createState() => _ItemQuantityBottomSheetState();
+  ConsumerState<ItemQuantityBottomSheet> createState() =>
+      _ItemQuantityBottomSheetState();
 }
 
-class _ItemQuantityBottomSheetState extends ConsumerState<ItemQuantityBottomSheet> {
+class _ItemQuantityBottomSheetState
+    extends ConsumerState<ItemQuantityBottomSheet> {
   late double quantity;
   late String selectedUnit;
   final TextEditingController priceController = TextEditingController();
@@ -95,7 +97,6 @@ class _ItemQuantityBottomSheetState extends ConsumerState<ItemQuantityBottomShee
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: colorScheme.onSurface,
-                              fontFamily: 'NotoSansBengali',
                             ),
                           ),
                           const SizedBox(height: 4),
@@ -103,7 +104,8 @@ class _ItemQuantityBottomSheetState extends ConsumerState<ItemQuantityBottomShee
                             widget.item.nameEnglish,
                             style: TextStyle(
                               fontSize: 14,
-                              color: colorScheme.onSurface.withValues(alpha: 0.7),
+                              color:
+                                  colorScheme.onSurface.withValues(alpha: 0.7),
                             ),
                           ),
                         ],
@@ -121,7 +123,6 @@ class _ItemQuantityBottomSheetState extends ConsumerState<ItemQuantityBottomShee
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: colorScheme.onSurface,
-                    fontFamily: 'NotoSansBengali',
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -154,13 +155,15 @@ class _ItemQuantityBottomSheetState extends ConsumerState<ItemQuantityBottomShee
                     // Quantity display
                     Expanded(
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12),
                         decoration: BoxDecoration(
                           border: Border.all(color: colorScheme.outline),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
-                          quantity.toStringAsFixed(quantity.truncateToDouble() == quantity ? 0 : 1),
+                          quantity.toStringAsFixed(
+                              quantity.truncateToDouble() == quantity ? 0 : 1),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 18,
@@ -204,7 +207,6 @@ class _ItemQuantityBottomSheetState extends ConsumerState<ItemQuantityBottomShee
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: colorScheme.onSurface,
-                    fontFamily: 'NotoSansBengali',
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -221,20 +223,28 @@ class _ItemQuantityBottomSheetState extends ConsumerState<ItemQuantityBottomShee
                       },
                       borderRadius: BorderRadius.circular(20),
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 8),
                         decoration: BoxDecoration(
-                          color: isSelected ? colorScheme.primary : colorScheme.surface,
+                          color: isSelected
+                              ? colorScheme.primary
+                              : colorScheme.surface,
                           border: Border.all(
-                            color: isSelected ? colorScheme.primary : colorScheme.outline,
+                            color: isSelected
+                                ? colorScheme.primary
+                                : colorScheme.outline,
                           ),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
                           unit,
                           style: TextStyle(
-                            color: isSelected ? colorScheme.onPrimary : colorScheme.onSurface,
-                            fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-                            fontFamily: 'NotoSansBengali',
+                            color: isSelected
+                                ? colorScheme.onPrimary
+                                : colorScheme.onSurface,
+                            fontWeight: isSelected
+                                ? FontWeight.w600
+                                : FontWeight.normal,
                           ),
                         ),
                       ),
@@ -251,7 +261,6 @@ class _ItemQuantityBottomSheetState extends ConsumerState<ItemQuantityBottomShee
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: colorScheme.onSurface,
-                    fontFamily: 'NotoSansBengali',
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -275,22 +284,24 @@ class _ItemQuantityBottomSheetState extends ConsumerState<ItemQuantityBottomShee
                   child: ElevatedButton(
                     onPressed: () {
                       final listItem = ListItem(
-                        id: DateTime.now().millisecondsSinceEpoch,
+                        id: widget.item.id, // ← use template id, not timestamp
                         listId: 0, // Placeholder for new list flow
                         templateId: widget.item.id,
                         nameBangla: widget.item.nameBangla,
                         nameEnglish: widget.item.nameEnglish,
                         quantity: quantity,
                         unit: selectedUnit,
-                        price: priceController.text.isNotEmpty 
-                            ? double.tryParse(priceController.text) 
+                        price: priceController.text.isNotEmpty
+                            ? double.tryParse(priceController.text)
                             : null,
                         isBought: false,
                         sortOrder: 0,
                         addedAt: DateTime.now(),
                       );
 
-                      ref.read(itemSelectionProvider.notifier).addItem(listItem);
+                      ref
+                          .read(itemSelectionProvider.notifier)
+                          .addItem(listItem);
                       Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
@@ -306,7 +317,6 @@ class _ItemQuantityBottomSheetState extends ConsumerState<ItemQuantityBottomShee
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        fontFamily: 'NotoSansBengali',
                       ),
                     ),
                   ),

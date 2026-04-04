@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_models/ekush_models.dart';
 import 'shopping_mode_viewmodel.dart';
@@ -37,7 +38,6 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            fontFamily: 'NotoSansBengali',
             color: Colors.white,
           ),
         ),
@@ -85,7 +85,6 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
                 color: Colors.red,
-                fontFamily: 'NotoSansBengali',
               ),
             ),
             const SizedBox(height: 8),
@@ -94,7 +93,6 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey[600],
-                fontFamily: 'NotoSansBengali',
               ),
               textAlign: TextAlign.center,
             ),
@@ -157,7 +155,6 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
               fontSize: 18,
               fontWeight: FontWeight.w600,
               color: Colors.grey,
-              fontFamily: 'NotoSansBengali',
             ),
           ),
           const SizedBox(height: 24),
@@ -213,7 +210,6 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
-                  fontFamily: 'NotoSansBengali',
                 ),
               ),
               const SizedBox(width: 8),
@@ -222,7 +218,6 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                 style: TextStyle(
                   fontSize: 14,
                   color: Colors.white.withValues(alpha: 0.8),
-                  fontFamily: 'NotoSansBengali',
                 ),
               ),
             ],
@@ -293,7 +288,6 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: colorScheme.onSurface,
-                          fontFamily: 'NotoSansBengali',
                           decoration:
                               item.isBought ? TextDecoration.lineThrough : null,
                         ),
@@ -305,7 +299,6 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                           style: TextStyle(
                             fontSize: 12,
                             color: colorScheme.onSurface.withValues(alpha: 0.7),
-                            fontFamily: 'NotoSansBengali',
                           ),
                         ),
                       ],
@@ -318,7 +311,6 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                               fontSize: 14,
                               color:
                                   colorScheme.onSurface.withValues(alpha: 0.7),
-                              fontFamily: 'NotoSansBengali',
                             ),
                           ),
                           if (item.price != null) ...[
@@ -329,7 +321,6 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                                 fontSize: 12,
                                 color: colorScheme.onSurface
                                     .withValues(alpha: 0.7),
-                                fontFamily: 'NotoSansBengali',
                               ),
                             ),
                           ],
@@ -393,7 +384,6 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
-              fontFamily: 'NotoSansBengali',
             ),
           ),
         ),
@@ -414,7 +404,6 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
             fontSize: 18,
             fontWeight: FontWeight.w600,
             color: colorScheme.onSurface,
-            fontFamily: 'NotoSansBengali',
           ),
         ),
         content: Column(
@@ -425,7 +414,6 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
               style: TextStyle(
                 fontSize: 16,
                 color: colorScheme.onSurface,
-                fontFamily: 'NotoSansBengali',
               ),
             ),
             const SizedBox(height: 16),
@@ -475,7 +463,6 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
                           color: colorScheme.onSurface,
-                          fontFamily: 'NotoSansBengali',
                         ),
                       ),
                     ),
@@ -550,10 +537,9 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
     );
   }
 
-  void _markAsCompleted(BuildContext context, ShoppingModeViewModel viewModel) {
-    viewModel.markListAsCompleted();
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('কেনাকাটা সম্পন্ন হয়েছে')),
-    );
+  void _markAsCompleted(
+      BuildContext context, ShoppingModeViewModel viewModel) async {
+    await viewModel.markListAsCompleted();
+    if (context.mounted) context.go('/home');
   }
 }

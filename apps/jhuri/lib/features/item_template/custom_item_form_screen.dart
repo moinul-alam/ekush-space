@@ -23,7 +23,6 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            fontFamily: 'NotoSansBengali',
             color: Colors.white,
           ),
         ),
@@ -65,7 +64,6 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
                 color: Colors.red,
-                fontFamily: 'NotoSansBengali',
               ),
             ),
             const SizedBox(height: 8),
@@ -74,7 +72,6 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey[600],
-                fontFamily: 'NotoSansBengali',
               ),
               textAlign: TextAlign.center,
             ),
@@ -100,7 +97,6 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: colorScheme.onSurface,
-              fontFamily: 'NotoSansBengali',
             ),
           ),
           const SizedBox(height: 8),
@@ -144,7 +140,6 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: colorScheme.onSurface,
-              fontFamily: 'NotoSansBengali',
             ),
           ),
           const SizedBox(height: 8),
@@ -231,7 +226,6 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: colorScheme.onSurface,
-              fontFamily: 'NotoSansBengali',
             ),
           ),
           const SizedBox(height: 8),
@@ -300,7 +294,6 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
                   color: viewModel.isValid
                       ? Colors.white
                       : colorScheme.onSurface.withValues(alpha: 0.7),
-                  fontFamily: 'NotoSansBengali',
                 ),
               ),
             ),

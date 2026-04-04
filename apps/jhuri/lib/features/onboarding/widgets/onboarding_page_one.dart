@@ -67,7 +67,6 @@ class OnboardingPageOne extends StatelessWidget {
             style: TextStyle(
               fontSize: 20,
               color: colorScheme.onSurface.withValues(alpha: 0.7),
-              fontFamily: 'NotoSansBengali',
             ),
             textAlign: TextAlign.center,
           ),
@@ -106,7 +105,6 @@ class OnboardingPageOne extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  fontFamily: 'NotoSansBengali',
                 ),
               ),
             ),
