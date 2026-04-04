@@ -184,6 +184,12 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
   - ✅ Analysis: melos run analyze (18 warnings) and flutter analyze apps/ekush_ponji (zero issues) both pass
   - ✅ App hot restarted successfully — timezone database error resolved
   - ✅ Notification scheduling now works without timezone database errors
+- **Drift Count Query Fix Complete (2026-04-04):**
+  - ✅ FIX 1: getTotalCount() method — Fixed Drift count query using correct selectOnly pattern with count column
+  - ✅ FIX 2: Query structure — Changed from reading incorrect column to proper count variable pattern
+  - ✅ Analysis: melos run analyze (18 warnings) and flutter analyze apps/ekush_ponji (zero issues) both pass
+  - ✅ App hot restarted successfully — Drift query error resolved
+  - ✅ Notification scheduling now works without count query errors
 - **Phase 3 Final Fix Bundle (2026-04-04):**
   - ✅ Font Nuclear Option: Applied .apply(fontFamily: 'HindSiliguri') to force font on all text styles
   - ✅ Archive Complete: Updated markAsCompleted to also archive lists and navigate to home
@@ -233,5 +239,5 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 
 ---
 
-*Last updated: 2026-04-04 — Timezone Database Initialization Fix: Added timezone database initialization before runApp to prevent scheduling errors*
-*Updated by: Cascade (Timezone fix session)*
+*Last updated: 2026-04-04 — Drift Count Query Fix: Corrected getTotalCount() method to use proper Drift selectOnly pattern with count column*
+*Updated by: Cascade (Drift count query fix session)*

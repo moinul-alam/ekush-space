@@ -216,11 +216,12 @@ class ListItemRepository extends BaseRepository<ListItem> {
 
   /// Get total count for a list
   Future<int> getTotalCount(int listId) async {
+    final count = _database.listItems.id.count();
     final query = _database.selectOnly(_database.listItems)
-      ..addColumns([_database.listItems.id.count()])
+      ..addColumns([count])
       ..where(_database.listItems.listId.equals(listId));
     final result = await query.getSingle();
-    return result.read(_database.listItems.id) as int;
+    return result.read(count) ?? 0;
   }
 
   /// Reorder items in a list
