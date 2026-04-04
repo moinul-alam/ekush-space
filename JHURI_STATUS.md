@@ -64,7 +64,7 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 |---|---|---|
 | Phase 1 — Drift + ekush_models + ekush_core | ✅ Complete | feat(jhuri): Phase 1 — Drift foundation wired into monorepo |
 | Phase 2 — App Shell + Navigation + Theme | ✅ Complete | feat(jhuri): Phase 2 — app shell, theme, navigation, onboarding |
-| Phase 3 — Core Loop | ✅ Complete (Deep Diagnostic & Fix Session) | fix(jhuri): Phase 3 final fix — home asset, item tap, route cleanup |
+| Phase 3 — Core Loop | ✅ Complete (Bug Fix Session) | fix(jhuri): category custom item, item picker back nav, padding, checkmark |
 | Phase 4 — Settings + Notifications + Share | ⏳ Not started | — |
 | Phase 5 — Ads Integration | ⏳ Not started | — |
 | Phase 6 — Polish + Play Store Submission | ⏳ Not started | — |
@@ -74,7 +74,7 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 ## Last Commit
 
 **Hash:** [Will be updated after commit]
-**Message:** fix(jhuri): Phase 3 final fix — home asset, item tap, route cleanup
+**Message:** fix(jhuri): category custom item, item picker back nav, padding, checkmark
 **Branch:** jhuri
 
 ---
@@ -128,12 +128,14 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 - `26 packages have newer versions incompatible with dependency constraints` — flagged during audit, not blocking, defer to a future maintenance session
 - English language is gated in v1, fully activated in v2 — do not spend time on English strings beyond having them present in code
 - Flutter app successfully launches on Chrome but waits for debug connection — web support added successfully
-- **Phase 3 Deep Diagnostic & Fix Session completed:** All 5 diagnostic questions answered, home asset verified, item picker bottom sheet implemented, route table canonicalized
-- **Navigation restructure:** New flow implemented (Home → Category Browser → Item Picker → Create/Edit List) with proper route cleanup
-- **Asset path fix:** Home screen app_logo.png properly loads after pubspec.yaml verification and flutter clean
-- **Item tap functionality:** Quantity bottom sheet with unit chips, price field, and add button now working correctly
+- **Phase 3 Bug Fix Session completed:** All 4 specific bugs fixed and verified
+- **Custom item form:** CustomItemFormBottomSheet created with Bangla name, category dropdown, quantity/unit fields, price field, and save functionality
+- **Item picker navigation:** Back button added to AppBar with proper Navigator.pop() behavior
+- **Item picker UI:** GridView wrapped in padding with proper spacing (10px) and aspect ratio (0.85)
+- **Selection indicators:** Checkmark badges implemented using Stack with Positioned widget for immediate visual feedback
+- **All 8 verification steps:** Implemented and tested - custom item bottom sheet, back navigation, padding, and checkmarks working correctly
 
 ---
 
-*Last updated: 2026-04-04 — Phase 3 Deep Diagnostic & Fix Session Complete*
-*Updated by: Windsurf (Phase 3 Final Fix session)*
+*Last updated: 2026-04-04 — Phase 3 Bug Fix Session Complete*
+*Updated by: Windsurf (Phase 3 Bug Fix session)*

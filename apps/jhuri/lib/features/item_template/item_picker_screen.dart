@@ -29,6 +29,10 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
         title: Text(
           widget.categoryName,
           style: TextStyle(
@@ -43,11 +47,14 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
         elevation: 0,
         centerTitle: true,
       ),
-      body: _buildBody(itemsAsync, itemSelection, colorScheme),
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: _buildItemsGrid(itemsAsync, itemSelection, colorScheme),
+      ),
     );
   }
 
-  Widget _buildBody(AsyncValue<List<ItemTemplate>> itemsAsync,
+  Widget _buildItemsGrid(AsyncValue<List<ItemTemplate>> itemsAsync,
       ItemSelectionState itemSelection, ColorScheme colorScheme) {
     return itemsAsync.when(
       loading: () => const Center(
@@ -85,102 +92,97 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
           ],
         ),
       ),
-      data: (items) => _buildItemsGrid(items, itemSelection, colorScheme),
-    );
-  }
+      data: (items) => GridView.builder(
+        padding: const EdgeInsets.all(8.0),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          childAspectRatio: 0.85,
+        ),
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          final item = items[index];
+          final isSelected = itemSelection.selectedItemIds.contains(item.id);
 
-  Widget _buildItemsGrid(List<ItemTemplate> items,
-      ItemSelectionState itemSelection, ColorScheme colorScheme) {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
-        childAspectRatio: 1.0,
-      ),
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        final item = items[index];
-        final isSelected = itemSelection.selectedItemIds.contains(item.id);
-
-        return InkWell(
-          onTap: () {
-            showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              builder: (_) => ItemQuantityBottomSheet(item: item),
-            );
-          },
-          borderRadius: BorderRadius.circular(12),
-          child: Container(
-            decoration: BoxDecoration(
-              color: colorScheme.surface,
-              borderRadius: BorderRadius.circular(12),
-              border: isSelected
-                  ? Border.all(color: colorScheme.primary, width: 2)
-                  : null,
-            ),
-            child: Stack(
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 8),
-                    Text(
-                      item.iconIdentifier,
-                      style: TextStyle(
-                        fontSize: 32,
-                        color: isSelected
-                            ? colorScheme.primary
-                            : colorScheme.onSurface,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(
-                        item.nameBangla,
+          return InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                builder: (_) => ItemQuantityBottomSheet(item: item),
+              );
+            },
+            borderRadius: BorderRadius.circular(12),
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                color: colorScheme.surface,
+                borderRadius: BorderRadius.circular(12),
+                border: isSelected
+                    ? Border.all(color: colorScheme.primary, width: 2)
+                    : null,
+              ),
+              child: Stack(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 8),
+                      Text(
+                        item.iconIdentifier,
                         style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 32,
                           color: isSelected
                               ? colorScheme.primary
                               : colorScheme.onSurface,
-                          fontFamily: 'NotoSansBengali',
                         ),
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
                       ),
-                    ),
-                  ],
-                ),
-                // Checkmark badge for selected items
-                if (isSelected)
-                  Positioned(
-                    top: 4,
-                    right: 4,
-                    child: Container(
-                      width: 20,
-                      height: 20,
-                      decoration: BoxDecoration(
-                        color: colorScheme.primary,
-                        shape: BoxShape.circle,
+                      const SizedBox(height: 4),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Text(
+                          item.nameBangla,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: isSelected
+                                ? colorScheme.primary
+                                : colorScheme.onSurface,
+                            fontFamily: 'NotoSansBengali',
+                          ),
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                      child: Icon(
-                        Icons.check,
-                        size: 14,
-                        color: colorScheme.onPrimary,
-                      ),
-                    ),
+                    ],
                   ),
-              ],
+                  // Checkmark badge for selected items
+                  if (isSelected)
+                    Positioned(
+                      top: 4,
+                      right: 4,
+                      child: Container(
+                        width: 20,
+                        height: 20,
+                        decoration: BoxDecoration(
+                          color: colorScheme.primary,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.check,
+                          size: 14,
+                          color: colorScheme.onPrimary,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

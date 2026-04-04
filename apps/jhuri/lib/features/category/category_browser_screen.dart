@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ekush_models/ekush_models.dart';
 import 'category_browser_viewmodel.dart';
 import '../../providers/item_selection_provider.dart';
+import '../item_template/custom_item_form_bottom_sheet.dart';
 
 class CategoryBrowserScreen extends ConsumerStatefulWidget {
   final int? listId;
@@ -284,8 +285,12 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
           child: InkWell(
             borderRadius: BorderRadius.circular(12),
             onTap: () {
-              // Navigate to custom item form
-              Navigator.pop(context, 'custom');
+              // Open custom item form bottom sheet
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                builder: (_) => const CustomItemFormBottomSheet(),
+              );
             },
             child: Padding(
               padding: const EdgeInsets.all(16),
