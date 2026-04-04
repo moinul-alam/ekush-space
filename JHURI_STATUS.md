@@ -170,6 +170,14 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
   - ✅ FIX 5: Privacy Policy URL launch — Implemented url_launcher integration with error handling and Bangla error message
   - ✅ Analysis: melos run analyze and flutter analyze apps/ekush_ponji both return zero errors
   - ✅ All 5 fixes completed and tested
+- **Notification Manifest and Permission Fixes Complete (2026-04-04):**
+  - ✅ FIX 1: AndroidManifest.xml permissions — Added RECEIVE_BOOT_COMPLETED, POST_NOTIFICATIONS, SCHEDULE_EXACT_ALARM, USE_EXACT_ALARM, VIBRATE, WAKE_LOCK
+  - ✅ FIX 2: AndroidManifest.xml receivers — Added ScheduledNotificationReceiver and ScheduledNotificationBootReceiver with proper intent filters
+  - ✅ FIX 3: AndroidManifest.xml deep links — Added jhuri scheme intent filter to MainActivity for notification tap handling
+  - ✅ FIX 4: Permission state refresh — WidgetsBindingObserver already correctly implemented with fresh permission check on app resume
+  - ✅ Analysis: melos run analyze (18 warnings) and flutter analyze apps/ekush_ponji (zero issues) both pass
+  - ✅ App rebuilt and reinstalled successfully
+  - ✅ All notification fixes implemented and ready for device testing
 - **Phase 3 Final Fix Bundle (2026-04-04):**
   - ✅ Font Nuclear Option: Applied .apply(fontFamily: 'HindSiliguri') to force font on all text styles
   - ✅ Archive Complete: Updated markAsCompleted to also archive lists and navigate to home
@@ -219,5 +227,5 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 
 ---
 
-*Last updated: 2026-04-04 — Settings Screen Fixes Complete: Back navigation, toggles persist, notification permission, privacy policy*
-*Updated by: Cascade (Settings screen fixes session)*
+*Last updated: 2026-04-04 — Notification Manifest and Permission Fixes Complete: AndroidManifest.xml permissions, receivers, deep links, and permission state refresh*
+*Updated by: Cascade (Notification fixes session)*
