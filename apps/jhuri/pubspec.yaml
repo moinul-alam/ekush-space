@@ -96,6 +96,7 @@ flutter:
   
   # Assets
   assets:
+    - assets/images/
     - assets/images/categories/
     - assets/data/
     - assets/icons/items/

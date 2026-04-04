@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_models/ekush_models.dart';
+import '../../providers/database_provider.dart';
+import '../shopping_list/data/shopping_list_repository.dart';
+import '../shopping_list/home_viewmodel.dart';
 import 'create_edit_list_viewmodel.dart';
 import '../category/category_browser_screen.dart';
 import '../item_template/item_picker_screen.dart';
@@ -440,33 +444,46 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
 
   Future<void> _navigateToCategoryBrowser(
       CreateEditListViewModel viewModel) async {
-    // For now, we'll navigate to category browser
-    // In a real implementation, we'd need to handle the listId properly
-    final result = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => CategoryBrowserScreen(listId: widget.listId ?? 0),
-      ),
-    );
+    // For new lists, navigate to category browser with temporary selections
+    // For existing lists, use the old flow
+    if (widget.listId == null) {
+      // New list flow - navigate to category browser with listId=0
+      await context.go('/categories');
 
-    if (result != null && result is Category) {
-      // Navigate to item picker
-      final context = this.context;
-      if (!context.mounted) return;
-      final items = await Navigator.push(
+      // Refresh the items from temporary selection state when returning
+      if (mounted) {
+        ref
+            .read(createEditListViewModelProvider.notifier)
+            .refreshFromSelectionState();
+      }
+    } else {
+      // Existing list flow - use the old navigation
+      final result = await Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ItemPickerScreen(
-            categoryId: result.id,
-            listId: widget.listId ?? 0,
-          ),
+          builder: (context) => CategoryBrowserScreen(listId: widget.listId!),
         ),
       );
 
-      if (items != null && items is List<ListItem>) {
+      if (result != null && result is Category) {
+        // Navigate to item picker
+        final context = this.context;
         if (!context.mounted) return;
-        for (final item in items) {
-          viewModel.addItem(item);
+        final items = await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ItemPickerScreen(
+              categoryId: result.id,
+              listId: widget.listId!,
+            ),
+          ),
+        );
+
+        if (items != null && items is List<ListItem>) {
+          if (!context.mounted) return;
+          for (final item in items) {
+            viewModel.addItem(item);
+          }
         }
       }
     }
@@ -478,16 +495,15 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
       if (listId != -1) {
         final context = this.context;
         if (!context.mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              viewModel.isEditMode ? 'ফর্দ আপডেট হয়েছে' : 'ফর্দ তৈরি হয়েছে',
-              style: const TextStyle(fontFamily: 'NotoSansBengali'),
-            ),
-          ),
-        );
-        if (!context.mounted) return;
-        Navigator.pop(context);
+
+        // Clear item selection provider
+        ref.read(itemSelectionProvider.notifier).clearSelections();
+
+        // Invalidate shopping lists provider to refresh home screen
+        ref.invalidate(homeViewModelProvider);
+
+        // Navigate to home screen and clear the entire stack
+        GoRouter.of(context).go('/home');
       }
     } catch (e) {
       final context = this.context;

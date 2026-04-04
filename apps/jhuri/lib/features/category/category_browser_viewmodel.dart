@@ -1,61 +1,39 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_models/ekush_models.dart';
 import '../category/data/category_repository.dart';
 import '../../providers/database_provider.dart';
 
 /// View model for category browser
-class CategoryBrowserViewModel extends BaseViewModel {
+class CategoryBrowserViewModel extends AsyncNotifier<List<Category>> {
   late final CategoryRepository _categoryRepository;
 
-  List<Category> _categories = [];
-  bool _isLoading = false;
-
-  List<Category> get categories => _categories;
   @override
-  bool get isLoading => _isLoading;
-
-  @override
-  void onSyncSetup() {
+  Future<List<Category>> build() async {
     _categoryRepository = ref.read(categoryRepositoryProvider);
+    return _loadCategories();
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-    _loadCategories();
-  }
-
-  Future<void> _loadCategories() async {
-    _isLoading = true;
-    state = ViewStateLoading();
-
+  Future<List<Category>> _loadCategories() async {
     try {
-      final categories = await _categoryRepository.getAll();
-      _categories = categories;
-      _isLoading = false;
-      state = ViewStateSuccess();
+      return await _categoryRepository.getAll();
     } catch (e) {
-      _isLoading = false;
-      state = ViewStateError(e.toString());
+      throw Exception('Failed to load categories: $e');
     }
   }
 
-  @override
-  Future<bool> refresh() async {
-    try {
-      await _loadCategories();
-      return true;
-    } catch (e) {
-      state = ViewStateError(e.toString());
-      return false;
-    }
+  /// Refresh categories
+  Future<void> refresh() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() => _loadCategories());
   }
 
   /// Get category by image identifier
   Category? getCategoryByImageIdentifier(String imageIdentifier) {
+    final categories = state.value;
+    if (categories == null) return null;
+
     try {
-      return _categories.firstWhere(
+      return categories.firstWhere(
         (cat) => cat.imageIdentifier == imageIdentifier,
       );
     } catch (e) {
@@ -73,5 +51,5 @@ class CategoryBrowserViewModel extends BaseViewModel {
 
 // Provider
 final categoryBrowserViewModelProvider =
-    NotifierProvider<CategoryBrowserViewModel, ViewState>(
+    AsyncNotifierProvider<CategoryBrowserViewModel, List<Category>>(
         () => CategoryBrowserViewModel());
