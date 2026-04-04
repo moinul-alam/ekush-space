@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'onboarding_viewmodel.dart';
 import 'widgets/onboarding_page_one.dart';
 import 'widgets/onboarding_page_two.dart';
-import 'widgets/onboarding_page_three.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -37,13 +36,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   void _completeOnboarding() async {
     final success = await ref.read(onboardingProvider.notifier).complete();
     if (success && mounted) {
-      context.go('/');
+      context.go('/home');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(onboardingProvider);
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
@@ -56,7 +54,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               padding: const EdgeInsets.only(top: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(3, (i) {
+                children: List.generate(2, (i) {
                   final isActive = i == _currentPage;
                   return AnimatedContainer(
                     duration: const Duration(milliseconds: 250),
@@ -86,12 +84,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   ),
                   OnboardingPageTwo(
                     onBack: () => _goToPage(0),
-                    onNext: () => _goToPage(2),
-                  ),
-                  OnboardingPageThree(
-                    onBack: () => _goToPage(1),
-                    onComplete: _completeOnboarding,
-                    isCompleting: state.isCompleting,
+                    onNext: _completeOnboarding,
                   ),
                 ],
               ),

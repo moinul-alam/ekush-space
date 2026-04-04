@@ -6,7 +6,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ekush_models/ekush_models.dart';
 import 'app/app.dart';
+import 'config/jhuri_constants.dart';
+import 'providers/database_provider.dart';
+import 'services/seed_service.dart';
 
 // Simple error widgets for now
 class AppErrorWidget extends StatelessWidget {
@@ -43,7 +47,7 @@ class AppErrorWidget extends StatelessWidget {
                   // Restart the app
                   runApp(
                     ProviderScope(
-                      child: const JhuriApp(),
+                      child: const JhuriApp(onboardingComplete: true),
                     ),
                   );
                 },
@@ -121,31 +125,18 @@ Future<void> main() async {
     };
 
     // ── Attempt core initialization ───────────────────────
-    try {
-      await _initializeCore();
-    } catch (e, st) {
-      // Remove splash before showing error screen (only on native platforms)
-      if (kIsWeb == false) {
-        FlutterNativeSplash.remove();
-      }
-
-      debugPrint('🔥 Core initialization failed: $e');
-      debugPrintStack(stackTrace: st);
-
-      runApp(
-        AppInitErrorScreen(
-          error: e,
-          stackTrace: st,
-          onRetry: () => _retryInit(),
-          websiteUrl: 'https://ekushlabs.com',
-        ),
-      );
-      return;
-    }
+    final initData = await _initializeCore();
 
     runApp(
       ProviderScope(
-        child: const JhuriApp(),
+        overrides: [
+          // Override the database provider with the already-initialized instance
+          jhuriDatabaseProvider
+              .overrideWithValue(initData['db'] as JhuriDatabase),
+        ],
+        child: JhuriApp(
+          onboardingComplete: initData['onboardingComplete'] as bool,
+        ),
       ),
     );
 
@@ -161,33 +152,21 @@ Future<void> main() async {
   });
 }
 
-Future<void> _initializeCore() async {
-  // Initialize SharedPreferences
-  await SharedPreferences.getInstance();
+Future<Map<String, dynamic>> _initializeCore() async {
+  // 1. SharedPreferences
+  final prefs = await SharedPreferences.getInstance();
+  final onboardingComplete =
+      prefs.getBool(JhuriConstants.storageKeyOnboardingComplete) ?? false;
 
-  // Initialize Drift database
-  // Note: Database will be initialized through ekush_models in Phase 3
-  // For now, we just ensure the basic setup is ready
+  // 2. Initialize Drift database
+  final db = JhuriDatabase();
 
-  // Initialize any other core services
-  await Future.delayed(const Duration(milliseconds: 100)); // Placeholder
-}
+  // 3. Run seed if needed
+  final seedService = SeedService(db);
+  await seedService.seedDatabaseIfNeeded();
 
-/// Called by AppInitErrorScreen retry button.
-/// Re-runs the full initialization sequence and relaunches the app.
-Future<void> _retryInit() async {
-  await _initializeCore();
-
-  runApp(
-    ProviderScope(
-      child: const JhuriApp(),
-    ),
-  );
-
-  // Remove splash after first frame (only on native platforms)
-  if (kIsWeb == false) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      FlutterNativeSplash.remove();
-    });
-  }
+  return {
+    'onboardingComplete': onboardingComplete,
+    'db': db,
+  };
 }

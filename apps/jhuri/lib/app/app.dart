@@ -9,10 +9,12 @@ import '../l10n/jhuri_localizations.dart';
 import '../routing/app_router.dart';
 
 class JhuriApp extends ConsumerWidget {
-  const JhuriApp({super.key});
+  final bool onboardingComplete;
+  const JhuriApp({super.key, required this.onboardingComplete});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(appRouterProvider(onboardingComplete));
     return MaterialApp.router(
       title: JhuriConstants.appName,
       debugShowCheckedModeBanner: false,
@@ -33,7 +35,7 @@ class JhuriApp extends ConsumerWidget {
       ],
 
       // Routing
-      routerConfig: ref.watch(appRouterProvider),
+      routerConfig: router,
     );
   }
 }

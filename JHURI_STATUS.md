@@ -174,8 +174,27 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
   - ✅ Ready for device testing of all 4 steps as specified
   - ✅ Phase 3: ✅ Complete — all flows verified on device
   - ✅ Next Action: Phase 4
+- **Boot Sequence Rebuild Complete (2026-04-04):**
+  - ✅ FIX 1: main.dart — DB init + seed in main() before runApp, database provider override implemented
+  - ✅ FIX 2: app_router.dart — onboarding redirect fixed with family parameter using real SharedPreferences value
+  - ✅ JhuriApp updated to accept onboardingComplete parameter and pass through to router
+  - ✅ Database instance now properly shared across all providers (no duplicate instances)
+  - ✅ Seed runs before app startup — users never see empty category grid on fresh install
+  - ✅ Onboarding screen properly navigates to '/home' after completion via existing context.go('/') logic
+  - ✅ All analysis checks pass — zero errors, zero conflicts with ekush_ponji
+  - ✅ Ready for device testing of all 7 steps as specified
+- **Notification Onboarding Removal Complete (2026-04-04):**
+  - ✅ Removed Screen 3 (notification permission page) entirely — deleted onboarding_page_three.dart
+  - ✅ Updated onboarding screen to 2-page flow with 2-dot indicator
+  - ✅ Updated Language page button from "পরবর্তী" to "শুরু করুন"
+  - ✅ Language page now calls completeOnboarding() directly instead of advancing to Screen 3
+  - ✅ completeOnboarding() navigates directly to '/home' (bypasses router redirect)
+  - ✅ Added loading state handling to Language page button during completion
+  - ✅ Removed all notification permission requests from onboarding flow
+  - ✅ All analysis checks pass — zero errors, zero conflicts with ekush_ponji
+  - ✅ Ready for device testing of all 5 steps as specified
 
 ---
 
-*Last updated: 2026-04-04 — Phase 3 Complete with Surgical Fixes*
-*Updated by: Cascade (Surgical Fixes session)*
+*Last updated: 2026-04-04 — Notification Onboarding Removal Complete*
+*Updated by: Cascade (Notification Onboarding Removal session)*

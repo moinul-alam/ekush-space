@@ -19,7 +19,7 @@ class OnboardingPageTwo extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(onboardingProvider);
     final colorScheme = Theme.of(context).colorScheme;
-    
+
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -36,9 +36,9 @@ class OnboardingPageTwo extends ConsumerWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           // ── Subtitle ───────────────────────────
           Text(
             'আপনার পছন্দের ভাষা নির্বাচন করুন',
@@ -48,34 +48,35 @@ class OnboardingPageTwo extends ConsumerWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          
+
           const SizedBox(height: 48),
-          
+
           // ── Language Options ───────────────────
           ...JhuriConstants.languageDisplay.entries.map((entry) {
             final languageCode = entry.key;
             final displayText = entry.value;
             final isSelected = state.selectedLanguage == languageCode;
-            
+
             return Padding(
               padding: const EdgeInsets.only(bottom: 16),
               child: InkWell(
                 onTap: () {
-                  ref.read(onboardingProvider.notifier).selectLanguage(languageCode);
+                  ref
+                      .read(onboardingProvider.notifier)
+                      .selectLanguage(languageCode);
                 },
                 borderRadius: BorderRadius.circular(12),
                 child: Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: isSelected 
+                    color: isSelected
                         ? colorScheme.primary.withValues(alpha: 0.1)
                         : colorScheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: isSelected 
-                          ? colorScheme.primary
-                          : Colors.transparent,
+                      color:
+                          isSelected ? colorScheme.primary : Colors.transparent,
                       width: 2,
                     ),
                   ),
@@ -87,11 +88,11 @@ class OnboardingPageTwo extends ConsumerWidget {
                         height: 24,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: isSelected 
+                          color: isSelected
                               ? colorScheme.primary
                               : Colors.transparent,
                           border: Border.all(
-                            color: isSelected 
+                            color: isSelected
                                 ? colorScheme.primary
                                 : colorScheme.outline,
                             width: 2,
@@ -105,16 +106,17 @@ class OnboardingPageTwo extends ConsumerWidget {
                               )
                             : null,
                       ),
-                      
+
                       const SizedBox(width: 16),
-                      
+
                       // Language text
                       Expanded(
                         child: Text(
                           displayText,
                           style: TextStyle(
                             fontSize: 18,
-                            fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                            fontWeight:
+                                isSelected ? FontWeight.w600 : FontWeight.w400,
                             color: colorScheme.onSurface,
                           ),
                         ),
@@ -125,9 +127,9 @@ class OnboardingPageTwo extends ConsumerWidget {
               ),
             );
           }),
-          
+
           const Spacer(),
-          
+
           // ── Navigation Buttons ─────────────────
           Row(
             children: [
@@ -150,13 +152,13 @@ class OnboardingPageTwo extends ConsumerWidget {
                   ),
                 ),
               ),
-              
+
               const SizedBox(width: 16),
-              
-              // Next button
+
+              // Next/Start button
               Expanded(
                 child: ElevatedButton(
-                  onPressed: onNext,
+                  onPressed: state.isCompleting ? null : onNext,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: colorScheme.primary,
                     foregroundColor: Colors.white,
@@ -166,18 +168,28 @@ class OnboardingPageTwo extends ConsumerWidget {
                     ),
                     elevation: 2,
                   ),
-                  child: const Text(
-                    'পরবর্তী',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: state.isCompleting
+                      ? const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.white),
+                          ),
+                        )
+                      : const Text(
+                          'শুরু করুন',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                 ),
               ),
             ],
           ),
-          
+
           const SizedBox(height: 32),
         ],
       ),

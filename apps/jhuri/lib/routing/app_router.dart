@@ -14,7 +14,8 @@ import '../features/archive/archive_screen.dart';
 import '../features/settings/settings_screen.dart';
 
 // Router provider
-final appRouterProvider = Provider<GoRouter>((ref) {
+final appRouterProvider =
+    Provider.family<GoRouter, bool>((ref, onboardingComplete) {
   return GoRouter(
     initialLocation: '/',
     debugLogDiagnostics: true,
@@ -23,9 +24,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/',
         redirect: (context, state) {
-          // TODO: Check onboardingComplete from SharedPreferences
-          // For now, redirect to home (will implement in Phase 4)
-          return '/home';
+          return onboardingComplete ? '/home' : '/onboarding';
         },
       ),
 
