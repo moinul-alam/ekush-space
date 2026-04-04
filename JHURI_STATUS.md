@@ -12,7 +12,7 @@
 **Active Branch:** jhuri
 **Main Branch:** clean, stable, fully restored
 **Doc 1 (Restoration Guide):** COMPLETE — archived
-**Doc 2 (Development Constitution):** Active — Phase 3 Final Fix Bundle in Progress
+**Doc 2 (Development Constitution):** Active — Phase 4 Complete
 
 ---
 
@@ -28,11 +28,11 @@
 | ekush_ads | ✅ Clean |
 | ekush_notifications | ✅ Clean |
 | ekush_share | ✅ Clean |
-| apps/jhuri | ✅ Phase 2 Complete — app shell, theme, navigation, onboarding |
+| apps/jhuri | ✅ Phase 4 Complete — settings, notifications, share-as-image |
 
-**melos run analyze:** No issues (26 warnings only)
+**melos run analyze:** No issues (18 warnings only)
 **flutter analyze apps/ekush_ponji:** No issues
-**flutter analyze apps/jhuri:** No issues (26 warnings only)
+**flutter analyze apps/jhuri:** No issues (18 warnings only)
 **flutter build apk (Ponji debug):** Success
 **flutter run apps/jhuri:** Success (Chrome, waiting for connection)
 
@@ -147,6 +147,21 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
   - ✅ FIX 4: Custom item form crash fixed (removed initialValue + controller conflict)
   - ✅ FIX 5: Item picker checkmarks verified working (already correctly implemented)
   - ✅ All 8 device test steps passed - end-to-end flow fully functional
+- **Phase 4 Complete — Settings, Notifications, Share (2026-04-04):**
+  - ✅ Settings Screen: Complete implementation with all sections from JHURI_CONST.md 8.8
+  - ✅ Settings Providers: SharedPreferences-backed Riverpod providers for all settings
+  - ✅ Theme/Language Switching: Live updates without app restart
+  - ✅ Notification Scheduling: Wire ekush_notifications for list reminders at buyDate/reminderTime
+  - ✅ Notification Content: "আজ বাজার আছে" + "আপনার ফর্দে [N]টি আইটেম আছে" with item count
+  - ✅ Notification Cancel: Cancel scheduled notifications on list delete/archive
+  - ✅ Notification Deep Link: Tapping notification opens Shopping Mode for that list
+  - ✅ Share Card Generation: Portrait card with Jhuri logo, Bangla date, grouped items, prices, total
+  - ✅ Share Integration: Uses ekush_share for widget-to-image sharing
+  - ✅ Share Watermark: "Jhuri দিয়ে তৈরি 🛒" on share cards
+  - ✅ Error Handling: Toast messages for share failures
+  - ✅ Analysis: melos run analyze and flutter analyze apps/ekush_ponji both return zero errors
+  - ✅ Compatibility: No conflicts with existing ekush_ponji app
+  - ✅ Phase 4: ✅ Complete — all settings, notification, and share features implemented
 - **Phase 3 Final Fix Bundle (2026-04-04):**
   - ✅ Font Nuclear Option: Applied .apply(fontFamily: 'HindSiliguri') to force font on all text styles
   - ✅ Archive Complete: Updated markAsCompleted to also archive lists and navigate to home
@@ -196,5 +211,5 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 
 ---
 
-*Last updated: 2026-04-04 — Notification Onboarding Removal Complete*
-*Updated by: Cascade (Notification Onboarding Removal session)*
+*Last updated: 2026-04-04 — Phase 4 Complete: Settings, Notifications, Share-as-Image*
+*Updated by: Cascade (Phase 4 implementation session)*

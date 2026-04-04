@@ -5,8 +5,10 @@ import 'package:ekush_models/ekush_models.dart';
 import 'package:drift/drift.dart' show Value;
 import '../../providers/database_provider.dart';
 import '../../providers/item_selection_provider.dart';
+import '../../providers/settings_providers.dart';
 import '../shopping_list/data/shopping_list_repository.dart';
 import '../list_item/data/list_item_repository.dart';
+import '../../services/shopping_list_notification_service.dart';
 
 /// View model for creating and editing shopping lists
 class CreateEditListViewModel extends BaseViewModel {
@@ -197,6 +199,19 @@ class CreateEditListViewModel extends BaseViewModel {
       // Clear temporary selection state if this was a new list
       if (!isEditMode) {
         ref.read(itemSelectionProvider.notifier).clearSelections();
+      }
+
+      // Schedule notification if reminder is enabled
+      if (_isReminderOn) {
+        final reminderTimeString =
+            '${_reminderTime.hour.toString().padLeft(2, '0')}:${_reminderTime.minute.toString().padLeft(2, '0')}';
+        await ShoppingListNotificationService.scheduleNotification(
+          listId: listId,
+          buyDate: _buyDate,
+          reminderTime: reminderTimeString,
+          listRepository: _shoppingListRepository,
+          itemRepository: _listItemRepository,
+        );
       }
 
       state = ViewStateSuccess();

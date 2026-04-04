@@ -10,6 +10,7 @@ import 'package:ekush_models/ekush_models.dart';
 import 'app/app.dart';
 import 'config/jhuri_constants.dart';
 import 'providers/database_provider.dart';
+import 'providers/settings_providers.dart';
 import 'services/seed_service.dart';
 
 // Simple error widgets for now
@@ -133,6 +134,9 @@ Future<void> main() async {
           // Override the database provider with the already-initialized instance
           jhuriDatabaseProvider
               .overrideWithValue(initData['db'] as JhuriDatabase),
+          // Override SharedPreferences provider
+          sharedPreferencesProvider
+              .overrideWithValue(initData['prefs'] as SharedPreferences),
         ],
         child: JhuriApp(
           onboardingComplete: initData['onboardingComplete'] as bool,
@@ -168,5 +172,6 @@ Future<Map<String, dynamic>> _initializeCore() async {
   return {
     'onboardingComplete': onboardingComplete,
     'db': db,
+    'prefs': prefs,
   };
 }

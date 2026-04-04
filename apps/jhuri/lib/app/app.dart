@@ -7,6 +7,7 @@ import '../config/jhuri_constants.dart';
 import '../config/jhuri_theme.dart';
 import '../l10n/jhuri_localizations.dart';
 import '../routing/app_router.dart';
+import '../providers/settings_providers.dart';
 
 class JhuriApp extends ConsumerWidget {
   final bool onboardingComplete;
@@ -15,6 +16,11 @@ class JhuriApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(appRouterProvider(onboardingComplete));
+
+    // Watch async providers with fallback values
+    final themeModeAsync = ref.watch(themeModeProvider);
+    final localeAsync = ref.watch(localeProvider);
+
     return MaterialApp.router(
       title: JhuriConstants.appName,
       debugShowCheckedModeBanner: false,
@@ -22,10 +28,18 @@ class JhuriApp extends ConsumerWidget {
       // Theme
       theme: JhuriTheme.lightTheme,
       darkTheme: JhuriTheme.darkTheme,
-      themeMode: ref.watch(themeModeProvider),
+      themeMode: themeModeAsync.when(
+        data: (mode) => mode,
+        loading: () => ThemeMode.system,
+        error: (_, __) => ThemeMode.system,
+      ),
 
       // Localization
-      locale: ref.watch(localeProvider),
+      locale: localeAsync.when(
+        data: (locale) => locale,
+        loading: () => JhuriConstants.defaultLocale,
+        error: (_, __) => JhuriConstants.defaultLocale,
+      ),
       supportedLocales: JhuriConstants.supportedLocales,
       localizationsDelegates: [
         JhuriLocalizationsDelegate(),
@@ -39,7 +53,3 @@ class JhuriApp extends ConsumerWidget {
     );
   }
 }
-
-// Simple providers for theme and locale management
-final themeModeProvider = Provider<ThemeMode>((ref) => ThemeMode.system);
-final localeProvider = Provider<Locale>((ref) => JhuriConstants.defaultLocale);

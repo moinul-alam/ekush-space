@@ -216,15 +216,27 @@ abstract class JhuriLocalizations extends AppLocalizations {
   String get systemDefault => 'সিস্টেম ডিফল্ট';
   String get shopping => 'বাজার';
   String get showPriceTotal => 'মোট মূল্য দেখান';
+  String get showPriceTotalSubtitle => 'আইটেমের মোট মূল্য দেখান';
   String get defaultUnit => 'ডিফল্ট একক';
   String get currencySymbol => 'মুদ্রা প্রতীক';
   @override
   String get notifications => 'বিজ্ঞপ্তি';
+  String get enableNotifications => 'বিজ্ঞপ্তি সক্রিয়';
+  String get enableNotificationsSubtitle => 'বিজ্ঞপ্তি পান';
+  String get defaultReminderTime => 'ডিফল্ট রিমাইন্ডার সময়';
   String get notificationsEnabled => 'বিজ্ঞপ্তি সক্রিয়';
   String get lists => 'তালিকা';
   String get listSortOrder => 'ফর্দ সাজানো';
   String get newestFirst => 'নতুন আগে';
   String get oldestFirst => 'পুরনো আগে';
+  String get personalItems => 'ব্যক্তিগত আইটেম';
+  String get manageCustomItems => 'কাস্টম আইটেম ব্যবস্থাপনা';
+  String get manageCustomItemsSubtitle => 'আপনার কাস্টম আইটেম দেখুন';
+  String get about => 'সম্পর্কে';
+  String get appVersion => 'অ্যাপ সংস্করণ';
+  String get privacyPolicy => 'গোপনীয়তা নীতি';
+  String get privacyPolicySubtitle => 'আমাদের গোপনীয়তা নীতি';
+  String get settings => 'সেটিংস';
 
   // Messages
   @override

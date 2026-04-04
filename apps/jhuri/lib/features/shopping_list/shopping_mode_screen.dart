@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_models/ekush_models.dart';
 import 'shopping_mode_viewmodel.dart';
+import '../../services/share_card_service.dart';
+import '../../providers/database_provider.dart';
 
 class ShoppingModeScreen extends ConsumerStatefulWidget {
   final int listId;
@@ -531,9 +533,17 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
   }
 
   void _showShareOptions(
-      BuildContext context, ShoppingModeViewModel viewModel) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Share functionality coming soon')),
+      BuildContext context, ShoppingModeViewModel viewModel) async {
+    final list = viewModel.list;
+    if (list == null) return;
+
+    await ShareCardService.shareShoppingListCard(
+      listId: list.id,
+      listTitle: list.title,
+      buyDate: list.buyDate,
+      itemRepository: ref.read(listItemRepositoryProvider),
+      categoryRepository: ref.read(categoryRepositoryProvider),
+      context: context,
     );
   }
 

@@ -77,6 +77,14 @@ final appRouterProvider =
       ),
 
       GoRoute(
+        path: '/list/:listId/shopping',
+        builder: (context, state) {
+          final listId = int.parse(state.pathParameters['listId']!);
+          return ShoppingModeScreen(listId: listId);
+        },
+      ),
+
+      GoRoute(
         path: '/archive',
         builder: (context, state) => const ArchiveScreen(),
       ),

@@ -4,6 +4,7 @@ import 'package:ekush_models/ekush_models.dart';
 import 'data/shopping_list_repository.dart';
 import '../list_item/data/list_item_repository.dart';
 import '../../providers/database_provider.dart';
+import '../../services/shopping_list_notification_service.dart';
 
 /// Home view model managing shopping lists display and interactions
 class HomeViewModel extends BaseViewModel {
@@ -73,6 +74,9 @@ class HomeViewModel extends BaseViewModel {
 
   Future<void> deleteList(int listId) async {
     try {
+      // Cancel notification before deleting the list
+      await ShoppingListNotificationService.cancelNotification(listId);
+
       await _shoppingListRepository.delete(listId);
       await _loadLists();
     } catch (e) {
@@ -82,6 +86,9 @@ class HomeViewModel extends BaseViewModel {
 
   Future<void> archiveList(int listId) async {
     try {
+      // Cancel notification before archiving the list
+      await ShoppingListNotificationService.cancelNotification(listId);
+
       await _shoppingListRepository.archive(listId);
       await _loadLists();
     } catch (e) {
