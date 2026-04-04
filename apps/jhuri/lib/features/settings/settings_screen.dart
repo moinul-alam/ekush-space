@@ -2,9 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:ekush_notifications/ekush_notifications.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import '../../base/jhuri_base_screen.dart';
 import '../../providers/settings_providers.dart';
 import '../../l10n/jhuri_localizations.dart';
@@ -227,8 +229,7 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
             subtitle: l10n.manageCustomItemsSubtitle,
             trailing: const Icon(Icons.chevron_right),
             onTap: () {
-              // TODO: Navigate to custom items management screen
-              showJhuriSnackBar(message: 'Coming soon');
+              GoRouter.of(context).push('/custom-items');
             },
           ),
 
@@ -243,8 +244,7 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
             subtitle: l10n.appVersion,
             trailing: const Icon(Icons.chevron_right),
             onTap: () {
-              // TODO: Show about dialog
-              showJhuriSnackBar(message: 'Coming soon');
+              _showAboutDialog();
             },
           ),
 
@@ -553,6 +553,42 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
             );
           },
         ),
+      ),
+    );
+  }
+
+  void _showAboutDialog() {
+    final l10n = JhuriLocalizations.of(context);
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.about),
+        content: FutureBuilder<PackageInfo>(
+          future: PackageInfo.fromPlatform(),
+          builder: (context, snapshot) {
+            final version = snapshot.data?.version ?? '1.0.0';
+            final buildNumber = snapshot.data?.buildNumber ?? '1';
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('ঝুড়ি - Smart Grocery List'),
+                const SizedBox(height: 8),
+                Text('${l10n.appVersion}: $version ($buildNumber)'),
+                const SizedBox(height: 8),
+                const Text('Developed by Ekush Labs'),
+                const SizedBox(height: 8),
+                const Text('© 2026 Ekush Labs. All rights reserved.'),
+              ],
+            );
+          },
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('ঠিক আছে'),
+          ),
+        ],
       ),
     );
   }

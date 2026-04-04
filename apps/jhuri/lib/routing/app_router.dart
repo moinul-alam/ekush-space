@@ -12,6 +12,7 @@ import '../features/item_template/create_custom_item_screen.dart';
 import '../features/shopping_list/shopping_mode_screen.dart';
 import '../features/archive/archive_screen.dart';
 import '../features/settings/settings_screen.dart';
+import '../features/custom_items/custom_items_screen.dart';
 
 // Router provider
 final appRouterProvider =
@@ -97,6 +98,11 @@ final appRouterProvider =
       GoRoute(
         path: '/items/create',
         builder: (context, state) => const CreateCustomItemScreen(),
+      ),
+
+      GoRoute(
+        path: '/custom-items',
+        builder: (context, state) => const CustomItemsScreen(),
       ),
     ],
     errorBuilder: (context, state) => ErrorScreen(error: state.error),
