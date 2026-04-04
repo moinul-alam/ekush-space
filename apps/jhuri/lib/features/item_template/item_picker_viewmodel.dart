@@ -18,7 +18,8 @@ class ItemPickerViewModel extends AsyncNotifier<List<ItemTemplate>> {
 
   Future<List<ItemTemplate>> _loadItemsForCategory(int categoryId) async {
     try {
-      return await _itemTemplateRepository.getByCategoryId(categoryId);
+      final items = await _itemTemplateRepository.getByCategoryId(categoryId);
+      return items;
     } catch (e) {
       throw Exception('Failed to load items: $e');
     }

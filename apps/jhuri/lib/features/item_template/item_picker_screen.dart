@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ekush_models/ekush_models.dart';
 import '../../providers/item_selection_provider.dart';
+import 'item_picker_viewmodel.dart';
+import 'item_quantity_bottom_sheet.dart';
 
 class ItemPickerScreen extends ConsumerStatefulWidget {
   final int categoryId;
   final String categoryName;
-  final int listId;
 
   const ItemPickerScreen({
     super.key,
     required this.categoryId,
     required this.categoryName,
-    required this.listId,
   });
 
   @override
@@ -103,26 +103,17 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
       itemCount: items.length,
       itemBuilder: (context, index) {
         final item = items[index];
-        final isSelected = itemSelection.isItemSelected(item.id);
+        final isSelected = itemSelection.selectedItemIds.contains(item.id);
 
-        return GestureDetector(
+        return InkWell(
           onTap: () {
-            ref.read(itemSelectionProvider.notifier).toggleItem(
-                  ListItem(
-                    id: DateTime.now().millisecondsSinceEpoch,
-                    listId: widget.listId,
-                    templateId: item.id,
-                    nameBangla: item.nameBangla,
-                    nameEnglish: item.nameEnglish,
-                    quantity: item.defaultQuantity,
-                    unit: item.defaultUnit,
-                    price: null,
-                    isBought: false,
-                    sortOrder: 0,
-                    addedAt: DateTime.now(),
-                  ),
-                );
+            showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              builder: (_) => ItemQuantityBottomSheet(item: item),
+            );
           },
+          borderRadius: BorderRadius.circular(12),
           child: Container(
             decoration: BoxDecoration(
               color: colorScheme.surface,
@@ -131,37 +122,60 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
                   ? Border.all(color: colorScheme.primary, width: 2)
                   : null,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Stack(
               children: [
-                const SizedBox(height: 8),
-                Text(
-                  item.iconIdentifier,
-                  style: TextStyle(
-                    fontSize: 32,
-                    color: isSelected
-                        ? colorScheme.primary
-                        : colorScheme.onSurface,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Text(
-                    item.nameBangla,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: isSelected
-                          ? colorScheme.primary
-                          : colorScheme.onSurface,
-                      fontFamily: 'NotoSansBengali',
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 8),
+                    Text(
+                      item.iconIdentifier,
+                      style: TextStyle(
+                        fontSize: 32,
+                        color: isSelected
+                            ? colorScheme.primary
+                            : colorScheme.onSurface,
+                      ),
                     ),
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                    const SizedBox(height: 4),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Text(
+                        item.nameBangla,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: isSelected
+                              ? colorScheme.primary
+                              : colorScheme.onSurface,
+                          fontFamily: 'NotoSansBengali',
+                        ),
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
                 ),
+                // Checkmark badge for selected items
+                if (isSelected)
+                  Positioned(
+                    top: 4,
+                    right: 4,
+                    child: Container(
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                        color: colorScheme.primary,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.check,
+                        size: 14,
+                        color: colorScheme.onPrimary,
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),

@@ -61,7 +61,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
       body: _buildBody(viewModel, colorScheme),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.push('/list/create'),
+        onPressed: () => context.push('/categories'),
         backgroundColor: colorScheme.primary,
         foregroundColor: Colors.white,
         child: const Icon(Icons.add),
@@ -303,7 +303,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
-          onTap: () => context.push('/list/${list.id}/shop'),
+          onTap: () => context.push('/list/${list.id}'),
           onLongPress: () {
             _showListOptions(context, list, viewModel);
           },

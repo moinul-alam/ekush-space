@@ -3,11 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ekush_models/ekush_models.dart';
 import 'category_browser_viewmodel.dart';
+import '../../providers/item_selection_provider.dart';
 
 class CategoryBrowserScreen extends ConsumerStatefulWidget {
-  final int listId;
+  final int? listId;
 
-  const CategoryBrowserScreen({super.key, required this.listId});
+  const CategoryBrowserScreen({super.key, this.listId});
 
   @override
   ConsumerState<CategoryBrowserScreen> createState() =>
@@ -18,7 +19,11 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final categoriesAsync = ref.watch(categoryBrowserViewModelProvider);
     final viewModel = ref.read(categoryBrowserViewModelProvider.notifier);
+
+    // Eagerly initialize item selection provider to ensure first tap works
+    ref.watch(itemSelectionProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -36,20 +41,17 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
         elevation: 0,
         centerTitle: true,
       ),
-      body: _buildBody(viewModel, colorScheme),
+      body: _buildBody(categoriesAsync, viewModel, colorScheme),
     );
   }
 
-  Widget _buildBody(
+  Widget _buildBody(AsyncValue<List<Category>> categoriesAsync,
       CategoryBrowserViewModel viewModel, ColorScheme colorScheme) {
-    if (viewModel.isLoading) {
-      return const Center(
+    return categoriesAsync.when(
+      loading: () => const Center(
         child: CircularProgressIndicator(),
-      );
-    }
-
-    if (viewModel.hasError) {
-      return Center(
+      ),
+      error: (error, stackTrace) => Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -70,7 +72,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
             ),
             const SizedBox(height: 8),
             Text(
-              viewModel.hasError ? 'ত্রুটি হয়েছে' : 'একটি ত্রুটি হয়েছে',
+              error.toString(),
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey[600],
@@ -85,31 +87,28 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
             ),
           ],
         ),
-      );
-    }
-
-    return RefreshIndicator(
-      onRefresh: () async => await viewModel.refresh(),
-      child: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 16),
-            _buildCategoryGrid(viewModel, colorScheme),
-            const SizedBox(height: 24),
-            _buildBottomButton(context, colorScheme),
-            const SizedBox(height: 100), // Space for navigation
-          ],
+      ),
+      data: (categories) => RefreshIndicator(
+        onRefresh: () async => await viewModel.refresh(),
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 16),
+              _buildCategoryGrid(categories, viewModel, colorScheme),
+              const SizedBox(height: 24),
+              _buildBottomButton(context, colorScheme),
+              const SizedBox(height: 100), // Space for navigation
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildCategoryGrid(
+  Widget _buildCategoryGrid(List<Category> categories,
       CategoryBrowserViewModel viewModel, ColorScheme colorScheme) {
-    final categories = viewModel.categories;
-
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -141,7 +140,10 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
                 return _buildCustomItemCard(colorScheme);
               } else {
                 final category = categories[index];
-                return _buildCategoryCard(category, colorScheme);
+                return AspectRatio(
+                  aspectRatio: 1.0,
+                  child: _buildCategoryCard(category, colorScheme),
+                );
               }
             },
           ),
@@ -152,6 +154,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
 
   Widget _buildCategoryCard(Category category, ColorScheme colorScheme) {
     return Container(
+      height: double.infinity,
       decoration: BoxDecoration(
         color: colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
@@ -168,25 +171,46 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
           onTap: () {
-            // Navigate to item picker
-            context
-                .push('/list/${widget.listId}/category/${category.id}/items');
+            // Navigate to item picker using new route
+            context.go('/categories/${category.id}/items',
+                extra: category.nameBangla);
           },
           child: Column(
             children: [
               // Category Image
               Expanded(
-                flex: 2,
+                flex: 3,
                 child: Container(
-                  height: 110,
+                  width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius:
                         const BorderRadius.vertical(top: Radius.circular(12)),
-                    image: DecorationImage(
-                      image: AssetImage(
-                          'assets/images/categories/${category.imageIdentifier}.png'),
-                      fit: BoxFit.cover,
-                    ),
+                    color: colorScheme.surface,
+                  ),
+                  child: Image.asset(
+                    'assets/images/categories/${category.imageIdentifier}.png',
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      // Fallback to emoji icon
+                      return Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(12)),
+                          color: colorScheme.primary.withValues(alpha: 0.1),
+                        ),
+                        child: Center(
+                          child: Text(
+                            category.iconIdentifier,
+                            style: TextStyle(
+                              fontSize: 48,
+                              color: colorScheme.primary,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
@@ -195,7 +219,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
               Expanded(
                 flex: 1,
                 child: Container(
-                  height: 110,
+                  width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.vertical(
                         bottom: Radius.circular(12)),
@@ -209,38 +233,23 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
                       ],
                     ),
                   ),
-                  padding: const EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(8),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Icon
-                      Container(
-                        width: 32,
-                        height: 32,
-                        decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.9),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Icon(
-                          category.iconIdentifier.isEmpty
-                              ? Icons.category
-                              : IconData(int.parse(category.iconIdentifier)),
-                          size: 20,
-                          color: colorScheme.primary,
-                        ),
-                      ),
-
-                      const SizedBox(height: 8),
-
                       // Category Name
-                      Text(
-                        category.nameBangla,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                          fontFamily: 'NotoSansBengali',
+                      Flexible(
+                        child: Text(
+                          category.nameBangla,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                            fontFamily: 'NotoSansBengali',
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
                         ),
                       ),
                     ],
@@ -255,70 +264,63 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
   }
 
   Widget _buildCustomItemCard(ColorScheme colorScheme) {
-    return Container(
-      decoration: BoxDecoration(
-        color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: colorScheme.shadow.withValues(alpha: 0.1),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
+    return AspectRatio(
+      aspectRatio: 1.0,
+      child: Container(
+        height: double.infinity,
+        decoration: BoxDecoration(
+          color: colorScheme.surface,
           borderRadius: BorderRadius.circular(12),
-          onTap: () {
-            // Navigate to custom item form
-            Navigator.pop(context, 'custom');
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: colorScheme.primary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: colorScheme.shadow.withValues(alpha: 0.1),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(12),
+            onTap: () {
+              // Navigate to custom item form
+              Navigator.pop(context, 'custom');
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: colorScheme.primary.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Icon(
+                      Icons.add,
+                      color: colorScheme.primary,
+                      size: 24,
+                    ),
                   ),
-                  child: const Icon(
-                    Icons.add,
-                    color: Colors.white,
-                    size: 24,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'কাস্টম আইটেম',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: colorScheme.onSurface,
-                          fontFamily: 'NotoSansBengali',
-                        ),
+                  const SizedBox(height: 12),
+                  Flexible(
+                    child: Text(
+                      'কাস্টম',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: colorScheme.onSurface,
+                        fontFamily: 'NotoSansBengali',
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'নিজের আইটেম তৈরি করুন',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: colorScheme.onSurface.withValues(alpha: 0.7),
-                          fontFamily: 'NotoSansBengali',
-                        ),
-                      ),
-                    ],
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -327,13 +329,27 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
   }
 
   Widget _buildBottomButton(BuildContext context, ColorScheme colorScheme) {
+    final itemSelection = ref.watch(itemSelectionProvider);
+    final selectedCount = itemSelection.selectedCount;
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       child: ElevatedButton(
-        onPressed: () => Navigator.pop(context),
+        onPressed: selectedCount > 0
+            ? () {
+                if (widget.listId == null) {
+                  // New list flow - navigate to create list with selections
+                  context.push('/list/new');
+                } else {
+                  // Existing list flow - go back with selections
+                  Navigator.pop(context);
+                }
+              }
+            : null, // Disable when no items selected
         style: ElevatedButton.styleFrom(
-          backgroundColor: colorScheme.primary,
+          backgroundColor:
+              selectedCount > 0 ? colorScheme.primary : Colors.grey,
           foregroundColor: Colors.white,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           shape: RoundedRectangleBorder(
@@ -341,7 +357,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
           ),
         ),
         child: Text(
-          'সম্পন্ন',
+          selectedCount > 0 ? 'সম্পন্ন ($selectedCountটি আইটেম)' : 'সম্পন্ন',
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,

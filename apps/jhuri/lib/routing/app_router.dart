@@ -9,18 +9,26 @@ import '../features/shopping_list/create_edit_list_screen.dart';
 import '../features/category/category_browser_screen.dart';
 import '../features/item_template/item_picker_screen.dart';
 import '../features/shopping_list/shopping_mode_screen.dart';
-import '../config/jhuri_constants.dart';
 
 // Router provider
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
-    initialLocation: '/splash',
+    initialLocation: '/',
     debugLogDiagnostics: true,
     routes: [
-      // Splash/Onboarding flow
+      // Main app
       GoRoute(
-        path: '/splash',
-        builder: (context, state) => const SplashScreen(),
+        path: '/',
+        redirect: (context, state) {
+          // TODO: Check onboardingComplete from SharedPreferences
+          // For now, redirect to home (will implement in Phase 4)
+          return '/home';
+        },
+      ),
+
+      GoRoute(
+        path: '/home',
+        builder: (context, state) => const HomeScreen(),
       ),
 
       GoRoute(
@@ -28,136 +36,47 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const OnboardingScreen(),
       ),
 
-      // Main app
       GoRoute(
-        path: '/',
-        builder: (context, state) => const HomeScreen(),
+        path: '/categories',
+        builder: (context, state) => const CategoryBrowserScreen(),
       ),
 
-      // Create/Edit List
       GoRoute(
-        path: '/list/create',
-        builder: (context, state) => const CreateEditListScreen(),
+        path: '/categories/:categoryId/items',
+        builder: (context, state) {
+          final categoryId = int.parse(state.pathParameters['categoryId']!);
+          final categoryName = state.extra as String;
+          return ItemPickerScreen(
+            categoryId: categoryId,
+            categoryName: categoryName,
+          );
+        },
       ),
+
       GoRoute(
-        path: '/list/edit/:listId',
+        path: '/list/new',
+        builder: (context, state) => const CreateEditListScreen(listId: null),
+      ),
+
+      GoRoute(
+        path: '/list/:listId/edit',
         builder: (context, state) {
           final listId = int.parse(state.pathParameters['listId']!);
           return CreateEditListScreen(listId: listId);
         },
       ),
 
-      // Category Browser
       GoRoute(
-        path: '/list/:listId/categories',
-        builder: (context, state) {
-          final listId = int.parse(state.pathParameters['listId']!);
-          return CategoryBrowserScreen(listId: listId);
-        },
-      ),
-
-      // Item Picker
-      GoRoute(
-        path: '/list/:listId/category/:categoryId/items',
-        builder: (context, state) {
-          final listId = int.parse(state.pathParameters['listId']!);
-          final categoryId = int.parse(state.pathParameters['categoryId']!);
-          return ItemPickerScreen(listId: listId, categoryId: categoryId);
-        },
-      ),
-
-      // Shopping Mode
-      GoRoute(
-        path: '/list/:listId/shop',
+        path: '/list/:listId',
         builder: (context, state) {
           final listId = int.parse(state.pathParameters['listId']!);
           return ShoppingModeScreen(listId: listId);
         },
       ),
     ],
-
-    // Redirect logic based on onboarding status
-    redirect: (context, state) {
-      // For Phase 2, we'll implement basic onboarding check
-      // In Phase 3+, this will check SharedPreferences
-      return null; // No redirect for now
-    },
-
     errorBuilder: (context, state) => ErrorScreen(error: state.error),
   );
 });
-
-// Splash screen - will determine if onboarding is needed
-class SplashScreen extends ConsumerWidget {
-  const SplashScreen({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // For Phase 2, we'll show a simple splash and navigate to onboarding
-    // In Phase 3+, this will check SharedPreferences and navigate accordingly
-
-    Future.delayed(const Duration(seconds: 2), () {
-      if (context.mounted) {
-        context.go('/onboarding');
-      }
-    });
-
-    return Scaffold(
-      backgroundColor: const Color(0xFF2D6A4F), // Jhuri primary color
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // App logo placeholder
-            Container(
-              width: 120,
-              height: 120,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(24),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.1),
-                    blurRadius: 20,
-                    offset: const Offset(0, 10),
-                  ),
-                ],
-              ),
-              child: const Icon(
-                Icons.shopping_basket_outlined,
-                size: 60,
-                color: Color(0xFF2D6A4F),
-              ),
-            ),
-            const SizedBox(height: 32),
-            const Text(
-              JhuriConstants.appName,
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                fontFamily: 'HindSiliguri',
-              ),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'বাজারের ফর্দ, হাতের মুঠোয়',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.white70,
-                fontFamily: 'NotoSansBengali',
-              ),
-            ),
-            const SizedBox(height: 48),
-            const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 // Error screen for routing errors
 class ErrorScreen extends StatelessWidget {

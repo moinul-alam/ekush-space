@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_models/ekush_models.dart';
 import 'package:drift/drift.dart';
@@ -110,10 +111,18 @@ class ItemTemplateRepository extends BaseRepository<ItemTemplate> {
 
   /// Get item templates by category ID
   Future<List<ItemTemplate>> getByCategoryId(int categoryId) async {
-    return await (_database.select(_database.itemTemplates)
+    final items = await (_database.select(_database.itemTemplates)
           ..where((t) => t.categoryId.equals(categoryId))
           ..orderBy([(t) => OrderingTerm.asc(t.nameBangla)]))
         .get();
+
+    debugPrint('🔍 Found ${items.length} items for categoryId $categoryId');
+    if (categoryId == 1) {
+      debugPrint(
+          '🔍 Items for category 1 (Vegetables): ${items.map((i) => i.nameBangla).join(', ')}');
+    }
+
+    return items;
   }
 
   /// Get custom items only

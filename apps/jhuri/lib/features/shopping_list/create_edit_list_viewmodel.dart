@@ -4,6 +4,7 @@ import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_models/ekush_models.dart';
 import 'package:drift/drift.dart' show Value;
 import '../../providers/database_provider.dart';
+import '../../providers/item_selection_provider.dart';
 import '../shopping_list/data/shopping_list_repository.dart';
 import '../list_item/data/list_item_repository.dart';
 
@@ -45,7 +46,11 @@ class CreateEditListViewModel extends BaseViewModel {
     _buyDate = DateTime.now();
     _isReminderOn = false;
     _reminderTime = const TimeOfDay(hour: 18, minute: 0);
-    _items = [];
+
+    // Load items from temporary selection state
+    final itemSelection = ref.read(itemSelectionProvider);
+    _items = List.from(itemSelection.selectedItems);
+
     _editingListId = null;
     state = ViewStateSuccess();
   }
@@ -189,12 +194,24 @@ class CreateEditListViewModel extends BaseViewModel {
         await _listItemRepository.createFromCompanion(newItem);
       }
 
+      // Clear temporary selection state if this was a new list
+      if (!isEditMode) {
+        ref.read(itemSelectionProvider.notifier).clearSelections();
+      }
+
       state = ViewStateSuccess();
       return listId;
     } catch (e) {
       state = ViewStateError(e.toString());
       return -1;
     }
+  }
+
+  /// Refresh items from temporary selection state (for new lists)
+  void refreshFromSelectionState() {
+    final itemSelection = ref.read(itemSelectionProvider);
+    _items = List.from(itemSelection.selectedItems);
+    state = ViewStateSuccess();
   }
 
   /// Validate form

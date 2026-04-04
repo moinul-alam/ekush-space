@@ -1,7 +1,8 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:ekush_models/ekush_models.dart';
-import 'package:drift/drift.dart' show Value;
+import 'package:drift/drift.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Service to seed the database with initial data from JSON file
@@ -19,7 +20,14 @@ class SeedService {
 
   /// Load seed data from JSON and populate database tables
   Future<void> seedDatabaseIfNeeded() async {
-    if (await isSeedComplete) return;
+    // Check if categories table is empty - this is the definitive gate
+    final categories =
+        await (_database.select(_database.categories)..limit(1)).get();
+
+    if (categories.isNotEmpty) {
+      // Categories already exist, no need to seed
+      return;
+    }
 
     try {
       // Load seed data from assets
@@ -45,6 +53,8 @@ class SeedService {
           await _database.batch((batch) {
             batch.insertAll(_database.categories, categories);
           });
+
+          debugPrint('✅ Seeded ${categories.length} categories');
         }
 
         // Seed item templates
@@ -68,6 +78,8 @@ class SeedService {
           await _database.batch((batch) {
             batch.insertAll(_database.itemTemplates, itemTemplates);
           });
+
+          debugPrint('✅ Seeded ${itemTemplates.length} item templates');
         }
       });
 

@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_models/ekush_models.dart';
-import '../../providers/database_provider.dart';
-import '../shopping_list/data/shopping_list_repository.dart';
+import '../../providers/item_selection_provider.dart';
 import '../shopping_list/home_viewmodel.dart';
 import 'create_edit_list_viewmodel.dart';
 import '../category/category_browser_screen.dart';
@@ -448,7 +447,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
     // For existing lists, use the old flow
     if (widget.listId == null) {
       // New list flow - navigate to category browser with listId=0
-      await context.go('/categories');
+      context.go('/categories');
 
       // Refresh the items from temporary selection state when returning
       if (mounted) {
@@ -474,7 +473,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
           MaterialPageRoute(
             builder: (context) => ItemPickerScreen(
               categoryId: result.id,
-              listId: widget.listId!,
+              categoryName: result.nameBangla,
             ),
           ),
         );
