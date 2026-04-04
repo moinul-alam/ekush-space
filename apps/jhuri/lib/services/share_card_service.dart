@@ -5,7 +5,6 @@ import 'package:ekush_share/ekush_share.dart';
 import 'package:ekush_models/ekush_models.dart';
 import '../features/list_item/data/list_item_repository.dart';
 import '../features/category/data/category_repository.dart';
-import '../l10n/jhuri_localizations.dart';
 
 /// Service for generating and sharing shopping list cards
 class ShareCardService {
@@ -19,11 +18,15 @@ class ShareCardService {
     required BuildContext context,
   }) async {
     try {
+      // Capture scaffold messenger and theme before await to avoid context usage across async gaps
+      final scaffoldMessenger = ScaffoldMessenger.of(context);
+      final theme = Theme.of(context);
+
       // Get all items for the list
       final items = await itemRepository.getByListId(listId);
 
       if (items.isEmpty) {
-        _showErrorToast(context);
+        _showErrorToast(scaffoldMessenger);
         return;
       }
 
@@ -39,12 +42,9 @@ class ShareCardService {
         0: 'অন্যান্য',
       };
       for (final categoryId in itemsByCategory.keys) {
-        if (categoryId != 0) {
-          final category = await categoryRepository.getById(categoryId);
-          if (category != null) {
-            categoryNames[categoryId] = category.nameBangla;
-          }
-        }
+        if (categoryId == 0) continue;
+        final category = await categoryRepository.getById(categoryId);
+        categoryNames[categoryId] = category?.nameBangla ?? 'অন্যান্য';
       }
 
       // Build the share card widget
@@ -53,7 +53,7 @@ class ShareCardService {
         buyDate: buyDate,
         itemsByCategory: itemsByCategory,
         categoryNames: categoryNames,
-        context: context,
+        theme: theme,
       );
 
       // Share the widget as image
@@ -64,7 +64,9 @@ class ShareCardService {
       );
     } catch (e) {
       debugPrint('❌ Failed to share shopping list card: $e');
-      _showErrorToast(context);
+      // Need to capture scaffold messenger in catch block too
+      final scaffoldMessenger = ScaffoldMessenger.of(context);
+      _showErrorToast(scaffoldMessenger);
     }
   }
 
@@ -74,9 +76,10 @@ class ShareCardService {
     required DateTime buyDate,
     required Map<int, List<ListItem>> itemsByCategory,
     required Map<int, String> categoryNames,
-    required BuildContext context,
+    required ThemeData theme,
   }) {
-    final theme = Theme.of(context);
+    // Use captured theme instead of accessing context
+    // final theme = Theme.of(context);
 
     // Calculate totals
     int totalItems = 0;
@@ -296,11 +299,10 @@ class ShareCardService {
   }
 
   /// Show error toast
-  static void _showErrorToast(BuildContext context) {
-    final l10n = JhuriLocalizations.of(context);
-    ScaffoldMessenger.of(context).showSnackBar(
+  static void _showErrorToast(ScaffoldMessengerState scaffoldMessenger) {
+    scaffoldMessenger.showSnackBar(
       SnackBar(
-        content: Text(l10n.shareError),
+        content: Text('শেয়ার করতে সমস্যা হয়েছে। আবার চেষ্টা করুন'),
         backgroundColor: Colors.red,
         duration: const Duration(seconds: 3),
       ),

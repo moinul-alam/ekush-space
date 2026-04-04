@@ -489,6 +489,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
         await _showInterstitialAdIfNeeded();
 
         // Navigate to home screen and clear the entire stack
+        if (!mounted) return;
         GoRouter.of(context).go('/home');
       }
     } catch (e) {

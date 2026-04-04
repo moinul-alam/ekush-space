@@ -502,17 +502,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   // Duplicate all items
                   await listItemRepo.duplicateItems(list.id, newListId);
 
-                  if (mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('নকল করা হয়েছে')),
-                    );
-                  }
+                  // Show success message
+                  if (!mounted) return;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('নকল করা হয়েছে')),
+                  );
                 } catch (e) {
-                  if (mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('ত্রুটি: $e')),
-                    );
-                  }
+                  if (!mounted) return;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('ত্রুটি: $e')),
+                  );
                 }
               },
             ),
@@ -526,18 +525,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ref.read(shoppingListRepositoryProvider);
                   await shoppingListRepo.archive(list.id);
 
-                  if (mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                          content: Text('তালিকা আর্কাইভ করা হয়েছে')),
-                    );
-                  }
+                  // Show success message
+                  if (!mounted) return;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('তালিকা আর্কাইভ করা হয়েছে')),
+                  );
                 } catch (e) {
-                  if (mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('ত্রুটি: $e')),
-                    );
-                  }
+                  if (!mounted) return;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('ত্রুটি: $e')),
+                  );
                 }
               },
             ),
@@ -588,17 +585,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 await listItemRepo.deleteByListId(list.id);
                 await shoppingListRepo.permanentDelete(list.id);
 
-                if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('তালিকা মুছে ফেলা হয়েছে')),
-                  );
-                }
+                // Show success message
+                if (!mounted) return;
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('তালিকা মুছে ফেলা হয়েছে')),
+                );
               } catch (e) {
-                if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('ত্রুটি: $e')),
-                  );
-                }
+                if (!mounted) return;
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('ত্রুটি: $e')),
+                );
               }
             },
             child: const Text('মুছুন', style: TextStyle(color: Colors.red)),
