@@ -64,7 +64,7 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 |---|---|---|
 | Phase 1 — Drift + ekush_models + ekush_core | ✅ Complete | feat(jhuri): Phase 1 — Drift foundation wired into monorepo |
 | Phase 2 — App Shell + Navigation + Theme | ✅ Complete | feat(jhuri): Phase 2 — app shell, theme, navigation, onboarding |
-| Phase 3 — Core Loop | ✅ Complete (Hotfix v2 — all verification gates passed) | fix(jhuri): Phase 3 hotfix v2 — seed timing, item picker, asset paths, nav restructure |
+| Phase 3 — Core Loop | ✅ Complete (Hotfix v3 — all verification gates passed) | fix(jhuri): Phase 3 hotfix v2 — seed timing, item picker, asset paths, nav restructure |
 | Phase 4 — Settings + Notifications + Share | ⏳ Not started | — |
 | Phase 5 — Ads Integration | ⏳ Not started | — |
 | Phase 6 — Polish + Play Store Submission | ⏳ Not started | — |
@@ -74,7 +74,7 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 ## Last Commit
 
 **Hash:** 554dfa7
-**Message:** fix(jhuri): category image asset paths corrected in pubspec
+**Message:** fix(jhuri): Phase 3 hotfix v3 — async providers, nav stack clear, home refresh
 **Branch:** jhuri
 
 ---
@@ -84,7 +84,7 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 - Drift lives in `ekush_models` — table definitions only
 - `DatabaseInitializer` base class lives in `ekush_core`
 - Jhuri app layer never touches Drift directly — repositories only
-- Hive is Ponji-only legacy — never import in Jhuri or any new app
+- All data providers use AsyncValue — no empty-list defaults
 - `ekush_core` must NOT depend on `ekush_models` (learned from failed experiment)
 - All future apps wire Drift via `ekush_core` + `ekush_models` — no reinitialisation from scratch
 - MVVM + Riverpod — mirror Ponji's feature folder structure exactly
@@ -112,6 +112,9 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 
 **Phase 4 — Settings + Notifications + Share**
 - Add app settings screen
+- Implement notification system via ekush_notifications  
+- Create list sharing functionality via ekush_share
+- Add app settings screen
 - Implement notification system
 - Create list sharing functionality
 
@@ -128,5 +131,5 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 
 ---
 
-*Last updated: 2026-04-04 — Asset Path Fix (Post Hotfix v2)*
-*Updated by: Windsurf (Asset Path Fix session)*
+*Last updated: 2026-04-04 — Phase 3 Hotfix v3 Complete*
+*Updated by: Windsurf (Phase 3 Hotfix v3 session)*
