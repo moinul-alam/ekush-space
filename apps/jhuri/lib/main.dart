@@ -6,6 +6,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 import 'package:ekush_models/ekush_models.dart';
 import 'app/app.dart';
 import 'config/jhuri_constants.dart';
@@ -113,6 +115,10 @@ class AppInitErrorScreen extends StatelessWidget {
 
 Future<void> main() async {
   runZonedGuarded(() async {
+    // Initialize timezone database before any other async operations
+    tz.initializeTimeZones();
+    tz.setLocalLocation(tz.getLocation('Asia/Dhaka'));
+
     final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
     // Only preserve splash on native platforms, not web

@@ -118,12 +118,12 @@ flutter:
     - assets/fonts/
 
 flutter_native_splash:
-  color: "#2D6A4F"
-  color_dark: "#2D6A4F"
+  color: "#FFFFFF"
+  color_dark: "#FFFFFF"
   image: assets/images/app_icon.png
   image_dark: assets/images/app_icon.png
   android_12:
-    color: "#2D6A4F"
+    color: "#FFFFFF"
     color_dark: "#2D6A4F"
     image: assets/images/app_icon.png
     image_dark: assets/images/app_icon.png
@@ -133,7 +133,7 @@ flutter_launcher_icons:
   android: true
   ios: false
   image_path: "assets/images/app_icon.png"
-  adaptive_icon_background: "#2D6A4F"
+  adaptive_icon_background: "#FFFFFF"
   adaptive_icon_foreground: "assets/images/app_icon.png"
   min_sdk_android: 21
   web:
