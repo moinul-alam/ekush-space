@@ -10,9 +10,7 @@ abstract class JhuriLocalizations extends AppLocalizations {
   // ═══════════════════════════════════════════════════════════
 
   static JhuriLocalizations of(BuildContext context) {
-    final locale = Localizations.localeOf(context);
-    final delegate = const JhuriLocalizationsDelegate();
-    return delegate.load(locale) as JhuriLocalizations;
+    return Localizations.of<JhuriLocalizations>(context, JhuriLocalizations)!;
   }
 
   // ═══════════════════════════════════════════════════════════

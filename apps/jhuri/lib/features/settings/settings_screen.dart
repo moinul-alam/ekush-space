@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:ekush_notifications/ekush_notifications.dart';
 import '../../base/jhuri_base_screen.dart';
 import '../../providers/settings_providers.dart';
@@ -55,220 +56,241 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
 
     final osGranted = ref.watch(notificationPermissionProvider).value ?? false;
 
-    return ListView(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      children: [
-        // ── Display Section ────────────────────────────────────────
-        _SectionHeader(title: l10n.appearance),
-
-        // Theme
-        themeModeAsync.when(
-          data: (currentTheme) => _SettingsTile(
-            icon: Icons.palette_outlined,
-            title: l10n.theme,
-            subtitle: _getThemeName(currentTheme, l10n),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => _showThemeDialog(context, ref, l10n),
-          ),
-          loading: () => const _SettingsTile(
-            icon: Icons.palette_outlined,
-            title: 'Theme',
-            subtitle: 'Loading...',
-          ),
-          error: (_, __) => const _SettingsTile(
-            icon: Icons.palette_outlined,
-            title: 'Theme',
-            subtitle: 'Error',
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          l10n.settings,
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'HindSiliguri',
           ),
         ),
+        backgroundColor: colorScheme.primary,
+        foregroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true,
+        automaticallyImplyLeading: true,
+      ),
+      body: ListView(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        children: [
+          // ── Display Section ────────────────────────────────────────
+          _SectionHeader(title: l10n.appearance),
 
-        // Language
-        localeAsync.when(
-          data: (currentLocale) => _SettingsTile(
-            icon: Icons.language_outlined,
-            title: l10n.language,
-            subtitle: currentLocale.languageCode == 'bn' ? 'বাংলা' : 'English',
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => _showLanguageDialog(context, ref, l10n),
-          ),
-          loading: () => const _SettingsTile(
-            icon: Icons.language_outlined,
-            title: 'Language',
-            subtitle: 'Loading...',
-          ),
-          error: (_, __) => const _SettingsTile(
-            icon: Icons.language_outlined,
-            title: 'Language',
-            subtitle: 'Error',
-          ),
-        ),
-
-        const Divider(height: 32),
-
-        // ── Shopping Section ────────────────────────────────────────
-        _SectionHeader(title: l10n.shopping),
-
-        // Show price total
-        Consumer(
-          builder: (context, ref, _) {
-            final showPriceTotal = ref.watch(showPriceTotalProvider);
-            return _SettingsSwitchTile(
-              icon: Icons.calculate_outlined,
-              title: l10n.showPriceTotal,
-              subtitle: l10n.showPriceTotalSubtitle,
-              value: showPriceTotal,
-              onChanged: (value) => _toggleShowPriceTotal(value, ref),
-            );
-          },
-        ),
-
-        // Default unit
-        Consumer(
-          builder: (context, ref, _) {
-            final defaultUnit = ref.watch(defaultUnitProvider);
-            return _SettingsTile(
-              icon: Icons.straighten_outlined,
-              title: l10n.defaultUnit,
-              subtitle: defaultUnit,
+          // Theme
+          themeModeAsync.when(
+            data: (currentTheme) => _SettingsTile(
+              icon: Icons.palette_outlined,
+              title: l10n.theme,
+              subtitle: _getThemeName(currentTheme, l10n),
               trailing: const Icon(Icons.chevron_right),
-              onTap: () => _showUnitDialog(context, ref, l10n),
-            );
-          },
-        ),
+              onTap: () => _showThemeDialog(context, ref, l10n),
+            ),
+            loading: () => const _SettingsTile(
+              icon: Icons.palette_outlined,
+              title: 'Theme',
+              subtitle: 'Loading...',
+            ),
+            error: (_, __) => const _SettingsTile(
+              icon: Icons.palette_outlined,
+              title: 'Theme',
+              subtitle: 'Error',
+            ),
+          ),
 
-        // Currency symbol
-        Consumer(
-          builder: (context, ref, _) {
-            final currencySymbol = ref.watch(currencySymbolProvider);
-            return _SettingsTile(
-              icon: Icons.attach_money_outlined,
-              title: l10n.currencySymbol,
-              subtitle: currencySymbol,
+          // Language
+          localeAsync.when(
+            data: (currentLocale) => _SettingsTile(
+              icon: Icons.language_outlined,
+              title: l10n.language,
+              subtitle:
+                  currentLocale.languageCode == 'bn' ? 'বাংলা' : 'English',
               trailing: const Icon(Icons.chevron_right),
-              onTap: () => _showCurrencyDialog(context, ref, l10n),
-            );
-          },
-        ),
+              onTap: () => _showLanguageDialog(context, ref, l10n),
+            ),
+            loading: () => const _SettingsTile(
+              icon: Icons.language_outlined,
+              title: 'Language',
+              subtitle: 'Loading...',
+            ),
+            error: (_, __) => const _SettingsTile(
+              icon: Icons.language_outlined,
+              title: 'Language',
+              subtitle: 'Error',
+            ),
+          ),
 
-        const Divider(height: 32),
+          const Divider(height: 32),
 
-        // ── Notifications Section ───────────────────────────────────
-        _SectionHeader(title: l10n.notifications),
+          // ── Shopping Section ────────────────────────────────────────
+          _SectionHeader(title: l10n.shopping),
 
-        if (!osGranted) _PermissionBanner(l10n: l10n),
+          // Show price total
+          Consumer(
+            builder: (context, ref, _) {
+              final showPriceTotal = ref.watch(showPriceTotalProvider);
+              return _SettingsSwitchTile(
+                icon: Icons.calculate_outlined,
+                title: l10n.showPriceTotal,
+                subtitle: l10n.showPriceTotalSubtitle,
+                value: showPriceTotal,
+                onChanged: (value) => _toggleShowPriceTotal(value, ref),
+              );
+            },
+          ),
 
-        Consumer(
-          builder: (context, ref, _) {
-            final notificationsEnabled =
-                ref.watch(notificationsEnabledProvider);
-            final effectiveValue = notificationsEnabled && osGranted;
-            return _SettingsSwitchTile(
-              icon: Icons.notifications_outlined,
-              title: l10n.enableNotifications,
-              subtitle: l10n.enableNotificationsSubtitle,
-              value: effectiveValue,
-              onChanged: (value) async {
-                if (value && !osGranted) {
-                  _showPermissionDialog(context, l10n);
-                  return;
+          // Currency symbol
+          Consumer(
+            builder: (context, ref, _) {
+              final currencySymbol = ref.watch(currencySymbolProvider);
+              return _SettingsTile(
+                icon: Icons.attach_money_outlined,
+                title: l10n.currencySymbol,
+                subtitle: currencySymbol,
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => _showCurrencyDialog(context, ref, l10n),
+              );
+            },
+          ),
+
+          const Divider(height: 32),
+
+          // ── Notifications Section ───────────────────────────────────
+          _SectionHeader(title: l10n.notifications),
+
+          if (!osGranted) _PermissionBanner(l10n: l10n),
+
+          Consumer(
+            builder: (context, ref, _) {
+              final notificationsEnabled =
+                  ref.watch(notificationsEnabledProvider);
+              final effectiveValue = notificationsEnabled && osGranted;
+              return _SettingsSwitchTile(
+                icon: Icons.notifications_outlined,
+                title: l10n.enableNotifications,
+                subtitle: l10n.enableNotificationsSubtitle,
+                value: effectiveValue,
+                onChanged: (value) async {
+                  if (value && !osGranted) {
+                    _showPermissionDialog(context, l10n);
+                    return;
+                  }
+                  await _toggleNotifications(value, ref);
+                },
+              );
+            },
+          ),
+
+          Consumer(
+            builder: (context, ref, _) {
+              final defaultReminderTime =
+                  ref.watch(defaultReminderTimeProvider);
+              return _SettingsTile(
+                icon: Icons.schedule_outlined,
+                title: l10n.defaultReminderTime,
+                subtitle: defaultReminderTime,
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => _showTimeDialog(context, ref, l10n),
+              );
+            },
+          ),
+
+          const Divider(height: 32),
+
+          // ── Lists Section ───────────────────────────────────────────
+          _SectionHeader(title: l10n.lists),
+
+          Consumer(
+            builder: (context, ref, _) {
+              final listSortOrder = ref.watch(listSortOrderProvider);
+              return _SettingsTile(
+                icon: Icons.sort_outlined,
+                title: l10n.listSortOrder,
+                subtitle: listSortOrder == 'dateDesc'
+                    ? l10n.newestFirst
+                    : l10n.oldestFirst,
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => _showSortOrderDialog(context, ref, l10n),
+              );
+            },
+          ),
+
+          const Divider(height: 32),
+
+          // ── Personal Items Section ──────────────────────────────────
+          _SectionHeader(title: l10n.personalItems),
+
+          _SettingsTile(
+            icon: Icons.inventory_2_outlined,
+            title: l10n.manageCustomItems,
+            subtitle: l10n.manageCustomItemsSubtitle,
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () {
+              // TODO: Navigate to custom items management screen
+              showJhuriSnackBar(message: 'Coming soon');
+            },
+          ),
+
+          const Divider(height: 32),
+
+          // ── About Section ───────────────────────────────────────────
+          _SectionHeader(title: l10n.about),
+
+          _SettingsTile(
+            icon: Icons.info_outline,
+            title: l10n.about,
+            subtitle: l10n.appVersion,
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () {
+              // TODO: Show about dialog
+              showJhuriSnackBar(message: 'Coming soon');
+            },
+          ),
+
+          _SettingsTile(
+            icon: Icons.privacy_tip_outlined,
+            title: l10n.privacyPolicy,
+            subtitle: l10n.privacyPolicySubtitle,
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () async {
+              final Uri url = Uri.parse('https://ekushlabs.com/privacy');
+              try {
+                if (await canLaunchUrl(url)) {
+                  await launchUrl(url, mode: LaunchMode.externalApplication);
+                } else {
+                  if (mounted) {
+                    showJhuriSnackBar(
+                        message: 'লিংক খুলতে সমস্যা হয়েছে',
+                        type: SnackBarType.error);
+                  }
                 }
-                await _toggleNotifications(value, ref);
-              },
-            );
-          },
-        ),
+              } catch (e) {
+                if (mounted) {
+                  showJhuriSnackBar(
+                      message: 'লিংক খুলতে সমস্যা হয়েছে',
+                      type: SnackBarType.error);
+                }
+              }
+            },
+          ),
 
-        Consumer(
-          builder: (context, ref, _) {
-            final defaultReminderTime = ref.watch(defaultReminderTimeProvider);
-            return _SettingsTile(
-              icon: Icons.schedule_outlined,
-              title: l10n.defaultReminderTime,
-              subtitle: defaultReminderTime,
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () => _showTimeDialog(context, ref, l10n),
-            );
-          },
-        ),
-
-        const Divider(height: 32),
-
-        // ── Lists Section ───────────────────────────────────────────
-        _SectionHeader(title: l10n.lists),
-
-        Consumer(
-          builder: (context, ref, _) {
-            final listSortOrder = ref.watch(listSortOrderProvider);
-            return _SettingsTile(
-              icon: Icons.sort_outlined,
-              title: l10n.listSortOrder,
-              subtitle: listSortOrder == 'dateDesc'
-                  ? l10n.newestFirst
-                  : l10n.oldestFirst,
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () => _showSortOrderDialog(context, ref, l10n),
-            );
-          },
-        ),
-
-        const Divider(height: 32),
-
-        // ── Personal Items Section ──────────────────────────────────
-        _SectionHeader(title: l10n.personalItems),
-
-        _SettingsTile(
-          icon: Icons.inventory_2_outlined,
-          title: l10n.manageCustomItems,
-          subtitle: l10n.manageCustomItemsSubtitle,
-          trailing: const Icon(Icons.chevron_right),
-          onTap: () {
-            // TODO: Navigate to custom items management screen
-            showJhuriSnackBar(message: 'Coming soon');
-          },
-        ),
-
-        const Divider(height: 32),
-
-        // ── About Section ───────────────────────────────────────────
-        _SectionHeader(title: l10n.about),
-
-        _SettingsTile(
-          icon: Icons.info_outline,
-          title: l10n.about,
-          subtitle: l10n.appVersion,
-          trailing: const Icon(Icons.chevron_right),
-          onTap: () {
-            // TODO: Show about dialog
-            showJhuriSnackBar(message: 'Coming soon');
-          },
-        ),
-
-        _SettingsTile(
-          icon: Icons.privacy_tip_outlined,
-          title: l10n.privacyPolicy,
-          subtitle: l10n.privacyPolicySubtitle,
-          trailing: const Icon(Icons.chevron_right),
-          onTap: () {
-            // TODO: Open privacy policy
-            showJhuriSnackBar(message: 'Coming soon');
-          },
-        ),
-
-        const SizedBox(height: 16),
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Text(
-              'Jhuri v1.0.0',
-              style: theme.textTheme.bodySmall?.copyWith(
-                fontSize: _SettingsFonts.version,
-                color: colorScheme.onSurfaceVariant,
-                fontFamily: 'HindSiliguri',
+          const SizedBox(height: 16),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Text(
+                'Jhuri v1.0.0',
+                style: theme.textTheme.bodySmall?.copyWith(
+                  fontSize: _SettingsFonts.version,
+                  color: colorScheme.onSurfaceVariant,
+                  fontFamily: 'HindSiliguri',
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -410,55 +432,6 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
               },
               loading: () => const CircularProgressIndicator(),
               error: (_, __) => Text('Error loading language'),
-            );
-          },
-        ),
-      ),
-    );
-  }
-
-  void _showUnitDialog(
-    BuildContext context,
-    WidgetRef ref,
-    JhuriLocalizations l10n,
-  ) {
-    final units = [
-      'কেজি',
-      'গ্রাম',
-      'লিটার',
-      'মিলিলিটার',
-      'পিস',
-      'হালি',
-      'আঁটি',
-      'ডজন',
-      'প্যাকেট',
-      'বোতল',
-      'কৌটা'
-    ];
-
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.defaultUnit),
-        content: Consumer(
-          builder: (context, ref, _) {
-            final currentUnit = ref.watch(defaultUnitProvider);
-            return SegmentedButton<String>(
-              segments: units.map((unit) {
-                return ButtonSegment<String>(
-                  value: unit,
-                  label: Text(unit),
-                );
-              }).toList(),
-              selected: {currentUnit},
-              onSelectionChanged: (Set<String> selection) {
-                if (selection.isNotEmpty) {
-                  ref
-                      .read(defaultUnitNotifierProvider.notifier)
-                      .setValue(selection.first);
-                  Navigator.pop(context);
-                }
-              },
             );
           },
         ),

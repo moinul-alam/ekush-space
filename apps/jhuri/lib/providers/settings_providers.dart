@@ -73,32 +73,30 @@ class LocaleNotifier extends AsyncNotifier<Locale> {
 
 // Settings values providers (read-only)
 final showPriceTotalProvider = Provider<bool>((ref) {
-  return ref.read(sharedPreferencesProvider).getBool('showPriceTotal') ?? true;
+  return ref.watch(showPriceTotalNotifierProvider).value ?? true;
 });
 
 final defaultUnitProvider = Provider<String>((ref) {
-  return ref.read(sharedPreferencesProvider).getString('defaultUnit') ??
+  return ref.watch(defaultUnitNotifierProvider).value ??
       JhuriConstants.defaultUnit;
 });
 
 final currencySymbolProvider = Provider<String>((ref) {
-  return ref.read(sharedPreferencesProvider).getString('currencySymbol') ??
+  return ref.watch(currencySymbolNotifierProvider).value ??
       JhuriConstants.defaultCurrencySymbol;
 });
 
 final notificationsEnabledProvider = Provider<bool>((ref) {
-  return ref.read(sharedPreferencesProvider).getBool('notificationsEnabled') ??
-      true;
+  return ref.watch(notificationsEnabledNotifierProvider).value ?? true;
 });
 
 final defaultReminderTimeProvider = Provider<String>((ref) {
-  return ref.read(sharedPreferencesProvider).getString('defaultReminderTime') ??
+  return ref.watch(defaultReminderTimeNotifierProvider).value ??
       JhuriConstants.defaultReminderTime;
 });
 
 final listSortOrderProvider = Provider<String>((ref) {
-  return ref.read(sharedPreferencesProvider).getString('listSortOrder') ??
-      'dateDesc';
+  return ref.watch(listSortOrderNotifierProvider).value ?? 'dateDesc';
 });
 
 // Settings notifiers for writable values

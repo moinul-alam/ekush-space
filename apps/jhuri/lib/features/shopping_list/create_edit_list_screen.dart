@@ -428,7 +428,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
     // For existing lists, use the old flow
     if (widget.listId == null) {
       // New list flow - navigate to category browser with listId=0
-      context.go('/categories');
+      context.push('/categories');
 
       // Refresh the items from temporary selection state when returning
       if (mounted) {

@@ -550,6 +550,6 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
   void _markAsCompleted(
       BuildContext context, ShoppingModeViewModel viewModel) async {
     await viewModel.markListAsCompleted();
-    if (context.mounted) context.go('/home');
+    if (context.mounted) context.pop();
   }
 }

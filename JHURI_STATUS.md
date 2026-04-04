@@ -162,6 +162,14 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
   - ✅ Analysis: melos run analyze and flutter analyze apps/ekush_ponji both return zero errors
   - ✅ Compatibility: No conflicts with existing ekush_ponji app
   - ✅ Phase 4: ✅ Complete — all settings, notification, and share features implemented
+- **Settings Screen Fixes Complete (2026-04-04):**
+  - ✅ FIX 1: Back button and swipe-to-go-back — Added AppBar to Settings screen, fixed navigation to use context.push() instead of context.go()
+  - ✅ FIX 2: Settings toggles and pickers persist — Fixed providers to use ref.watch() with notifier providers instead of direct SharedPreferences reads
+  - ✅ FIX 3: Notification toggle re-enables after permission — WidgetsBindingObserver already implemented correctly with permission refresh
+  - ✅ FIX 4: Removed Default Unit from Settings UI — Removed entire Default Unit section and unused _showUnitDialog method
+  - ✅ FIX 5: Privacy Policy URL launch — Implemented url_launcher integration with error handling and Bangla error message
+  - ✅ Analysis: melos run analyze and flutter analyze apps/ekush_ponji both return zero errors
+  - ✅ All 5 fixes completed and tested
 - **Phase 3 Final Fix Bundle (2026-04-04):**
   - ✅ Font Nuclear Option: Applied .apply(fontFamily: 'HindSiliguri') to force font on all text styles
   - ✅ Archive Complete: Updated markAsCompleted to also archive lists and navigate to home
@@ -211,5 +219,5 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 
 ---
 
-*Last updated: 2026-04-04 — Phase 4 Complete: Settings, Notifications, Share-as-Image*
-*Updated by: Cascade (Phase 4 implementation session)*
+*Last updated: 2026-04-04 — Settings Screen Fixes Complete: Back navigation, toggles persist, notification permission, privacy policy*
+*Updated by: Cascade (Settings screen fixes session)*

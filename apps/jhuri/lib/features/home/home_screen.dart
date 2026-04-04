@@ -722,7 +722,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
             onTap: () {
               Navigator.pop(context);
-              context.go('/home');
+              // Already on home, no navigation needed
             },
           ),
           ListTile(
@@ -748,7 +748,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
             onTap: () {
               Navigator.pop(context);
-              context.go('/items/create');
+              context.push('/items/create');
             },
           ),
           ListTile(
@@ -759,7 +759,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
             onTap: () {
               Navigator.pop(context);
-              context.go('/archive');
+              context.push('/archive');
             },
           ),
           ListTile(
@@ -770,7 +770,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
             onTap: () {
               Navigator.pop(context);
-              context.go('/settings');
+              context.push('/settings');
             },
           ),
 
