@@ -232,4 +232,50 @@ class ShoppingListRepository extends SoftDeleteRepository<ShoppingList> {
 
     return await _database.into(_database.shoppingLists).insert(newList);
   }
+
+  /// Stream all active shopping lists (not archived)
+  Stream<List<ShoppingList>> watchShoppingLists() {
+    return (_database.select(_database.shoppingLists)
+          ..where((t) => t.isArchived.equals(false))
+          ..orderBy([(t) => OrderingTerm.desc(t.buyDate)]))
+        .watch();
+  }
+
+  /// Stream today's lists
+  Stream<List<ShoppingList>> watchTodayLists() {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final tomorrow = today.add(const Duration(days: 1));
+
+    return (_database.select(_database.shoppingLists)
+          ..where((t) => t.buyDate.isBetweenValues(today, tomorrow))
+          ..where((t) => t.isArchived.equals(false))
+          ..orderBy([(t) => OrderingTerm.desc(t.buyDate)]))
+        .watch();
+  }
+
+  /// Stream upcoming lists (future dates)
+  Stream<List<ShoppingList>> watchUpcomingLists() {
+    final now = DateTime.now();
+    final tomorrow = DateTime(now.year, now.month, now.day + 1);
+
+    return (_database.select(_database.shoppingLists)
+          ..where((t) => t.buyDate.isBiggerOrEqualValue(tomorrow))
+          ..where((t) => t.isArchived.equals(false))
+          ..orderBy([(t) => OrderingTerm.asc(t.buyDate)]))
+        .watch();
+  }
+
+  /// Stream past incomplete lists
+  Stream<List<ShoppingList>> watchPastIncompleteLists() {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+
+    return (_database.select(_database.shoppingLists)
+          ..where((t) => t.buyDate.isSmallerThanValue(today))
+          ..where((t) => t.isCompleted.equals(false))
+          ..where((t) => t.isArchived.equals(false))
+          ..orderBy([(t) => OrderingTerm.desc(t.buyDate)]))
+        .watch();
+  }
 }

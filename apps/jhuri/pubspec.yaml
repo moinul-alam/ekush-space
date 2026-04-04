@@ -94,12 +94,28 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   
+  # Fonts
+  fonts:
+    - family: HindSiliguri
+      fonts:
+        - asset: assets/fonts/HindSiliguri-Light.ttf
+          weight: 300
+        - asset: assets/fonts/HindSiliguri-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/HindSiliguri-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/HindSiliguri-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/HindSiliguri-Bold.ttf
+          weight: 700
+  
   # Assets
   assets:
     - assets/images/
     - assets/images/categories/
     - assets/data/
     - assets/icons/items/
+    - assets/fonts/
 
 flutter_native_splash:
   color: "#2D6A4F"

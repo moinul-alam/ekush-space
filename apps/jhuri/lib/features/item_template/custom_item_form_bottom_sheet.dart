@@ -20,7 +20,7 @@ class _CustomItemFormBottomSheetState
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _englishNameController = TextEditingController();
-  final _quantityController = TextEditingController();
+  final _quantityController = TextEditingController(text: '1');
   final _priceController = TextEditingController();
 
   int _selectedCategoryId = 1; // Default to vegetables
@@ -198,7 +198,6 @@ class _CustomItemFormBottomSheetState
                   const SizedBox(height: 8),
                   TextFormField(
                     controller: _quantityController,
-                    initialValue: '1',
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       hintText: 'পরিমাণ',

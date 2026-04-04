@@ -64,7 +64,7 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 |---|---|---|
 | Phase 1 — Drift + ekush_models + ekush_core | ✅ Complete | feat(jhuri): Phase 1 — Drift foundation wired into monorepo |
 | Phase 2 — App Shell + Navigation + Theme | ✅ Complete | feat(jhuri): Phase 2 — app shell, theme, navigation, onboarding |
-| Phase 3 — Core Loop | ✅ Complete (All 10 Device Tests Passed) | fix(jhuri): item checkmark, home list refresh after save |
+| Phase 3 — Home Reactivity + Layout + Checkmarks | ✅ Complete — Stream Provider, 2-col Grid, Item Checkmarks, 5 Critical Fixes | feat(jhuri): Phase 3 Fix Bundle — home cards, font, actions, form crash, checkmarks |
 | Phase 4 — Settings + Notifications + Share | ⏳ Not started | — |
 | Phase 5 — Ads Integration | ⏳ Not started | — |
 | Phase 6 — Polish + Play Store Submission | ⏳ Not started | — |
@@ -92,6 +92,9 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 - **Item Picker uses InkWell onTap → showModalBottomSheet pattern**
 - **Route table is canonical — see app_router.dart, no nested list routes**
 - **Home screen assets properly declared in pubspec.yaml with trailing slashes**
+- **Home lists use Drift StreamProvider — permanently reactive, no manual invalidation ever needed**
+- **Home screen uses 2-column grid layout (Google Keep style) with mainAxisExtent: 180**
+- **Item picker checkmarks use Stack with Positioned badge — immediate visual feedback**
 
 ---
 
@@ -129,8 +132,23 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 - **Item checkmarks fixed:** Checkmarks now appear immediately when items are added via proper `ref.watch(itemSelectionProvider)` implementation
 - **Home screen refresh fixed:** Home screen now properly shows new lists after save by using `ref.watch(homeViewModelProvider)` instead of `ref.read()`
 - **All 10 device test steps passed:** Complete end-to-end flow from item selection to list creation and display working correctly
+- **Phase 3 UI Polish Complete:** 
+  - ✅ Home screen now uses Drift StreamProvider for permanent reactivity
+  - ✅ 2-column card grid layout implemented (Google Keep style)
+  - ✅ Item picker checkmarks show immediately on selection
+  - ✅ Long-press context menu with edit/duplicate/archive/delete options
+  - ✅ Cards show title, items preview, date, and completion status
+  - ✅ Empty state properly handles layout overflow
+  - ✅ All tests passing with zero analysis errors
+- **Phase 3 Fix Bundle Complete (2026-04-04):**
+  - ✅ FIX 1: Home cards now show actual items per list (not mock data) using family provider
+  - ✅ FIX 2: HindSiliguri font registered with all 5 weights and applied in theme
+  - ✅ FIX 3: Duplicate/Archive/Delete actions fully implemented with proper error handling
+  - ✅ FIX 4: Custom item form crash fixed (removed initialValue + controller conflict)
+  - ✅ FIX 5: Item picker checkmarks verified working (already correctly implemented)
+  - ✅ All 8 device test steps passed - end-to-end flow fully functional
 
 ---
 
-*Last updated: 2026-04-04 — Phase 3 Complete (All 10 Device Tests Passed)*
-*Updated by: Windsurf (Two Specific Fixes session)*
+*Last updated: 2026-04-04 — Phase 3 Fix Bundle Complete (All 8 Device Steps Passed)*
+*Updated by: Cascade (Phase 3 Fix Bundle session)*
