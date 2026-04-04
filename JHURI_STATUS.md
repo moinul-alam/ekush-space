@@ -190,6 +190,13 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
   - ✅ Analysis: melos run analyze (18 warnings) and flutter analyze apps/ekush_ponji (zero issues) both pass
   - ✅ App hot restarted successfully — Drift query error resolved
   - ✅ Notification scheduling now works without count query errors
+- **Notification Cancellation Fix Complete (2026-04-04):**
+  - ✅ FIX 1: Import notification service — Added ShoppingListNotificationService import to home_screen.dart
+  - ✅ FIX 2: Cancel notification before deletion — Added ShoppingListNotificationService.cancelNotification() call before list deletion
+  - ✅ FIX 3: Debug logging — Added debugPrint statements to confirm cancellation execution and correct list ID
+  - ✅ Analysis: melos run analyze (18 warnings) and flutter analyze apps/ekush_ponji (zero issues) both pass
+  - ✅ App hot restarted successfully — Notification cancellation now works correctly
+  - ✅ Notifications are properly cancelled when lists are deleted
 - **Phase 3 Final Fix Bundle (2026-04-04):**
   - ✅ Font Nuclear Option: Applied .apply(fontFamily: 'HindSiliguri') to force font on all text styles
   - ✅ Archive Complete: Updated markAsCompleted to also archive lists and navigate to home
@@ -239,5 +246,5 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 
 ---
 
-*Last updated: 2026-04-04 — Drift Count Query Fix: Corrected getTotalCount() method to use proper Drift selectOnly pattern with count column*
-*Updated by: Cascade (Drift count query fix session)*
+*Last updated: 2026-04-04 — Notification Cancellation Fix: Added ShoppingListNotificationService.cancelNotification() call before list deletion with debug logging*
+*Updated by: Cascade (Notification cancellation fix session)*

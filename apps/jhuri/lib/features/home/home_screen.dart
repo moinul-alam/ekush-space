@@ -8,6 +8,7 @@ import '../../config/jhuri_constants.dart';
 import '../shopping_list/home_providers.dart';
 import '../../providers/database_provider.dart';
 import '../category/custom_category_form_bottom_sheet.dart';
+import '../../services/shopping_list_notification_service.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -571,6 +572,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 final shoppingListRepo =
                     ref.read(shoppingListRepositoryProvider);
                 final listItemRepo = ref.read(listItemRepositoryProvider);
+
+                debugPrint(
+                    '🔄 Starting deletion for list ${list.id}: "${list.title}"');
+
+                // Cancel notification FIRST before deleting the list
+                debugPrint('📱 Cancelling notification for list ${list.id}...');
+                await ShoppingListNotificationService.cancelNotification(
+                    list.id);
+                debugPrint('✅ Notification cancelled for list ${list.id}');
 
                 // Delete all items first, then the list
                 await listItemRepo.deleteByListId(list.id);
