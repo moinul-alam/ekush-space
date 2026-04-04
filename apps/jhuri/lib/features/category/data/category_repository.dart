@@ -150,6 +150,6 @@ class CategoryRepository extends BaseRepository<Category> {
     final query = _database.selectOnly(_database.categories)
       ..addColumns([_database.categories.sortOrder.max()]);
     final result = await query.getSingle();
-    return result.read(_database.categories.sortOrder) ?? 0;
+    return result.read(_database.categories.sortOrder.max()) ?? 0;
   }
 }

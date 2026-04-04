@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ekush_models/ekush_models.dart';
-import 'package:drift/drift.dart' as drift;
 import '../../config/jhuri_constants.dart';
 import '../../providers/database_provider.dart';
 import 'item_picker_viewmodel.dart';
@@ -359,6 +358,13 @@ class _CreateCustomItemScreenState
       return;
     }
 
+    if (_selectedCategoryId == 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('ক্যাটাগরি বেছে নিন')),
+      );
+      return;
+    }
+
     setState(() {
       _isSaving = true;
     });
@@ -366,21 +372,15 @@ class _CreateCustomItemScreenState
     try {
       final itemRepo = ref.read(itemTemplateRepositoryProvider);
 
-      await itemRepo.createFromCompanion(
-        ItemTemplatesCompanion.insert(
-          nameBangla: _banglaNameController.text.trim(),
-          nameEnglish: _englishNameController.text.trim().isEmpty
-              ? _banglaNameController.text.trim()
-              : _englishNameController.text.trim(),
-          categoryId: _selectedCategoryId,
-          defaultQuantity: double.parse(_quantityController.text.trim()),
-          defaultUnit: _selectedUnit,
-          iconIdentifier: '📦', // Default icon for custom items
-          isCustom: const drift.Value(true),
-          usageCount: const drift.Value(0),
-          lastUsedAt: DateTime.now(),
-          createdAt: drift.Value(DateTime.now()),
-        ),
+      await itemRepo.createCustomItem(
+        nameBangla: _banglaNameController.text.trim(),
+        nameEnglish: _englishNameController.text.trim().isEmpty
+            ? _banglaNameController.text.trim()
+            : _englishNameController.text.trim(),
+        categoryId: _selectedCategoryId,
+        defaultQuantity: double.parse(_quantityController.text.trim()),
+        defaultUnit: _selectedUnit,
+        iconIdentifier: '📦', // Default icon for custom items
       );
 
       if (mounted) {

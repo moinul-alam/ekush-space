@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ekush_models/ekush_models.dart';
 import '../../config/jhuri_constants.dart';
-import '../../providers/item_selection_provider.dart';
+import '../../providers/database_provider.dart';
 import '../category/category_browser_viewmodel.dart';
+import 'item_picker_viewmodel.dart';
 
 class CustomItemFormBottomSheet extends ConsumerStatefulWidget {
   final int? preselectedCategoryId;
@@ -366,43 +366,21 @@ class _CustomItemFormBottomSheetState
     });
 
     try {
-      // Create new custom item template
-      final customItem = ItemTemplate(
-        id: 0, // Will be set by database
+      // Save to database via repository
+      final itemRepo = ref.read(itemTemplateRepositoryProvider);
+      await itemRepo.createCustomItem(
         nameBangla: _nameController.text.trim(),
-        nameEnglish: _englishNameController.text.trim(),
+        nameEnglish: _englishNameController.text.trim().isEmpty
+            ? _nameController.text.trim()
+            : _englishNameController.text.trim(),
         categoryId: _selectedCategoryId,
         defaultQuantity: double.tryParse(_quantityController.text) ?? 1.0,
         defaultUnit: _selectedUnit,
         iconIdentifier: '📦', // Default icon for custom items
-        isCustom: true,
-        usageCount: 0,
-        lastUsedAt: DateTime.now(),
-        createdAt: DateTime.now(),
       );
 
-      // Save to database via repository
-      // Note: In a real implementation, you'd use the repository
-      // For now, we'll add directly to selection
-
-      final listItem = ListItem(
-        id: DateTime.now().millisecondsSinceEpoch,
-        listId: 0, // Placeholder for new list flow
-        templateId: customItem.id, // Will be updated after save
-        nameBangla: customItem.nameBangla,
-        nameEnglish: customItem.nameEnglish,
-        quantity: customItem.defaultQuantity,
-        unit: customItem.defaultUnit,
-        price: _priceController.text.isNotEmpty
-            ? double.tryParse(_priceController.text)
-            : null,
-        isBought: false,
-        sortOrder: 0,
-        addedAt: DateTime.now(),
-      );
-
-      // Add to selection provider
-      ref.read(itemSelectionProvider.notifier).addItem(listItem);
+      // Invalidate the item picker provider to refresh the grid
+      ref.invalidate(itemPickerViewModelProvider(_selectedCategoryId));
 
       if (mounted) {
         Navigator.pop(context);

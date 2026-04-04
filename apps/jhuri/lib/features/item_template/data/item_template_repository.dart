@@ -162,4 +162,29 @@ class ItemTemplateRepository extends BaseRepository<ItemTemplate> {
           ..orderBy([(t) => OrderingTerm.asc(t.nameBangla)]))
         .get();
   }
+
+  /// Create a custom item template
+  Future<int> createCustomItem({
+    required String nameBangla,
+    required String nameEnglish,
+    required int categoryId,
+    required double defaultQuantity,
+    required String defaultUnit,
+    required String iconIdentifier,
+  }) {
+    return _database.into(_database.itemTemplates).insert(
+          ItemTemplatesCompanion.insert(
+            nameBangla: nameBangla,
+            nameEnglish: nameEnglish,
+            categoryId: categoryId,
+            defaultQuantity: defaultQuantity,
+            defaultUnit: defaultUnit,
+            iconIdentifier: iconIdentifier,
+            isCustom: const Value(true),
+            usageCount: const Value(0),
+            lastUsedAt: DateTime.now(),
+            createdAt: Value(DateTime.now()),
+          ),
+        );
+  }
 }
