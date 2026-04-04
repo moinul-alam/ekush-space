@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_models/ekush_models.dart';
 import '../../config/jhuri_constants.dart';
 import '../shopping_list/home_viewmodel.dart';
@@ -18,7 +19,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final viewModel = ref.read(homeViewModelProvider.notifier);
+    final viewModelAsync = ref.watch(homeViewModelProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -59,7 +60,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ],
       ),
-      body: _buildBody(viewModel, colorScheme),
+      body: _buildBody(viewModelAsync, colorScheme),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.push('/categories'),
         backgroundColor: colorScheme.primary,
@@ -69,14 +70,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  Widget _buildBody(HomeViewModel viewModel, ColorScheme colorScheme) {
-    if (viewModel.isLoading) {
+  Widget _buildBody(ViewState viewModelAsync, ColorScheme colorScheme) {
+    final viewModel = ref.read(homeViewModelProvider.notifier);
+
+    if (viewModelAsync is ViewStateLoading) {
       return const Center(
         child: CircularProgressIndicator(),
       );
     }
 
-    if (viewModel.hasError) {
+    if (viewModelAsync is ViewStateError) {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -98,7 +101,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
             const SizedBox(height: 8),
             Text(
-              viewModel.hasError ? 'ত্রুটি হয়েছে' : 'একটি ত্রুটি হয়েছে',
+              'একটি ত্রুটি হয়েছে',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey[600],
