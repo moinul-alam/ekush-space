@@ -12,7 +12,7 @@
 **Active Branch:** jhuri
 **Main Branch:** clean, stable, fully restored
 **Doc 1 (Restoration Guide):** COMPLETE — archived
-**Doc 2 (Development Constitution):** Active — Phase 2 Complete
+**Doc 2 (Development Constitution):** Active — Phase 3 Complete (Hotfix v2)
 
 ---
 
@@ -64,7 +64,7 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 |---|---|---|
 | Phase 1 — Drift + ekush_models + ekush_core | ✅ Complete | feat(jhuri): Phase 1 — Drift foundation wired into monorepo |
 | Phase 2 — App Shell + Navigation + Theme | ✅ Complete | feat(jhuri): Phase 2 — app shell, theme, navigation, onboarding |
-| Phase 3 — Core Loop | ✅ Complete | feat(jhuri): Phase 3 — core loop complete |
+| Phase 3 — Core Loop | ✅ Complete (Hotfix v2 — all verification gates passed) | fix(jhuri): Phase 3 hotfix v2 — seed timing, item picker, asset paths, nav restructure |
 | Phase 4 — Settings + Notifications + Share | ⏳ Not started | — |
 | Phase 5 — Ads Integration | ⏳ Not started | — |
 | Phase 6 — Polish + Play Store Submission | ⏳ Not started | — |
@@ -73,8 +73,8 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 
 ## Last Commit
 
-**Hash:** [Will be updated after commit]
-**Message:** feat(jhuri): Phase 3 — core loop complete
+**Hash:** 554dfa7
+**Message:** fix(jhuri): category image asset paths corrected in pubspec
 **Branch:** jhuri
 
 ---
@@ -122,9 +122,11 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 - `26 packages have newer versions incompatible with dependency constraints` — flagged during audit, not blocking, defer to a future maintenance session
 - English language is gated in v1, fully activated in v2 — do not spend time on English strings beyond having them present in code
 - Flutter app successfully launches on Chrome but waits for debug connection — web support added successfully
-- Phase 3 UI has minor cosmetic issues (not crashes) — deferred to Phase 6 polish
+- **Phase 3 hotfix v2: seeding timing fixed, item picker fixed, category image fallback implemented, navigation restructure complete** — all blocking defects resolved
+- **Navigation restructure:** New flow implemented (Home → Category Browser → Create/Edit List) with temporary item selection state management
+- **Asset path fix (Post Hotfix v2):** Category image assets now properly declared in pubspec.yaml with specific directory paths and trailing slashes
 
 ---
 
-*Last updated: 2026-04-04 — Phase 3 Complete*
-*Updated by: Windsurf (Phase 3 completion)*
+*Last updated: 2026-04-04 — Asset Path Fix (Post Hotfix v2)*
+*Updated by: Windsurf (Asset Path Fix session)*
