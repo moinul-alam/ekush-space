@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:ekush_models/ekush_models.dart';
 import 'package:ekush_ads/ekush_ads.dart';
 import '../../config/jhuri_constants.dart';
@@ -816,7 +817,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   Future<String> _getAppVersion() async {
-    // TODO: Implement package_info_plus to get actual version
-    return '1.0.0';
+    try {
+      final packageInfo = await PackageInfo.fromPlatform();
+      return packageInfo.version;
+    } catch (e) {
+      debugPrint('Error getting app version: $e');
+      return '1.0.0';
+    }
   }
 }
