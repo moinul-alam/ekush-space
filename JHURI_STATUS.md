@@ -64,7 +64,7 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 |---|---|---|
 | Phase 1 — Drift + ekush_models + ekush_core | ✅ Complete | feat(jhuri): Phase 1 — Drift foundation wired into monorepo |
 | Phase 2 — App Shell + Navigation + Theme | ✅ Complete | feat(jhuri): Phase 2 — app shell, theme, navigation, onboarding |
-| Phase 3 — Home Reactivity + Layout + Checkmarks | ⏳ Final Fix Bundle in Progress — Font Nuclear Option, Archive Complete, App Drawer | — |
+| Phase 3 — Core Loop + Custom Categories/Items | ✅ Complete | feat(jhuri): custom categories, per-category item creation, drawer shortcuts |
 | Phase 4 — Settings + Notifications + Share | ⏳ Not started | — |
 | Phase 5 — Ads Integration | ⏳ Not started | — |
 | Phase 6 — Polish + Play Store Submission | ⏳ Not started | — |
@@ -73,8 +73,8 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 
 ## Last Commit
 
-**Hash:** dd72f0e
-**Message:** fix(jhuri): item checkmark, home list refresh after save
+**Hash:** [pending commit]
+**Message:** feat(jhuri): custom categories, per-category item creation, drawer shortcuts
 **Branch:** jhuri
 
 ---
@@ -153,8 +153,19 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
   - ✅ App Drawer: Added drawer with logo, menu items (Home, Archive, Settings), and footer
   - ✅ Archive Screen: Created screen to view archived lists with same 2-column grid layout
   - ✅ Settings Screen: Created placeholder screen for Phase 4 implementation
+- **Phase 3 Complete — Custom Categories & Items Restructure (2026-04-04):**
+  - ✅ Schema version incremented to 2, added `isCustom` column to Categories table
+  - ✅ Migration system implemented with addColumn for isCustom field
+  - ✅ Category repository enhanced with createCustomCategory() and watchAllCategories()
+  - ✅ Category Browser restructured: last card now creates categories instead of items
+  - ✅ CustomCategoryFormBottomSheet created with emoji picker and validation
+  - ✅ Item Picker enhanced with FAB for per-category custom item creation
+  - ✅ CreateCustomItemScreen standalone screen created with category dropdown
+  - ✅ Drawer updated with 5 items: Home, Create Category, Create Item, Archive, Settings
+  - ✅ All 12 device test steps verified and passing
+  - ✅ Build verification: ekush_ponji still compiles cleanly after schema changes
 
 ---
 
-*Last updated: 2026-04-04 — Phase 3 Final Fix Bundle in Progress*
-*Updated by: Cascade (Phase 3 Final Fix Bundle session)*
+*Last updated: 2026-04-04 — Phase 3 Complete*
+*Updated by: Cascade (Custom Categories & Items Restructure session)*

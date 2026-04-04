@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ekush_models/ekush_models.dart';
 import 'category_browser_viewmodel.dart';
 import '../../providers/item_selection_provider.dart';
-import '../item_template/custom_item_form_bottom_sheet.dart';
+import 'custom_category_form_bottom_sheet.dart';
 
 class CategoryBrowserScreen extends ConsumerStatefulWidget {
   final int? listId;
@@ -280,11 +280,11 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
           child: InkWell(
             borderRadius: BorderRadius.circular(12),
             onTap: () {
-              // Open custom item form bottom sheet
+              // Open custom category creation bottom sheet
               showModalBottomSheet(
                 context: context,
                 isScrollControlled: true,
-                builder: (_) => const CustomItemFormBottomSheet(),
+                builder: (_) => const CustomCategoryFormBottomSheet(),
               );
             },
             child: Padding(
@@ -308,7 +308,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
                   const SizedBox(height: 12),
                   Flexible(
                     child: Text(
-                      'কাস্টম',
+                      'নতুন বিভাগ',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,

@@ -5,6 +5,7 @@ import 'package:ekush_models/ekush_models.dart';
 import '../../providers/item_selection_provider.dart';
 import 'item_picker_viewmodel.dart';
 import 'item_quantity_bottom_sheet.dart';
+import 'custom_item_form_bottom_sheet.dart';
 
 class ItemPickerScreen extends ConsumerStatefulWidget {
   final int categoryId;
@@ -50,6 +51,13 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: _buildItemsGrid(itemsAsync, itemSelection, colorScheme),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => _showCustomItemForm(context),
+        icon: const Icon(Icons.add),
+        label: const Text('নতুন আইটেম'),
+        backgroundColor: colorScheme.primary,
+        foregroundColor: Colors.white,
       ),
     );
   }
@@ -179,6 +187,16 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
             ),
           );
         },
+      ),
+    );
+  }
+
+  void _showCustomItemForm(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (_) => CustomItemFormBottomSheet(
+        preselectedCategoryId: widget.categoryId,
       ),
     );
   }

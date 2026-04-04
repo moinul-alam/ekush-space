@@ -9,6 +9,7 @@ class Categories extends Table {
   TextColumn get imageIdentifier => text()();
   TextColumn get iconIdentifier => text()();
   IntColumn get sortOrder => integer()();
+  BoolColumn get isCustom => boolean().withDefault(const Constant(false))();
 }
 
 // ItemTemplates table
@@ -47,7 +48,8 @@ class ShoppingLists extends Table {
 class ListItems extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get listId => integer().references(ShoppingLists, #id)();
-  IntColumn get templateId => integer().nullable().references(ItemTemplates, #id)();
+  IntColumn get templateId =>
+      integer().nullable().references(ItemTemplates, #id)();
   TextColumn get nameBangla => text()();
   TextColumn get nameEnglish => text()();
   RealColumn get quantity => real().withDefault(const Constant(1.0))();

@@ -119,4 +119,37 @@ class CategoryRepository extends BaseRepository<Category> {
           ..where((t) => t.imageIdentifier.equals(imageIdentifier)))
         .getSingleOrNull();
   }
+
+  // Insert a custom category
+  Future<int> createCustomCategory({
+    required String nameBangla,
+    required String nameEnglish,
+    required String iconIdentifier,
+  }) async {
+    final maxSortOrder = await _getMaxSortOrder();
+    return await _database.into(_database.categories).insert(
+          CategoriesCompanion.insert(
+            nameBangla: nameBangla,
+            nameEnglish: nameEnglish,
+            imageIdentifier: '', // no image for custom categories
+            iconIdentifier: iconIdentifier,
+            sortOrder: maxSortOrder + 1,
+            isCustom: const Value(true),
+          ),
+        );
+  }
+
+  // Watch all categories (seeded + custom), ordered by sortOrder
+  Stream<List<Category>> watchAllCategories() =>
+      (_database.select(_database.categories)
+            ..orderBy([(c) => OrderingTerm.asc(c.sortOrder)]))
+          .watch();
+
+  // Helper method to get max sort order
+  Future<int> _getMaxSortOrder() async {
+    final query = _database.selectOnly(_database.categories)
+      ..addColumns([_database.categories.sortOrder.max()]);
+    final result = await query.getSingle();
+    return result.read(_database.categories.sortOrder) ?? 0;
+  }
 }

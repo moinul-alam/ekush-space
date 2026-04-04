@@ -7,6 +7,7 @@ import 'package:ekush_models/ekush_models.dart';
 import '../../config/jhuri_constants.dart';
 import '../shopping_list/home_providers.dart';
 import '../../providers/database_provider.dart';
+import '../category/custom_category_form_bottom_sheet.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -722,6 +723,32 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             onTap: () {
               Navigator.pop(context);
               context.go('/home');
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.category),
+            title: Text(
+              'নতুন বিভাগ তৈরি',
+              style: TextStyle(fontFamily: 'HindSiliguri'),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                builder: (_) => const CustomCategoryFormBottomSheet(),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.add_circle_outline),
+            title: Text(
+              'নতুন আইটেম তৈরি',
+              style: TextStyle(fontFamily: 'HindSiliguri'),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              context.go('/items/create');
             },
           ),
           ListTile(

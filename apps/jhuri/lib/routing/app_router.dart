@@ -8,6 +8,7 @@ import '../features/home/home_screen.dart';
 import '../features/shopping_list/create_edit_list_screen.dart';
 import '../features/category/category_browser_screen.dart';
 import '../features/item_template/item_picker_screen.dart';
+import '../features/item_template/create_custom_item_screen.dart';
 import '../features/shopping_list/shopping_mode_screen.dart';
 import '../features/archive/archive_screen.dart';
 import '../features/settings/settings_screen.dart';
@@ -84,6 +85,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/settings',
         builder: (context, state) => const SettingsScreen(),
+      ),
+
+      GoRoute(
+        path: '/items/create',
+        builder: (context, state) => const CreateCustomItemScreen(),
       ),
     ],
     errorBuilder: (context, state) => ErrorScreen(error: state.error),

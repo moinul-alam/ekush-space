@@ -48,9 +48,26 @@ class $CategoriesTable extends Categories
   late final GeneratedColumn<int> sortOrder = GeneratedColumn<int>(
       'sort_order', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _isCustomMeta =
+      const VerificationMeta('isCustom');
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, nameBangla, nameEnglish, imageIdentifier, iconIdentifier, sortOrder];
+  late final GeneratedColumn<bool> isCustom = GeneratedColumn<bool>(
+      'is_custom', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_custom" IN (0, 1))'),
+      defaultValue: const Constant(false));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        nameBangla,
+        nameEnglish,
+        imageIdentifier,
+        iconIdentifier,
+        sortOrder,
+        isCustom
+      ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -102,6 +119,10 @@ class $CategoriesTable extends Categories
     } else if (isInserting) {
       context.missing(_sortOrderMeta);
     }
+    if (data.containsKey('is_custom')) {
+      context.handle(_isCustomMeta,
+          isCustom.isAcceptableOrUnknown(data['is_custom']!, _isCustomMeta));
+    }
     return context;
   }
 
@@ -123,6 +144,8 @@ class $CategoriesTable extends Categories
           DriftSqlType.string, data['${effectivePrefix}icon_identifier'])!,
       sortOrder: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}sort_order'])!,
+      isCustom: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_custom'])!,
     );
   }
 
@@ -139,13 +162,15 @@ class Category extends DataClass implements Insertable<Category> {
   final String imageIdentifier;
   final String iconIdentifier;
   final int sortOrder;
+  final bool isCustom;
   const Category(
       {required this.id,
       required this.nameBangla,
       required this.nameEnglish,
       required this.imageIdentifier,
       required this.iconIdentifier,
-      required this.sortOrder});
+      required this.sortOrder,
+      required this.isCustom});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -155,6 +180,7 @@ class Category extends DataClass implements Insertable<Category> {
     map['image_identifier'] = Variable<String>(imageIdentifier);
     map['icon_identifier'] = Variable<String>(iconIdentifier);
     map['sort_order'] = Variable<int>(sortOrder);
+    map['is_custom'] = Variable<bool>(isCustom);
     return map;
   }
 
@@ -166,6 +192,7 @@ class Category extends DataClass implements Insertable<Category> {
       imageIdentifier: Value(imageIdentifier),
       iconIdentifier: Value(iconIdentifier),
       sortOrder: Value(sortOrder),
+      isCustom: Value(isCustom),
     );
   }
 
@@ -179,6 +206,7 @@ class Category extends DataClass implements Insertable<Category> {
       imageIdentifier: serializer.fromJson<String>(json['imageIdentifier']),
       iconIdentifier: serializer.fromJson<String>(json['iconIdentifier']),
       sortOrder: serializer.fromJson<int>(json['sortOrder']),
+      isCustom: serializer.fromJson<bool>(json['isCustom']),
     );
   }
   @override
@@ -191,6 +219,7 @@ class Category extends DataClass implements Insertable<Category> {
       'imageIdentifier': serializer.toJson<String>(imageIdentifier),
       'iconIdentifier': serializer.toJson<String>(iconIdentifier),
       'sortOrder': serializer.toJson<int>(sortOrder),
+      'isCustom': serializer.toJson<bool>(isCustom),
     };
   }
 
@@ -200,7 +229,8 @@ class Category extends DataClass implements Insertable<Category> {
           String? nameEnglish,
           String? imageIdentifier,
           String? iconIdentifier,
-          int? sortOrder}) =>
+          int? sortOrder,
+          bool? isCustom}) =>
       Category(
         id: id ?? this.id,
         nameBangla: nameBangla ?? this.nameBangla,
@@ -208,6 +238,7 @@ class Category extends DataClass implements Insertable<Category> {
         imageIdentifier: imageIdentifier ?? this.imageIdentifier,
         iconIdentifier: iconIdentifier ?? this.iconIdentifier,
         sortOrder: sortOrder ?? this.sortOrder,
+        isCustom: isCustom ?? this.isCustom,
       );
   Category copyWithCompanion(CategoriesCompanion data) {
     return Category(
@@ -223,6 +254,7 @@ class Category extends DataClass implements Insertable<Category> {
           ? data.iconIdentifier.value
           : this.iconIdentifier,
       sortOrder: data.sortOrder.present ? data.sortOrder.value : this.sortOrder,
+      isCustom: data.isCustom.present ? data.isCustom.value : this.isCustom,
     );
   }
 
@@ -234,14 +266,15 @@ class Category extends DataClass implements Insertable<Category> {
           ..write('nameEnglish: $nameEnglish, ')
           ..write('imageIdentifier: $imageIdentifier, ')
           ..write('iconIdentifier: $iconIdentifier, ')
-          ..write('sortOrder: $sortOrder')
+          ..write('sortOrder: $sortOrder, ')
+          ..write('isCustom: $isCustom')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
-      id, nameBangla, nameEnglish, imageIdentifier, iconIdentifier, sortOrder);
+  int get hashCode => Object.hash(id, nameBangla, nameEnglish, imageIdentifier,
+      iconIdentifier, sortOrder, isCustom);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -251,7 +284,8 @@ class Category extends DataClass implements Insertable<Category> {
           other.nameEnglish == this.nameEnglish &&
           other.imageIdentifier == this.imageIdentifier &&
           other.iconIdentifier == this.iconIdentifier &&
-          other.sortOrder == this.sortOrder);
+          other.sortOrder == this.sortOrder &&
+          other.isCustom == this.isCustom);
 }
 
 class CategoriesCompanion extends UpdateCompanion<Category> {
@@ -261,6 +295,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
   final Value<String> imageIdentifier;
   final Value<String> iconIdentifier;
   final Value<int> sortOrder;
+  final Value<bool> isCustom;
   const CategoriesCompanion({
     this.id = const Value.absent(),
     this.nameBangla = const Value.absent(),
@@ -268,6 +303,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     this.imageIdentifier = const Value.absent(),
     this.iconIdentifier = const Value.absent(),
     this.sortOrder = const Value.absent(),
+    this.isCustom = const Value.absent(),
   });
   CategoriesCompanion.insert({
     this.id = const Value.absent(),
@@ -276,6 +312,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     required String imageIdentifier,
     required String iconIdentifier,
     required int sortOrder,
+    this.isCustom = const Value.absent(),
   })  : nameBangla = Value(nameBangla),
         nameEnglish = Value(nameEnglish),
         imageIdentifier = Value(imageIdentifier),
@@ -288,6 +325,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     Expression<String>? imageIdentifier,
     Expression<String>? iconIdentifier,
     Expression<int>? sortOrder,
+    Expression<bool>? isCustom,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -296,6 +334,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
       if (imageIdentifier != null) 'image_identifier': imageIdentifier,
       if (iconIdentifier != null) 'icon_identifier': iconIdentifier,
       if (sortOrder != null) 'sort_order': sortOrder,
+      if (isCustom != null) 'is_custom': isCustom,
     });
   }
 
@@ -305,7 +344,8 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
       Value<String>? nameEnglish,
       Value<String>? imageIdentifier,
       Value<String>? iconIdentifier,
-      Value<int>? sortOrder}) {
+      Value<int>? sortOrder,
+      Value<bool>? isCustom}) {
     return CategoriesCompanion(
       id: id ?? this.id,
       nameBangla: nameBangla ?? this.nameBangla,
@@ -313,6 +353,7 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
       imageIdentifier: imageIdentifier ?? this.imageIdentifier,
       iconIdentifier: iconIdentifier ?? this.iconIdentifier,
       sortOrder: sortOrder ?? this.sortOrder,
+      isCustom: isCustom ?? this.isCustom,
     );
   }
 
@@ -337,6 +378,9 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
     if (sortOrder.present) {
       map['sort_order'] = Variable<int>(sortOrder.value);
     }
+    if (isCustom.present) {
+      map['is_custom'] = Variable<bool>(isCustom.value);
+    }
     return map;
   }
 
@@ -348,7 +392,8 @@ class CategoriesCompanion extends UpdateCompanion<Category> {
           ..write('nameEnglish: $nameEnglish, ')
           ..write('imageIdentifier: $imageIdentifier, ')
           ..write('iconIdentifier: $iconIdentifier, ')
-          ..write('sortOrder: $sortOrder')
+          ..write('sortOrder: $sortOrder, ')
+          ..write('isCustom: $isCustom')
           ..write(')'))
         .toString();
   }
@@ -2026,6 +2071,7 @@ typedef $$CategoriesTableCreateCompanionBuilder = CategoriesCompanion Function({
   required String imageIdentifier,
   required String iconIdentifier,
   required int sortOrder,
+  Value<bool> isCustom,
 });
 typedef $$CategoriesTableUpdateCompanionBuilder = CategoriesCompanion Function({
   Value<int> id,
@@ -2034,6 +2080,7 @@ typedef $$CategoriesTableUpdateCompanionBuilder = CategoriesCompanion Function({
   Value<String> imageIdentifier,
   Value<String> iconIdentifier,
   Value<int> sortOrder,
+  Value<bool> isCustom,
 });
 
 final class $$CategoriesTableReferences
@@ -2085,6 +2132,9 @@ class $$CategoriesTableFilterComposer
   ColumnFilters<int> get sortOrder => $composableBuilder(
       column: $table.sortOrder, builder: (column) => ColumnFilters(column));
 
+  ColumnFilters<bool> get isCustom => $composableBuilder(
+      column: $table.isCustom, builder: (column) => ColumnFilters(column));
+
   Expression<bool> itemTemplatesRefs(
       Expression<bool> Function($$ItemTemplatesTableFilterComposer f) f) {
     final $$ItemTemplatesTableFilterComposer composer = $composerBuilder(
@@ -2135,6 +2185,9 @@ class $$CategoriesTableOrderingComposer
 
   ColumnOrderings<int> get sortOrder => $composableBuilder(
       column: $table.sortOrder, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isCustom => $composableBuilder(
+      column: $table.isCustom, builder: (column) => ColumnOrderings(column));
 }
 
 class $$CategoriesTableAnnotationComposer
@@ -2163,6 +2216,9 @@ class $$CategoriesTableAnnotationComposer
 
   GeneratedColumn<int> get sortOrder =>
       $composableBuilder(column: $table.sortOrder, builder: (column) => column);
+
+  GeneratedColumn<bool> get isCustom =>
+      $composableBuilder(column: $table.isCustom, builder: (column) => column);
 
   Expression<T> itemTemplatesRefs<T extends Object>(
       Expression<T> Function($$ItemTemplatesTableAnnotationComposer a) f) {
@@ -2215,6 +2271,7 @@ class $$CategoriesTableTableManager extends RootTableManager<
             Value<String> imageIdentifier = const Value.absent(),
             Value<String> iconIdentifier = const Value.absent(),
             Value<int> sortOrder = const Value.absent(),
+            Value<bool> isCustom = const Value.absent(),
           }) =>
               CategoriesCompanion(
             id: id,
@@ -2223,6 +2280,7 @@ class $$CategoriesTableTableManager extends RootTableManager<
             imageIdentifier: imageIdentifier,
             iconIdentifier: iconIdentifier,
             sortOrder: sortOrder,
+            isCustom: isCustom,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
@@ -2231,6 +2289,7 @@ class $$CategoriesTableTableManager extends RootTableManager<
             required String imageIdentifier,
             required String iconIdentifier,
             required int sortOrder,
+            Value<bool> isCustom = const Value.absent(),
           }) =>
               CategoriesCompanion.insert(
             id: id,
@@ -2239,6 +2298,7 @@ class $$CategoriesTableTableManager extends RootTableManager<
             imageIdentifier: imageIdentifier,
             iconIdentifier: iconIdentifier,
             sortOrder: sortOrder,
+            isCustom: isCustom,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (
