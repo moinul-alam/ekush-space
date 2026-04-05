@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:ekush_models/ekush_models.dart';
 import 'package:ekush_ads/ekush_ads.dart';
+import '../../../l10n/jhuri_localizations.dart';
 import '../shopping_list/home_providers.dart';
 import '../shopping_list/home_viewmodel.dart';
 import '../category/custom_category_form_bottom_sheet.dart';
@@ -22,6 +23,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final l10n = JhuriLocalizations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
     final homeListsAsync = ref.watch(homeListsProvider);
 
@@ -29,8 +31,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       appBar: const JhuriAppHeader(
         isHomeScreen: true,
       ),
-      drawer: _buildDrawer(context, colorScheme),
-      body: _buildBody(homeListsAsync, colorScheme),
+      drawer: _buildDrawer(context, colorScheme, l10n),
+      body: _buildBody(homeListsAsync, colorScheme, l10n),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.push('/categories'),
         backgroundColor: colorScheme.primary,
@@ -41,7 +43,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  Widget _buildBody(HomeListsData homeListsData, ColorScheme colorScheme) {
+  Widget _buildBody(HomeListsData homeListsData, ColorScheme colorScheme,
+      JhuriLocalizations l10n) {
     if (homeListsData.isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
@@ -60,7 +63,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
             const SizedBox(height: 16),
             Text(
-              'ত্রুটি হয়েছে',
+              l10n.errorOccurred,
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
@@ -69,7 +72,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
             const SizedBox(height: 8),
             Text(
-              'একটি ত্রুটি হয়েছে',
+              l10n.anErrorOccurred,
               style: TextStyle(
                 fontSize: 14.sp,
                 color: Colors.grey[600],
@@ -82,13 +85,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     }
 
     if (!homeListsData.hasAnyLists) {
-      return _buildEmptyState(colorScheme);
+      return _buildEmptyState(colorScheme, l10n);
     }
 
-    return _buildListsView(homeListsData, colorScheme);
+    return _buildListsView(homeListsData, colorScheme, l10n);
   }
 
-  Widget _buildEmptyState(ColorScheme colorScheme) {
+  Widget _buildEmptyState(ColorScheme colorScheme, JhuriLocalizations l10n) {
     return SingleChildScrollView(
       child: Center(
         child: Padding(
@@ -119,7 +122,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
               // ── Empty State Title ────────────────────
               Text(
-                'বাজারের কোনো ফর্দ নেই',
+                l10n.homeEmptyTitle,
                 style: TextStyle(
                   fontSize: 24.sp,
                   fontWeight: FontWeight.w600,
@@ -132,7 +135,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
               // ── Empty State Message ──────────────────
               Text(
-                '"+", বাটন চেপে নতুন ফর্দ তৈরি করুন',
+                l10n.homeEmptyMessage,
                 style: TextStyle(
                   fontSize: 16.sp,
                   color: colorScheme.onSurface.withValues(alpha: 0.7),
@@ -156,7 +159,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 child: Column(
                   children: [
                     Text(
-                      'দ্রুত শুরু করুন',
+                      l10n.quickStart,
                       style: TextStyle(
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w600,
@@ -167,22 +170,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     _buildTipItem(
                       context,
                       icon: Icons.add_circle_outline,
-                      title: 'নতুন ফর্দ তৈরি করুন',
-                      description: '+ বাটনে ক্লিক করে নতুন ফর্দ শুরু করুন',
+                      title: l10n.newList,
+                      description: l10n.clickButtonToCreateList,
                     ),
                     const SizedBox(height: 12),
                     _buildTipItem(
                       context,
                       icon: Icons.category_outlined,
-                      title: 'ক্যাটাগরি নির্বাচন',
-                      description: 'প্রয়োজনীয় আইটেমের ক্যাটাগরি বেছে নিন',
+                      title: l10n.categories,
+                      description: l10n.selectCategoryDescription,
                     ),
                     const SizedBox(height: 12),
                     _buildTipItem(
                       context,
                       icon: Icons.shopping_cart_outlined,
-                      title: 'আইটেম যোগ করুন',
-                      description: 'সহজেই আপনার বাজারের তালিকা তৈরি করুন',
+                      title: l10n.addItem,
+                      description: l10n.createListDescription,
                     ),
                   ],
                 ),
@@ -194,8 +197,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  Widget _buildListsView(HomeListsData homeListsData, ColorScheme colorScheme) {
-    // Combine all lists for the grid
+  Widget _buildListsView(HomeListsData homeListsData, ColorScheme colorScheme,
+      JhuriLocalizations l10n) {
+    // Combine all lists for grid
     final allLists = [
       ...homeListsData.todayLists,
       ...homeListsData.upcomingLists,
@@ -204,13 +208,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: _buildListsGrid(allLists, colorScheme),
+      child: _buildListsGrid(allLists, colorScheme, l10n),
     );
   }
 
-  Widget _buildListsGrid(List<ShoppingList> lists, ColorScheme colorScheme) {
+  Widget _buildListsGrid(List<ShoppingList> lists, ColorScheme colorScheme,
+      JhuriLocalizations l10n) {
     if (lists.isEmpty) {
-      return _buildEmptyState(colorScheme);
+      return _buildEmptyState(colorScheme, l10n);
     }
 
     return GridView.builder(
@@ -223,12 +228,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
       itemCount: lists.length,
       itemBuilder: (context, index) {
-        return _buildListCard(lists[index], colorScheme);
+        return _buildListCard(lists[index], colorScheme, l10n);
       },
     );
   }
 
-  Widget _buildListCard(ShoppingList list, ColorScheme colorScheme) {
+  Widget _buildListCard(
+      ShoppingList list, ColorScheme colorScheme, JhuriLocalizations l10n) {
     return Container(
       decoration: BoxDecoration(
         color: colorScheme.surface,
@@ -246,7 +252,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
           onTap: () => context.push('/list/${list.id}'),
-          onLongPress: () => _showListOptions(context, list),
+          onLongPress: () => _showListOptions(context, list, l10n),
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Column(
@@ -254,7 +260,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               children: [
                 // Title
                 Text(
-                  list.title.isEmpty ? 'বাজারের ফর্দ' : list.title,
+                  list.title.isEmpty ? l10n.shoppingList : list.title,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -267,7 +273,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
                 // Items preview (mock data for now - will be implemented with actual items)
                 Expanded(
-                  child: _buildItemsPreview(list.id, colorScheme),
+                  child: _buildItemsPreview(list.id, colorScheme, l10n),
                 ),
 
                 const SizedBox(height: 8),
@@ -278,7 +284,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   children: [
                     // Date
                     Text(
-                      _formatDateForDisplay(list.buyDate),
+                      _formatDateForDisplay(list.buyDate, l10n),
                       style: TextStyle(
                         fontSize: 13,
                         color: colorScheme.onSurface.withValues(alpha: 0.6),
@@ -354,7 +360,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  Widget _buildItemsPreview(int listId, ColorScheme colorScheme) {
+  Widget _buildItemsPreview(
+      int listId, ColorScheme colorScheme, JhuriLocalizations l10n) {
     final itemsAsync = ref.watch(listItemsProvider(listId));
 
     return itemsAsync.when(
@@ -366,7 +373,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ),
       ),
       error: (_, __) => Text(
-        'ত্রুটি',
+        l10n.error,
         style: TextStyle(
           fontSize: 10,
           color: colorScheme.error,
@@ -375,7 +382,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       data: (items) {
         if (items.isEmpty) {
           return Text(
-            'কোনো আইটেম নেই',
+            l10n.noItems,
             style: TextStyle(
               fontSize: 13,
               color: colorScheme.onSurface.withValues(alpha: 0.5),
@@ -400,50 +407,30 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   ),
                 )),
             if (hasMore)
-              Text(
-                '+${items.length - 3}টি আরও আইটেম',
-                style: TextStyle(
-                  fontSize: 10,
-                  color: colorScheme.onSurface.withValues(alpha: 0.5),
-                ),
-              ),
+              Text(l10n.moreItems.replaceAll('${0}', '${items.length - 3}')),
           ],
         );
       },
     );
   }
 
-  String _formatDateForDisplay(DateTime date) {
+  String _formatDateForDisplay(DateTime date, JhuriLocalizations l10n) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final tomorrow = today.add(const Duration(days: 1));
     final checkDate = DateTime(date.year, date.month, date.day);
 
     if (checkDate.isAtSameMomentAs(today)) {
-      return 'আজ';
+      return l10n.today;
     } else if (checkDate.isAtSameMomentAs(tomorrow)) {
-      return 'আগামীকাল';
+      return l10n.tomorrow;
     } else {
-      // Format in Bangla date format
-      final months = [
-        'জানুয়ারি',
-        'ফেব্রুয়ারি',
-        'মার্চ',
-        'এপ্রিল',
-        'মে',
-        'জুন',
-        'জুলাই',
-        'আগস্ট',
-        'সেপ্টেম্বর',
-        'অক্টোবর',
-        'নভেম্বর',
-        'ডিসেম্বর'
-      ];
-      return '${date.day} ${months[date.month - 1]} ${date.year}';
+      return '${date.day} ${l10n.getMonthName(date.month)} ${date.year}';
     }
   }
 
-  void _showListOptions(BuildContext context, ShoppingList list) {
+  void _showListOptions(
+      BuildContext context, ShoppingList list, JhuriLocalizations l10n) {
     showModalBottomSheet(
       context: context,
       builder: (context) => Container(
@@ -453,7 +440,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           children: [
             ListTile(
               leading: const Icon(Icons.edit),
-              title: const Text('সম্পাদনা'),
+              title: Text(l10n.edit),
               onTap: () {
                 Navigator.pop(context);
                 context.push('/list/${list.id}/edit');
@@ -461,29 +448,33 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
             ListTile(
               leading: const Icon(Icons.copy),
-              title: const Text('নকল করুন'),
+              title: Text(l10n.duplicateList),
               onTap: () async {
                 Navigator.pop(context);
                 final messenger = ScaffoldMessenger.of(this.context);
                 try {
-                  await ref
-                      .read(homeViewModelProvider.notifier)
-                      .duplicateList(list.id);
+                  await ref.read(homeViewModelProvider.notifier).duplicateList(
+                        list.id,
+                        listCopy: l10n.listCopy,
+                        listWithCopy: l10n.listWithCopy,
+                      );
 
                   // Show success message
                   messenger.showSnackBar(
-                    const SnackBar(content: Text('নকল করা হয়েছে')),
+                    SnackBar(content: Text(l10n.listDuplicated)),
                   );
                 } catch (e) {
                   messenger.showSnackBar(
-                    SnackBar(content: Text('ত্রুটি: $e')),
+                    SnackBar(
+                        content: Text(l10n.errorWithMessage
+                            .replaceAll('ত্রুটি: ', 'ত্রুটি: $e'))),
                   );
                 }
               },
             ),
             ListTile(
               leading: const Icon(Icons.archive),
-              title: const Text('আর্কাইভ'),
+              title: Text(l10n.archive),
               onTap: () async {
                 Navigator.pop(context);
                 final messenger = ScaffoldMessenger.of(this.context);
@@ -494,11 +485,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
                   // Show success message
                   messenger.showSnackBar(
-                    const SnackBar(content: Text('তালিকা আর্কাইভ করা হয়েছে')),
+                    SnackBar(content: Text(l10n.listArchived)),
                   );
                 } catch (e) {
                   messenger.showSnackBar(
-                    SnackBar(content: Text('ত্রুটি: $e')),
+                    SnackBar(
+                        content: Text(l10n.errorWithMessage
+                            .replaceAll('ত্রুটি: ', 'ত্রুটি: $e'))),
                   );
                 }
               },
@@ -508,7 +501,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               title: const Text('মুছুন', style: TextStyle(color: Colors.red)),
               onTap: () {
                 Navigator.pop(context);
-                _showDeleteConfirmation(context, list);
+                _showDeleteConfirmation(context, list, l10n);
               },
             ),
           ],
@@ -517,17 +510,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  void _showDeleteConfirmation(BuildContext context, ShoppingList list) {
+  void _showDeleteConfirmation(
+      BuildContext context, ShoppingList list, JhuriLocalizations l10n) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('তালিকা মুছে ফেলার নিশ্চিত্তা করুন'),
-        content: Text(
-            'আপনি কি "${list.title.isEmpty ? 'বাজারের ফর্দ' : list.title}" মুছতে চান?'),
+        title: Text(l10n.confirmDeleteList),
+        content: Text(l10n.deleteListQuestion.replaceAll(
+            '${0}', list.title.isEmpty ? l10n.shoppingList : list.title)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('বাতিল'),
+            child: Text(l10n.cancel),
           ),
           TextButton(
             onPressed: () async {
@@ -543,15 +537,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
                 // Show success message
                 messenger.showSnackBar(
-                  const SnackBar(content: Text('তালিকা মুছে ফেলা হয়েছে')),
+                  SnackBar(content: Text(l10n.listDeleted)),
                 );
               } catch (e) {
                 messenger.showSnackBar(
-                  SnackBar(content: Text('ত্রুটি: $e')),
+                  SnackBar(
+                      content: Text(l10n.errorWithMessage
+                          .replaceAll('ত্রুটি: ', 'ত্রুটি: $e'))),
                 );
               }
             },
-            child: const Text('মুছুন', style: TextStyle(color: Colors.red)),
+            child: Text(l10n.delete, style: TextStyle(color: Colors.red)),
           ),
         ],
       ),
@@ -609,7 +605,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  Widget _buildDrawer(BuildContext context, ColorScheme colorScheme) {
+  Widget _buildDrawer(
+      BuildContext context, ColorScheme colorScheme, JhuriLocalizations l10n) {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -650,7 +647,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 const SizedBox(height: 8),
                 // App name
                 Text(
-                  'ঝুড়ি',
+                  l10n.appName,
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -661,7 +658,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 const SizedBox(height: 4),
                 // Tagline
                 Text(
-                  'বাজারের ফর্দ, হাতের মুঠোয়',
+                  l10n.appTagline,
                   style: TextStyle(
                     fontSize: 14,
                     color:
@@ -678,10 +675,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           // Menu items
           ListTile(
             leading: const Icon(Icons.home),
-            title: Text(
-              'হোম',
-              style: TextStyle(fontFamily: 'HindSiliguri'),
-            ),
+            title: Text(l10n.navHome),
             onTap: () {
               Navigator.pop(context);
               // Already on home, no navigation needed
@@ -689,10 +683,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
           ListTile(
             leading: const Icon(Icons.category),
-            title: Text(
-              'নতুন ক্যাটাগরি তৈরি',
-              style: TextStyle(fontFamily: 'HindSiliguri'),
-            ),
+            title: Text(l10n.createNewCategory),
             onTap: () {
               Navigator.pop(context);
               showModalBottomSheet(
@@ -704,10 +695,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
           ListTile(
             leading: const Icon(Icons.add_circle_outline),
-            title: Text(
-              'নতুন আইটেম তৈরি',
-              style: TextStyle(fontFamily: 'HindSiliguri'),
-            ),
+            title: Text(l10n.createNewItem),
             onTap: () {
               Navigator.pop(context);
               context.push('/items/create');
@@ -715,10 +703,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
           ListTile(
             leading: const Icon(Icons.archive),
-            title: Text(
-              'আর্কাইভ',
-              style: TextStyle(fontFamily: 'HindSiliguri'),
-            ),
+            title: Text(l10n.archive),
             onTap: () {
               Navigator.pop(context);
               context.push('/archive');
@@ -726,10 +711,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
           ListTile(
             leading: const Icon(Icons.settings),
-            title: Text(
-              'সেটিংস',
-              style: TextStyle(fontFamily: 'HindSiliguri'),
-            ),
+            title: Text(l10n.settings),
             onTap: () {
               Navigator.pop(context);
               context.push('/settings');

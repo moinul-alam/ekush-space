@@ -112,15 +112,16 @@ class HomeViewModel extends BaseViewModel {
     }
   }
 
-  Future<int> duplicateList(int sourceListId) async {
+  Future<int> duplicateList(int sourceListId,
+      {required String listCopy, required String listWithCopy}) async {
     try {
       final sourceList = await _shoppingListRepository.getById(sourceListId);
       if (sourceList == null) throw Exception('Source list not found');
 
       final now = DateTime.now();
       final newTitle = sourceList.title.isEmpty
-          ? 'বাজারের ফর্দ (কপি)'
-          : '${sourceList.title} (কপি)';
+          ? listCopy
+          : listWithCopy.replaceAll('${0}', sourceList.title);
 
       final newListId = await _shoppingListRepository.duplicateList(
         sourceListId,
@@ -193,33 +194,21 @@ class HomeViewModel extends BaseViewModel {
     }
   }
 
-  String formatDateForDisplay(DateTime date) {
+  String formatDateForDisplay(DateTime date,
+      {required String today,
+      required String tomorrow,
+      required String Function(int) getMonthName}) {
     final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
-    final tomorrow = today.add(const Duration(days: 1));
+    final todayDate = DateTime(now.year, now.month, now.day);
+    final tomorrowDate = todayDate.add(const Duration(days: 1));
     final checkDate = DateTime(date.year, date.month, date.day);
 
-    if (checkDate.isAtSameMomentAs(today)) {
-      return 'আজ';
-    } else if (checkDate.isAtSameMomentAs(tomorrow)) {
-      return 'আগামীকাল';
+    if (checkDate.isAtSameMomentAs(todayDate)) {
+      return today;
+    } else if (checkDate.isAtSameMomentAs(tomorrowDate)) {
+      return tomorrow;
     } else {
-      // Format in Bangla date format
-      final months = [
-        'জানুয়ারি',
-        'ফেব্রুয়ারি',
-        'মার্চ',
-        'এপ্রিল',
-        'মে',
-        'জুন',
-        'জুলাই',
-        'আগস্ট',
-        'সেপ্টেম্বর',
-        'অক্টোবর',
-        'নভেম্বর',
-        'ডিসেম্বর'
-      ];
-      return '${date.day} ${months[date.month - 1]} ${date.year}';
+      return '${date.day} ${getMonthName(date.month)} ${date.year}';
     }
   }
 }

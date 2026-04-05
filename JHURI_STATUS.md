@@ -28,7 +28,7 @@
 | ekush_ads | ✅ Clean |
 | ekush_notifications | ✅ Clean |
 | ekush_share | ✅ Clean |
-| apps/jhuri | ✅ Phase 4 Complete + JhuriAppHeader UI polish — settings, notifications, share-as-image, shared header widget |
+| apps/jhuri | ✅ Phase 4 Complete + Localization Refactoring — settings, notifications, share-as-image, shared header widget, localization split into 3 files with EkushCommonLocalizations mixin |
 
 **melos run analyze:** No issues (zero warnings)
 **flutter analyze apps/ekush_ponji:** No issues
@@ -468,7 +468,77 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
   - ✅ Compatibility: No conflicts with existing ekush_ponji app or shared packages
   - ✅ Architecture: Both screens now follow proper MVVM pattern with clear separation of concerns
 
+- **Localization Refactoring Complete (2026-04-05):**
+  - ✅ STEP 1: Created abstract `jhuri_localizations.dart` following Ponji's exact pattern
+    - Class declaration: `abstract class JhuriLocalizations extends AppLocalizations with EkushCommonLocalizations implements DatePickerLocalizations`
+    - Removed 73 EkushCommonLocalizations methods to avoid duplication
+    - Kept Jhuri-specific abstract methods and delegate class
+    - Total Jhuri-specific abstract keys: 247 (after removing EkushCommonLocalizations overlap)
+  - ✅ STEP 2: Created `jhuri_localizations_bn.dart` with Bangla implementations
+    - Class declaration: `class JhuriLocalizationsBn extends JhuriLocalizations`
+    - Implemented all 73 EkushCommonLocalizations methods in Bangla
+    - Implemented all Jhuri-specific Bangla strings from original file
+    - Added date picker helper methods (getMonthName, getBanglaMonthName, etc.)
+  - ✅ STEP 3: Created `jhuri_localizations_en.dart` with English implementations
+    - Class declaration: `class JhuriLocalizationsEn extends JhuriLocalizations`
+    - Implemented all 73 EkushCommonLocalizations methods in English
+    - Implemented all Jhuri-specific English strings from original file
+    - Added date picker helper methods (getMonthName, getBanglaMonthName, etc.)
+  - ✅ VERIFICATION: All three analyze commands return zero issues
+    - `melos run analyze`: No issues found!
+    - `flutter analyze apps/ekush_ponji`: No issues found!
+    - `flutter analyze apps/jhuri`: No issues found!
+  - ✅ ARCHITECTURE: Successfully follows Ponji's exact localization pattern
+  - ✅ COMPATIBILITY: No conflicts with existing ekush_ponji app or shared packages
+  - ✅ DELEGATE: Properly returns JhuriLocalizationsBn() for 'bn', JhuriLocalizationsEn() for 'en', defaults to Bangla
+
+### Localization Refactoring - Home Screen and Viewmodel
+**Status**: ✅ COMPLETED
+
+**Description**: Successfully centralized hardcoded strings in home screen and viewmodel by moving them to l10n files.
+
+**New Localization Keys Added**:
+- `errorOccurred` - "ত্রুটি হয়েছে" / "Error occurred"
+- `anErrorOccurred` - "একটি ত্রুটি হয়েছে" / "An error occurred"  
+- `quickStart` - "দ্রুত শুরু করুন" / "Quick Start"
+- `clickButtonToCreateList` - "+ বাটনে ক্লিক করে নতুন ফর্দ তৈরি করুন" / "Click + button to create new list"
+- `selectCategoryDescription` - "প্রয়োজনীয় আইটেমের ক্যাটাগরি বেছে নিন" / "Select category for required items"
+- `createListDescription` - "সহজেইই আপনার বাজারের তালিকা তৈরি করুন" / "Easily create your shopping list"
+- `shoppingList` - "বাজারের ফর্দ" / "Shopping List"
+- `moreItems` - "+${0}টি আরও আইটেম" / "+${0} more items"
+- `duplicateList` - "নকল করুন" / "Duplicate"
+- `listDuplicated` - "নকল করা হয়েছে" / "List duplicated"
+- `archive` - "আর্কাইভ" / "Archive"
+- `listArchived` - "তালিকা আর্কাইভ করা হয়েছে" / "List archived"
+- `errorWithMessage` - "ত্রুটি: ${0}" / "Error: ${0}"
+- `confirmDeleteList` - "তালিকা মুছে ফেলার নিশ্চিত্তা করুন" / "Confirm Delete List"
+- `deleteListQuestion` - "আপনি কি "${0}" মুছতে চান?" / "Do you want to delete "${0}"?"
+- `listDeleted` - "তালিকা মুছে ফেলা হয়েছে" / "List deleted"
+- `appTagline` - "বাজারের ফর্দ, হাতের মুঠোয়" / "Plan Better. Shop Easier."
+- `createNewCategory` - "নতুন ক্যাটাগরি তৈরি" / "Create New Category"
+- `createNewItem` - "নতুন আইটেম তৈরি" / "Create New Item"
+- `listCopy` - "বাজারের ফর্দ (কপি)" / "Shopping List (Copy)"
+- `listWithCopy` - "${0} (কপি)" / "${0} (Copy)"
+
+**Files Modified**:
+- `apps/jhuri/lib/l10n/jhuri_localizations.dart` - Added 19 new abstract localization keys
+- `apps/jhuri/lib/l10n/jhuri_localizations_bn.dart` - Added 19 Bangla implementations  
+- `apps/jhuri/lib/l10n/jhuri_localizations_en.dart` - Added 19 English implementations
+- `apps/jhuri/lib/features/home/home_screen.dart` - Replaced all hardcoded strings with AppLocalizations.of(context) calls
+- `apps/jhuri/lib/features/shopping_list/home_viewmodel.dart` - Updated methods to accept localization parameters instead of hardcoded strings
+
+**Verification**:
+- ✅ `melos run analyze` - Zero issues
+- ✅ `flutter analyze apps/jhuri` - Zero issues  
+- ✅ `flutter analyze apps/ekush_ponji` - Zero issues (no changes made to this app)
+
+**Technical Notes**:
+- Followed strict "append only" rule for all l10n file modifications
+- Viewmodel methods updated to accept named parameters for localization
+- All string interpolation properly handled with replaceAll() methods
+- No breaking changes to existing functionality
+
 ---
 
-*Last updated: 2026-04-05 — MVVM compliance refactoring complete*
-*Updated by: Cascade (MVVM compliance session)*
+*Last updated: 2026-04-05 — Localization refactoring complete*
+*Updated by: Cascade (localization restructuring session)*
