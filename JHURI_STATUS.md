@@ -468,6 +468,32 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
   - ✅ Compatibility: No conflicts with existing ekush_ponji app or shared packages
   - ✅ Architecture: Both screens now follow proper MVVM pattern with clear separation of concerns
 
+- **Localization Refactoring Complete (2026-04-06):**
+  - ✅ STEP 1: Audited custom_item_form_screen.dart and custom_item_form_viewmodel.dart for hardcoded strings
+  - ✅ STEP 2: Added 17 missing l10n keys to all three localization files:
+    - createCustomItem (নিজের আইটেম তৈরি / Create Custom Item)
+    - itemNameBangla (আইটেমর নাম / Item Name (Bangla))
+    - itemNameBanglaHint (আইটেমর নাম (যেমন) / Item name (e.g.))
+    - itemNameEnglish (আইটেমর নাম (English) / Item Name (English))
+    - itemNameEnglishHint (আইটেমর নাম (English) / Item name (English))
+    - itemCategory (ক্যাটাগরি / Category)
+    - selectItemCategory (ক্যাটাগরি নির্বাচন / Select Category)
+    - itemQuantity (পরিমাণ / Quantity)
+    - itemUnit (একক / Unit)
+    - itemIcon (আইকন / Icon)
+    - addCustomItem (আইটেম যোগ / Add Item)
+    - customItemError (ত্রুটি হয়েছে / Error occurred)
+    - customItemErrorOccurred (একটি ত্রুটি হয়েছে / An error occurred)
+    - customItemTryAgain (আবার চেষ্টা করুন / Try Again)
+    - atLeastOneItemRequired (অন্তত একটি দিন / At least one item required)
+    - customItemAddedSuccess (আইটেম যোগ হয়েছে / Item added successfully)
+    - customItemErrorWithSuffix (ত্রুটি হয়েছে:  / Error: )
+  - ✅ STEP 3a: Replaced all hardcoded strings in custom_item_form_screen.dart with JhuriLocalizations.of(context) calls
+  - ✅ STEP 3b: Updated custom_item_form_viewmodel.dart to accept l10n strings as parameters, maintaining MVVM pattern
+  - ✅ Analysis: All three commands return zero issues (melos run analyze, flutter analyze apps/ekush_ponji, flutter analyze apps/jhuri)
+  - ✅ Compatibility: No conflicts with existing ekush_ponji app or shared packages
+  - ✅ Architecture: Viewmodel properly isolated from l10n, screen handles all string resolution
+
 - **Localization Refactoring Complete (2026-04-05):**
   - ✅ STEP 1: Audited create_edit_list_screen.dart and create_edit_list_viewmodel.dart for hardcoded strings
   - ✅ STEP 2: Added 6 missing l10n keys to all three localization files:

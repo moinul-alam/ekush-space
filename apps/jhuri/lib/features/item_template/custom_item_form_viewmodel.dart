@@ -65,9 +65,11 @@ class CustomItemFormViewModel extends BaseViewModel {
   bool get isValid => _nameBangla.trim().isNotEmpty;
 
   /// Save custom item
-  Future<int> saveCustomItem() async {
+  Future<int> saveCustomItem({
+    String? atLeastOneItemRequired,
+  }) async {
     if (!isValid) {
-      state = ViewStateError('অন্তত একট দিন');
+      state = ViewStateError(atLeastOneItemRequired ?? 'অন্তত একটি দিন');
       return -1;
     }
 

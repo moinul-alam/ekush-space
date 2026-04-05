@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'custom_item_form_viewmodel.dart';
 import '../../shared/widgets/jhuri_app_header.dart';
+import '../../l10n/jhuri_localizations.dart';
 
 class CustomItemFormScreen extends ConsumerStatefulWidget {
   const CustomItemFormScreen({super.key});
@@ -19,8 +20,8 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
     final viewModel = ref.read(customItemFormViewModelProvider.notifier);
 
     return Scaffold(
-      appBar: const JhuriAppHeader(
-        title: 'নিজের আইটেম তৈরি',
+      appBar: JhuriAppHeader(
+        title: JhuriLocalizations.of(context).createCustomItem,
         leadingIcon: Icons.close,
       ),
       body: _buildBody(viewModel, colorScheme),
@@ -47,7 +48,7 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
             ),
             SizedBox(height: 16.h),
             Text(
-              'ত্রুটি হয়েছে',
+              JhuriLocalizations.of(context).customItemError,
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
@@ -56,7 +57,9 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
             ),
             SizedBox(height: 8.h),
             Text(
-              viewModel.hasError ? 'ত্রুটি হয়েছে' : 'একটি ত্রুটি হয়েছে',
+              viewModel.hasError
+                  ? JhuriLocalizations.of(context).customItemError
+                  : JhuriLocalizations.of(context).customItemErrorOccurred,
               style: TextStyle(
                 fontSize: 16.sp,
                 color: Colors.grey[600],
@@ -66,7 +69,7 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
             SizedBox(height: 16.h),
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('আবার চেষ্টা করুন'),
+              child: Text(JhuriLocalizations.of(context).customItemTryAgain),
             ),
           ],
         ),
@@ -80,7 +83,7 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
         children: [
           // Item name
           Text(
-            'আইটেমর নাম',
+            JhuriLocalizations.of(context).itemNameBangla,
             style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.w600,
@@ -91,7 +94,7 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
           TextField(
             onChanged: (value) => viewModel.updateNameBangla(value),
             decoration: InputDecoration(
-              hintText: 'আইটেমর নাম (যেমন)',
+              hintText: JhuriLocalizations.of(context).itemNameBanglaHint,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.r),
                 borderSide: BorderSide(
@@ -108,7 +111,7 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
           TextField(
             onChanged: (value) => viewModel.updateNameEnglish(value),
             decoration: InputDecoration(
-              hintText: 'আইটেমর নাম (English)',
+              hintText: JhuriLocalizations.of(context).itemNameEnglish,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.r),
                 borderSide: BorderSide(
@@ -123,7 +126,7 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
 
           // Category selection
           Text(
-            'ক্যাটাগরি',
+            JhuriLocalizations.of(context).itemCategory,
             style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.w600,
@@ -134,7 +137,7 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
           DropdownButtonFormField<String>(
             initialValue: viewModel.selectedCategoryId,
             decoration: InputDecoration(
-              hintText: 'ক্যাটাগরি নির্বাচন',
+              hintText: JhuriLocalizations.of(context).selectItemCategory,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.r),
                 borderSide: BorderSide(
@@ -171,7 +174,7 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
                   onChanged: (value) =>
                       viewModel.updateQuantity(double.tryParse(value) ?? 1.0),
                   decoration: InputDecoration(
-                    hintText: 'পরিমাণ',
+                    hintText: JhuriLocalizations.of(context).itemQuantity,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.r),
                       borderSide: BorderSide(
@@ -187,7 +190,7 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
                 child: DropdownButtonFormField<String>(
                   initialValue: viewModel.selectedUnit,
                   decoration: InputDecoration(
-                    hintText: 'একক',
+                    hintText: JhuriLocalizations.of(context).itemUnit,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.r),
                       borderSide: BorderSide(
@@ -209,7 +212,7 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
 
           // Icon selection
           Text(
-            'আইকন',
+            JhuriLocalizations.of(context).itemIcon,
             style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.w600,
@@ -268,14 +271,13 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
                 foregroundColor: viewModel.isValid
                     ? Colors.white
                     : colorScheme.onSurface.withValues(alpha: 0.7),
-                padding:
-                    EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+                padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.r),
                 ),
               ),
               child: Text(
-                'আইটেম যোগ',
+                JhuriLocalizations.of(context).addCustomItem,
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
@@ -294,17 +296,24 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
   Future<void> _saveCustomItem(CustomItemFormViewModel viewModel) async {
     if (!viewModel.isValid) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('অন্তত একট দিন')),
+        SnackBar(
+            content:
+                Text(JhuriLocalizations.of(context).atLeastOneItemRequired)),
       );
       return;
     }
 
     try {
       final context = this.context;
-      await viewModel.saveCustomItem();
+      await viewModel.saveCustomItem(
+        atLeastOneItemRequired:
+            JhuriLocalizations.of(context).atLeastOneItemRequired,
+      );
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('আইটেম যোগ হয়েছে')),
+        SnackBar(
+            content:
+                Text(JhuriLocalizations.of(context).customItemAddedSuccess)),
       );
       if (!context.mounted) return;
       Navigator.pop(context);
@@ -312,7 +321,9 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
       final context = this.context;
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('ত্রুটি হয়েছে: $e')),
+        SnackBar(
+            content: Text(
+                '${JhuriLocalizations.of(context).customItemErrorWithSuffix}$e')),
       );
     }
   }

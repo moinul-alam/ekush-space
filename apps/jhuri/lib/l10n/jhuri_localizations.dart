@@ -641,6 +641,25 @@ abstract class JhuriLocalizations extends AppLocalizations
   String get shoppingHalfComplete;
   String get shoppingInProgress;
   String get defaultUnitKg;
+
+  // Custom Item Form
+  String get createCustomItem;
+  String get itemNameBangla;
+  String get itemNameBanglaHint;
+  String get itemNameEnglish;
+  String get itemNameEnglishHint;
+  String get itemCategory;
+  String get selectItemCategory;
+  String get itemQuantity;
+  String get itemUnit;
+  String get itemIcon;
+  String get addCustomItem;
+  String get customItemError;
+  String get customItemErrorOccurred;
+  String get customItemTryAgain;
+  String get atLeastOneItemRequired;
+  String get customItemAddedSuccess;
+  String get customItemErrorWithSuffix;
 }
 
 class JhuriLocalizationsDelegate

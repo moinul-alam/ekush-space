@@ -1391,4 +1391,56 @@ class JhuriLocalizationsEn extends JhuriLocalizations {
 
   @override
   String get defaultUnitKg => 'kg';
+
+  // Custom Item Form
+  @override
+  String get createCustomItem => 'Create Custom Item';
+
+  @override
+  String get itemNameBangla => 'Item Name (Bangla)';
+
+  @override
+  String get itemNameBanglaHint => 'Item name (e.g.)';
+
+  @override
+  String get itemNameEnglish => 'Item Name (English)';
+
+  @override
+  String get itemNameEnglishHint => 'Item name (English)';
+
+  @override
+  String get itemCategory => 'Category';
+
+  @override
+  String get selectItemCategory => 'Select Category';
+
+  @override
+  String get itemQuantity => 'Quantity';
+
+  @override
+  String get itemUnit => 'Unit';
+
+  @override
+  String get itemIcon => 'Icon';
+
+  @override
+  String get addCustomItem => 'Add Item';
+
+  @override
+  String get customItemError => 'Error occurred';
+
+  @override
+  String get customItemErrorOccurred => 'An error occurred';
+
+  @override
+  String get customItemTryAgain => 'Try Again';
+
+  @override
+  String get atLeastOneItemRequired => 'At least one item required';
+
+  @override
+  String get customItemAddedSuccess => 'Item added successfully';
+
+  @override
+  String get customItemErrorWithSuffix => 'Error: ';
 }

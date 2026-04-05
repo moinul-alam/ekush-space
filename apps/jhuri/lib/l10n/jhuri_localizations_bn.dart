@@ -1390,4 +1390,56 @@ class JhuriLocalizationsBn extends JhuriLocalizations {
 
   @override
   String get defaultUnitKg => 'কেজি';
+
+  // Custom Item Form
+  @override
+  String get createCustomItem => 'নিজের আইটেম তৈরি';
+
+  @override
+  String get itemNameBangla => 'আইটেমর নাম';
+
+  @override
+  String get itemNameBanglaHint => 'আইটেমর নাম (যেমন)';
+
+  @override
+  String get itemNameEnglish => 'আইটেমর নাম (English)';
+
+  @override
+  String get itemNameEnglishHint => 'আইটেমর নাম (English)';
+
+  @override
+  String get itemCategory => 'ক্যাটাগরি';
+
+  @override
+  String get selectItemCategory => 'ক্যাটাগরি নির্বাচন';
+
+  @override
+  String get itemQuantity => 'পরিমাণ';
+
+  @override
+  String get itemUnit => 'একক';
+
+  @override
+  String get itemIcon => 'আইকন';
+
+  @override
+  String get addCustomItem => 'আইটেম যোগ';
+
+  @override
+  String get customItemError => 'ত্রুটি হয়েছে';
+
+  @override
+  String get customItemErrorOccurred => 'একটি ত্রুটি হয়েছে';
+
+  @override
+  String get customItemTryAgain => 'আবার চেষ্টা করুন';
+
+  @override
+  String get atLeastOneItemRequired => 'অন্তত একটি দিন';
+
+  @override
+  String get customItemAddedSuccess => 'আইটেম যোগ হয়েছে';
+
+  @override
+  String get customItemErrorWithSuffix => 'ত্রুটি হয়েছে: ';
 }
