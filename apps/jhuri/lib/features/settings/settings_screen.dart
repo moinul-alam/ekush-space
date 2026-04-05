@@ -547,7 +547,7 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('ঠিক আছে'),
+            child: Text(JhuriLocalizations.of(context).ok),
           ),
         ],
       ),

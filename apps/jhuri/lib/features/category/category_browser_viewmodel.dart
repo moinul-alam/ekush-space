@@ -17,7 +17,8 @@ class CategoryBrowserViewModel extends AsyncNotifier<List<Category>> {
     try {
       return await _categoryRepository.getAll();
     } catch (e) {
-      throw Exception('Failed to load categories: $e');
+      // Re-throw the exception without hardcoded message
+      rethrow;
     }
   }
 

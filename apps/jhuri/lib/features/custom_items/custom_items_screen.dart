@@ -31,7 +31,7 @@ class _CustomItemsScreenState extends ConsumerState<CustomItemsScreen> {
         ),
         error: (error, stack) => Center(
           child: Text(
-            'Error loading custom items: $error',
+            l10n.errorLoadingCustomItems.replaceAll('${0}', error.toString()),
             style: TextStyle(color: Theme.of(context).colorScheme.error),
           ),
         ),
@@ -132,7 +132,8 @@ class _CustomItemsScreenState extends ConsumerState<CustomItemsScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(l10n.deleteCustomItem),
-        content: Text('Do you want to delete "${item.nameBangla}"?'),
+        content: Text(l10n.deleteCustomItemConfirmation
+            .replaceAll('${0}', item.nameBangla)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -147,13 +148,14 @@ class _CustomItemsScreenState extends ConsumerState<CustomItemsScreen> {
                 await repository.delete(item.id);
                 messenger.showSnackBar(
                   SnackBar(
-                    content: Text('Custom item deleted successfully'),
+                    content: Text(l10n.customItemDeletedSuccess),
                   ),
                 );
               } catch (e) {
                 messenger.showSnackBar(
                   SnackBar(
-                    content: Text('Error: $e'),
+                    content: Text(
+                        l10n.errorWithSuffix.replaceAll('${0}', e.toString())),
                   ),
                 );
               }

@@ -1587,8 +1587,11 @@ class JhuriLocalizationsEn extends JhuriLocalizations {
   String get noCustomItems => 'No custom items';
 
   @override
-  String get noCustomItemsDescription =>
-      'You haven\'t created any custom items yet';
+  String get noCustomItemsDescription => 'No custom items created yet';
+
+  // Additional missing keys from category browser
+  @override
+  String get errorLoadingCategories => 'Error loading categories: ${0}';
 
   // Additional missing keys from completion animation
   @override

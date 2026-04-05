@@ -17,6 +17,18 @@ class ArchiveScreen extends ConsumerStatefulWidget {
 
 class _ArchiveScreenState extends ConsumerState<ArchiveScreen> {
   @override
+  void initState() {
+    super.initState();
+    // Load archived lists after the widget is built
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final l10n = JhuriLocalizations.of(context);
+      ref
+          .read(archiveViewModelProvider.notifier)
+          .load(loadingArchives: l10n.loadingArchives);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = JhuriLocalizations.of(context);
     final colorScheme = Theme.of(context).colorScheme;

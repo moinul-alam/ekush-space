@@ -69,7 +69,11 @@ class CustomItemFormViewModel extends BaseViewModel {
     String? atLeastOneItemRequired,
   }) async {
     if (!isValid) {
-      state = ViewStateError(atLeastOneItemRequired ?? 'অন্তত একটি দিন');
+      if (atLeastOneItemRequired != null) {
+        state = ViewStateError(atLeastOneItemRequired);
+      } else {
+        state = ViewStateError('Item name is required');
+      }
       return -1;
     }
 

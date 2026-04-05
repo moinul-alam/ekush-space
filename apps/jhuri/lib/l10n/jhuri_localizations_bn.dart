@@ -1588,7 +1588,11 @@ class JhuriLocalizationsBn extends JhuriLocalizations {
 
   @override
   String get noCustomItemsDescription =>
-      'আপনি এখনো কোনো কাস্টম আইটেম তৈরি করেননি';
+      'এখনো কোনো কাস্টম আইটেম তৈরি করা হয়নি';
+
+  // Additional missing keys from category browser
+  @override
+  String get errorLoadingCategories => 'ক্যাটাগরি লোড করতে সমস্যা: ${0}';
 
   // Additional missing keys from completion animation
   @override

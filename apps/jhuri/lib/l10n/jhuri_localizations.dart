@@ -719,6 +719,9 @@ abstract class JhuriLocalizations extends AppLocalizations
   String get noCustomItems;
   String get noCustomItemsDescription;
 
+  // Additional missing keys from category browser
+  String get errorLoadingCategories;
+
   // Additional missing keys from completion animation
   String get congratulations;
   String get yourListCompleted;

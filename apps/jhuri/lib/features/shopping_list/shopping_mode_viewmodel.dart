@@ -39,14 +39,14 @@ class ShoppingModeViewModel extends BaseViewModel {
   }
 
   /// Load shopping list
-  Future<void> loadList(int listId, {String? listNotFoundText}) async {
+  Future<void> loadList(int listId, {required String listNotFoundText}) async {
     _isLoading = true;
     state = ViewStateLoading();
 
     try {
       final list = await _shoppingListRepository.getById(listId);
       if (list == null) {
-        state = ViewStateError(listNotFoundText ?? 'List not found');
+        state = ViewStateError(listNotFoundText);
         return;
       }
 

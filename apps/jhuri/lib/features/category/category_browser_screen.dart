@@ -65,7 +65,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
             ),
             SizedBox(height: 8.h),
             Text(
-              error.toString(),
+              l10n.errorLoadingCategories.replaceAll('${0}', error.toString()),
               style: TextStyle(
                 fontSize: 14.sp,
                 color: Colors.grey[600],

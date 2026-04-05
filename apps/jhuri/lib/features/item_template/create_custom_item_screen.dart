@@ -56,8 +56,11 @@ class _CreateCustomItemScreenState
       });
     } catch (e) {
       if (mounted) {
+        final l10n = JhuriLocalizations.of(context);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('ত্রুটি: $e')),
+          SnackBar(
+              content:
+                  Text(l10n.errorWithSuffix.replaceAll('${0}', e.toString()))),
         );
       }
     }
@@ -68,8 +71,8 @@ class _CreateCustomItemScreenState
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: const JhuriAppHeader(
-        title: 'নতুন আইটেম তৈরি',
+      appBar: JhuriAppHeader(
+        title: JhuriLocalizations.of(context).createNewItem,
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(

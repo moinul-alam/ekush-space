@@ -146,7 +146,7 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _showCustomItemForm(context),
         icon: const Icon(Icons.add),
-        label: const Text('নতুন আইটেম'),
+        label: Text(JhuriLocalizations.of(context).createNewItem),
         backgroundColor: colorScheme.primary,
         foregroundColor: Colors.white,
       ),

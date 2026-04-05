@@ -24,7 +24,11 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(shoppingModeViewModelProvider.notifier).loadList(widget.listId);
+      final l10n = JhuriLocalizations.of(context);
+      ref.read(shoppingModeViewModelProvider.notifier).loadList(
+            widget.listId,
+            listNotFoundText: l10n.listNotFound,
+          );
     });
   }
 
@@ -96,8 +100,10 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
             ),
             SizedBox(height: 24.h),
             ElevatedButton(
-              onPressed: () => viewModel.loadList(widget.listId,
-                  listNotFoundText: l10n.listNotFound),
+              onPressed: () => viewModel.loadList(
+                widget.listId,
+                listNotFoundText: l10n.listNotFound,
+              ),
               child: Text(l10n.tryAgain),
             ),
           ],
@@ -117,7 +123,10 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
         // Items list
         Expanded(
           child: RefreshIndicator(
-            onRefresh: () async => await viewModel.loadList(widget.listId),
+            onRefresh: () async => await viewModel.loadList(
+              widget.listId,
+              listNotFoundText: l10n.listNotFound,
+            ),
             child: ListView.builder(
               itemCount: viewModel.items.length,
               itemBuilder: (context, index) {

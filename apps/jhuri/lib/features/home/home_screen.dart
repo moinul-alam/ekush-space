@@ -498,7 +498,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
             ListTile(
               leading: const Icon(Icons.delete, color: Colors.red),
-              title: const Text('মুছুন', style: TextStyle(color: Colors.red)),
+              title: Text(l10n.delete, style: TextStyle(color: Colors.red)),
               onTap: () {
                 Navigator.pop(context);
                 _showDeleteConfirmation(context, list, l10n);

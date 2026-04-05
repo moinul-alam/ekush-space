@@ -79,6 +79,32 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 
 ---
 
+## Localization Final Sweep Complete (2026-04-06):
+
+- **VIOLATION 1**: Fixed archive_viewmodel.dart line 33 - Removed hardcoded 'Loading archives...' string, added loadingArchives as required named parameter, updated archive_screen.dart to pass l10n.loadingArchives
+- **VIOLATION 2**: Fixed category_browser_viewmodel.dart line 20 - Removed hardcoded 'Failed to load categories: $e' string, added errorLoadingCategories l10n key to all three localization files, updated category_browser_screen.dart to use l10n.errorLoadingCategories
+- **VIOLATION 3**: Fixed custom_items_screen.dart lines 34, 135, 150, 156 - Replaced all hardcoded strings with existing l10n keys: errorLoadingCustomItems, deleteCustomItemConfirmation, customItemDeletedSuccess, errorWithSuffix
+- **VIOLATION 4**: Fixed home_screen.dart line 501 - Replaced hardcoded 'মুছুন' with existing l10n.delete key
+- **VIOLATION 5**: Fixed create_custom_item_screen.dart lines 60, 72 - Replaced hardcoded 'ত্রুটি: $e' and 'নতুন আইটেম তৈরি' with l10n.errorWithSuffix and l10n.createNewItem keys
+- **VIOLATION 6**: Fixed custom_item_form_viewmodel.dart line 72 - Removed hardcoded 'অন্ত একটি দিন' fallback, made atLeastOneItemRequired parameter required, screen already passing correct l10n key
+- **VIOLATION 7**: Fixed item_picker_screen.dart line 149 - Replaced hardcoded 'নতুন আইটেম' with existing l10n.createNewItem key
+- **VIOLATION 8**: Fixed settings_screen.dart line 550 - Replaced hardcoded 'ঠিক আছে' with existing l10n.ok key  
+- **VIOLATION 9**: Fixed shopping_mode_viewmodel.dart line 49 - Removed hardcoded 'List not found' fallback, made listNotFoundText parameter required, updated shopping_mode_screen.dart to pass l10n.listNotFound in all three call sites
+
+- **Localization Keys Added**: Added errorLoadingCategories key to jhuri_localizations.dart, jhuri_localizations_bn.dart, and jhuri_localizations_en.dart following existing pattern with ${0} placeholder
+- **Architecture Compliance**: All viewmodels now properly avoid hardcoded strings and accept localization parameters from screen layer
+- **String Pattern Consistency**: All l10n key usage follows existing replaceAll('${0}', variable) pattern for parameterized strings
+
+- **Analysis Verification**: All three commands return zero issues
+  - melos run analyze: No issues found!
+  - flutter analyze apps/ekush_ponji: No issues found! (15.0s)
+  - flutter analyze apps/jhuri: No issues found! (12.6s)
+
+- **Compatibility**: No conflicts with existing ekush_ponji app or shared packages
+- **Localization Coverage**: All remaining hardcoded strings identified in audit have been centralized into l10n system
+
+---
+
 ## ArchiveViewModel & Onboarding Repository Refactoring Complete (2026-04-05):
 
 - **ArchiveViewModel Created**: apps/jhuri/lib/features/archive/archive_viewmodel.dart

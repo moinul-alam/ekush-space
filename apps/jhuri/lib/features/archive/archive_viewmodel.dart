@@ -17,25 +17,27 @@ class ArchiveViewModel extends BaseViewModel<List<ShoppingList>> {
     _repository = ref.read(shoppingListRepositoryProvider);
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-    _loadArchivedLists();
-  }
-
-  Future<void> _loadArchivedLists({String? loadingArchives}) async {
+  Future<void> _loadArchivedLists({required String loadingArchives}) async {
     await executeAsync(
       operation: () async {
         final lists = await _repository.getArchived();
         setSuccess(data: lists);
         return lists;
       },
-      loadingMessage: loadingArchives ?? 'Loading archives...',
+      loadingMessage: loadingArchives,
     );
+  }
+
+  Future<void> load({required String loadingArchives}) async {
+    await _loadArchivedLists(loadingArchives: loadingArchives);
   }
 
   @override
   Future<bool> refresh({String? loadingArchives}) async {
+    if (loadingArchives == null) {
+      // Can't refresh without loading message
+      return false;
+    }
     await _loadArchivedLists(loadingArchives: loadingArchives);
     return !hasError;
   }
