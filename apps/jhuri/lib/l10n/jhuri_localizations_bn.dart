@@ -952,6 +952,25 @@ class JhuriLocalizationsBn extends JhuriLocalizations {
   @override
   String get onboardingNotNow => 'এখন না';
 
+  @override
+  String get onboardingWelcomeTitle => 'ঝুড়িতে স্বাগতম';
+
+  @override
+  String get onboardingWelcomeSubtitle =>
+      'স্মার্ট গ্রোসারি লিস্ট — প্ল্যান বেটার, শপ ইজিয়ার';
+
+  @override
+  String get onboardingThemeTitle => 'থিম নির্বাচন';
+
+  @override
+  String get themeSystem => 'সিস্টেম';
+
+  @override
+  String get themeLight => 'লাইট';
+
+  @override
+  String get themeDark => 'ডার্ক';
+
   // Home Screen
   @override
   String get homeEmptyTitle => 'বাজারের কোনো ফর্দ নেই';

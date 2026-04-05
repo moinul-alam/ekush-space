@@ -520,6 +520,12 @@ abstract class JhuriLocalizations extends AppLocalizations
   String get onboardingNotificationMessage;
   String get onboardingAllow;
   String get onboardingNotNow;
+  String get onboardingWelcomeTitle;
+  String get onboardingWelcomeSubtitle;
+  String get onboardingThemeTitle;
+  String get themeSystem;
+  String get themeLight;
+  String get themeDark;
 
   // Home Screen
   String get homeEmptyTitle;

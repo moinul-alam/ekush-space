@@ -716,3 +716,29 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 
 *Last updated: 2026-04-05 — Shopping mode localization refactoring complete*
 *Updated by: Cascade (shopping mode l10n session)*
+
+---
+
+- **Onboarding Redesign Complete (2026-04-06):**
+  - **Single Animated Page**: Replaced two-page onboarding flow with single animated page
+    - Logo starts centered (120x120.h), animates to top-left (40x40.h) after 800ms delay
+    - Title image (app_title_bn.png/app_title_en.png) fades in beside logo after animation
+    - Content fades in after animation completes (600ms duration, Curves.easeInOut)
+  - **Language Selection**: Side-by-side Bangla/English options with flag emojis
+    - Bangla selected by default, updates OnboardingNotifier.selectLanguage()
+  - **Theme Selection**: System/Light/Dark options in a row
+    - System selected by default, live preview via ThemeModeNotifier.setThemeMode()
+    - Updates immediately when user selects, persists on completion
+  - **Welcome Content**: Uses new l10n keys onboardingWelcomeTitle and onboardingWelcomeSubtitle
+  - **Start Button**: Full-width primary button, shows CircularProgressIndicator while completing
+  - **ViewModel Updates**: Added selectedTheme field to OnboardingState with ThemeMode.system default
+    - Added selectTheme(ThemeMode mode) method with live theme preview
+    - Updated complete() to persist selected theme via themeModeProvider before onboarding completion
+  - **Localization Keys Added**: onboardingWelcomeTitle, onboardingWelcomeSubtitle, onboardingThemeTitle, themeSystem, themeLight, themeDark
+  - **Files Deleted**: onboarding_page_one.dart, onboarding_page_two.dart (replaced by single animated implementation)
+  - **Analysis Verification**: All three commands return zero issues
+    - melos run analyze: No issues found!
+    - flutter analyze apps/ekush_ponji: No issues found! (17.5s)
+    - flutter analyze apps/jhuri: No issues found! (14.4s)
+  - **Compatibility**: No conflicts with existing ekush_ponji app or shared packages
+  - **Animation Flow**: Center logo → 800ms delay → slide+scale to header → title fade → content fade

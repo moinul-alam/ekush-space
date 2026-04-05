@@ -954,6 +954,25 @@ class JhuriLocalizationsEn extends JhuriLocalizations {
   @override
   String get onboardingNotNow => 'Not Now';
 
+  @override
+  String get onboardingWelcomeTitle => 'Welcome to Jhuri';
+
+  @override
+  String get onboardingWelcomeSubtitle =>
+      'Smart Grocery List — Plan Better, Shop Easier';
+
+  @override
+  String get onboardingThemeTitle => 'Select Theme';
+
+  @override
+  String get themeSystem => 'System';
+
+  @override
+  String get themeLight => 'Light';
+
+  @override
+  String get themeDark => 'Dark';
+
   // Home Screen
   @override
   String get homeEmptyTitle => 'No shopping lists';
