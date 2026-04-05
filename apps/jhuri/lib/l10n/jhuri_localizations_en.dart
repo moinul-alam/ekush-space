@@ -1469,4 +1469,65 @@ class JhuriLocalizationsEn extends JhuriLocalizations {
 
   @override
   String get errorWithSuffix => 'Error: ';
+
+  // Missing keys from bottom sheet forms
+  @override
+  String get addNewItem => 'Add New Item';
+
+  @override
+  String get itemNameBanglaRequired => 'Item Name (Bangla) *';
+
+  @override
+  String get itemNameEnglishOptional => 'Item Name (English)';
+
+  @override
+  String get category => 'Category';
+
+  @override
+  String get quantityLabel => 'Quantity';
+
+  @override
+  String get enterQuantityLabel => 'Quantity';
+
+  @override
+  String get unitLabel => 'Unit';
+
+  @override
+  String get priceOptional => 'Price (Optional)';
+
+  @override
+  String get enterPriceLabel => 'Enter price';
+
+  @override
+  String get errorWithSuffixDynamic => 'Error occurred: ';
+
+  @override
+  String get createNewCategoryForm => 'Create New Category';
+
+  @override
+  String get categoryNameRequired => 'Category Name *';
+
+  @override
+  String get categoryNameHint => 'e.g., Fruits';
+
+  @override
+  String get englishNameOptional => 'English Name';
+
+  @override
+  String get englishNameHint => 'e.g., Fruits';
+
+  @override
+  String get emojiIcon => 'Emoji Icon';
+
+  @override
+  String get addOtherEmoji => 'Add Other Emoji';
+
+  @override
+  String get typeEmoji => 'Type Emoji';
+
+  @override
+  String get categorySavedSuccess => 'Category saved';
+
+  @override
+  String get errorWithSuffixDynamicCategory => 'Error: ';
 }

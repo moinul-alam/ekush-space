@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../providers/database_provider.dart';
+import '../../l10n/jhuri_localizations.dart';
 
 class CustomCategoryFormBottomSheet extends ConsumerStatefulWidget {
   const CustomCategoryFormBottomSheet({super.key});
@@ -77,7 +78,7 @@ class _CustomCategoryFormBottomSheetState
                   SizedBox(width: 12.w),
                   Expanded(
                     child: Text(
-                      'নতুন ক্যাটাগরি তৈরি',
+                      JhuriLocalizations.of(context).createNewCategoryForm,
                       style: TextStyle(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
@@ -95,7 +96,7 @@ class _CustomCategoryFormBottomSheetState
 
               // Bangla Name (required)
               Text(
-                'ক্যাটাগরিের নাম *',
+                JhuriLocalizations.of(context).categoryNameRequired,
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
@@ -106,7 +107,7 @@ class _CustomCategoryFormBottomSheetState
               TextFormField(
                 controller: _banglaNameController,
                 decoration: InputDecoration(
-                  hintText: 'যেমন: ফলমূল',
+                  hintText: JhuriLocalizations.of(context).categoryNameHint,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.r),
                   ),
@@ -117,7 +118,7 @@ class _CustomCategoryFormBottomSheetState
 
               // English Name (optional)
               Text(
-                'ইংরেজি নাম',
+                JhuriLocalizations.of(context).englishNameOptional,
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
@@ -128,7 +129,7 @@ class _CustomCategoryFormBottomSheetState
               TextFormField(
                 controller: _englishNameController,
                 decoration: InputDecoration(
-                  hintText: 'যেমন: Fruits',
+                  hintText: JhuriLocalizations.of(context).englishNameHint,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.r),
                   ),
@@ -138,7 +139,7 @@ class _CustomCategoryFormBottomSheetState
 
               // Emoji Icon
               Text(
-                'ইমোজি আইকন',
+                JhuriLocalizations.of(context).emojiIcon,
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
@@ -192,7 +193,7 @@ class _CustomCategoryFormBottomSheetState
                     });
                   },
                   icon: const Icon(Icons.add),
-                  label: const Text('অন্য ইমোজি যোগ করুন'),
+                  label: Text(JhuriLocalizations.of(context).addOtherEmoji),
                 ),
               ] else ...[
                 // Custom emoji input
@@ -202,7 +203,7 @@ class _CustomCategoryFormBottomSheetState
                       child: TextFormField(
                         controller: _emojiController,
                         decoration: InputDecoration(
-                          hintText: 'ইমোজি টাইপ করুন',
+                          hintText: JhuriLocalizations.of(context).typeEmoji,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -224,7 +225,7 @@ class _CustomCategoryFormBottomSheetState
                           _emojiController.clear();
                         });
                       },
-                      child: const Text('বাতিল'),
+                      child: Text(JhuriLocalizations.of(context).cancel),
                     ),
                   ],
                 ),
@@ -240,7 +241,7 @@ class _CustomCategoryFormBottomSheetState
                       style: OutlinedButton.styleFrom(
                         padding: EdgeInsets.symmetric(vertical: 12.h),
                       ),
-                      child: const Text('বাতিল'),
+                      child: Text(JhuriLocalizations.of(context).cancel),
                     ),
                   ),
                   SizedBox(width: 12.w),
@@ -252,7 +253,7 @@ class _CustomCategoryFormBottomSheetState
                         foregroundColor: Colors.white,
                         padding: EdgeInsets.symmetric(vertical: 12.h),
                       ),
-                      child: const Text('সংরক্ষণ করুন'),
+                      child: Text(JhuriLocalizations.of(context).save),
                     ),
                   ),
                 ],
@@ -285,13 +286,17 @@ class _CustomCategoryFormBottomSheetState
       if (mounted) {
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('ক্যাটাগরি সংরক্ষণ হয়েছে')),
+          SnackBar(
+              content:
+                  Text(JhuriLocalizations.of(context).categorySavedSuccess)),
         );
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('ত্রুটি: $e')),
+          SnackBar(
+              content: Text(
+                  '${JhuriLocalizations.of(context).errorWithSuffixDynamicCategory}$e')),
         );
       }
     }

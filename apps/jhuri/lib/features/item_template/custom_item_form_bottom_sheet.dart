@@ -5,6 +5,7 @@ import '../../config/jhuri_constants.dart';
 import '../../providers/database_provider.dart';
 import '../category/category_browser_viewmodel.dart';
 import 'item_picker_viewmodel.dart';
+import '../../l10n/jhuri_localizations.dart';
 
 class CustomItemFormBottomSheet extends ConsumerStatefulWidget {
   final int? preselectedCategoryId;
@@ -78,7 +79,7 @@ class _CustomItemFormBottomSheetState
                 children: [
                   // Title
                   Text(
-                    'নতুন আইটেম যোগ করুন',
+                    JhuriLocalizations.of(context).addNewItem,
                     style: TextStyle(
                       fontSize: 20.sp,
                       fontWeight: FontWeight.bold,
@@ -89,7 +90,7 @@ class _CustomItemFormBottomSheetState
 
                   // Bangla name (required)
                   Text(
-                    'আইটেমের নাম (বাংলা) *',
+                    JhuriLocalizations.of(context).itemNameBanglaRequired,
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
@@ -100,14 +101,15 @@ class _CustomItemFormBottomSheetState
                   TextFormField(
                     controller: _nameController,
                     decoration: InputDecoration(
-                      hintText: 'যেমন: আলু',
+                      hintText:
+                          JhuriLocalizations.of(context).itemNameBanglaHint,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.r),
                       ),
                     ),
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'আইটেমের নাম লিখুন';
+                        return JhuriLocalizations.of(context).itemNameRequired;
                       }
                       return null;
                     },
@@ -116,7 +118,7 @@ class _CustomItemFormBottomSheetState
 
                   // English name (optional)
                   Text(
-                    'আইটেমের নাম (ইংরেজি)',
+                    JhuriLocalizations.of(context).itemNameEnglishOptional,
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
@@ -127,7 +129,8 @@ class _CustomItemFormBottomSheetState
                   TextFormField(
                     controller: _englishNameController,
                     decoration: InputDecoration(
-                      hintText: 'যেমন: Potato',
+                      hintText:
+                          JhuriLocalizations.of(context).itemNameEnglishHint,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.r),
                       ),
@@ -137,7 +140,7 @@ class _CustomItemFormBottomSheetState
 
                   // Category dropdown
                   Text(
-                    'ক্যাটাগরি',
+                    JhuriLocalizations.of(context).category,
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
@@ -172,7 +175,7 @@ class _CustomItemFormBottomSheetState
                     },
                     loading: () => const CircularProgressIndicator(),
                     error: (error, stack) => Text(
-                      'ত্রুটি হয়েছে',
+                      JhuriLocalizations.of(context).errorOccurred,
                       style: TextStyle(color: colorScheme.error),
                     ),
                   ),
@@ -180,7 +183,7 @@ class _CustomItemFormBottomSheetState
 
                   // Quantity
                   Text(
-                    'পরিমাণ',
+                    JhuriLocalizations.of(context).quantityLabel,
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
@@ -192,18 +195,19 @@ class _CustomItemFormBottomSheetState
                     controller: _quantityController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      hintText: 'পরিমাণ',
+                      hintText:
+                          JhuriLocalizations.of(context).enterQuantityLabel,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.r),
                       ),
                     ),
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'পরিমাণ লিখুন';
+                        return JhuriLocalizations.of(context).enterQuantity;
                       }
                       final quantity = double.tryParse(value);
                       if (quantity == null || quantity <= 0) {
-                        return 'বৈধ পরিমাণ লিখুন';
+                        return JhuriLocalizations.of(context).validQuantity;
                       }
                       return null;
                     },
@@ -212,7 +216,7 @@ class _CustomItemFormBottomSheetState
 
                   // Unit chips
                   Text(
-                    'একক',
+                    JhuriLocalizations.of(context).unitLabel,
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
@@ -265,7 +269,7 @@ class _CustomItemFormBottomSheetState
 
                   // Price (optional)
                   Text(
-                    'মূল্য (ঐচ্ছিক)',
+                    JhuriLocalizations.of(context).priceOptional,
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
@@ -277,7 +281,7 @@ class _CustomItemFormBottomSheetState
                     controller: _priceController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      hintText: 'মূল্য লিখুন',
+                      hintText: JhuriLocalizations.of(context).enterPriceLabel,
                       prefixText: '${JhuriConstants.defaultCurrencySymbol} ',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.r),
@@ -298,13 +302,14 @@ class _CustomItemFormBottomSheetState
                                   Navigator.pop(context);
                                 },
                           style: OutlinedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 16.w, vertical: 16.h),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12.r),
                             ),
                           ),
                           child: Text(
-                            'বাতিল',
+                            JhuriLocalizations.of(context).cancel,
                             style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w600,
@@ -320,7 +325,8 @@ class _CustomItemFormBottomSheetState
                           style: ElevatedButton.styleFrom(
                             backgroundColor: colorScheme.primary,
                             foregroundColor: colorScheme.onPrimary,
-                            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 16.w, vertical: 16.h),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12.r),
                             ),
@@ -335,7 +341,7 @@ class _CustomItemFormBottomSheetState
                                   ),
                                 )
                               : Text(
-                                  'সংরক্ষণ করুন',
+                                  JhuriLocalizations.of(context).save,
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
@@ -390,7 +396,8 @@ class _CustomItemFormBottomSheetState
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('ত্রুটি হয়েছে: $e'),
+            content: Text(
+                '${JhuriLocalizations.of(context).errorWithSuffixDynamic}$e'),
             backgroundColor: Theme.of(context).colorScheme.error,
           ),
         );

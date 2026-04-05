@@ -517,6 +517,21 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
   - ✅ Compatibility: No conflicts with existing ekush_ponji app or shared packages
   - ✅ Architecture: Viewmodel properly isolated from l10n, screen handles all string resolution
 
+- **Bottom Sheet L10n Refactoring Complete (2026-04-06):**
+  - ✅ STEP 1: Audited custom_item_form_bottom_sheet.dart and custom_category_form_bottom_sheet.dart for hardcoded strings
+  - ✅ STEP 2: Added 21 missing l10n keys to all three localization files:
+    - addNewItem, itemNameBanglaRequired, itemNameEnglishOptional, category, quantityLabel, enterQuantityLabel, unitLabel, priceOptional, enterPriceLabel, errorWithSuffixDynamic, createNewCategoryForm, categoryNameRequired, categoryNameHint, englishNameOptional, englishNameHint, emojiIcon, addOtherEmoji, typeEmoji, categorySavedSuccess, errorWithSuffixDynamicCategory
+  - ✅ STEP 3a: Replaced all hardcoded strings in custom_item_form_bottom_sheet.dart with JhuriLocalizations.of(context) calls
+  - ✅ STEP 3b: Replaced all hardcoded strings in custom_category_form_bottom_sheet.dart with JhuriLocalizations.of(context) calls
+  - ✅ Analysis: All three analyze commands return zero issues (melos run analyze, flutter analyze apps/ekush_ponji, flutter analyze apps/jhuri)
+  - ✅ Compatibility: No conflicts with existing ekush_ponji app or shared packages
+  - ✅ Files Modified: 
+    - apps/jhuri/lib/l10n/jhuri_localizations.dart (abstract keys added)
+    - apps/jhuri/lib/l10n/jhuri_localizations_bn.dart (Bangla implementations added)
+    - apps/jhuri/lib/l10n/jhuri_localizations_en.dart (English implementations added)
+    - apps/jhuri/lib/features/item_template/custom_item_form_bottom_sheet.dart (strings replaced with l10n calls)
+    - apps/jhuri/lib/features/category/custom_category_form_bottom_sheet.dart (strings replaced with l10n calls)
+
 - **Localization Refactoring Complete (2026-04-05):**
   - ✅ STEP 1: Audited create_edit_list_screen.dart and create_edit_list_viewmodel.dart for hardcoded strings
   - ✅ STEP 2: Added 6 missing l10n keys to all three localization files:

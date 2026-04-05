@@ -670,6 +670,28 @@ abstract class JhuriLocalizations extends AppLocalizations
   String get validPrice;
   String get featureComingSoonCategory;
   String get errorWithSuffix;
+
+  // Missing keys from bottom sheet forms
+  String get addNewItem;
+  String get itemNameBanglaRequired;
+  String get itemNameEnglishOptional;
+  String get category;
+  String get quantityLabel;
+  String get enterQuantityLabel;
+  String get unitLabel;
+  String get priceOptional;
+  String get enterPriceLabel;
+  String get errorWithSuffixDynamic;
+  String get createNewCategoryForm;
+  String get categoryNameRequired;
+  String get categoryNameHint;
+  String get englishNameOptional;
+  String get englishNameHint;
+  String get emojiIcon;
+  String get addOtherEmoji;
+  String get typeEmoji;
+  String get categorySavedSuccess;
+  String get errorWithSuffixDynamicCategory;
 }
 
 class JhuriLocalizationsDelegate

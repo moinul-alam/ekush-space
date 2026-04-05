@@ -1468,4 +1468,65 @@ class JhuriLocalizationsBn extends JhuriLocalizations {
 
   @override
   String get errorWithSuffix => 'ত্রুটি: ';
+
+  // Missing keys from bottom sheet forms
+  @override
+  String get addNewItem => 'নতুন আইটেম যোগ করুন';
+
+  @override
+  String get itemNameBanglaRequired => 'আইটেমের নাম (বাংলা) *';
+
+  @override
+  String get itemNameEnglishOptional => 'আইটেমের নাম (ইংরেজি)';
+
+  @override
+  String get category => 'ক্যাটাগরি';
+
+  @override
+  String get quantityLabel => 'পরিমাণ';
+
+  @override
+  String get enterQuantityLabel => 'পরিমাণ';
+
+  @override
+  String get unitLabel => 'একক';
+
+  @override
+  String get priceOptional => 'মূল্য (ঐচ্ছিক)';
+
+  @override
+  String get enterPriceLabel => 'মূল্য লিখুন';
+
+  @override
+  String get errorWithSuffixDynamic => 'ত্রুটি হয়েছে: ';
+
+  @override
+  String get createNewCategoryForm => 'নতুন ক্যাটাগরি তৈরি';
+
+  @override
+  String get categoryNameRequired => 'ক্যাটাগরির নাম *';
+
+  @override
+  String get categoryNameHint => 'যেমন: ফলমূল';
+
+  @override
+  String get englishNameOptional => 'ইংরেজি নাম';
+
+  @override
+  String get englishNameHint => 'যেমন: Fruits';
+
+  @override
+  String get emojiIcon => 'ইমোজি আইকন';
+
+  @override
+  String get addOtherEmoji => 'অন্য ইমোজি যোগ করুন';
+
+  @override
+  String get typeEmoji => 'ইমোজি টাইপ করুন';
+
+  @override
+  String get categorySavedSuccess => 'ক্যাটাগরি সংরক্ষণ হয়েছে';
+
+  @override
+  String get errorWithSuffixDynamicCategory => 'ত্রুটি: ';
 }
