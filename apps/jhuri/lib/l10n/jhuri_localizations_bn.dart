@@ -1657,4 +1657,23 @@ class JhuriLocalizationsBn extends JhuriLocalizations {
 
   @override
   String get selectLanguageDescription => 'আপনার পছন্দের ভাষা নির্বাচন করুন';
+
+  // Additional missing keys for NoListWidget
+  @override
+  String get noListYetTitle => 'এখনো কোনো বাজারের ফর্দ নেই';
+
+  @override
+  String get noListYetSubtitle => 'নিচের বাটনে ট্যাপ করে প্রথম ফর্দ তৈরি করুন';
+
+  @override
+  String get howToUseTitle => 'কীভাবে ব্যবহার করবেন';
+
+  @override
+  String get howToStep1 => '+ বাটনে ট্যাপ করে নতুন ফর্দ তৈরি করুন';
+
+  @override
+  String get howToStep2 => 'ক্যাটাগরি থেকে আইটেম বেছে নিন';
+
+  @override
+  String get howToStep3 => 'বাজারে গিয়ে একে একে টিক দিন';
 }

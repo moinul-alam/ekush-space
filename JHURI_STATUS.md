@@ -8,7 +8,7 @@
 
 ## Current State
 
-**Date:** 2026-04-05
+**Date:** 2026-04-26
 **Active Branch:** jhuri
 **Main Branch:** clean, stable, fully restored
 **Doc 1 (Restoration Guide):** COMPLETE — archived
@@ -28,7 +28,7 @@
 | ekush_ads | ✅ Clean |
 | ekush_notifications | ✅ Clean |
 | ekush_share | ✅ Clean |
-| apps/jhuri | ✅ Phase 4 Complete + Localization Refactoring — settings, notifications, share-as-image, shared header widget, localization split into 3 files with EkushCommonLocalizations mixin |
+| apps/jhuri | ✅ Phase 4 Complete + Localization Refactoring + Home Screen Modularization — settings, notifications, share-as-image, shared header widget, localization split into 3 files with EkushCommonLocalizations mixin, home screen widgets extracted to modular structure |
 
 **melos run analyze:** No issues (zero warnings)
 **flutter analyze apps/ekush_ponji:** No issues
@@ -496,6 +496,31 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
   - ✅ Analysis: All three commands return zero issues (melos run analyze, flutter analyze apps/ekush_ponji, flutter analyze apps/jhuri)
   - ✅ Compatibility: No conflicts with existing ekush_ponji app or shared packages
   - ✅ Home screen is now fully MVVM compliant per audit requirements
+
+- **Home Screen Modularization Complete (2026-04-26):**
+  - ✅ STEP 3: Added missing l10n keys to all three localization files (jhuri_localizations.dart, jhuri_localizations_bn.dart, jhuri_localizations_en.dart)
+  - ✅ STEP 3: Added keys: noListYetTitle, noListYetSubtitle, howToUseTitle, howToStep1, howToStep2, howToStep3
+  - ✅ STEP 1A: Created widgets folder: apps/jhuri/lib/features/shopping_list/widgets/
+  - ✅ STEP 1A: Created HomeGreeterWidget with time-based greeting and Bangla date formatting
+  - ✅ STEP 1B: Extracted HomeListCardWidget from home_screen.dart with provider-based item fetching
+  - ✅ STEP 1C: Created NoListWidget empty state widget with comprehensive how-to guide
+  - ✅ STEP 2: Updated home_screen.dart to use new widgets and removed extracted methods
+  - ✅ STEP 2: Added HomeGreeterWidget as first item in scrollable body (always visible)
+  - ✅ STEP 2: Replaced _buildListCard with HomeListCardWidget
+  - ✅ STEP 2: Replaced _buildEmptyState with NoListWidget
+  - ✅ STEP 2: Removed extracted methods: _buildListCard, _buildEmptyState, _buildCompletionIndicator, _buildItemsPreview, _formatDateForDisplay, _buildTipItem
+  - ✅ New Files Created:
+    - apps/jhuri/lib/features/shopping_list/widgets/home_greeter_widget.dart
+    - apps/jhuri/lib/features/shopping_list/widgets/home_list_card_widget.dart
+    - apps/jhuri/lib/features/shopping_list/widgets/no_list_widget.dart
+  - ✅ Files Modified:
+    - apps/jhuri/lib/features/home/home_screen.dart (updated to use widgets, removed extracted methods)
+    - apps/jhuri/lib/l10n/jhuri_localizations.dart (added abstract keys)
+    - apps/jhuri/lib/l10n/jhuri_localizations_bn.dart (added Bangla implementations)
+    - apps/jhuri/lib/l10n/jhuri_localizations_en.dart (added English implementations)
+  - ✅ Verification: All three analysis commands return zero issues
+  - ✅ Compatibility: No conflicts with existing ekush_ponji app or shared packages
+  - ✅ Architecture: Home screen now follows modular widget structure for improved maintainability
 
 - **ScreenUtil Value Conversions — Final Batch Complete (2026-04-05):**
   - ✅ STEP 1: Fixed remaining hardcoded values in 7 files per specification

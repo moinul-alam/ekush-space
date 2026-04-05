@@ -1656,4 +1656,24 @@ class JhuriLocalizationsEn extends JhuriLocalizations {
 
   @override
   String get selectLanguageDescription => 'Select your preferred language';
+
+  // Additional missing keys for NoListWidget
+  @override
+  String get noListYetTitle => 'No grocery list yet';
+
+  @override
+  String get noListYetSubtitle =>
+      'Tap the button below to create your first list';
+
+  @override
+  String get howToUseTitle => 'How to use';
+
+  @override
+  String get howToStep1 => 'Tap + to create a new grocery list';
+
+  @override
+  String get howToStep2 => 'Browse categories and select items';
+
+  @override
+  String get howToStep3 => 'Check off items as you shop';
 }

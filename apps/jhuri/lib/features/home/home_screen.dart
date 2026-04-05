@@ -10,6 +10,9 @@ import 'package:ekush_ads/ekush_ads.dart';
 import '../../../l10n/jhuri_localizations.dart';
 import '../shopping_list/home_providers.dart';
 import '../shopping_list/home_viewmodel.dart';
+import '../shopping_list/widgets/home_greeter_widget.dart';
+import '../shopping_list/widgets/home_list_card_widget.dart';
+import '../shopping_list/widgets/no_list_widget.dart';
 import '../category/custom_category_form_bottom_sheet.dart';
 import '../../shared/widgets/jhuri_app_header.dart';
 
@@ -84,115 +87,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       );
     }
 
-    if (!homeListsData.hasAnyLists) {
-      return _buildEmptyState(colorScheme, l10n);
-    }
-
-    return _buildListsView(homeListsData, colorScheme, l10n);
-  }
-
-  Widget _buildEmptyState(ColorScheme colorScheme, JhuriLocalizations l10n) {
     return SingleChildScrollView(
-      child: Center(
-        child: Padding(
-          padding: EdgeInsets.all(32.0.w),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // ── Empty State Icon ──────────────────────
-              // Container(
-              //   width: 120,
-              //   height: 120,
-              //   decoration: BoxDecoration(
-              //     color: colorScheme.surfaceContainerHighest,
-              //     borderRadius: BorderRadius.circular(24),
-              //   ),
-              //   child: ClipRRect(
-              //     borderRadius: BorderRadius.circular(24),
-              //     child: Image.asset(
-              //       'assets/images/app_logo.png',
-              //       width: 120,
-              //       height: 120,
-              //       fit: BoxFit.cover,
-              //     ),
-              //   ),
-              // ),
+      child: Column(
+        children: [
+          // Always show greeter widget
+          const HomeGreeterWidget(),
 
-              SizedBox(height: 32.h),
-
-              // ── Empty State Title ────────────────────
-              Text(
-                l10n.homeEmptyTitle,
-                style: TextStyle(
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.w600,
-                  color: colorScheme.onSurface,
-                ),
-                textAlign: TextAlign.center,
-              ),
-
-              const SizedBox(height: 12),
-
-              // ── Empty State Message ──────────────────
-              Text(
-                l10n.homeEmptyMessage,
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  color: colorScheme.onSurface.withValues(alpha: 0.7),
-                ),
-                textAlign: TextAlign.center,
-              ),
-
-              SizedBox(height: 48.h),
-
-              // ── Quick Start Tips ────────────────────
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(20.w),
-                decoration: BoxDecoration(
-                  color: colorScheme.primary.withValues(alpha: 0.05),
-                  borderRadius: BorderRadius.circular(12.r),
-                  border: Border.all(
-                    color: colorScheme.primary.withValues(alpha: 0.2),
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      l10n.quickStart,
-                      style: TextStyle(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w600,
-                        color: colorScheme.primary,
-                      ),
-                    ),
-                    SizedBox(height: 16.h),
-                    _buildTipItem(
-                      context,
-                      icon: Icons.add_circle_outline,
-                      title: l10n.newList,
-                      description: l10n.clickButtonToCreateList,
-                    ),
-                    const SizedBox(height: 12),
-                    _buildTipItem(
-                      context,
-                      icon: Icons.category_outlined,
-                      title: l10n.categories,
-                      description: l10n.selectCategoryDescription,
-                    ),
-                    const SizedBox(height: 12),
-                    _buildTipItem(
-                      context,
-                      icon: Icons.shopping_cart_outlined,
-                      title: l10n.addItem,
-                      description: l10n.createListDescription,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+          // Show either empty state or lists
+          if (!homeListsData.hasAnyLists)
+            NoListWidget(onCreateList: () => context.push('/categories'))
+          else
+            _buildListsView(homeListsData, colorScheme, l10n),
+        ],
       ),
     );
   }
@@ -215,11 +121,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget _buildListsGrid(List<ShoppingList> lists, ColorScheme colorScheme,
       JhuriLocalizations l10n) {
     if (lists.isEmpty) {
-      return _buildEmptyState(colorScheme, l10n);
+      return const SizedBox.shrink();
     }
 
     return GridView.builder(
-      padding: EdgeInsets.zero,
+      padding: const EdgeInsets.all(16.0),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 12,
@@ -228,205 +134,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
       itemCount: lists.length,
       itemBuilder: (context, index) {
-        return _buildListCard(lists[index], colorScheme, l10n);
-      },
-    );
-  }
-
-  Widget _buildListCard(
-      ShoppingList list, ColorScheme colorScheme, JhuriLocalizations l10n) {
-    return Container(
-      decoration: BoxDecoration(
-        color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: colorScheme.shadow.withValues(alpha: 0.1),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(12),
+        final list = lists[index];
+        return HomeListCardWidget(
+          list: list,
           onTap: () => context.push('/list/${list.id}'),
           onLongPress: () => _showListOptions(context, list, l10n),
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Title
-                Text(
-                  list.title.isEmpty ? l10n.shoppingList : list.title,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: colorScheme.onSurface,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 8),
-
-                // Items preview (mock data for now - will be implemented with actual items)
-                Expanded(
-                  child: _buildItemsPreview(list.id, colorScheme, l10n),
-                ),
-
-                const SizedBox(height: 8),
-
-                // Footer with date and completion
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Date
-                    Text(
-                      _formatDateForDisplay(list.buyDate, l10n),
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: colorScheme.onSurface.withValues(alpha: 0.6),
-                      ),
-                    ),
-
-                    // Completion indicator
-                    _buildCompletionIndicator(list.id, colorScheme),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCompletionIndicator(int listId, ColorScheme colorScheme) {
-    final itemsAsync = ref.watch(listItemsProvider(listId));
-
-    return itemsAsync.when(
-      loading: () => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-        decoration: BoxDecoration(
-          color: colorScheme.primary.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Text(
-          '...',
-          style: TextStyle(
-            fontSize: 10,
-            fontWeight: FontWeight.w600,
-            color: colorScheme.primary,
-          ),
-        ),
-      ),
-      error: (_, __) => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-        decoration: BoxDecoration(
-          color: colorScheme.error.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Text(
-          '?',
-          style: TextStyle(
-            fontSize: 10,
-            fontWeight: FontWeight.w600,
-            color: colorScheme.error,
-          ),
-        ),
-      ),
-      data: (items) {
-        final boughtCount = items.where((item) => item.isBought).length;
-        final totalCount = items.length;
-
-        return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-          decoration: BoxDecoration(
-            color: colorScheme.primary.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Text(
-            '$boughtCount/$totalCount',
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-              color: colorScheme.primary,
-            ),
-          ),
         );
       },
     );
-  }
-
-  Widget _buildItemsPreview(
-      int listId, ColorScheme colorScheme, JhuriLocalizations l10n) {
-    final itemsAsync = ref.watch(listItemsProvider(listId));
-
-    return itemsAsync.when(
-      loading: () => Center(
-        child: SizedBox(
-          width: 16.w,
-          height: 16.h,
-          child: CircularProgressIndicator(strokeWidth: 2),
-        ),
-      ),
-      error: (_, __) => Text(
-        l10n.error,
-        style: TextStyle(
-          fontSize: 10,
-          color: colorScheme.error,
-        ),
-      ),
-      data: (items) {
-        if (items.isEmpty) {
-          return Text(
-            l10n.noItems,
-            style: TextStyle(
-              fontSize: 13,
-              color: colorScheme.onSurface.withValues(alpha: 0.5),
-            ),
-          );
-        }
-
-        final displayItems = items.take(3).toList();
-        final hasMore = items.length > 3;
-
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ...displayItems.map((item) => Padding(
-                  padding: const EdgeInsets.only(bottom: 2),
-                  child: Text(
-                    '• ${item.nameBangla}',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: colorScheme.onSurface.withValues(alpha: 0.7),
-                    ),
-                  ),
-                )),
-            if (hasMore)
-              Text(l10n.moreItems.replaceAll('${0}', '${items.length - 3}')),
-          ],
-        );
-      },
-    );
-  }
-
-  String _formatDateForDisplay(DateTime date, JhuriLocalizations l10n) {
-    final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
-    final tomorrow = today.add(const Duration(days: 1));
-    final checkDate = DateTime(date.year, date.month, date.day);
-
-    if (checkDate.isAtSameMomentAs(today)) {
-      return l10n.today;
-    } else if (checkDate.isAtSameMomentAs(tomorrow)) {
-      return l10n.tomorrow;
-    } else {
-      return '${date.day} ${l10n.getMonthName(date.month)} ${date.year}';
-    }
   }
 
   void _showListOptions(
@@ -551,57 +266,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildTipItem(
-    BuildContext context, {
-    required IconData icon,
-    required String title,
-    required String description,
-  }) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Row(
-      children: [
-        Container(
-          width: 32,
-          height: 32,
-          decoration: BoxDecoration(
-            color: colorScheme.primary,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(
-            icon,
-            size: 16,
-            color: Colors.white,
-          ),
-        ),
-        SizedBox(width: 12.w),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: colorScheme.onSurface,
-                ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                description,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: colorScheme.onSurface.withValues(alpha: 0.6),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 

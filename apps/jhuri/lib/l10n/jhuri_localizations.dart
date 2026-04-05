@@ -747,6 +747,12 @@ abstract class JhuriLocalizations extends AppLocalizations
   String get noItemsFound;
   String get tryDifferentKeywords;
   String get selectLanguageDescription;
+  String get noListYetTitle;
+  String get noListYetSubtitle;
+  String get howToUseTitle;
+  String get howToStep1;
+  String get howToStep2;
+  String get howToStep3;
 }
 
 class JhuriLocalizationsDelegate
