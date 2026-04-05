@@ -15,7 +15,7 @@ class OnboardingState {
 
   const OnboardingState({
     this.selectedLanguage = 'bangla',
-    this.selectedTheme = ThemeMode.system,
+    this.selectedTheme = ThemeMode.light,
     this.isCompleting = false,
   });
 

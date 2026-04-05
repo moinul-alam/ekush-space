@@ -180,33 +180,28 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
 
             // Phase 2: Animated positioned elements
             if (_phase1Complete) ...[
-              // Logo and title centered at top
+              // Logo and title in a single row at top
               AnimatedPositioned(
                   duration: Duration(milliseconds: 800),
                   curve: Curves.easeOutCubic,
-                  top: _phase1Complete ? 24.h : (screenHeight / 2 - 72.h),
-                  left: _phase1Complete
-                      ? (screenWidth / 2 - 60.w)
-                      : (screenWidth / 2 - 60.w),
-                  child: Image.asset(
-                    'assets/images/app_logo.png',
-                    height: _phase1Complete ? 60.h : 120.h,
-                    width: _phase1Complete ? 60.w : 120.w,
+                  top: _phase1Complete ? 24.h : (screenHeight / 2 - 60.h),
+                  left: _phase1Complete ? 24.w : (screenWidth / 2 - 60.w),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Image.asset(
+                        'assets/images/app_logo.png',
+                        height: _phase1Complete ? 60.h : 120.h,
+                        width: _phase1Complete ? 60.w : 120.w,
+                      ),
+                      SizedBox(width: 16.w),
+                      AnimatedOpacity(
+                          duration: Duration(milliseconds: 600),
+                          opacity: _phase1Complete ? 1.0 : 0.0,
+                          child: Image.asset(titleImagePath,
+                              height: _phase1Complete ? 36.h : 48.h)),
+                    ],
                   )),
-
-              // Title image
-              AnimatedPositioned(
-                  duration: Duration(milliseconds: 800),
-                  curve: Curves.easeOutCubic,
-                  top: _phase1Complete ? 92.h : (screenHeight / 2 + 72.h),
-                  left: _phase1Complete
-                      ? (screenWidth / 2 - 96.w)
-                      : (screenWidth / 2 - 96.w),
-                  child: AnimatedOpacity(
-                      duration: Duration(milliseconds: 600),
-                      opacity: _phase1Complete ? 1.0 : 0.0,
-                      child: Image.asset(titleImagePath,
-                          height: _phase1Complete ? 36.h : 48.h))),
             ],
 
             // Content section (fades in after animation)
