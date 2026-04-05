@@ -43,3 +43,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Ad configuration (contains sensitive AdMob IDs)
+lib/app/config/ad_config.dart

@@ -5,17 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
-import 'package:ekush_models/ekush_models.dart';
 import 'package:ekush_ads/ekush_ads.dart';
 import 'app/app.dart';
 import 'app/config/ad_config.dart';
-import 'config/jhuri_constants.dart';
+import 'app/config/app_initializer.dart';
 import 'providers/database_provider.dart';
 import 'providers/settings_providers.dart';
-import 'services/seed_service.dart';
 
 // Simple error widgets for now
 class AppErrorWidget extends StatelessWidget {
@@ -117,10 +112,6 @@ class AppInitErrorScreen extends StatelessWidget {
 
 Future<void> main() async {
   runZonedGuarded(() async {
-    // Initialize timezone database before any other async operations
-    tz.initializeTimeZones();
-    tz.setLocalLocation(tz.getLocation('Asia/Dhaka'));
-
     final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
     // Only preserve splash on native platforms, not web
@@ -133,18 +124,18 @@ Future<void> main() async {
       return AppErrorWidget(details: details);
     };
 
-    // ── Attempt core initialization ───────────────────────
-    final initData = await _initializeCore();
+    // ── Attempt core initialization using JhuriAppInitializer ───────────────────────
+    final initData = await JhuriAppInitializer.initializeCore();
 
     runApp(
       ProviderScope(
         overrides: [
           // Override the database provider with the already-initialized instance
           jhuriDatabaseProvider
-              .overrideWithValue(initData['db'] as JhuriDatabase),
+              .overrideWithValue(initData.database),
           // Override SharedPreferences provider
           sharedPreferencesProvider
-              .overrideWithValue(initData['prefs'] as SharedPreferences),
+              .overrideWithValue(initData.sharedPreferences),
           // Override AdService provider with Jhuri AdConfig
           adServiceProvider.overrideWith((ref) {
             final service = AdService(ref, AdConfig.toEkushAdConfig());
@@ -153,7 +144,7 @@ Future<void> main() async {
           }),
         ],
         child: JhuriApp(
-          onboardingComplete: initData['onboardingComplete'] as bool,
+          onboardingComplete: initData.onboardingComplete,
         ),
       ),
     );
@@ -170,22 +161,3 @@ Future<void> main() async {
   });
 }
 
-Future<Map<String, dynamic>> _initializeCore() async {
-  // 1. SharedPreferences
-  final prefs = await SharedPreferences.getInstance();
-  final onboardingComplete =
-      prefs.getBool(JhuriConstants.storageKeyOnboardingComplete) ?? false;
-
-  // 2. Initialize Drift database
-  final db = JhuriDatabase();
-
-  // 3. Run seed if needed
-  final seedService = SeedService(db);
-  await seedService.seedDatabaseIfNeeded();
-
-  return {
-    'onboardingComplete': onboardingComplete,
-    'db': db,
-    'prefs': prefs,
-  };
-}
