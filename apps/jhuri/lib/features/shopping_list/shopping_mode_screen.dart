@@ -8,6 +8,7 @@ import '../../providers/database_provider.dart';
 import '../../services/share_card_service.dart';
 import 'shopping_mode_viewmodel.dart';
 import '../../shared/widgets/jhuri_app_header.dart';
+import '../../l10n/jhuri_localizations.dart';
 
 class ShoppingModeScreen extends ConsumerStatefulWidget {
   final int listId;
@@ -30,14 +31,15 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final l10n = JhuriLocalizations.of(context);
     final viewState = ref.watch(shoppingModeViewModelProvider);
     final viewModel = ref.read(shoppingModeViewModelProvider.notifier);
 
     return Scaffold(
       appBar: JhuriAppHeader(
         title: viewModel.list?.title.isEmpty == true
-            ? 'বাজারের ফর্দ'
-            : viewModel.list?.title ?? 'বাজারের ফর্দ',
+            ? l10n.shoppingListDefault
+            : viewModel.list?.title ?? l10n.shoppingListDefault,
         actions: [
           IconButton(
             onPressed: () => _showShareOptions(context, viewModel),
@@ -56,6 +58,8 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
 
   Widget _buildBody(ShoppingModeViewModel viewModel, ViewState viewState,
       ColorScheme colorScheme) {
+    final l10n = JhuriLocalizations.of(context);
+
     if (viewState is ViewStateLoading) {
       return const Center(
         child: CircularProgressIndicator(),
@@ -74,7 +78,7 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
             ),
             SizedBox(height: 16.h),
             Text(
-              'ত্রুটি হয়েছে',
+              l10n.errorOccurred,
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
@@ -83,7 +87,7 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
             ),
             SizedBox(height: 8.h),
             Text(
-              'তালিকা লোড করতে সমস্যা হয়েছে',
+              l10n.failedToLoadList,
               style: TextStyle(
                 fontSize: 14.sp,
                 color: Colors.grey[600],
@@ -92,8 +96,9 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
             ),
             SizedBox(height: 24.h),
             ElevatedButton(
-              onPressed: () => viewModel.loadList(widget.listId),
-              child: const Text('আবার চেষ্টা করুন'),
+              onPressed: () => viewModel.loadList(widget.listId,
+                  listNotFoundText: l10n.listNotFound),
+              child: Text(l10n.tryAgain),
             ),
           ],
         ),
@@ -133,6 +138,8 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
   }
 
   Widget _buildEmptyState(ColorScheme colorScheme) {
+    final l10n = JhuriLocalizations.of(context);
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -144,7 +151,7 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
           ),
           SizedBox(height: 16.h),
           Text(
-            'কোন আইটেম নির্বাচিত হয়নি',
+            l10n.noItemsSelected,
             style: TextStyle(
               fontSize: 18.sp,
               fontWeight: FontWeight.w600,
@@ -154,7 +161,7 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
           SizedBox(height: 24.h),
           ElevatedButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('ফর্দে ফিরুন'),
+            child: Text(l10n.returnToList),
           ),
         ],
       ),
@@ -163,6 +170,8 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
 
   Widget _buildProgressHeader(
       ShoppingModeViewModel viewModel, ColorScheme colorScheme) {
+    final l10n = JhuriLocalizations.of(context);
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(16.w),
@@ -199,7 +208,11 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
               ),
               SizedBox(width: 8.w),
               Text(
-                viewModel.progressText,
+                viewModel.getProgressText(
+                  l10n.noItems,
+                  l10n.itemsBoughtCount(
+                      viewModel.boughtItems, viewModel.totalItems),
+                ),
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
@@ -223,6 +236,8 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
 
   Widget _buildItemCard(
       ListItem item, ShoppingModeViewModel viewModel, ColorScheme colorScheme) {
+    final l10n = JhuriLocalizations.of(context);
+
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
       decoration: BoxDecoration(
@@ -339,13 +354,13 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                     }
                   },
                   itemBuilder: (context) => [
-                    const PopupMenuItem(
+                    PopupMenuItem(
                       value: 'quantity',
-                      child: Text('পরিমাণ পরিবর্তন'),
+                      child: Text(l10n.changeQuantity),
                     ),
-                    const PopupMenuItem(
+                    PopupMenuItem(
                       value: 'delete',
-                      child: Text('মুছে ফেলুন'),
+                      child: Text(l10n.deleteItemText),
                     ),
                   ],
                 ),
@@ -359,6 +374,8 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
 
   Widget _buildBottomActions(BuildContext context,
       ShoppingModeViewModel viewModel, ColorScheme colorScheme) {
+    final l10n = JhuriLocalizations.of(context);
+
     if (viewModel.allItemsBought && viewModel.totalItems > 0) {
       return Container(
         width: double.infinity,
@@ -374,7 +391,7 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
             ),
           ),
           child: Text(
-            'কেনাকাটা সম্পন্ন করুন',
+            l10n.markShoppingComplete,
             style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.w600,
@@ -389,11 +406,13 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
 
   void _showQuantityDialog(BuildContext context, ListItem item,
       ShoppingModeViewModel viewModel, ColorScheme colorScheme) {
+    final l10n = JhuriLocalizations.of(context);
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(
-          'পরিমাণ পরিবর্তন',
+          l10n.changeQuantity,
           style: TextStyle(
             fontSize: 18.sp,
             fontWeight: FontWeight.w600,
@@ -420,7 +439,8 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                       Navigator.pop(context);
                       if (item.quantity > 0.1) {
                         viewModel.updateItem(item.id,
-                            quantity: item.quantity - 0.1);
+                            quantity: item.quantity - 0.1,
+                            defaultUnit: l10n.defaultUnitKg);
                       }
                     },
                     style: ElevatedButton.styleFrom(
@@ -471,7 +491,8 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                     onPressed: () {
                       Navigator.pop(context);
                       viewModel.updateItem(item.id,
-                          quantity: item.quantity + 0.1);
+                          quantity: item.quantity + 0.1,
+                          defaultUnit: l10n.defaultUnitKg);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor:
@@ -493,7 +514,7 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('সম্পন্ন'),
+            child: Text(l10n.done),
           ),
         ],
       ),
@@ -502,22 +523,25 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
 
   void _showDeleteConfirmation(BuildContext context, ListItem item,
       ShoppingModeViewModel viewModel, ColorScheme colorScheme) {
+    final l10n = JhuriLocalizations.of(context);
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('মুছে ফেলার নিশ্চিততা'),
-        content: Text('আপনি "${item.nameBangla}" মুছে ফেলার নিশ্চিততা?'),
+        title: Text(l10n.deleteConfirmation),
+        content: Text(l10n.confirmDeleteItem(item.nameBangla)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('বাতিল'),
+            child: Text(l10n.cancel),
           ),
           TextButton(
             onPressed: () {
               Navigator.pop(context);
               viewModel.deleteItem(item.id);
             },
-            child: const Text('মুছুন', style: TextStyle(color: Colors.red)),
+            child: Text(l10n.deleteItemText,
+                style: const TextStyle(color: Colors.red)),
           ),
         ],
       ),

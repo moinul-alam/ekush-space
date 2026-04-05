@@ -1340,4 +1340,55 @@ class JhuriLocalizationsEn extends JhuriLocalizations {
 
   @override
   String get listNotFound => 'List not found';
+
+  // Shopping Mode Screen
+  @override
+  String get shoppingListDefault => 'Shopping List';
+
+  @override
+  String get failedToLoadList => 'Failed to load list';
+
+  @override
+  String get tryAgain => 'Try Again';
+
+  @override
+  String get noItemsSelected => 'No items selected';
+
+  @override
+  String get returnToList => 'Return to List';
+
+  @override
+  String get changeQuantity => 'Change Quantity';
+
+  @override
+  String get deleteItemText => 'Delete';
+
+  @override
+  String get markShoppingComplete => 'Mark Shopping Complete';
+
+  @override
+  String get deleteConfirmation => 'Delete Confirmation';
+
+  @override
+  String confirmDeleteItem(String itemName) =>
+      'Are you sure you want to delete "$itemName"?';
+
+  @override
+  String itemsBoughtCount(int bought, int total) =>
+      '$bought/$total items bought';
+
+  @override
+  String get shoppingCompleted => 'Completed';
+
+  @override
+  String get shoppingAlmostComplete => 'Almost Complete';
+
+  @override
+  String get shoppingHalfComplete => 'Half Complete';
+
+  @override
+  String get shoppingInProgress => 'In Progress';
+
+  @override
+  String get defaultUnitKg => 'kg';
 }

@@ -39,14 +39,14 @@ class ShoppingModeViewModel extends BaseViewModel {
   }
 
   /// Load shopping list
-  Future<void> loadList(int listId) async {
+  Future<void> loadList(int listId, {String? listNotFoundText}) async {
     _isLoading = true;
     state = ViewStateLoading();
 
     try {
       final list = await _shoppingListRepository.getById(listId);
       if (list == null) {
-        state = ViewStateError('List not found');
+        state = ViewStateError(listNotFoundText ?? 'List not found');
         return;
       }
 
@@ -74,22 +74,13 @@ class ShoppingModeViewModel extends BaseViewModel {
 
   /// Update item quantity and unit
   Future<void> updateItem(int itemId,
-      {double? quantity, String? unit, double? price}) async {
+      {double? quantity,
+      String? unit,
+      double? price,
+      String? defaultUnit}) async {
     try {
       await _listItemRepository.updateQuantityAndUnit(
-          itemId, quantity ?? 1.0, unit ?? 'কেজি');
-      await _loadList();
-    } catch (e) {
-      state = ViewStateError(e.toString());
-    }
-  }
-
-  /// Mark list as completed
-  Future<void> markListAsCompleted() async {
-    if (_list == null) return;
-
-    try {
-      await _shoppingListRepository.markAsCompleted(_list!.id);
+          itemId, quantity ?? 1.0, unit ?? defaultUnit ?? 'কেজি');
       await _loadList();
     } catch (e) {
       state = ViewStateError(e.toString());
@@ -119,22 +110,39 @@ class ShoppingModeViewModel extends BaseViewModel {
     }
   }
 
+  /// Mark list as completed
+  Future<void> markListAsCompleted() async {
+    if (_list == null) return;
+
+    try {
+      await _shoppingListRepository.markAsCompleted(_list!.id);
+      await _loadList();
+    } catch (e) {
+      state = ViewStateError(e.toString());
+    }
+  }
+
   /// Check if all items are bought
   bool get allItemsBought => unboughtItems == 0;
 
   /// Get progress text
-  String get progressText {
-    if (totalItems == 0) return 'কোন আইটেম নির্ব';
-    return '$boughtItems/$totalItems টি আইটেম নির্ব করা হয়েছে';
+  String getProgressText(String noItemsText, String itemsBoughtText) {
+    if (totalItems == 0) return noItemsText;
+    return itemsBoughtText;
   }
 
   /// Get status text
-  String get statusText {
-    if (totalItems == 0) return 'কোন আইটেম নির্ব';
-    if (completionPercentage >= 100) return 'সম্পন্ন';
-    if (completionPercentage >= 75) return 'প্রায় সম্পন্ন';
-    if (completionPercentage >= 50) return 'অর্ধেক';
-    return 'চলিছ করছেন';
+  String getStatusText(
+      String noItemsText,
+      String completedText,
+      String almostCompleteText,
+      String halfCompleteText,
+      String inProgressText) {
+    if (totalItems == 0) return noItemsText;
+    if (completionPercentage >= 100) return completedText;
+    if (completionPercentage >= 75) return almostCompleteText;
+    if (completionPercentage >= 50) return halfCompleteText;
+    return inProgressText;
   }
 
   /// Get status color

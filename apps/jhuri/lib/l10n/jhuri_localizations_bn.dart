@@ -1339,4 +1339,55 @@ class JhuriLocalizationsBn extends JhuriLocalizations {
 
   @override
   String get listNotFound => 'List not found';
+
+  // Shopping Mode Screen
+  @override
+  String get shoppingListDefault => 'বাজারের ফর্দ';
+
+  @override
+  String get failedToLoadList => 'তালিকা লোড করতে সমস্যা হয়েছে';
+
+  @override
+  String get tryAgain => 'আবার চেষ্টা করুন';
+
+  @override
+  String get noItemsSelected => 'কোন আইটেম নির্বাচিত হয়নি';
+
+  @override
+  String get returnToList => 'ফর্দে ফিরুন';
+
+  @override
+  String get changeQuantity => 'পরিমাণ পরিবর্তন';
+
+  @override
+  String get deleteItemText => 'মুছে ফেলুন';
+
+  @override
+  String get markShoppingComplete => 'কেনাকাটা সম্পন্ন করুন';
+
+  @override
+  String get deleteConfirmation => 'মুছে ফেলার নিশ্চিততা';
+
+  @override
+  String confirmDeleteItem(String itemName) =>
+      'আপনি "$itemName" মুছে ফেলার নিশ্চিততা?';
+
+  @override
+  String itemsBoughtCount(int bought, int total) =>
+      '$bought/$total টি আইটেম নির্ব করা হয়েছে';
+
+  @override
+  String get shoppingCompleted => 'সম্পন্ন';
+
+  @override
+  String get shoppingAlmostComplete => 'প্রায় সম্পন্ন';
+
+  @override
+  String get shoppingHalfComplete => 'অর্ধেক';
+
+  @override
+  String get shoppingInProgress => 'চলিছ করছেন';
+
+  @override
+  String get defaultUnitKg => 'কেজি';
 }

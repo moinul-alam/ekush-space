@@ -623,6 +623,24 @@ abstract class JhuriLocalizations extends AppLocalizations
   String get itemsHeader;
   String get clickToAddItems;
   String get listNotFound;
+
+  // Shopping Mode Screen
+  String get shoppingListDefault;
+  String get failedToLoadList;
+  String get tryAgain;
+  String get noItemsSelected;
+  String get returnToList;
+  String get changeQuantity;
+  String get deleteItemText;
+  String get markShoppingComplete;
+  String get deleteConfirmation;
+  String confirmDeleteItem(String itemName);
+  String itemsBoughtCount(int bought, int total);
+  String get shoppingCompleted;
+  String get shoppingAlmostComplete;
+  String get shoppingHalfComplete;
+  String get shoppingInProgress;
+  String get defaultUnitKg;
 }
 
 class JhuriLocalizationsDelegate
