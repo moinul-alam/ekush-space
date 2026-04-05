@@ -10,6 +10,7 @@ import 'create_edit_list_viewmodel.dart';
 import '../category/category_browser_screen.dart';
 import '../item_template/item_picker_screen.dart';
 import '../../shared/widgets/jhuri_app_header.dart';
+import '../../l10n/jhuri_localizations.dart';
 
 class CreateEditListScreen extends ConsumerStatefulWidget {
   final int? listId;
@@ -26,10 +27,11 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      final l10n = JhuriLocalizations.of(context);
       if (widget.listId != null) {
         ref
             .read(createEditListViewModelProvider.notifier)
-            .initializeForEdit(widget.listId!);
+            .initializeForEdit(widget.listId!, l10n.listNotFound);
       } else {
         ref
             .read(createEditListViewModelProvider.notifier)
@@ -46,7 +48,9 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
 
     return Scaffold(
       appBar: JhuriAppHeader(
-        title: viewModel.isEditMode ? 'ফর্দ সম্পাদনা' : 'নতুন ফর্দ',
+        title: viewModel.isEditMode
+            ? JhuriLocalizations.of(context).editList
+            : JhuriLocalizations.of(context).createList,
         actions: [
           IconButton(
             onPressed: () => Navigator.pop(context),
@@ -62,7 +66,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
               foregroundColor: Colors.white,
               icon: const Icon(Icons.save),
               label: Text(
-                'সংরক্ষণ করুন',
+                JhuriLocalizations.of(context).save,
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
@@ -93,7 +97,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
             ),
             SizedBox(height: 16.h),
             Text(
-              'ত্রুটি হয়েছে',
+              JhuriLocalizations.of(context).errorOccurred,
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
@@ -112,13 +116,15 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
             SizedBox(height: 24.h),
             ElevatedButton(
               onPressed: () {
+                final l10n = JhuriLocalizations.of(context);
                 if (viewModel.isEditMode) {
-                  viewModel.initializeForEdit(widget.listId!);
+                  viewModel.initializeForEdit(
+                      widget.listId!, l10n.listNotFound);
                 } else {
                   viewModel.initializeForCreate();
                 }
               },
-              child: const Text('আবার চেষ্টা করুন'),
+              child: Text(JhuriLocalizations.of(context).retry),
             ),
           ],
         ),
@@ -162,7 +168,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'ফর্দের তথ্য',
+            JhuriLocalizations.of(context).listInfo,
             style: TextStyle(
               fontSize: 18.sp,
               fontWeight: FontWeight.w600,
@@ -175,8 +181,8 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
           TextField(
             onChanged: (value) => viewModel.updateTitle(value),
             decoration: InputDecoration(
-              labelText: 'ফর্দের নাম (ঐচ্ছিক)',
-              hintText: 'উদাহরণ: সাপ্তাহিক বাজার',
+              labelText: JhuriLocalizations.of(context).listTitleOptional,
+              hintText: JhuriLocalizations.of(context).listTitleHint,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.r),
               ),
@@ -189,7 +195,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
           ListTile(
             leading: Icon(Icons.calendar_today, color: colorScheme.primary),
             title: Text(
-              'কেনার তারিখ',
+              JhuriLocalizations.of(context).buyDate,
               style: TextStyle(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w500,
@@ -210,7 +216,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
             value: viewModel.isReminderOn,
             onChanged: (value) => viewModel.updateReminder(value),
             title: Text(
-              'রিমাইন্ডার',
+              JhuriLocalizations.of(context).reminder,
               style: TextStyle(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w500,
@@ -218,8 +224,8 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
             ),
             subtitle: Text(
               viewModel.isReminderOn
-                  ? 'সময়: ${viewModel.formatTime(viewModel.reminderTime)}'
-                  : 'বন্ধ',
+                  ? '${JhuriLocalizations.of(context).timePrefix} ${viewModel.formatTime(viewModel.reminderTime)}'
+                  : JhuriLocalizations.of(context).turnOff,
               style: TextStyle(
                 fontSize: 14.sp,
                 color: colorScheme.onSurface.withValues(alpha: 0.7),
@@ -234,7 +240,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
               child: ListTile(
                 leading: Icon(Icons.access_time, color: colorScheme.primary),
                 title: Text(
-                  'রিমাইন্ডার সময়',
+                  JhuriLocalizations.of(context).reminderTime,
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
@@ -279,7 +285,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'আইটেম (${viewModel.itemCount})',
+                '${JhuriLocalizations.of(context).itemsHeader} (${viewModel.itemCount})',
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
@@ -290,7 +296,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
                 onPressed: () => _navigateToCategoryBrowser(viewModel),
                 icon: const Icon(Icons.add),
                 label: Text(
-                  'আইটেম যোগ করুন',
+                  JhuriLocalizations.of(context).addItem,
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
@@ -317,7 +323,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
                   ),
                   SizedBox(height: 12.h),
                   Text(
-                    'কোন আইটেম যোগ করা হয়নি',
+                    JhuriLocalizations.of(context).noItems,
                     style: TextStyle(
                       fontSize: 16.sp,
                       color: colorScheme.onSurface.withValues(alpha: 0.7),
@@ -325,7 +331,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
                   ),
                   SizedBox(height: 8.h),
                   Text(
-                    'আইটেম যোগ করতে উপরের বাটনে ক্লিক করুন',
+                    JhuriLocalizations.of(context).clickToAddItems,
                     style: TextStyle(
                       fontSize: 12.sp,
                       color: colorScheme.onSurface.withValues(alpha: 0.5),
@@ -463,8 +469,9 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
   Future<void> _saveList(CreateEditListViewModel viewModel) async {
     final messenger = ScaffoldMessenger.of(context);
     final router = GoRouter.of(context);
+    final l10n = JhuriLocalizations.of(context);
     try {
-      final listId = await viewModel.saveList();
+      final listId = await viewModel.saveList(l10n.atLeastOneItem);
       if (listId != -1) {
         ref.read(itemSelectionProvider.notifier).clearSelections();
         ref.invalidate(homeViewModelProvider);
@@ -473,7 +480,10 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
         router.go('/home');
       }
     } catch (e) {
-      messenger.showSnackBar(SnackBar(content: Text('ত্রুটি: $e')));
+      if (mounted) {
+        messenger.showSnackBar(
+            SnackBar(content: Text('${l10n.errorWithMessage} $e')));
+      }
     }
   }
 }

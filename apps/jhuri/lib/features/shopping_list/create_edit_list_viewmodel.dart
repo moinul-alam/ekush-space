@@ -60,13 +60,13 @@ class CreateEditListViewModel extends BaseViewModel {
   }
 
   /// Initialize for editing an existing list
-  Future<void> initializeForEdit(int listId) async {
+  Future<void> initializeForEdit(int listId, String listNotFoundString) async {
     state = ViewStateLoading();
 
     try {
       final list = await _shoppingListRepository.getById(listId);
       if (list == null) {
-        state = ViewStateError('List not found');
+        state = ViewStateError(listNotFoundString);
         return;
       }
 
@@ -135,9 +135,9 @@ class CreateEditListViewModel extends BaseViewModel {
   }
 
   /// Save list (create or update)
-  Future<int> saveList() async {
+  Future<int> saveList(String atLeastOneItemString) async {
     if (_items.isEmpty) {
-      state = ViewStateError('অন্তত একটি আইটেম যোগ করুন');
+      state = ViewStateError(atLeastOneItemString);
       return -1;
     }
 

@@ -615,6 +615,14 @@ abstract class JhuriLocalizations extends AppLocalizations
   String get createNewItem;
   String get listCopy;
   String get listWithCopy;
+
+  // Create/Edit List Screen
+  String get listInfo;
+  String get listTitleOptional;
+  String get timePrefix;
+  String get itemsHeader;
+  String get clickToAddItems;
+  String get listNotFound;
 }
 
 class JhuriLocalizationsDelegate

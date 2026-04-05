@@ -1320,4 +1320,23 @@ class JhuriLocalizationsBn extends JhuriLocalizations {
     }
     return 'বসন্ত';
   }
+
+  // Create/Edit List Screen
+  @override
+  String get listInfo => 'ফর্দের তথ্য';
+
+  @override
+  String get listTitleOptional => 'ফর্দের নাম (ঐচ্ছিক)';
+
+  @override
+  String get timePrefix => 'সময়:';
+
+  @override
+  String get itemsHeader => 'আইটেম';
+
+  @override
+  String get clickToAddItems => 'আইটেম যোগ করতে উপরের বাটনে ক্লিক করুন';
+
+  @override
+  String get listNotFound => 'List not found';
 }

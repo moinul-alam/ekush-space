@@ -1321,4 +1321,23 @@ class JhuriLocalizationsEn extends JhuriLocalizations {
     }
     return 'Spring';
   }
+
+  // Create/Edit List Screen
+  @override
+  String get listInfo => 'List Information';
+
+  @override
+  String get listTitleOptional => 'List Title (Optional)';
+
+  @override
+  String get timePrefix => 'Time:';
+
+  @override
+  String get itemsHeader => 'Items';
+
+  @override
+  String get clickToAddItems => 'Click the button above to add items';
+
+  @override
+  String get listNotFound => 'List not found';
 }
