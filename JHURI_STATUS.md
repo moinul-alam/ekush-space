@@ -79,6 +79,28 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 
 ---
 
+## Home Header Layout Update Complete (2026-04-06):
+
+- **JhuriAppHeader Converted to ConsumerWidget**: Now watches localeProvider for reactive language changes
+- **New Home Screen Layout**: [ hamburger menu ] — [ app_logo + app_title image ] — [ settings icon ]
+- **Centered Logo+Title**: AppBar uses centerTitle: true with Row widget containing logo and title image
+- **Locale-Aware Title Images**: 
+  - Bangla locale → app_title_bn.png (28.h height)
+  - English locale → app_title_en.png (28.h height)
+  - Logo height: 32.h with 8.w gap between logo and title
+- **Settings Icon Integration**: Right-side settings icon navigates to '/settings' route
+- **Loading States**: Placeholder container shown while locale loads
+- **Error Fallback**: Falls back to hardcoded 'ঝুড়ি' text if locale fails
+- **Reactive Updates**: Title image switches immediately when language changes in settings
+- **Analysis Verification**: All three commands return zero issues
+  - melos run analyze: No issues found!
+  - flutter analyze apps/ekush_ponji: No issues found!
+  - flutter analyze apps/jhuri: No issues found!
+- **Compatibility**: No conflicts with existing ekush_ponji app or shared packages
+- **Home Screen Compatibility**: Existing home_screen.dart usage (isHomeScreen: true) works unchanged
+
+---
+
 ## Localization Final Sweep Complete (2026-04-06):
 
 - **VIOLATION 1**: Fixed archive_viewmodel.dart line 33 - Removed hardcoded 'Loading archives...' string, added loadingArchives as required named parameter, updated archive_screen.dart to pass l10n.loadingArchives
