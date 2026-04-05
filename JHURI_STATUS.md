@@ -364,6 +364,19 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
   - ✅ STEP 2: No conflicts with existing ekush_ponji app or shared packages
   - ✅ Structural Alignment: AppInitializer, ScreenUtilInit, AppHeader, SystemUI all implemented following Ponji patterns
 
+- **Home Screen MVVM Refactoring Complete (2026-04-05):**
+  - ✅ VIOLATION 1: Extracted duplicate list logic from _showListOptions (lines 466-494) into HomeViewModel.duplicateList()
+  - ✅ VIOLATION 2: Extracted archive list logic from _showListOptions (lines 499-516) into HomeViewModel.archiveListFromHome()
+  - ✅ VIOLATION 3: Extracted delete list logic from _showDeleteConfirmation (lines 545-575) into HomeViewModel.deleteListPermanently()
+  - ✅ VIOLATION 4: Moved notification service calls (lines 553-560) into viewmodel methods
+  - ✅ VIOLATION 5: Moved direct repository calls (lines 563-564) into viewmodel methods
+  - ✅ Home screen now follows MVVM pattern: only UI concerns remain, all business logic in HomeViewModel
+  - ✅ Added required imports and removed unused imports from home_screen.dart
+  - ✅ Extended existing HomeViewModel instead of creating duplicate
+  - ✅ Analysis: All three commands return zero issues (melos run analyze, flutter analyze apps/ekush_ponji, flutter analyze apps/jhuri)
+  - ✅ Compatibility: No conflicts with existing ekush_ponji app or shared packages
+  - ✅ Home screen is now fully MVVM compliant per audit requirements
+
 - **ScreenUtil Value Conversions — Final Batch Complete (2026-04-05):**
   - ✅ STEP 1: Fixed remaining hardcoded values in 7 files per specification
   - ✅ STEP 1: create_edit_list_screen.dart — Font sizes: 16.sp, 18.sp, 14.sp (lines 70, 101, 110)

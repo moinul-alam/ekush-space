@@ -139,6 +139,35 @@ class HomeViewModel extends BaseViewModel {
     }
   }
 
+  Future<void> archiveListFromHome(int listId) async {
+    try {
+      // Cancel notification before archiving the list
+      await ShoppingListNotificationService.cancelNotification(listId);
+
+      await _shoppingListRepository.archive(listId);
+      await _loadLists();
+    } catch (e) {
+      state = ViewStateError(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<void> deleteListPermanently(int listId) async {
+    try {
+      // Cancel notification FIRST before deleting the list
+      await ShoppingListNotificationService.cancelNotification(listId);
+
+      // Delete all items first, then list
+      await _listItemRepository.deleteByListId(listId);
+      await _shoppingListRepository.permanentDelete(listId);
+
+      await _loadLists();
+    } catch (e) {
+      state = ViewStateError(e.toString());
+      rethrow;
+    }
+  }
+
   Future<Map<String, dynamic>> getListStats(int listId) async {
     try {
       final totalCount = await _listItemRepository.getTotalCount(listId);

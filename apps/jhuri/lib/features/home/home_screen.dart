@@ -8,9 +8,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:ekush_models/ekush_models.dart';
 import 'package:ekush_ads/ekush_ads.dart';
 import '../shopping_list/home_providers.dart';
-import '../../providers/database_provider.dart';
+import '../shopping_list/home_viewmodel.dart';
 import '../category/custom_category_form_bottom_sheet.dart';
-import '../../services/shopping_list_notification_service.dart';
 import '../../shared/widgets/jhuri_app_header.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -467,20 +466,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 Navigator.pop(context);
                 final messenger = ScaffoldMessenger.of(this.context);
                 try {
-                  final shoppingListRepo =
-                      ref.read(shoppingListRepositoryProvider);
-                  final listItemRepo = ref.read(listItemRepositoryProvider);
-
-                  // Create new list with copy suffix
-                  final newTitle = '${list.title} (কপি)';
-                  final newListId = await shoppingListRepo.duplicateList(
-                    list.id,
-                    newTitle,
-                    DateTime.now(),
-                  );
-
-                  // Duplicate all items
-                  await listItemRepo.duplicateItems(list.id, newListId);
+                  await ref
+                      .read(homeViewModelProvider.notifier)
+                      .duplicateList(list.id);
 
                   // Show success message
                   messenger.showSnackBar(
@@ -500,9 +488,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 Navigator.pop(context);
                 final messenger = ScaffoldMessenger.of(this.context);
                 try {
-                  final shoppingListRepo =
-                      ref.read(shoppingListRepositoryProvider);
-                  await shoppingListRepo.archive(list.id);
+                  await ref
+                      .read(homeViewModelProvider.notifier)
+                      .archiveListFromHome(list.id);
 
                   // Show success message
                   messenger.showSnackBar(
@@ -546,22 +534,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               Navigator.pop(context);
               final messenger = ScaffoldMessenger.of(this.context);
               try {
-                final shoppingListRepo =
-                    ref.read(shoppingListRepositoryProvider);
-                final listItemRepo = ref.read(listItemRepositoryProvider);
-
                 debugPrint(
                     '🔄 Starting deletion for list ${list.id}: "${list.title}"');
 
-                // Cancel notification FIRST before deleting the list
-                debugPrint('📱 Cancelling notification for list ${list.id}...');
-                await ShoppingListNotificationService.cancelNotification(
-                    list.id);
-                debugPrint('✅ Notification cancelled for list ${list.id}');
-
-                // Delete all items first, then the list
-                await listItemRepo.deleteByListId(list.id);
-                await shoppingListRepo.permanentDelete(list.id);
+                await ref
+                    .read(homeViewModelProvider.notifier)
+                    .deleteListPermanently(list.id);
 
                 // Show success message
                 messenger.showSnackBar(
