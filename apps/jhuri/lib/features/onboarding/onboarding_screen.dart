@@ -173,41 +173,45 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
               Positioned.fill(
                   child: Center(
                       child: Column(mainAxisSize: MainAxisSize.min, children: [
-                Image.asset('assets/images/app_logo.png', height: 100.h),
-                SizedBox(height: 12.h),
-                Image.asset(titleImagePath, height: 36.h),
+                Image.asset('assets/images/app_logo.png', height: 120.h),
+                SizedBox(height: 16.h),
+                Image.asset(titleImagePath, height: 48.h),
               ]))),
 
             // Phase 2: Animated positioned elements
             if (_phase1Complete) ...[
-              // Logo
+              // Logo and title centered at top
               AnimatedPositioned(
-                  duration: Duration(milliseconds: 600),
-                  curve: Curves.easeInOut,
-                  top: _phase1Complete ? 16.h : (screenHeight / 2 - 62.h),
-                  left: _phase1Complete ? 20.w : (screenWidth / 2 - 50.w),
+                  duration: Duration(milliseconds: 800),
+                  curve: Curves.easeOutCubic,
+                  top: _phase1Complete ? 24.h : (screenHeight / 2 - 72.h),
+                  left: _phase1Complete
+                      ? (screenWidth / 2 - 60.w)
+                      : (screenWidth / 2 - 60.w),
                   child: Image.asset(
                     'assets/images/app_logo.png',
-                    height: _phase1Complete ? 40.h : 100.h,
-                    width: _phase1Complete ? 40.w : 100.w,
+                    height: _phase1Complete ? 60.h : 120.h,
+                    width: _phase1Complete ? 60.w : 120.w,
                   )),
 
               // Title image
               AnimatedPositioned(
-                  duration: Duration(milliseconds: 600),
-                  curve: Curves.easeInOut,
-                  top: _phase1Complete ? 24.h : (screenHeight / 2 + 62.h),
-                  left: _phase1Complete ? 68.w : (screenWidth / 2 - 80.w),
+                  duration: Duration(milliseconds: 800),
+                  curve: Curves.easeOutCubic,
+                  top: _phase1Complete ? 92.h : (screenHeight / 2 + 72.h),
+                  left: _phase1Complete
+                      ? (screenWidth / 2 - 96.w)
+                      : (screenWidth / 2 - 96.w),
                   child: AnimatedOpacity(
                       duration: Duration(milliseconds: 600),
                       opacity: _phase1Complete ? 1.0 : 0.0,
                       child: Image.asset(titleImagePath,
-                          height: _phase1Complete ? 28.h : 36.h))),
+                          height: _phase1Complete ? 36.h : 48.h))),
             ],
 
             // Content section (fades in after animation)
             Positioned(
-              top: 88.h,
+              top: 160.h,
               left: 24.w,
               right: 24.w,
               bottom: 0,
