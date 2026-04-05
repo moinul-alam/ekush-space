@@ -243,7 +243,7 @@ class _CustomCategoryFormBottomSheetState
                       child: const Text('বাতিল'),
                     ),
                   ),
-                  const SizedBox(width: 12),
+                  SizedBox(width: 12.w),
                   Expanded(
                     child: ElevatedButton(
                       onPressed: _canSave() ? _saveCategory : null,

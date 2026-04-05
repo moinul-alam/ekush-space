@@ -65,7 +65,7 @@ class _CustomItemFormBottomSheetState
             margin: EdgeInsets.only(top: 8.h),
             decoration: BoxDecoration(
               color: colorScheme.onSurface.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(2),
+              borderRadius: BorderRadius.circular(2.r),
             ),
           ),
 
@@ -312,7 +312,7 @@ class _CustomItemFormBottomSheetState
                           ),
                         ),
                       ),
-                      SizedBox(width: 16.w),
+                      SizedBox(width: 12.w),
                       // Save button
                       Expanded(
                         child: ElevatedButton(
@@ -327,7 +327,7 @@ class _CustomItemFormBottomSheetState
                           ),
                           child: _isSaving
                               ? SizedBox(
-                                  height: 20,
+                                  height: 20.h,
                                   width: 48.w,
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2,

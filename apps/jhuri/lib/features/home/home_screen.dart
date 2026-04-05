@@ -359,10 +359,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final itemsAsync = ref.watch(listItemsProvider(listId));
 
     return itemsAsync.when(
-      loading: () => const Center(
+      loading: () => Center(
         child: SizedBox(
-          width: 16,
-          height: 16,
+          width: 16.w,
+          height: 16.h,
           child: CircularProgressIndicator(strokeWidth: 2),
         ),
       ),
@@ -603,7 +603,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             color: Colors.white,
           ),
         ),
-        const SizedBox(width: 12),
+        SizedBox(width: 12.w),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

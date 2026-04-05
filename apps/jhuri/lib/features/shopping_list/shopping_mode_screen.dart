@@ -130,7 +130,7 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
         _buildBottomActions(context, viewModel, colorScheme),
 
         // Ad placeholder
-        const SizedBox(height: 50),
+        SizedBox(height: 50.h),
       ],
     );
   }
@@ -200,7 +200,7 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                 color: Colors.white,
                 size: 20,
               ),
-              const SizedBox(width: 8),
+              SizedBox(width: 8.w),
               Text(
                 viewModel.progressText,
                 style: TextStyle(
@@ -209,7 +209,7 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                   color: Colors.white,
                 ),
               ),
-              const SizedBox(width: 8),
+              SizedBox(width: 8.w),
               Text(
                 '${viewModel.boughtItems}/${viewModel.totalItems}',
                 style: TextStyle(
@@ -311,7 +311,7 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                             ),
                           ),
                           if (item.price != null) ...[
-                            const SizedBox(width: 8),
+                            SizedBox(width: 8.w),
                             Text(
                               '৳${item.price!.toStringAsFixed(2)}',
                               style: TextStyle(

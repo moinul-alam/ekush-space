@@ -67,7 +67,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
               label: Text(
                 'সংরক্ষণ করুন',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -98,7 +98,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
             Text(
               'ত্রুটি হয়েছে',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
                 color: Colors.red,
               ),
@@ -107,7 +107,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
             Text(
               viewState.error.toString(),
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 14.sp,
                 color: Colors.grey[600],
               ),
               textAlign: TextAlign.center,

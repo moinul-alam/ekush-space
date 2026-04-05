@@ -163,19 +163,19 @@ class _CreateCustomItemScreenState
                             category.iconIdentifier,
                             style: const TextStyle(fontSize: 20),
                           ),
-                          const SizedBox(width: 8),
+                          SizedBox(width: 8.w),
                           Text(category.nameBangla),
                         ],
                       ),
                     );
                   }),
                   // Add new category option
-                  const DropdownMenuItem<int>(
+                  DropdownMenuItem<int>(
                     value: -1,
                     child: Row(
                       children: [
                         Icon(Icons.add, size: 20),
-                        SizedBox(width: 8),
+                        SizedBox(width: 8.w),
                         Text('নতুন ক্যাটাগরি তৈরি'),
                       ],
                     ),

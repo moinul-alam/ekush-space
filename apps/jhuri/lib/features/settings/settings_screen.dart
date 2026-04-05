@@ -563,11 +563,11 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('ঝুড়ি - Smart Grocery List'),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h),
                 Text('${l10n.appVersion}: $version ($buildNumber)'),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h),
                 const Text('Developed by Ekush Labs'),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h),
                 const Text('© 2026 Ekush Labs. All rights reserved.'),
               ],
             );
