@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'custom_item_form_viewmodel.dart';
+import '../../shared/widgets/jhuri_app_header.dart';
 
 class CustomItemFormScreen extends ConsumerStatefulWidget {
   const CustomItemFormScreen({super.key});
@@ -17,23 +18,9 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
     final viewModel = ref.read(customItemFormViewModelProvider.notifier);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'নিজের আইটেম তৈরি',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: colorScheme.primary,
-        foregroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.close, color: Colors.white),
-        ),
+      appBar: const JhuriAppHeader(
+        title: 'নিজের আইটেম তৈরি',
+        leadingIcon: Icons.close,
       ),
       body: _buildBody(viewModel, colorScheme),
     );

@@ -6,11 +6,11 @@ import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:ekush_models/ekush_models.dart';
 import 'package:ekush_ads/ekush_ads.dart';
-import '../../config/jhuri_constants.dart';
 import '../shopping_list/home_providers.dart';
 import '../../providers/database_provider.dart';
 import '../category/custom_category_form_bottom_sheet.dart';
 import '../../services/shopping_list_notification_service.dart';
+import '../../shared/widgets/jhuri_app_header.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -26,31 +26,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final homeListsAsync = ref.watch(homeListsProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () => Scaffold.of(context).openDrawer(),
-          ),
-        ),
-        title: Row(
-          children: [
-            Image.asset(
-              'assets/images/app_logo.png',
-              height: 32,
-              errorBuilder: (_, __, ___) => const SizedBox.shrink(),
-            ),
-            const SizedBox(width: 8),
-            Text(
-              JhuriConstants.appName,
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'HindSiliguri',
-              ),
-            ),
-          ],
-        ),
+      appBar: const JhuriAppHeader(
+        isHomeScreen: true,
       ),
       drawer: _buildDrawer(context, colorScheme),
       body: _buildBody(homeListsAsync, colorScheme),

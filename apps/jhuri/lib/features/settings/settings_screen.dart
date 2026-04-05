@@ -10,6 +10,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import '../../base/jhuri_base_screen.dart';
 import '../../providers/settings_providers.dart';
 import '../../l10n/jhuri_localizations.dart';
+import '../../shared/widgets/jhuri_app_header.dart';
 
 abstract class _SettingsFonts {
   static const double sectionHeader = 13.0;
@@ -59,20 +60,8 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
     final osGranted = ref.watch(notificationPermissionProvider).value ?? false;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          l10n.settings,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'HindSiliguri',
-          ),
-        ),
-        backgroundColor: colorScheme.primary,
-        foregroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        automaticallyImplyLeading: true,
+      appBar: JhuriAppHeader(
+        title: l10n.settings,
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 8),

@@ -11,6 +11,7 @@ import '../category/category_browser_screen.dart';
 import '../item_template/item_picker_screen.dart';
 import '../../providers/settings_providers.dart';
 import '../../config/jhuri_constants.dart';
+import '../../shared/widgets/jhuri_app_header.dart';
 
 class CreateEditListScreen extends ConsumerStatefulWidget {
   final int? listId;
@@ -46,23 +47,12 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
     final viewModel = ref.read(createEditListViewModelProvider.notifier);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          viewModel.isEditMode ? 'ফর্দ সম্পাদনা' : 'নতুন ফর্দ',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: colorScheme.primary,
-        foregroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
+      appBar: JhuriAppHeader(
+        title: viewModel.isEditMode ? 'ফর্দ সম্পাদনা' : 'নতুন ফর্দ',
         actions: [
           IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: const Icon(Icons.close, color: Colors.white),
+            icon: const Icon(Icons.close),
           ),
         ],
       ),

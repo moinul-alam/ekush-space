@@ -4,6 +4,7 @@ import 'package:ekush_models/ekush_models.dart';
 import '../../config/jhuri_constants.dart';
 import '../../providers/database_provider.dart';
 import 'item_picker_viewmodel.dart';
+import '../../shared/widgets/jhuri_app_header.dart';
 
 class CreateCustomItemScreen extends ConsumerStatefulWidget {
   const CreateCustomItemScreen({super.key});
@@ -65,19 +66,8 @@ class _CreateCustomItemScreenState
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'নতুন আইটেম তৈরি',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: colorScheme.primary,
-        foregroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
+      appBar: const JhuriAppHeader(
+        title: 'নতুন আইটেম তৈরি',
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(

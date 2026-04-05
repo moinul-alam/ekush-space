@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ekush_models/ekush_models.dart';
 import '../shopping_list/home_providers.dart';
+import '../../shared/widgets/jhuri_app_header.dart';
 
 class ArchiveScreen extends ConsumerWidget {
   const ArchiveScreen({super.key});
@@ -13,23 +14,8 @@ class ArchiveScreen extends ConsumerWidget {
     final archivedListsAsync = ref.watch(archivedListsProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.pop(),
-        ),
-        title: Text(
-          'আর্কাইভ',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'HindSiliguri',
-          ),
-        ),
-        backgroundColor: colorScheme.primary,
-        foregroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
+      appBar: const JhuriAppHeader(
+        title: 'আর্কাইভ',
       ),
       body: archivedListsAsync.when(
         loading: () => const Center(

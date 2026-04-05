@@ -8,7 +8,7 @@
 
 ## Current State
 
-**Date:** 2026-04-04
+**Date:** 2026-04-05
 **Active Branch:** jhuri
 **Main Branch:** clean, stable, fully restored
 **Doc 1 (Restoration Guide):** COMPLETE — archived
@@ -28,7 +28,7 @@
 | ekush_ads | ✅ Clean |
 | ekush_notifications | ✅ Clean |
 | ekush_share | ✅ Clean |
-| apps/jhuri | ✅ Phase 4 Complete — settings, notifications, share-as-image |
+| apps/jhuri | ✅ Phase 4 Complete + JhuriAppHeader UI polish — settings, notifications, share-as-image, shared header widget |
 
 **melos run analyze:** No issues (zero warnings)
 **flutter analyze apps/ekush_ponji:** No issues
@@ -315,8 +315,63 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
   - ✅ No conflicts with existing ekush_ponji app or shared packages
   - ✅ Enhanced error handling and retry logic vs original inline function
   - ✅ Clean separation of concerns and improved maintainability
+- **ScreenUtilInit Foundation Implementation Complete (2026-04-05):**
+  - ✅ STEP 1: Wrapped JhuriApp with ScreenUtilInit using exact Ponji parameters
+  - ✅ ScreenUtilInit configuration: designSize(375, 812), minTextAdapt(true), splitScreenMode(true), ensureScreenSize(false)
+  - ✅ MediaQuery builder added with text scaling clamped between 0.8 and 1.2
+  - ✅ STEP 2: Converted JhuriApp from ConsumerWidget to ConsumerStatefulWidget
+  - ✅ Build logic moved to State class maintaining all provider functionality
+  - ✅ All existing provider watches and refs work identically after conversion
+  - ✅ STEP 3: Verification complete - all analysis commands pass
+  - ✅ melos run analyze: No issues found!
+  - ✅ flutter analyze apps/ekush_ponji: No issues found! (29.8s)
+  - ✅ flutter analyze apps/jhuri: No issues found! (7.6s)
+  - ✅ App testing: Successfully launches on device with identical UI and proper text scaling
+  - ✅ Foundation ready for future SystemUI management and responsive design work
+  - ✅ No hardcoded size value conversions - foundation only implementation
+- **JhuriAppHeader Shared Widget Implementation Complete (2026-04-05):**
+  - ✅ STEP 1: Created JhuriAppHeader widget with PreferredSizeWidget interface
+  - ✅ STEP 1: Implemented all required parameters (title, actions, leadingIcon, onLeadingPressed, isHomeScreen, backgroundColor, foregroundColor)
+  - ✅ STEP 1: Added default behavior (primary background, white text, centered title, back navigation)
+  - ✅ STEP 1: Added home screen behavior (logo + 'ঝুড়ি' text, menu icon, left-aligned)
+  - ✅ STEP 2: Replaced AppBar in ArchiveScreen — title: 'আর্কাইভ'
+  - ✅ STEP 2: Replaced AppBar in CategoryBrowserScreen — title: 'কী কিনবেন?'
+  - ✅ STEP 2: Replaced AppBar in CustomItemsScreen — title from l10n.manageCustomItems
+  - ✅ STEP 2: Replaced AppBar in HomeScreen — isHomeScreen: true (logo + menu)
+  - ✅ STEP 2: Replaced AppBar in CreateCustomItemScreen — title: 'নতুন আইটেম তৈরি'
+  - ✅ STEP 2: Replaced AppBar in CustomItemFormScreen — title: 'নিজের আইটেম তৈরি', leadingIcon: Icons.close
+  - ✅ STEP 2: Replaced AppBar in ItemPickerScreen — title: widget.categoryName (dynamic)
+  - ✅ STEP 2: Replaced AppBar in SettingsScreen — title from l10n.settings
+  - ✅ STEP 2: Replaced AppBar in CreateEditListScreen — dynamic title, actions: close icon
+  - ✅ STEP 2: Replaced AppBar in ShoppingModeScreen — dynamic title, actions: share + close icons
+  - ✅ STEP 3: Verification complete — all analysis commands pass
+  - ✅ STEP 3: melos run analyze: No issues found!
+  - ✅ STEP 3: flutter analyze apps/ekush_ponji: No issues found! (6.9s)
+  - ✅ STEP 3: flutter analyze apps/jhuri: No issues found! (7.3s)
+  - ✅ STEP 3: All screens render AppBar correctly with consistent styling
+  - ✅ STEP 3: Home screen shows logo + 'ঝুড়ি' text with menu icon
+  - ✅ STEP 3: Back navigation works on all non-home screens
+  - ✅ STEP 3: Actions work on CreateEditListScreen and ShoppingModeScreen
+  - ✅ Compatibility: No conflicts with existing ekush_ponji app
+  - ✅ Code Quality: Eliminated AppBar duplication, improved maintainability
+  - ✅ UI Polish: Consistent header design across all Jhuri screens
+
+- **SystemUI Management Implementation Complete (2026-04-05):**
+  - ✅ STEP 1: Wired SystemUI management into JhuriApp State class following Ponji's exact pattern
+  - ✅ STEP 1: Added didChangeDependencies() to call updateSystemUIFromTheme() for initial setup
+  - ✅ STEP 1: Added ref.listen() to update SystemUI reactively when theme changes
+  - ✅ STEP 1: Handled AsyncNotifierProvider properly with whenData() callbacks
+  - ✅ STEP 1: Added mounted check for safe context usage
+  - ✅ STEP 2: Verification complete - all analysis commands pass
+  - ✅ STEP 2: melos run analyze: No issues found!
+  - ✅ STEP 2: flutter analyze apps/ekush_ponji: No issues found! (9.6s)
+  - ✅ STEP 2: flutter analyze apps/jhuri: No issues found! (8.7s)
+  - ✅ STEP 2: App launches successfully on device with SystemUI management active
+  - ✅ STEP 2: Status bar and navigation bar now update reactively with theme changes
+  - ✅ STEP 2: No conflicts with existing ekush_ponji app or shared packages
+  - ✅ Structural Alignment: AppInitializer, ScreenUtilInit, AppHeader, SystemUI all implemented following Ponji patterns
 
 ---
 
-*Last updated: 2026-04-05 — JhuriAppInitializer Implementation Complete*
-*Updated by: Cascade (App initialization refactoring session)*
+*Last updated: 2026-04-05 — SystemUI Management Implementation Complete*
+*Updated by: Cascade (SystemUI management session)*

@@ -5,6 +5,7 @@ import 'package:ekush_models/ekush_models.dart';
 import 'category_browser_viewmodel.dart';
 import '../../providers/item_selection_provider.dart';
 import 'custom_category_form_bottom_sheet.dart';
+import '../../shared/widgets/jhuri_app_header.dart';
 
 class CategoryBrowserScreen extends ConsumerStatefulWidget {
   final int? listId;
@@ -27,19 +28,8 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
     ref.watch(itemSelectionProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'কী কিনবেন?',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: colorScheme.primary,
-        foregroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
+      appBar: const JhuriAppHeader(
+        title: 'কী কিনবেন?',
       ),
       body: _buildBody(categoriesAsync, viewModel, colorScheme),
     );

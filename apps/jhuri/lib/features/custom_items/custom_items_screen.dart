@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ekush_models/ekush_models.dart';
 import '../../providers/database_provider.dart';
 import '../../l10n/jhuri_localizations.dart';
+import '../../shared/widgets/jhuri_app_header.dart';
 
 class CustomItemsScreen extends ConsumerStatefulWidget {
   const CustomItemsScreen({super.key});
@@ -20,10 +21,8 @@ class _CustomItemsScreenState extends ConsumerState<CustomItemsScreen> {
     final l10n = JhuriLocalizations.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.manageCustomItems),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Colors.white,
+      appBar: JhuriAppHeader(
+        title: l10n.manageCustomItems,
       ),
       body: customItemsAsync.when(
         loading: () => const Center(

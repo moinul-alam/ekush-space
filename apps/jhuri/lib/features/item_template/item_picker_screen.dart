@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:ekush_models/ekush_models.dart';
 import '../../providers/item_selection_provider.dart';
 import '../../config/jhuri_constants.dart';
 import 'item_picker_viewmodel.dart';
 import 'item_quantity_bottom_sheet.dart';
 import 'custom_item_form_bottom_sheet.dart';
+import '../../shared/widgets/jhuri_app_header.dart';
 
 class ItemPickerScreen extends ConsumerStatefulWidget {
   final int categoryId;
@@ -72,23 +72,8 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
     final itemSelection = ref.watch(itemSelectionProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.pop(),
-        ),
-        title: Text(
-          widget.categoryName,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: colorScheme.primary,
-        foregroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
+      appBar: JhuriAppHeader(
+        title: widget.categoryName,
       ),
       body: Column(
         children: [

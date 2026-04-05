@@ -9,6 +9,7 @@ import '../../services/share_card_service.dart';
 import '../../providers/database_provider.dart';
 import '../../providers/settings_providers.dart';
 import '../../config/jhuri_constants.dart';
+import '../../shared/widgets/jhuri_app_header.dart';
 
 class ShoppingModeScreen extends ConsumerStatefulWidget {
   final int listId;
@@ -35,29 +36,18 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
     final viewModel = ref.read(shoppingModeViewModelProvider.notifier);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          viewModel.list?.title.isEmpty == true
-              ? 'বাজারের ফর্দ'
-              : viewModel.list?.title ?? 'বাজারের ফর্দ',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: colorScheme.primary,
-        foregroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
+      appBar: JhuriAppHeader(
+        title: viewModel.list?.title.isEmpty == true
+            ? 'বাজারের ফর্দ'
+            : viewModel.list?.title ?? 'বাজারের ফর্দ',
         actions: [
           IconButton(
             onPressed: () => _showShareOptions(context, viewModel),
-            icon: const Icon(Icons.share, color: Colors.white),
+            icon: const Icon(Icons.share),
           ),
           IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: const Icon(Icons.close, color: Colors.white),
+            icon: const Icon(Icons.close),
           ),
         ],
       ),
