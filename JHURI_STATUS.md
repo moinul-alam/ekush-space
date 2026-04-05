@@ -73,8 +73,8 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 
 ## Last Commit
 
-**Hash:** [pending commit]
-**Message:** feat(jhuri): Phase 5 — ads integration
+**Hash:** b854ad8
+**Message:** feat(jhuri): ScreenUtil conversion complete — all files, zero hardcoded values remaining
 **Branch:** jhuri
 
 ---
@@ -116,14 +116,7 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 
 ## Next Action
 
-**Phase 6 — Polish + Play Store Submission** 
-- Replace all placeholder icons with final AI-generated assets
-- Expand item library to full MVP set (5 categories × 5 items minimum)
-- App icon and splash screen finalized
-- Review all Bangla strings for correctness and naturalness
-- Test all edge cases from Section 12
-- flutter build appbundle --release
-- Submit to Play Store internal testing track
+**Visual polish** — Review all screens for font sizes, spacing, layout issues, and UI/UX refinements.
 
 ---
 
@@ -371,8 +364,6 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
   - ✅ STEP 2: No conflicts with existing ekush_ponji app or shared packages
   - ✅ Structural Alignment: AppInitializer, ScreenUtilInit, AppHeader, SystemUI all implemented following Ponji patterns
 
----
-
 - **ScreenUtil Value Conversions — Final Batch Complete (2026-04-05):**
   - ✅ STEP 1: Fixed remaining hardcoded values in 7 files per specification
   - ✅ STEP 1: create_edit_list_screen.dart — Font sizes: 16.sp, 18.sp, 14.sp (lines 70, 101, 110)
@@ -393,7 +384,16 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
   - ✅ Testing Complete — App compiles and launches successfully, all screens render correctly
   - ✅ **SCREENUTIL CONVERSION COMPLETE — Zero hardcoded values remaining in Jhuri app**
 
+- **Structural Alignment & Polish Session (2026-04-05):**
+  - ✅ AppInitializer class extracted from inline main.dart function with retry logic and comprehensive error handling
+  - ✅ ScreenUtilInit foundation added (designSize: 375x812, text scaling 0.8-1.2)
+  - ✅ JhuriApp converted from ConsumerWidget to ConsumerStatefulWidget
+  - ✅ SystemUI management wired — status bar and nav bar update reactively on theme change
+  - ✅ JhuriAppHeader shared widget created and applied across all 10 screens
+  - ✅ ScreenUtil value conversions complete across all files: theme, shared widgets, all feature screens — zero hardcoded values remaining
+  - ✅ Ad config restored on office machine, gitignored correctly
+
 ---
 
-*Last updated: 2026-04-05 — ScreenUtil conversion complete, all files converted*
-*Updated by: Cascade (final ScreenUtil conversion session)*
+*Last updated: 2026-04-05 — Structural alignment & polish session complete*
+*Updated by: Cascade (structural alignment session)*
