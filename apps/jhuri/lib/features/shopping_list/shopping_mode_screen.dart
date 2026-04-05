@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_models/ekush_models.dart';
 import 'package:ekush_ads/ekush_ads.dart';
@@ -74,25 +75,25 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
               size: 64,
               color: Colors.red,
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             Text(
               'ত্রুটি হয়েছে',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
                 color: Colors.red,
               ),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             Text(
               'তালিকা লোড করতে সমস্যা হয়েছে',
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 14.sp,
                 color: Colors.grey[600],
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24.h),
             ElevatedButton(
               onPressed: () => viewModel.loadList(widget.listId),
               child: const Text('আবার চেষ্টা করুন'),
@@ -144,16 +145,16 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
             size: 64,
             color: Colors.grey,
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
           Text(
             'কোন আইটেম নির্বাচিত হয়নি',
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 18.sp,
               fontWeight: FontWeight.w600,
               color: Colors.grey,
             ),
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
           ElevatedButton(
             onPressed: () => Navigator.pop(context),
             child: const Text('ফর্দে ফিরুন'),
@@ -167,19 +168,19 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
       ShoppingModeViewModel viewModel, ColorScheme colorScheme) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: colorScheme.primary,
-        borderRadius: const BorderRadius.vertical(bottom: Radius.circular(12)),
+        borderRadius: BorderRadius.vertical(bottom: Radius.circular(12.r)),
       ),
       child: Column(
         children: [
           // Progress bar
           Container(
-            height: 8,
+            height: 8.h,
             decoration: BoxDecoration(
               color: colorScheme.surface.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(4.r),
             ),
             child: LinearProgressIndicator(
               value: viewModel.completionPercentage / 100,
@@ -188,7 +189,7 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
             ),
           ),
 
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
 
           // Progress text
           Row(
@@ -203,7 +204,7 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
               Text(
                 viewModel.progressText,
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
                 ),
@@ -212,7 +213,7 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
               Text(
                 '${viewModel.boughtItems}/${viewModel.totalItems}',
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   color: Colors.white.withValues(alpha: 0.8),
                 ),
               ),
@@ -226,38 +227,38 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
   Widget _buildItemCard(
       ListItem item, ShoppingModeViewModel viewModel, ColorScheme colorScheme) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
       decoration: BoxDecoration(
         color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         boxShadow: [
           BoxShadow(
             color: colorScheme.shadow.withValues(alpha: 0.1),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
+            blurRadius: 4.r,
+            offset: Offset(0, 2.h),
           ),
         ],
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.r),
           onTap: () => viewModel.toggleItemBought(item.id),
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(16.w),
             child: Row(
               children: [
                 // Checkbox
                 GestureDetector(
                   onTap: () => viewModel.toggleItemBought(item.id),
                   child: Container(
-                    width: 24,
-                    height: 24,
+                    width: 24.w,
+                    height: 24.h,
                     decoration: BoxDecoration(
                       color: item.isBought
                           ? colorScheme.primary
                           : Colors.transparent,
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(4.r),
                       border: Border.all(
                         color: item.isBought
                             ? colorScheme.primary
@@ -271,7 +272,7 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                   ),
                 ),
 
-                const SizedBox(width: 12),
+                SizedBox(width: 12.w),
 
                 // Item info
                 Expanded(
@@ -281,7 +282,7 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                       Text(
                         item.nameBangla,
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w600,
                           color: colorScheme.onSurface,
                           decoration:
@@ -289,22 +290,22 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                         ),
                       ),
                       if (item.nameEnglish != item.nameBangla) ...[
-                        const SizedBox(height: 2),
+                        SizedBox(height: 2.h),
                         Text(
                           item.nameEnglish,
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 12.sp,
                             color: colorScheme.onSurface.withValues(alpha: 0.7),
                           ),
                         ),
                       ],
-                      const SizedBox(height: 4),
+                      SizedBox(height: 4.h),
                       Row(
                         children: [
                           Text(
                             '${item.quantity} ${item.unit}',
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 14.sp,
                               color:
                                   colorScheme.onSurface.withValues(alpha: 0.7),
                             ),
@@ -314,7 +315,7 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                             Text(
                               '৳${item.price!.toStringAsFixed(2)}',
                               style: TextStyle(
-                                fontSize: 12,
+                                fontSize: 12.sp,
                                 color: colorScheme.onSurface
                                     .withValues(alpha: 0.7),
                               ),
@@ -364,21 +365,21 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
     if (viewModel.allItemsBought && viewModel.totalItems > 0) {
       return Container(
         width: double.infinity,
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16.w),
         child: ElevatedButton(
           onPressed: () => _markAsCompleted(context, viewModel),
           style: ElevatedButton.styleFrom(
             backgroundColor: colorScheme.primary,
             foregroundColor: Colors.white,
-            padding: const EdgeInsets.symmetric(vertical: 16),
+            padding: EdgeInsets.symmetric(vertical: 16.h),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12.r),
             ),
           ),
           child: Text(
             'কেনাকাটা সম্পন্ন করুন',
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -397,7 +398,7 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
         title: Text(
           'পরিমাণ পরিবর্তন',
           style: TextStyle(
-            fontSize: 18,
+            fontSize: 18.sp,
             fontWeight: FontWeight.w600,
             color: colorScheme.onSurface,
           ),
@@ -408,11 +409,11 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
             Text(
               item.nameBangla,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 16.sp,
                 color: colorScheme.onSurface,
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             Row(
               children: [
                 // Minus button
@@ -429,26 +430,26 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                       backgroundColor:
                           colorScheme.primary.withValues(alpha: 0.1),
                       foregroundColor: colorScheme.primary,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 12),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 16.w, vertical: 12.h),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.r),
                       ),
                     ),
                     child: const Text('-'),
                   ),
                 ),
 
-                const SizedBox(width: 12),
+                SizedBox(width: 12.w),
 
                 // Quantity display
                 Expanded(
                   flex: 2,
                   child: Container(
-                    padding: const EdgeInsets.all(16),
+                    padding: EdgeInsets.all(16.w),
                     decoration: BoxDecoration(
                       color: colorScheme.surface,
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(8.r),
                       border: Border.all(
                           color: colorScheme.outline.withValues(alpha: 0.3)),
                     ),
@@ -456,7 +457,7 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                       child: Text(
                         '${item.quantity.toStringAsFixed(1)} ${item.unit}',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.w600,
                           color: colorScheme.onSurface,
                         ),
@@ -465,7 +466,7 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                   ),
                 ),
 
-                const SizedBox(width: 12),
+                SizedBox(width: 12.w),
 
                 // Plus button
                 Expanded(
@@ -479,10 +480,10 @@ class _ShoppingModeScreenState extends ConsumerState<ShoppingModeScreen> {
                       backgroundColor:
                           colorScheme.primary.withValues(alpha: 0.1),
                       foregroundColor: colorScheme.primary,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 12),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 16.w, vertical: 12.h),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.r),
                       ),
                     ),
                     child: const Text('+'),

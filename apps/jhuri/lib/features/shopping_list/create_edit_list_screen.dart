@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_models/ekush_models.dart';
 import 'package:ekush_ads/ekush_ads.dart';
@@ -93,7 +94,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
               size: 64,
               color: Colors.red,
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             Text(
               'ত্রুটি হয়েছে',
               style: TextStyle(
@@ -102,7 +103,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
                 color: Colors.red,
               ),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             Text(
               viewState.error.toString(),
               style: TextStyle(
@@ -111,7 +112,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24.h),
             ElevatedButton(
               onPressed: () {
                 if (viewModel.isEditMode) {
@@ -128,17 +129,17 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
     }
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // List Info Section
           _buildListInfoSection(viewModel, colorScheme),
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
 
           // Items Section
           _buildItemsSection(viewModel, colorScheme),
-          const SizedBox(height: 100), // Space for FAB
+          SizedBox(height: 100.h), // Space for FAB
         ],
       ),
     );
@@ -148,15 +149,15 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
       CreateEditListViewModel viewModel, ColorScheme colorScheme) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
         color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         boxShadow: [
           BoxShadow(
             color: colorScheme.shadow.withValues(alpha: 0.1),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
+            blurRadius: 4.r,
+            offset: Offset(0, 2.h),
           ),
         ],
       ),
@@ -166,12 +167,12 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
           Text(
             'ফর্দের তথ্য',
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 18.sp,
               fontWeight: FontWeight.w600,
               color: colorScheme.onSurface,
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
 
           // Title field
           TextField(
@@ -180,12 +181,12 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
               labelText: 'ফর্দের নাম (ঐচ্ছিক)',
               hintText: 'উদাহরণ: সাপ্তাহিক বাজার',
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(8.r),
               ),
             ),
             style: const TextStyle(),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
 
           // Date picker
           ListTile(
@@ -193,14 +194,14 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
             title: Text(
               'কেনার তারিখ',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w500,
               ),
             ),
             subtitle: Text(
               viewModel.formatDateForDisplay(viewModel.buyDate),
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 14.sp,
                 color: colorScheme.onSurface.withValues(alpha: 0.7),
               ),
             ),
@@ -214,7 +215,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
             title: Text(
               'রিমাইন্ডার',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -223,29 +224,29 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
                   ? 'সময়: ${viewModel.formatTime(viewModel.reminderTime)}'
                   : 'বন্ধ',
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 14.sp,
                 color: colorScheme.onSurface.withValues(alpha: 0.7),
               ),
             ),
             secondary: Icon(Icons.notifications, color: colorScheme.primary),
           ),
           if (viewModel.isReminderOn) ...[
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             Padding(
-              padding: const EdgeInsets.only(left: 16),
+              padding: EdgeInsets.only(left: 16.w),
               child: ListTile(
                 leading: Icon(Icons.access_time, color: colorScheme.primary),
                 title: Text(
                   'রিমাইন্ডার সময়',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 subtitle: Text(
                   viewModel.formatTime(viewModel.reminderTime),
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 14.sp,
                     color: colorScheme.onSurface.withValues(alpha: 0.7),
                   ),
                 ),
@@ -262,15 +263,15 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
       CreateEditListViewModel viewModel, ColorScheme colorScheme) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
         color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         boxShadow: [
           BoxShadow(
             color: colorScheme.shadow.withValues(alpha: 0.1),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
+            blurRadius: 4.r,
+            offset: Offset(0, 2.h),
           ),
         ],
       ),
@@ -283,7 +284,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
               Text(
                 'আইটেম (${viewModel.itemCount})',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,
                 ),
@@ -294,21 +295,21 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
                 label: Text(
                   'আইটেম যোগ করুন',
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
           if (viewModel.items.isEmpty) ...[
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(24),
+              padding: EdgeInsets.all(24.w),
               decoration: BoxDecoration(
                 color: colorScheme.surfaceContainerHighest,
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(8.r),
               ),
               child: Column(
                 children: [
@@ -317,19 +318,19 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
                     size: 48,
                     color: colorScheme.onSurface.withValues(alpha: 0.5),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12.h),
                   Text(
                     'কোন আইটেম যোগ করা হয়নি',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       color: colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   Text(
                     'আইটেম যোগ করতে উপরের বাটনে ক্লিক করুন',
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 12.sp,
                       color: colorScheme.onSurface.withValues(alpha: 0.5),
                     ),
                   ),
@@ -351,18 +352,18 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
   Widget _buildItemCard(ListItem item, int index,
       CreateEditListViewModel viewModel, ColorScheme colorScheme) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 8),
+      margin: EdgeInsets.only(bottom: 8.h),
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainer,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(8.r),
       ),
       child: ListTile(
         leading: Container(
-          width: 40,
-          height: 40,
+          width: 40.w,
+          height: 40.h,
           decoration: BoxDecoration(
             color: colorScheme.primary.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(8.r),
           ),
           child: Icon(
             Icons.shopping_bag_outlined,
@@ -373,7 +374,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
         title: Text(
           item.nameBangla,
           style: TextStyle(
-            fontSize: 16,
+            fontSize: 16.sp,
             fontWeight: FontWeight.w600,
             color: colorScheme.onSurface,
           ),
@@ -381,7 +382,7 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
         subtitle: Text(
           '${item.quantity} ${item.unit}',
           style: TextStyle(
-            fontSize: 14,
+            fontSize: 14.sp,
             color: colorScheme.onSurface.withValues(alpha: 0.7),
           ),
         ),
