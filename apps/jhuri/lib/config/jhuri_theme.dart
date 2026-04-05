@@ -1,6 +1,7 @@
 // lib/config/jhuri_theme.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ekush_theme/core/themes/app_theme_extensions.dart';
 
 /// Jhuri-specific theme configuration
@@ -144,99 +145,99 @@ class JhuriTheme {
     return TextTheme(
       displayLarge: TextStyle(
         fontFamily: 'HindSiliguri',
-        fontSize: 57,
+        fontSize: 57.sp,
         fontWeight: FontWeight.w700,
         color: textColor,
         letterSpacing: -0.25,
       ),
       displayMedium: TextStyle(
         fontFamily: 'HindSiliguri',
-        fontSize: 45,
+        fontSize: 45.sp,
         fontWeight: FontWeight.w700,
         color: textColor,
       ),
       displaySmall: TextStyle(
         fontFamily: 'HindSiliguri',
-        fontSize: 36,
+        fontSize: 36.sp,
         fontWeight: FontWeight.w600,
         color: textColor,
       ),
       headlineLarge: TextStyle(
         fontFamily: 'HindSiliguri',
-        fontSize: 32,
+        fontSize: 32.sp,
         fontWeight: FontWeight.w700,
         color: textColor,
       ),
       headlineMedium: TextStyle(
         fontFamily: 'HindSiliguri',
-        fontSize: 28,
+        fontSize: 28.sp,
         fontWeight: FontWeight.w600,
         color: textColor,
       ),
       headlineSmall: TextStyle(
         fontFamily: 'HindSiliguri',
-        fontSize: 24,
+        fontSize: 24.sp,
         fontWeight: FontWeight.w600,
         color: textColor,
       ),
       titleLarge: TextStyle(
         fontFamily: 'HindSiliguri',
-        fontSize: 22,
+        fontSize: 22.sp,
         fontWeight: FontWeight.w600,
         color: textColor,
       ),
       titleMedium: TextStyle(
         fontFamily: 'HindSiliguri',
-        fontSize: 16,
+        fontSize: 16.sp,
         fontWeight: FontWeight.w500,
         color: textColor,
         letterSpacing: 0.15,
       ),
       titleSmall: TextStyle(
         fontFamily: 'HindSiliguri',
-        fontSize: 14,
+        fontSize: 14.sp,
         fontWeight: FontWeight.w500,
         color: textColor,
         letterSpacing: 0.1,
       ),
       bodyLarge: TextStyle(
         fontFamily: 'HindSiliguri',
-        fontSize: 16,
+        fontSize: 16.sp,
         fontWeight: FontWeight.w400,
         color: textColor,
         letterSpacing: 0.5,
       ),
       bodyMedium: TextStyle(
         fontFamily: 'HindSiliguri',
-        fontSize: 14,
+        fontSize: 14.sp,
         fontWeight: FontWeight.w400,
         color: textColor,
         letterSpacing: 0.25,
       ),
       bodySmall: TextStyle(
         fontFamily: 'HindSiliguri',
-        fontSize: 12,
+        fontSize: 12.sp,
         fontWeight: FontWeight.w300,
         color: textColor,
         letterSpacing: 0.4,
       ),
       labelLarge: TextStyle(
         fontFamily: 'HindSiliguri',
-        fontSize: 14,
+        fontSize: 14.sp,
         fontWeight: FontWeight.w500,
         color: textColor,
         letterSpacing: 0.1,
       ),
       labelMedium: TextStyle(
         fontFamily: 'HindSiliguri',
-        fontSize: 12,
+        fontSize: 12.sp,
         fontWeight: FontWeight.w500,
         color: textColor,
         letterSpacing: 0.5,
       ),
       labelSmall: TextStyle(
         fontFamily: 'HindSiliguri',
-        fontSize: 11,
+        fontSize: 11.sp,
         fontWeight: FontWeight.w500,
         color: textColor,
         letterSpacing: 0.5,
@@ -260,8 +261,8 @@ class JhuriTheme {
   static CardThemeData _buildCardTheme() {
     return CardThemeData(
       elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
     );
   }
 
@@ -269,8 +270,8 @@ class JhuriTheme {
     return ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 2,
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
       ),
     );
   }
@@ -278,8 +279,8 @@ class JhuriTheme {
   static OutlinedButtonThemeData _buildOutlinedButtonTheme() {
     return OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
       ),
     );
   }
@@ -287,8 +288,8 @@ class JhuriTheme {
   static TextButtonThemeData _buildTextButtonTheme() {
     return TextButtonThemeData(
       style: TextButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
       ),
     );
   }
@@ -297,42 +298,42 @@ class JhuriTheme {
     return InputDecorationTheme(
       filled: true,
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         borderSide: BorderSide.none,
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         borderSide: BorderSide.none,
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         borderSide: const BorderSide(width: 2),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         borderSide: const BorderSide(color: Colors.red),
       ),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
     );
   }
 
   static FloatingActionButtonThemeData _buildFabTheme() {
     return FloatingActionButtonThemeData(
       elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
     );
   }
 
   static SnackBarThemeData _buildSnackBarTheme() {
     return SnackBarThemeData(
       behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
     );
   }
 
   static DialogThemeData _buildDialogTheme() {
     return DialogThemeData(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
     );
   }
 
@@ -351,9 +352,9 @@ class JhuriTheme {
     return NavigationBarThemeData(
       elevation: 2,
       labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-      height: 80,
+      height: 80.h,
       indicatorShape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
     );
   }
 }

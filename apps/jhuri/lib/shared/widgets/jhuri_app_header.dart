@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class JhuriAppHeader extends StatelessWidget implements PreferredSizeWidget {
@@ -51,14 +52,14 @@ class JhuriAppHeader extends StatelessWidget implements PreferredSizeWidget {
           children: [
             Image.asset(
               'assets/images/app_logo.png',
-              height: 32,
+              height: 32.h,
               errorBuilder: (_, __, ___) => const SizedBox.shrink(),
             ),
-            const SizedBox(width: 8),
+            SizedBox(width: 8.w),
             Text(
               'ঝুড়ি',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 24.sp,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'HindSiliguri',
                 color: effectiveForegroundColor,
@@ -82,7 +83,7 @@ class JhuriAppHeader extends StatelessWidget implements PreferredSizeWidget {
       title: title != null ? Text(
         title!,
         style: TextStyle(
-          fontSize: 20,
+          fontSize: 20.sp,
           fontWeight: FontWeight.bold,
           fontFamily: 'HindSiliguri',
           color: effectiveForegroundColor,

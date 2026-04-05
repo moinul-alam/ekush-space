@@ -1,6 +1,7 @@
 // lib/features/home/home_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -62,7 +63,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             Text(
               'ত্রুটি হয়েছে',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
                 color: Colors.red,
               ),
@@ -71,7 +72,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             Text(
               'একটি ত্রুটি হয়েছে',
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 14.sp,
                 color: Colors.grey[600],
               ),
               textAlign: TextAlign.center,
@@ -92,7 +93,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return SingleChildScrollView(
       child: Center(
         child: Padding(
-          padding: const EdgeInsets.all(32.0),
+          padding: EdgeInsets.all(32.0.w),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -115,13 +116,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               //   ),
               // ),
 
-              const SizedBox(height: 32),
+              SizedBox(height: 32.h),
 
               // ── Empty State Title ────────────────────
               Text(
                 'বাজারের কোনো ফর্দ নেই',
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 24.sp,
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,
                 ),
@@ -134,21 +135,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               Text(
                 '"+", বাটন চেপে নতুন ফর্দ তৈরি করুন',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   color: colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
                 textAlign: TextAlign.center,
               ),
 
-              const SizedBox(height: 48),
+              SizedBox(height: 48.h),
 
               // ── Quick Start Tips ────────────────────
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.all(20),
+                padding: EdgeInsets.all(20.w),
                 decoration: BoxDecoration(
                   color: colorScheme.primary.withValues(alpha: 0.05),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(12.r),
                   border: Border.all(
                     color: colorScheme.primary.withValues(alpha: 0.2),
                   ),
@@ -158,12 +159,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     Text(
                       'দ্রুত শুরু করুন',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.w600,
                         color: colorScheme.primary,
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16.h),
                     _buildTipItem(
                       context,
                       icon: Icons.add_circle_outline,

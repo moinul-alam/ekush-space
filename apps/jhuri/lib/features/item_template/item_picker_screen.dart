@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ekush_models/ekush_models.dart';
 import '../../providers/item_selection_provider.dart';
@@ -80,7 +81,7 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
           // Search bar - always visible since all categories have 25-40 items
           if (_isSearchVisible)
             Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: EdgeInsets.all(12.0.w),
               child: TextField(
                 controller: _searchController,
                 onChanged: _onSearchChanged,
@@ -105,27 +106,27 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
                   filled: true,
                   fillColor: colorScheme.surface,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12.r),
                     borderSide: BorderSide(
                       color: colorScheme.outline.withValues(alpha: 0.3),
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12.r),
                     borderSide: BorderSide(
                       color: colorScheme.primary,
-                      width: 2,
+                      width: 2.w,
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12.r),
                     borderSide: BorderSide(
                       color: colorScheme.outline.withValues(alpha: 0.3),
                     ),
                   ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 12.h,
                   ),
                 ),
               ),
@@ -133,7 +134,7 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
           // Items grid
           Expanded(
             child: Padding(
-              padding: EdgeInsets.all(_isSearchVisible ? 0 : 12.0),
+              padding: EdgeInsets.all(_isSearchVisible ? 0 : 12.0.w),
               child: _buildItemsGrid(itemsAsync, itemSelection, colorScheme),
             ),
           ),
@@ -168,7 +169,7 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
             Text(
               'ত্রুটি হয়েছে',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
                 color: Colors.red,
               ),
@@ -177,7 +178,7 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
             Text(
               error.toString(),
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 14.sp,
                 color: Colors.grey[600],
               ),
               textAlign: TextAlign.center,
@@ -202,7 +203,7 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
                 Text(
                   'কোনো আইটেম পাওয়া যায়নি',
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.w600,
                     color: colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
@@ -211,7 +212,7 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
                 Text(
                   'অন্য কিওয়ার্ড দিয়ে চেষ্টা করুন',
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 14.sp,
                     color: colorScheme.onSurface.withValues(alpha: 0.4),
                   ),
                 ),
@@ -222,10 +223,10 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
 
         return GridView.builder(
           padding: const EdgeInsets.all(8.0),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
+            crossAxisSpacing: 10.w,
+            mainAxisSpacing: 10.h,
             childAspectRatio: 0.85,
           ),
           itemCount: items.length,
@@ -241,12 +242,12 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
                   builder: (_) => ItemQuantityBottomSheet(item: item),
                 );
               },
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12.r),
               child: Container(
                 padding: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
                   color: colorScheme.surface,
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(12.r),
                   border: isSelected
                       ? Border.all(color: colorScheme.primary, width: 2)
                       : null,
@@ -260,7 +261,7 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
                         Text(
                           item.iconIdentifier ?? item.emoji,
                           style: TextStyle(
-                            fontSize: 32,
+                            fontSize: 32.sp,
                             color: isSelected
                                 ? colorScheme.primary
                                 : colorScheme.onSurface,
@@ -268,11 +269,11 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
                         ),
                         const SizedBox(height: 4),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          padding: EdgeInsets.symmetric(horizontal: 8.w),
                           child: Text(
                             item.nameBangla,
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 12.sp,
                               fontWeight: FontWeight.w600,
                               color: isSelected
                                   ? colorScheme.primary
@@ -291,8 +292,8 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
                         top: 4,
                         right: 4,
                         child: Container(
-                          width: 20,
-                          height: 20,
+                          width: 20.w,
+                          height: 20.h,
                           decoration: BoxDecoration(
                             color: colorScheme.primary,
                             shape: BoxShape.circle,
