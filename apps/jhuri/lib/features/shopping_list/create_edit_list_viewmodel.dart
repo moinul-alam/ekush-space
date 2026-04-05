@@ -2,12 +2,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_models/ekush_models.dart';
+import 'package:ekush_ads/ekush_ads.dart';
 import 'package:drift/drift.dart' show Value;
 import '../../providers/database_provider.dart';
 import '../../providers/item_selection_provider.dart';
+import '../../providers/settings_providers.dart';
 import '../shopping_list/data/shopping_list_repository.dart';
 import '../list_item/data/list_item_repository.dart';
 import '../../services/shopping_list_notification_service.dart';
+import '../../config/jhuri_constants.dart';
 
 /// View model for creating and editing shopping lists
 class CreateEditListViewModel extends BaseViewModel {
@@ -295,6 +298,39 @@ class CreateEditListViewModel extends BaseViewModel {
         'বোতল',
         'কৌটা'
       ];
+
+  /// Trigger post-save interstitial ad if conditions are met
+  Future<void> triggerPostSaveAd() async {
+    try {
+      final adService = ref.read(adServiceProvider);
+      final lastShownNotifier =
+          ref.read(lastInterstitialShownNotifierProvider.notifier);
+      final lastShown = ref.read(lastInterstitialShownProvider);
+
+      // Check if enough time has passed since last interstitial
+      final now = DateTime.now();
+      final minInterval =
+          Duration(minutes: JhuriConstants.interstitialMinIntervalMinutes);
+
+      bool shouldShowAd = true;
+      if (lastShown != null) {
+        final lastShownTime = DateTime.parse(lastShown);
+        final timeSinceLastAd = now.difference(lastShownTime);
+        if (timeSinceLastAd < minInterval) {
+          shouldShowAd = false;
+        }
+      }
+
+      if (shouldShowAd) {
+        adService.showInterstitialIfAvailable();
+        // Update last interstitial shown time
+        await lastShownNotifier.setLastInterstitialShown(now.toIso8601String());
+      }
+    } catch (e) {
+      // Silently fail ad display - don't block user flow
+      debugPrint('Failed to show interstitial ad: $e');
+    }
+  }
 }
 
 // Provider

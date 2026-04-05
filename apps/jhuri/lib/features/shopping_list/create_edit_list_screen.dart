@@ -4,14 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ekush_core/ekush_core.dart';
 import 'package:ekush_models/ekush_models.dart';
-import 'package:ekush_ads/ekush_ads.dart';
 import '../../providers/item_selection_provider.dart';
 import '../shopping_list/home_viewmodel.dart';
 import 'create_edit_list_viewmodel.dart';
 import '../category/category_browser_screen.dart';
 import '../item_template/item_picker_screen.dart';
-import '../../providers/settings_providers.dart';
-import '../../config/jhuri_constants.dart';
 import '../../shared/widgets/jhuri_app_header.dart';
 
 class CreateEditListScreen extends ConsumerStatefulWidget {
@@ -471,44 +468,12 @@ class _CreateEditListScreenState extends ConsumerState<CreateEditListScreen> {
       if (listId != -1) {
         ref.read(itemSelectionProvider.notifier).clearSelections();
         ref.invalidate(homeViewModelProvider);
-        await _showInterstitialAdIfNeeded();
+        await viewModel.triggerPostSaveAd();
         if (!mounted) return;
         router.go('/home');
       }
     } catch (e) {
       messenger.showSnackBar(SnackBar(content: Text('ত্রুটি: $e')));
-    }
-  }
-
-  Future<void> _showInterstitialAdIfNeeded() async {
-    try {
-      final adService = ref.read(adServiceProvider);
-      final lastShownNotifier =
-          ref.read(lastInterstitialShownNotifierProvider.notifier);
-      final lastShown = ref.read(lastInterstitialShownProvider);
-
-      // Check if enough time has passed since last interstitial
-      final now = DateTime.now();
-      final minInterval =
-          Duration(minutes: JhuriConstants.interstitialMinIntervalMinutes);
-
-      bool shouldShowAd = true;
-      if (lastShown != null) {
-        final lastShownTime = DateTime.parse(lastShown);
-        final timeSinceLastAd = now.difference(lastShownTime);
-        if (timeSinceLastAd < minInterval) {
-          shouldShowAd = false;
-        }
-      }
-
-      if (shouldShowAd) {
-        adService.showInterstitialIfAvailable();
-        // Update last interstitial shown time
-        await lastShownNotifier.setLastInterstitialShown(now.toIso8601String());
-      }
-    } catch (e) {
-      // Silently fail ad display - don't block user flow
-      debugPrint('Failed to show interstitial ad: $e');
     }
   }
 }

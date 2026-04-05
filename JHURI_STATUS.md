@@ -457,5 +457,18 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 
 ---
 
-*Last updated: 2026-04-05 — ArchiveViewModel created, OnboardingViewModel SharedPreferences routed through repository*
+- **MVVM Compliance Refactoring Complete (2026-04-05):**
+  - ✅ PART A - Date/Time Pickers: Assessed as COMPLIANT - showDatePicker and showTimePicker correctly called from screen layer with immediate passing of results to viewmodel methods (lines 405, 415)
+  - ✅ PART B - Ad Service Violations: Fixed direct ad service calls in create_edit_list_screen.dart (lines 483-513) by moving logic into CreateEditListViewModel.triggerPostSaveAd()
+  - ✅ PART C - Shopping Mode Screen: Fixed identical ad service violation in shopping_mode_screen.dart by moving logic into ShoppingModeViewModel.triggerPostShareAd()
+  - ✅ Removed all direct ad service imports from screen files
+  - ✅ Added proper ad service imports and provider dependencies to respective viewmodels
+  - ✅ All ad timing and interval logic now properly encapsulated in viewmodel layer
+  - ✅ Analysis: All three commands return zero issues (melos run analyze, flutter analyze apps/ekush_ponji, flutter analyze apps/jhuri)
+  - ✅ Compatibility: No conflicts with existing ekush_ponji app or shared packages
+  - ✅ Architecture: Both screens now follow proper MVVM pattern with clear separation of concerns
+
+---
+
+*Last updated: 2026-04-05 — MVVM compliance refactoring complete*
 *Updated by: Cascade (MVVM compliance session)*
