@@ -1,6 +1,7 @@
 // lib/features/onboarding/widgets/onboarding_page_one.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../config/jhuri_constants.dart';
 
 class OnboardingPageOne extends StatelessWidget {
@@ -16,42 +17,42 @@ class OnboardingPageOne extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Padding(
-      padding: const EdgeInsets.all(24.0),
+      padding: EdgeInsets.all(24.0.w),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // ── Logo ──────────────────────────────
           Container(
-            width: 120,
-            height: 120,
+            width: 120.w,
+            height: 120.h,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(24.r),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withValues(alpha: 0.1),
-                  blurRadius: 20,
-                  offset: const Offset(0, 10),
+                  blurRadius: 20.r,
+                  offset: Offset(0, 10.h),
                 ),
               ],
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(24.r),
               child: Image.asset(
                 'assets/images/app_logo.png',
-                width: 120,
-                height: 120,
+                width: 120.w,
+                height: 120.h,
                 fit: BoxFit.cover,
               ),
             ),
           ),
 
-          const SizedBox(height: 40),
+          SizedBox(height: 40.h),
 
           // ── App Name ───────────────────────────
           Text(
             JhuriConstants.appName,
             style: TextStyle(
-              fontSize: 48,
+              fontSize: 48.sp,
               fontWeight: FontWeight.bold,
               color: colorScheme.onSurface,
               fontFamily: 'HindSiliguri',
@@ -59,25 +60,25 @@ class OnboardingPageOne extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
 
-          const SizedBox(height: 12),
+          SizedBox(height: 12.h),
 
           // ── Tagline ─────────────────────────────
           Text(
             'বাজারের ফর্দ, হাতের মুঠোয়',
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 20.sp,
               color: colorScheme.onSurface.withValues(alpha: 0.7),
             ),
             textAlign: TextAlign.center,
           ),
 
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
 
           // ── Description ─────────────────────────
           Text(
             'স্মার্ট গ্রোসারি লিস্ট\nপ্ল্যান বেটার, শপ ইজিয়ার',
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 16.sp,
               color: colorScheme.onSurface.withValues(alpha: 0.6),
               height: 1.5,
             ),
@@ -94,23 +95,23 @@ class OnboardingPageOne extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: colorScheme.primary,
                 foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(vertical: 16),
+                padding: EdgeInsets.symmetric(vertical: 16.h),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(12.r),
                 ),
                 elevation: 2,
               ),
-              child: const Text(
+              child: Text(
                 'শুরু করুন',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
                 ),
               ),
             ),
           ),
 
-          const SizedBox(height: 32),
+          SizedBox(height: 32.h),
         ],
       ),
     );

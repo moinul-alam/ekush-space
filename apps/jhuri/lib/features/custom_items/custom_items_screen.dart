@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ekush_models/ekush_models.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../providers/database_provider.dart';
 import '../../l10n/jhuri_localizations.dart';
 import '../../shared/widgets/jhuri_app_header.dart';
@@ -48,22 +49,22 @@ class _CustomItemsScreenState extends ConsumerState<CustomItemsScreen> {
                         .onSurface
                         .withValues(alpha: 0.5),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
                   Text(
                     'কোনো কাস্টম আইটেম নেই',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 18.sp,
                       color: Theme.of(context)
                           .colorScheme
                           .onSurface
                           .withValues(alpha: 0.7),
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   Text(
                     'আপনি এখনো কোনো কাস্টম আইটেম তৈরি করেননি',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       color: Theme.of(context)
                           .colorScheme
                           .onSurface
@@ -76,7 +77,7 @@ class _CustomItemsScreenState extends ConsumerState<CustomItemsScreen> {
           }
 
           return ListView.builder(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(16.w),
             itemCount: items.length,
             itemBuilder: (context, index) {
               final item = items[index];
@@ -90,14 +91,14 @@ class _CustomItemsScreenState extends ConsumerState<CustomItemsScreen> {
 
   Widget _buildItemCard(ItemTemplate item, JhuriLocalizations l10n) {
     return Card(
-      margin: const EdgeInsets.only(bottom: 8),
+      margin: EdgeInsets.only(bottom: 8.w),
       child: ListTile(
         leading: CircleAvatar(
           backgroundColor:
               Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
           child: Text(
             item.iconIdentifier ?? '📦',
-            style: const TextStyle(fontSize: 20),
+            style: TextStyle(fontSize: 20.sp),
           ),
         ),
         title: Text(item.nameBangla),
@@ -109,12 +110,12 @@ class _CustomItemsScreenState extends ConsumerState<CustomItemsScreen> {
             }
           },
           itemBuilder: (context) => [
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'delete',
               child: Row(
                 children: [
                   Icon(Icons.delete, color: Colors.red),
-                  SizedBox(width: 8),
+                  SizedBox(width: 8.w),
                   Text('মুছুন', style: TextStyle(color: Colors.red)),
                 ],
               ),

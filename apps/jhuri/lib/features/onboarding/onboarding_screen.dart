@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'onboarding_viewmodel.dart';
 import 'widgets/onboarding_page_one.dart';
@@ -51,21 +52,21 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           children: [
             // ── Dot indicator ──────────────────────
             Padding(
-              padding: const EdgeInsets.only(top: 20),
+              padding: EdgeInsets.only(top: 20.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(2, (i) {
                   final isActive = i == _currentPage;
                   return AnimatedContainer(
                     duration: const Duration(milliseconds: 250),
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                    width: isActive ? 28 : 8,
-                    height: 8,
+                    margin: EdgeInsets.symmetric(horizontal: 4.w),
+                    width: isActive ? 28.w : 8.w,
+                    height: 8.h,
                     decoration: BoxDecoration(
                       color: isActive
                           ? colorScheme.primary
                           : colorScheme.outlineVariant,
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(4.r),
                     ),
                   );
                 }),

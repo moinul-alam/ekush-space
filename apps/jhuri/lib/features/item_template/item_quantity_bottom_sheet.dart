@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ekush_models/ekush_models.dart';
 import '../../config/jhuri_constants.dart';
 import '../../providers/item_selection_provider.dart';
@@ -43,9 +44,9 @@ class _ItemQuantityBottomSheetState
     return Container(
       decoration: BoxDecoration(
         color: colorScheme.surface,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(16),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16.r),
+          topRight: Radius.circular(16.r),
         ),
       ),
       child: Column(
@@ -53,17 +54,17 @@ class _ItemQuantityBottomSheetState
         children: [
           // Handle bar
           Container(
-            width: 40,
-            height: 4,
-            margin: const EdgeInsets.only(top: 8),
+            width: 40.w,
+            height: 4.h,
+            margin: EdgeInsets.only(top: 8.h),
             decoration: BoxDecoration(
               color: colorScheme.onSurface.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(2),
+              borderRadius: BorderRadius.circular(2.r),
             ),
           ),
 
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(20.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -72,20 +73,20 @@ class _ItemQuantityBottomSheetState
                   children: [
                     // Icon
                     Container(
-                      width: 60,
-                      height: 60,
+                      width: 60.w,
+                      height: 60.h,
                       decoration: BoxDecoration(
                         color: colorScheme.primaryContainer,
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(12.r),
                       ),
                       child: Center(
                         child: Text(
                           widget.item.iconIdentifier ?? widget.item.emoji,
-                          style: const TextStyle(fontSize: 32),
+                          style: TextStyle(fontSize: 32.sp),
                         ),
                       ),
                     ),
-                    const SizedBox(width: 16),
+                    SizedBox(width: 16.w),
                     // Name
                     Expanded(
                       child: Column(
@@ -94,16 +95,16 @@ class _ItemQuantityBottomSheetState
                           Text(
                             widget.item.nameBangla,
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
                               color: colorScheme.onSurface,
                             ),
                           ),
-                          const SizedBox(height: 4),
+                          SizedBox(height: 4.h),
                           Text(
                             widget.item.nameEnglish,
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 14.sp,
                               color:
                                   colorScheme.onSurface.withValues(alpha: 0.7),
                             ),
@@ -114,18 +115,18 @@ class _ItemQuantityBottomSheetState
                   ],
                 ),
 
-                const SizedBox(height: 24),
+SizedBox(height: 24.h),
 
                 // Quantity selector
                 Text(
                   'পরিমাণ',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
                     color: colorScheme.onSurface,
                   ),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
                 Row(
                   children: [
                     // Decrease button
@@ -137,13 +138,13 @@ class _ItemQuantityBottomSheetState
                           }
                         });
                       },
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(8.r),
                       child: Container(
-                        width: 40,
-                        height: 40,
+                        width: 40.w,
+                        height: 40.h,
                         decoration: BoxDecoration(
                           color: colorScheme.primaryContainer,
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(8.r),
                         ),
                         child: Icon(
                           Icons.remove,
@@ -151,29 +152,29 @@ class _ItemQuantityBottomSheetState
                         ),
                       ),
                     ),
-                    const SizedBox(width: 16),
+                    SizedBox(width: 16.w),
                     // Quantity display
                     Expanded(
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 12),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 16.w, vertical: 12.h),
                         decoration: BoxDecoration(
                           border: Border.all(color: colorScheme.outline),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(8.r),
                         ),
                         child: Text(
                           quantity.toStringAsFixed(
                               quantity.truncateToDouble() == quantity ? 0 : 1),
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 18.sp,
                             fontWeight: FontWeight.w600,
                             color: colorScheme.onSurface,
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(width: 16),
+                    SizedBox(width: 16.w),
                     // Increase button
                     InkWell(
                       onTap: () {
@@ -181,13 +182,13 @@ class _ItemQuantityBottomSheetState
                           quantity = (quantity + 0.5).clamp(0.1, 999.9);
                         });
                       },
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(8.r),
                       child: Container(
-                        width: 40,
-                        height: 40,
+                        width: 40.w,
+                        height: 40.h,
                         decoration: BoxDecoration(
                           color: colorScheme.primaryContainer,
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(8.r),
                         ),
                         child: Icon(
                           Icons.add,
@@ -198,21 +199,21 @@ class _ItemQuantityBottomSheetState
                   ],
                 ),
 
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h),
 
                 // Unit selector
                 Text(
                   'একক',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
                     color: colorScheme.onSurface,
                   ),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
                 Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
+                  spacing: 8.w,
+                  runSpacing: 8.h,
                   children: JhuriConstants.fixedUnits.map((unit) {
                     final isSelected = unit == selectedUnit;
                     return InkWell(
@@ -221,10 +222,10 @@ class _ItemQuantityBottomSheetState
                           selectedUnit = unit;
                         });
                       },
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20.r),
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 8),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 16.w, vertical: 8.h),
                         decoration: BoxDecoration(
                           color: isSelected
                               ? colorScheme.primary
@@ -234,7 +235,7 @@ class _ItemQuantityBottomSheetState
                                 ? colorScheme.primary
                                 : colorScheme.outline,
                           ),
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(20.r),
                         ),
                         child: Text(
                           unit,
@@ -252,18 +253,18 @@ class _ItemQuantityBottomSheetState
                   }).toList(),
                 ),
 
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h),
 
                 // Price field (optional)
                 Text(
                   'মূল্য (ঐচ্ছিক)',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
                     color: colorScheme.onSurface,
                   ),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
                 TextField(
                   controller: priceController,
                   keyboardType: TextInputType.number,
@@ -271,12 +272,12 @@ class _ItemQuantityBottomSheetState
                     hintText: 'মূল্য লিখুন',
                     prefixText: '${JhuriConstants.defaultCurrencySymbol} ',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(8.r),
                     ),
                   ),
                 ),
 
-                const SizedBox(height: 24),
+SizedBox(height: 24.h),
 
                 // Add button
                 SizedBox(
@@ -307,15 +308,15 @@ class _ItemQuantityBottomSheetState
                     style: ElevatedButton.styleFrom(
                       backgroundColor: colorScheme.primary,
                       foregroundColor: colorScheme.onPrimary,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      padding: EdgeInsets.symmetric(vertical: 16.h),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(12.r),
                       ),
                     ),
                     child: Text(
                       'যোগ করুন',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -325,7 +326,7 @@ class _ItemQuantityBottomSheetState
             ),
           ),
 
-          const SizedBox(height: 20),
+SizedBox(height: 20.h),
         ],
       ),
     );

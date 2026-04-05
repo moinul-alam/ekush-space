@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ekush_core/ekush_core.dart';
 import 'completion_animation_viewmodel.dart';
 
@@ -45,16 +46,16 @@ class _CompletionAnimationScreenState
           if (viewState is ViewStateSuccess && viewModel.isShowingCompletion)
             Center(
               child: Container(
-                margin: const EdgeInsets.all(32),
-                padding: const EdgeInsets.all(24),
+                margin: EdgeInsets.all(32.w),
+                padding: EdgeInsets.all(24.w),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(16.r),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withValues(alpha: 0.3),
-                      blurRadius: 20,
-                      offset: const Offset(0, 10),
+                      blurRadius: 20.r,
+                      offset: Offset(0, 10.h),
                     ),
                   ],
                 ),
@@ -63,11 +64,11 @@ class _CompletionAnimationScreenState
                   children: [
                     // Success icon
                     Container(
-                      width: 80,
-                      height: 80,
+                      width: 80.w,
+                      height: 80.h,
                       decoration: BoxDecoration(
                         color: Colors.green.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(40),
+                        borderRadius: BorderRadius.circular(40.r),
                       ),
                       child: const Icon(
                         Icons.check_circle,
@@ -76,30 +77,30 @@ class _CompletionAnimationScreenState
                       ),
                     ),
 
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16.h),
 
                     // Success text
                     Text(
                       'অভিন্দোগ!',
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 24.sp,
                         fontWeight: FontWeight.bold,
                         color: Colors.green,
                       ),
                     ),
 
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8.h),
 
                     // Subtitle
                     Text(
                       'আপনার সম্পন্ন হয়েছে',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 16.sp,
                         color: Colors.grey[600],
                       ),
                     ),
 
-                    const SizedBox(height: 24),
+                    SizedBox(height: 24.h),
 
                     // Continue button
                     SizedBox(
@@ -112,16 +113,16 @@ class _CompletionAnimationScreenState
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
                           foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 24, vertical: 12),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 24.w, vertical: 12.h),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(8.r),
                           ),
                         ),
                         child: Text(
                           'ঠিক আছে, ফিরুন',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.w600,
                             color: Colors.white,
                           ),
@@ -149,11 +150,11 @@ class _CompletionAnimationScreenState
     return Stack(
       children: List.generate(30, (index) {
         return Positioned(
-          left: (index % 7) * 50.0,
-          top: (index % 5) * 100.0,
+          left: (index % 7) * 50.0.w,
+          top: (index % 5) * 100.0.h,
           child: Container(
-            width: 8,
-            height: 8,
+            width: 8.w,
+            height: 8.h,
             decoration: BoxDecoration(
               color: colors[index % colors.length],
               shape: BoxShape.circle,

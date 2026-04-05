@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../config/jhuri_constants.dart';
 import '../onboarding_viewmodel.dart';
 
@@ -21,7 +22,7 @@ class OnboardingPageTwo extends ConsumerWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Padding(
-      padding: const EdgeInsets.all(24.0),
+      padding: EdgeInsets.all(24.0.w),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -29,7 +30,7 @@ class OnboardingPageTwo extends ConsumerWidget {
           Text(
             'ভাষা নির্বাচন',
             style: TextStyle(
-              fontSize: 32,
+              fontSize: 32.sp,
               fontWeight: FontWeight.bold,
               color: colorScheme.onSurface,
               fontFamily: 'HindSiliguri',
@@ -37,19 +38,19 @@ class OnboardingPageTwo extends ConsumerWidget {
             textAlign: TextAlign.center,
           ),
 
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
 
           // ── Subtitle ───────────────────────────
           Text(
             'আপনার পছন্দের ভাষা নির্বাচন করুন',
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 16.sp,
               color: colorScheme.onSurface.withValues(alpha: 0.7),
             ),
             textAlign: TextAlign.center,
           ),
 
-          const SizedBox(height: 48),
+          SizedBox(height: 48.h),
 
           // ── Language Options ───────────────────
           ...JhuriConstants.languageDisplay.entries.map((entry) {
@@ -58,7 +59,7 @@ class OnboardingPageTwo extends ConsumerWidget {
             final isSelected = state.selectedLanguage == languageCode;
 
             return Padding(
-              padding: const EdgeInsets.only(bottom: 16),
+              padding: EdgeInsets.only(bottom: 16.h),
               child: InkWell(
                 onTap: () {
                   ref
@@ -68,12 +69,12 @@ class OnboardingPageTwo extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(12),
                 child: Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.all(20),
+                  padding: EdgeInsets.all(20.w),
                   decoration: BoxDecoration(
                     color: isSelected
                         ? colorScheme.primary.withValues(alpha: 0.1)
                         : colorScheme.surfaceContainerHighest,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12.r),
                     border: Border.all(
                       color:
                           isSelected ? colorScheme.primary : Colors.transparent,
@@ -84,8 +85,8 @@ class OnboardingPageTwo extends ConsumerWidget {
                     children: [
                       // Radio button
                       Container(
-                        width: 24,
-                        height: 24,
+                        width: 24.w,
+                        height: 24.h,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: isSelected
@@ -107,14 +108,14 @@ class OnboardingPageTwo extends ConsumerWidget {
                             : null,
                       ),
 
-                      const SizedBox(width: 16),
+                      SizedBox(width: 16.w),
 
                       // Language text
                       Expanded(
                         child: Text(
                           displayText,
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 18.sp,
                             fontWeight:
                                 isSelected ? FontWeight.w600 : FontWeight.w400,
                             color: colorScheme.onSurface,
@@ -138,22 +139,22 @@ class OnboardingPageTwo extends ConsumerWidget {
                 child: OutlinedButton(
                   onPressed: onBack,
                   style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    padding: EdgeInsets.symmetric(vertical: 16.h),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12.r),
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     'পিছনে',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
               ),
 
-              const SizedBox(width: 16),
+              SizedBox(width: 16.w),
 
               // Next/Start button
               Expanded(
@@ -162,26 +163,26 @@ class OnboardingPageTwo extends ConsumerWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: colorScheme.primary,
                     foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    padding: EdgeInsets.symmetric(vertical: 16.h),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12.r),
                     ),
                     elevation: 2,
                   ),
                   child: state.isCompleting
-                      ? const SizedBox(
-                          height: 20,
-                          width: 20,
+                      ? SizedBox(
+                      height: 20.h,
+                          width: 20.w,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
                             valueColor:
                                 AlwaysStoppedAnimation<Color>(Colors.white),
                           ),
                         )
-                      : const Text(
+                      : Text(
                           'শুরু করুন',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -190,7 +191,7 @@ class OnboardingPageTwo extends ConsumerWidget {
             ],
           ),
 
-          const SizedBox(height: 32),
+          SizedBox(height: 32.h),
         ],
       ),
     );

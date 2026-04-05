@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ekush_models/ekush_models.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'category_browser_viewmodel.dart';
 import '../../providers/item_selection_provider.dart';
 import 'custom_category_form_bottom_sheet.dart';
@@ -50,25 +51,25 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
               size: 64,
               color: Colors.red,
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             Text(
               'ত্রুটি হয়েছে',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
                 color: Colors.red,
               ),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             Text(
               error.toString(),
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 14.sp,
                 color: Colors.grey[600],
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24.h),
             ElevatedButton(
               onPressed: () => viewModel.refresh(),
               child: const Text('আবার চেষ্টা করুন'),
@@ -83,11 +84,11 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
               _buildCategoryGrid(categories, viewModel, colorScheme),
-              const SizedBox(height: 24),
+              SizedBox(height: 24.h),
               _buildBottomButton(context, colorScheme),
-              const SizedBox(height: 100), // Space for navigation
+              SizedBox(height: 100.h), // Space for navigation
             ],
           ),
         ),
@@ -98,26 +99,26 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
   Widget _buildCategoryGrid(List<Category> categories,
       CategoryBrowserViewModel viewModel, ColorScheme colorScheme) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'ক্যাটাগরি নির্বাচন করুন',
             style: TextStyle(
-              fontSize: 24,
+              fontSize: 24.sp,
               fontWeight: FontWeight.w600,
               color: colorScheme.onSurface,
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
+              crossAxisSpacing: 12.w,
+              mainAxisSpacing: 12.h,
               childAspectRatio: 1.0,
             ),
             itemCount: categories.length + 1, // +1 for custom item
@@ -171,7 +172,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius:
-                        const BorderRadius.vertical(top: Radius.circular(12)),
+                        BorderRadius.vertical(top: Radius.circular(12.r)),
                     color: colorScheme.surface,
                   ),
                   child: Image.asset(
@@ -183,15 +184,15 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
                         width: double.infinity,
                         height: double.infinity,
                         decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.vertical(
-                              top: Radius.circular(12)),
+                          borderRadius: BorderRadius.vertical(
+                              bottom: Radius.circular(12.r)),
                           color: colorScheme.primary.withValues(alpha: 0.1),
                         ),
                         child: Center(
                           child: Text(
                             category.iconIdentifier,
                             style: TextStyle(
-                              fontSize: 48,
+                              fontSize: 48.sp,
                               color: colorScheme.primary,
                             ),
                           ),
@@ -208,8 +209,8 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
                 child: Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.vertical(
-                        bottom: Radius.circular(12)),
+                    borderRadius: BorderRadius.vertical(
+                        bottom: Radius.circular(12.r)),
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -220,7 +221,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
                       ],
                     ),
                   ),
-                  padding: const EdgeInsets.all(8),
+          padding: EdgeInsets.all(8.w),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -230,7 +231,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
                         child: Text(
                           category.nameBangla,
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.w600,
                             color: Colors.white,
                           ),
@@ -256,7 +257,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
         height: double.infinity,
         decoration: BoxDecoration(
           color: colorScheme.surface,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.r),
           boxShadow: [
             BoxShadow(
               color: colorScheme.shadow.withValues(alpha: 0.1),
@@ -268,7 +269,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
         child: Material(
           color: Colors.transparent,
           child: InkWell(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12.r),
             onTap: () {
               // Open custom category creation bottom sheet
               showModalBottomSheet(
@@ -278,16 +279,16 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
               );
             },
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(16.w),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 48,
-                    height: 48,
+                    width: 48.w,
+                    height: 48.h,
                     decoration: BoxDecoration(
                       color: colorScheme.primary.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12.r),
                     ),
                     child: Icon(
                       Icons.add,
@@ -295,12 +296,12 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
                       size: 24,
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12.h),
                   Flexible(
                     child: Text(
                       'নতুন ক্যাটাগরি',
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                         color: colorScheme.onSurface,
                       ),
@@ -323,7 +324,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.w),
       child: ElevatedButton(
         onPressed: selectedCount > 0
             ? () {
@@ -340,15 +341,15 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
           backgroundColor:
               selectedCount > 0 ? colorScheme.primary : Colors.grey,
           foregroundColor: Colors.white,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(8.r),
           ),
         ),
         child: Text(
           selectedCount > 0 ? 'সম্পন্ন ($selectedCountটি আইটেম)' : 'সম্পন্ন',
           style: TextStyle(
-            fontSize: 16,
+            fontSize: 16.sp,
             fontWeight: FontWeight.w600,
             color: Colors.white,
           ),

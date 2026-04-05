@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -13,10 +14,10 @@ import '../../l10n/jhuri_localizations.dart';
 import '../../shared/widgets/jhuri_app_header.dart';
 
 abstract class _SettingsFonts {
-  static const double sectionHeader = 13.0;
-  static const double tileTitle = 18.0;
-  static const double tileSubtitle = 13.0;
-  static const double version = 13.0;
+  static double get sectionHeader => 13.0.sp;
+  static double get tileTitle => 18.0.sp;
+  static double get tileSubtitle => 13.0.sp;
+  static double get version => 13.0.sp;
 }
 
 class SettingsScreen extends JhuriBaseScreen {
@@ -64,7 +65,7 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
         title: l10n.settings,
       ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: EdgeInsets.symmetric(vertical: 8.h),
         children: [
           // ── Display Section ────────────────────────────────────────
           _SectionHeader(title: l10n.appearance),
@@ -264,10 +265,10 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
             },
           ),
 
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
           Center(
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(16.w),
               child: Text(
                 'Jhuri v1.0.0',
                 style: theme.textTheme.bodySmall?.copyWith(
@@ -591,17 +592,17 @@ class _PermissionBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
       decoration: BoxDecoration(
         color: cs.errorContainer,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
       ),
       child: Row(
         children: [
           Icon(Icons.notifications_off_rounded,
               color: cs.onErrorContainer, size: 20),
-          const SizedBox(width: 12),
+          SizedBox(width: 12.w),
           Expanded(
             child: Text(
               l10n.notificationPermissionDeniedBanner,
@@ -627,7 +628,7 @@ class _SectionHeader extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+      padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 8.h),
       child: Text(
         title.toUpperCase(),
         style: theme.textTheme.labelMedium?.copyWith(

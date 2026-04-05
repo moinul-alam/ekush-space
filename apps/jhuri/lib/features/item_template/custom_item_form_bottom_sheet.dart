@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../config/jhuri_constants.dart';
 import '../../providers/database_provider.dart';
 import '../category/category_browser_viewmodel.dart';
@@ -52,19 +53,16 @@ class _CustomItemFormBottomSheetState
     return Container(
       decoration: BoxDecoration(
         color: colorScheme.surface,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(16),
-        ),
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(16.r)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           // Handle bar
           Container(
-            width: 40,
-            height: 4,
-            margin: const EdgeInsets.only(top: 8),
+            width: double.infinity,
+            height: 4.h,
+            margin: EdgeInsets.only(top: 8.h),
             decoration: BoxDecoration(
               color: colorScheme.onSurface.withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(2),
@@ -72,7 +70,7 @@ class _CustomItemFormBottomSheetState
           ),
 
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(20.w),
             child: Form(
               key: _formKey,
               child: Column(
@@ -82,29 +80,29 @@ class _CustomItemFormBottomSheetState
                   Text(
                     'নতুন আইটেম যোগ করুন',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 20.sp,
                       fontWeight: FontWeight.bold,
                       color: colorScheme.onSurface,
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
 
                   // Bangla name (required)
                   Text(
                     'আইটেমের নাম (বাংলা) *',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
                       color: colorScheme.onSurface,
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   TextFormField(
                     controller: _nameController,
                     decoration: InputDecoration(
                       hintText: 'যেমন: আলু',
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.r),
                       ),
                     ),
                     validator: (value) {
@@ -114,46 +112,46 @@ class _CustomItemFormBottomSheetState
                       return null;
                     },
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
 
                   // English name (optional)
                   Text(
                     'আইটেমের নাম (ইংরেজি)',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
                       color: colorScheme.onSurface,
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   TextFormField(
                     controller: _englishNameController,
                     decoration: InputDecoration(
                       hintText: 'যেমন: Potato',
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.r),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
 
                   // Category dropdown
                   Text(
                     'ক্যাটাগরি',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
                       color: colorScheme.onSurface,
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   categoriesAsync.when(
                     data: (categories) {
                       return DropdownButtonFormField<int>(
                         initialValue: _selectedCategoryId,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(8.r),
                           ),
                         ),
                         items: categories.map((category) {
@@ -178,25 +176,25 @@ class _CustomItemFormBottomSheetState
                       style: TextStyle(color: colorScheme.error),
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
 
                   // Quantity
                   Text(
                     'পরিমাণ',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
                       color: colorScheme.onSurface,
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   TextFormField(
                     controller: _quantityController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       hintText: 'পরিমাণ',
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.r),
                       ),
                     ),
                     validator: (value) {
@@ -210,21 +208,21 @@ class _CustomItemFormBottomSheetState
                       return null;
                     },
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
 
                   // Unit chips
                   Text(
                     'একক',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
                       color: colorScheme.onSurface,
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
+                    spacing: 8.w,
+                    runSpacing: 8.h,
                     children: JhuriConstants.fixedUnits.map((unit) {
                       final isSelected = unit == _selectedUnit;
                       return InkWell(
@@ -233,10 +231,10 @@ class _CustomItemFormBottomSheetState
                             _selectedUnit = unit;
                           });
                         },
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(20.r),
                         child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 8),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16.w, vertical: 8.h),
                           decoration: BoxDecoration(
                             color: isSelected
                                 ? colorScheme.primary
@@ -246,7 +244,7 @@ class _CustomItemFormBottomSheetState
                                   ? colorScheme.primary
                                   : colorScheme.outline,
                             ),
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(20.r),
                           ),
                           child: Text(
                             unit,
@@ -263,18 +261,18 @@ class _CustomItemFormBottomSheetState
                       );
                     }).toList(),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
 
                   // Price (optional)
                   Text(
                     'মূল্য (ঐচ্ছিক)',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
                       color: colorScheme.onSurface,
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   TextFormField(
                     controller: _priceController,
                     keyboardType: TextInputType.number,
@@ -282,11 +280,11 @@ class _CustomItemFormBottomSheetState
                       hintText: 'মূল্য লিখুন',
                       prefixText: '${JhuriConstants.defaultCurrencySymbol} ',
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.r),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  SizedBox(height: 24.h),
 
                   // Buttons
                   Row(
@@ -300,21 +298,21 @@ class _CustomItemFormBottomSheetState
                                   Navigator.pop(context);
                                 },
                           style: OutlinedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(12.r),
                             ),
                           ),
                           child: Text(
                             'বাতিল',
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(width: 16),
+                      SizedBox(width: 16.w),
                       // Save button
                       Expanded(
                         child: ElevatedButton(
@@ -322,15 +320,15 @@ class _CustomItemFormBottomSheetState
                           style: ElevatedButton.styleFrom(
                             backgroundColor: colorScheme.primary,
                             foregroundColor: colorScheme.onPrimary,
-                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(12.r),
                             ),
                           ),
                           child: _isSaving
-                              ? const SizedBox(
+                              ? SizedBox(
                                   height: 20,
-                                  width: 20,
+                                  width: 48.w,
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2,
                                     color: Colors.white,
@@ -352,7 +350,7 @@ class _CustomItemFormBottomSheetState
             ),
           ),
 
-          const SizedBox(height: 20),
+          SizedBox(width: 48.w),
         ],
       ),
     );

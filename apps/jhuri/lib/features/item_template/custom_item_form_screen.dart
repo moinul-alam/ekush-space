@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'custom_item_form_viewmodel.dart';
 import '../../shared/widgets/jhuri_app_header.dart';
 
@@ -39,30 +40,30 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
+            Icon(
               Icons.error_outline,
-              size: 64,
+              size: 64.r,
               color: Colors.red,
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             Text(
               'ত্রুটি হয়েছে',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
                 color: Colors.red,
               ),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             Text(
               viewModel.hasError ? 'ত্রুটি হয়েছে' : 'একটি ত্রুটি হয়েছে',
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 16.sp,
                 color: Colors.grey[600],
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 16.h),
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
               child: const Text('আবার চেষ্টা করুন'),
@@ -73,7 +74,7 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
     }
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -81,18 +82,18 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
           Text(
             'আইটেমর নাম',
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w600,
               color: colorScheme.onSurface,
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           TextField(
             onChanged: (value) => viewModel.updateNameBangla(value),
             decoration: InputDecoration(
               hintText: 'আইটেমর নাম (যেমন)',
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(8.r),
                 borderSide: BorderSide(
                     color: colorScheme.outline.withValues(alpha: 0.3)),
               ),
@@ -101,7 +102,7 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
             ),
           ),
 
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
 
           // English name
           TextField(
@@ -109,7 +110,7 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
             decoration: InputDecoration(
               hintText: 'আইটেমর নাম (English)',
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(8.r),
                 borderSide: BorderSide(
                     color: colorScheme.outline.withValues(alpha: 0.3)),
               ),
@@ -118,24 +119,24 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
             ),
           ),
 
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
 
           // Category selection
           Text(
             'ক্যাটাগরি',
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w600,
               color: colorScheme.onSurface,
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           DropdownButtonFormField<String>(
             initialValue: viewModel.selectedCategoryId,
             decoration: InputDecoration(
               hintText: 'ক্যাটাগরি নির্বাচন',
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(8.r),
                 borderSide: BorderSide(
                     color: colorScheme.outline.withValues(alpha: 0.3)),
               ),
@@ -159,7 +160,7 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
             onChanged: (value) => viewModel.updateCategoryId(value ?? ''),
           ),
 
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
 
           // Quantity and unit
           Row(
@@ -172,7 +173,7 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
                   decoration: InputDecoration(
                     hintText: 'পরিমাণ',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(8.r),
                       borderSide: BorderSide(
                           color: colorScheme.outline.withValues(alpha: 0.3)),
                     ),
@@ -181,14 +182,14 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
                   ),
                 ),
               ),
-              const SizedBox(width: 16),
+              SizedBox(width: 16.w),
               Expanded(
                 child: DropdownButtonFormField<String>(
                   initialValue: viewModel.selectedUnit,
                   decoration: InputDecoration(
                     hintText: 'একক',
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(8.r),
                       borderSide: BorderSide(
                           color: colorScheme.outline.withValues(alpha: 0.3)),
                     ),
@@ -204,32 +205,32 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
             ],
           ),
 
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
 
           // Icon selection
           Text(
             'আইকন',
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w600,
               color: colorScheme.onSurface,
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           Wrap(
-            spacing: 8,
-            runSpacing: 4,
+            spacing: 8.w,
+            runSpacing: 4.h,
             children: viewModel.availableIcons.map((icon) {
               final isSelected = viewModel.selectedIcon == icon;
               return GestureDetector(
                 onTap: () => viewModel.updateIcon(icon),
                 child: Container(
-                  width: 40,
-                  height: 40,
+                  width: 40.w,
+                  height: 40.h,
                   decoration: BoxDecoration(
                     color:
                         isSelected ? colorScheme.primary : colorScheme.surface,
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                     border: Border.all(
                       color: isSelected
                           ? colorScheme.primary
@@ -241,7 +242,7 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
                     child: Text(
                       icon,
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 20.sp,
                         color: isSelected
                             ? colorScheme.onSurface
                             : colorScheme.onSurface.withValues(alpha: 0.7),
@@ -253,7 +254,7 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
             }).toList(),
           ),
 
-          const SizedBox(height: 32),
+          SizedBox(height: 32.h),
 
           // Save button
           SizedBox(
@@ -268,15 +269,15 @@ class _CustomItemFormScreenState extends ConsumerState<CustomItemFormScreen> {
                     ? Colors.white
                     : colorScheme.onSurface.withValues(alpha: 0.7),
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
               ),
               child: Text(
                 'আইটেম যোগ',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                   color: viewModel.isValid
                       ? Colors.white

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../providers/database_provider.dart';
 
 class CustomCategoryFormBottomSheet extends ConsumerStatefulWidget {
@@ -46,14 +47,14 @@ class _CustomCategoryFormBottomSheetState
     return Container(
       decoration: BoxDecoration(
         color: colorScheme.surface,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
       ),
       child: SingleChildScrollView(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.all(20.w),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,23 +63,23 @@ class _CustomCategoryFormBottomSheetState
               Row(
                 children: [
                   Container(
-                    width: 40,
-                    height: 40,
+                    width: 40.w,
+                    height: 40.h,
                     decoration: BoxDecoration(
                       color: colorScheme.primary.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12.r),
                     ),
                     child: Icon(
                       Icons.category,
                       color: colorScheme.primary,
                     ),
                   ),
-                  const SizedBox(width: 12),
+                  SizedBox(width: 12.w),
                   Expanded(
                     child: Text(
                       'নতুন ক্যাটাগরি তৈরি',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                         color: colorScheme.onSurface,
                       ),
@@ -90,66 +91,66 @@ class _CustomCategoryFormBottomSheetState
                   ),
                 ],
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: 24.h),
 
               // Bangla Name (required)
               Text(
                 'ক্যাটাগরিের নাম *',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               TextFormField(
                 controller: _banglaNameController,
                 decoration: InputDecoration(
                   hintText: 'যেমন: ফলমূল',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
                 ),
                 textDirection: TextDirection.ltr,
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
 
               // English Name (optional)
               Text(
                 'ইংরেজি নাম',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               TextFormField(
                 controller: _englishNameController,
                 decoration: InputDecoration(
                   hintText: 'যেমন: Fruits',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
 
               // Emoji Icon
               Text(
                 'ইমোজি আইকন',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               if (!_showEmojiPicker) ...[
                 // Emoji selection grid
                 Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
+                  spacing: 8.w,
+                  runSpacing: 8.h,
                   children: _suggestedEmojis.map((emoji) {
                     final isSelected = _selectedEmoji == emoji;
                     return GestureDetector(
@@ -159,13 +160,13 @@ class _CustomCategoryFormBottomSheetState
                         });
                       },
                       child: Container(
-                        width: 48,
-                        height: 48,
+                        width: 48.w,
+                        height: 48.h,
                         decoration: BoxDecoration(
                           color: isSelected
                               ? colorScheme.primary
                               : colorScheme.surfaceContainerHighest,
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(8.r),
                           border: isSelected
                               ? Border.all(color: colorScheme.primary, width: 2)
                               : null,
@@ -174,7 +175,7 @@ class _CustomCategoryFormBottomSheetState
                           child: Text(
                             emoji,
                             style: TextStyle(
-                              fontSize: 24,
+                              fontSize: 24.sp,
                             ),
                           ),
                         ),
@@ -182,7 +183,7 @@ class _CustomCategoryFormBottomSheetState
                     );
                   }).toList(),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h),
                 // Custom emoji button
                 TextButton.icon(
                   onPressed: () {
@@ -215,7 +216,7 @@ class _CustomCategoryFormBottomSheetState
                         },
                       ),
                     ),
-                    const SizedBox(width: 8),
+                    SizedBox(width: 8.w),
                     TextButton(
                       onPressed: () {
                         setState(() {
@@ -237,7 +238,7 @@ class _CustomCategoryFormBottomSheetState
                     child: OutlinedButton(
                       onPressed: () => Navigator.pop(context),
                       style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        padding: EdgeInsets.symmetric(vertical: 12.h),
                       ),
                       child: const Text('বাতিল'),
                     ),
@@ -249,14 +250,14 @@ class _CustomCategoryFormBottomSheetState
                       style: ElevatedButton.styleFrom(
                         backgroundColor: colorScheme.primary,
                         foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        padding: EdgeInsets.symmetric(vertical: 12.h),
                       ),
                       child: const Text('সংরক্ষণ করুন'),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
             ],
           ),
         ),

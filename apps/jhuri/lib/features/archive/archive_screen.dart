@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ekush_models/ekush_models.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../shopping_list/home_providers.dart';
 import '../../shared/widgets/jhuri_app_header.dart';
 
@@ -30,21 +31,21 @@ class ArchiveScreen extends ConsumerWidget {
                 size: 64,
                 color: Colors.red,
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
               Text(
                 'ত্রুটি হয়েছে',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
                   color: Colors.red,
                   fontFamily: 'HindSiliguri',
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               Text(
                 'আর্কাইভ তালিকা লোড করতে সমস্যা হয়েছে',
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   color: Colors.grey[600],
                   fontFamily: 'HindSiliguri',
                 ),
@@ -64,21 +65,21 @@ class ArchiveScreen extends ConsumerWidget {
                     size: 64,
                     color: colorScheme.onSurface.withValues(alpha: 0.3),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
                   Text(
                     'কোনো আর্কাইভ তালিকা নেই',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
                       color: colorScheme.onSurface.withValues(alpha: 0.6),
                       fontFamily: 'HindSiliguri',
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   Text(
                     'সম্পন্ন হওয়া তালিকাগুলো এখানে দেখাবে',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       color: colorScheme.onSurface.withValues(alpha: 0.4),
                       fontFamily: 'HindSiliguri',
                     ),
@@ -89,7 +90,7 @@ class ArchiveScreen extends ConsumerWidget {
           }
 
           return Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.w),
             child: _buildListsGrid(context, lists, colorScheme),
           );
         },
@@ -101,11 +102,11 @@ class ArchiveScreen extends ConsumerWidget {
       BuildContext context, List<ShoppingList> lists, ColorScheme colorScheme) {
     return GridView.builder(
       padding: EdgeInsets.zero,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
-        mainAxisExtent: 180, // Fixed height for cards
+        crossAxisSpacing: 12.w,
+        mainAxisSpacing: 12.h,
+        mainAxisExtent: 180.h, // Fixed height for cards
       ),
       itemCount: lists.length,
       itemBuilder: (context, index) {
@@ -134,7 +135,7 @@ class ArchiveScreen extends ConsumerWidget {
           borderRadius: BorderRadius.circular(12),
           onTap: () => GoRouter.of(context).push('/list/${list.id}'),
           child: Padding(
-            padding: const EdgeInsets.all(12),
+            padding: EdgeInsets.all(12.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -142,7 +143,7 @@ class ArchiveScreen extends ConsumerWidget {
                 Text(
                   list.title.isEmpty ? 'বাজারের ফর্দ' : list.title,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.bold,
                     color: colorScheme.onSurface,
                     fontFamily: 'HindSiliguri',
@@ -150,13 +151,13 @@ class ArchiveScreen extends ConsumerWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: 4.h),
 
                 // Date
                 Text(
                   _formatDate(list.buyDate),
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 12.sp,
                     color: colorScheme.onSurface.withValues(alpha: 0.6),
                     fontFamily: 'HindSiliguri',
                   ),
@@ -167,15 +168,15 @@ class ArchiveScreen extends ConsumerWidget {
                 // Completed badge
                 Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                   decoration: BoxDecoration(
                     color: Colors.green,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12.r),
                   ),
                   child: Text(
                     'সম্পন্ন',
                     style: TextStyle(
-                      fontSize: 10,
+                      fontSize: 10.sp,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
                       fontFamily: 'HindSiliguri',

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ekush_models/ekush_models.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../config/jhuri_constants.dart';
 import '../../providers/database_provider.dart';
 import 'item_picker_viewmodel.dart';
@@ -71,10 +72,10 @@ class _CreateCustomItemScreenState
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom + 20,
-          top: 20,
-          left: 20,
-          right: 20,
+          bottom: MediaQuery.of(context).viewInsets.bottom + 20.h,
+          top: 20.h,
+          left: 20.w,
+          right: 20.w,
         ),
         child: Form(
           key: _formKey,
@@ -85,18 +86,18 @@ class _CreateCustomItemScreenState
               Text(
                 'আইটেমের নাম *',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               TextFormField(
                 controller: _banglaNameController,
                 decoration: InputDecoration(
                   hintText: 'যেমন: টমেটো',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
                 ),
                 validator: (value) {
@@ -106,44 +107,44 @@ class _CreateCustomItemScreenState
                   return null;
                 },
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
 
               // English Name (optional)
               Text(
                 'ইংরেজি নাম',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               TextFormField(
                 controller: _englishNameController,
                 decoration: InputDecoration(
                   hintText: 'যেমন: Tomato',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
 
               // Category (required)
               Text(
                 'ক্যাটাগরি *',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               DropdownButtonFormField<int>(
                 initialValue: _selectedCategoryId,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
                 ),
                 validator: (value) {
@@ -190,24 +191,24 @@ class _CreateCustomItemScreenState
                   }
                 },
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
 
               // Quantity
               Text(
                 'পরিমাণ',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               TextFormField(
                 controller: _quantityController,
                 decoration: InputDecoration(
                   hintText: 'যেমন: 1',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
                 ),
                 keyboardType: TextInputType.number,
@@ -222,21 +223,21 @@ class _CreateCustomItemScreenState
                   return null;
                 },
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
 
               // Unit
               Text(
                 'একক',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               Wrap(
-                spacing: 8,
-                runSpacing: 8,
+                spacing: 8.w,
+                runSpacing: 8.h,
                 children: JhuriConstants.fixedUnits.map((unit) {
                   final isSelected = _selectedUnit == unit;
                   return FilterChip(
@@ -253,24 +254,24 @@ class _CreateCustomItemScreenState
                   );
                 }).toList(),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
 
               // Price (optional)
               Text(
                 'মূল্য',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               TextFormField(
                 controller: _priceController,
                 decoration: InputDecoration(
                   hintText: 'যেমন: 50',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
                   prefixText: JhuriConstants.defaultCurrencySymbol,
                 ),
@@ -285,7 +286,7 @@ class _CreateCustomItemScreenState
                   return null;
                 },
               ),
-              const SizedBox(height: 32),
+              SizedBox(height: 32.h),
 
               // Save button
               SizedBox(
@@ -295,25 +296,25 @@ class _CreateCustomItemScreenState
                   style: ElevatedButton.styleFrom(
                     backgroundColor: colorScheme.primary,
                     foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    padding: EdgeInsets.symmetric(vertical: 14.h),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(8.r),
                     ),
                   ),
                   child: _isSaving
-                      ? const SizedBox(
-                          height: 20,
-                          width: 20,
+                      ? SizedBox(
+                          height: 20.h,
+                          width: 20.w,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
                             valueColor:
                                 AlwaysStoppedAnimation<Color>(Colors.white),
                           ),
                         )
-                      : const Text(
+                      : Text(
                           'সংরক্ষণ করুন',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
