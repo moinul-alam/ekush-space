@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ekush_core/ekush_core.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../shopping_list/data/shopping_list_repository.dart';
 import '../list_item/data/list_item_repository.dart';
 import '../../providers/database_provider.dart';
@@ -174,6 +176,33 @@ class SettingsViewModel extends BaseViewModel {
       loadingMessage: 'রিসেট করা হচ্ছে...',
       successMessage: 'সেটিংস সফলভাবে রিসেট করা হয়েছে',
       errorMessage: 'সেটিংস রিসেট করতে সমস্যা হয়েছে',
+    );
+  }
+
+  Future<void> launchPrivacyPolicy() async {
+    await executeAsync(
+      operation: () async {
+        final Uri url = Uri.parse('https://ekushlabs.com/privacy');
+        if (await canLaunchUrl(url)) {
+          await launchUrl(url, mode: LaunchMode.externalApplication);
+        } else {
+          throw Exception('Could not launch URL');
+        }
+      },
+      successMessage: null,
+      errorMessage: 'লিংক খুলতে সমস্যা হয়েছে',
+      showLoading: false,
+    );
+  }
+
+  Future<void> requestNotificationPermission() async {
+    await executeAsync(
+      operation: () async {
+        await openAppSettings();
+      },
+      successMessage: null,
+      errorMessage: 'সেটিংস খুলতে সমস্যা হয়েছে',
+      showLoading: false,
     );
   }
 }

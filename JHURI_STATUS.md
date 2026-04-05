@@ -73,8 +73,8 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 
 ## Last Commit
 
-**Hash:** b854ad8
-**Message:** feat(jhuri): ScreenUtil conversion complete — all files, zero hardcoded values remaining
+**Hash:** 7b5c81f
+**Message:** refactor(jhuri): extract business logic from HomeScreen into HomeViewModel
 **Branch:** jhuri
 
 ---
@@ -406,7 +406,19 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
   - ✅ ScreenUtil value conversions complete across all files: theme, shared widgets, all feature screens — zero hardcoded values remaining
   - ✅ Ad config restored on office machine, gitignored correctly
 
+- **Settings Screen MVVM Refactoring Complete (2026-04-05):**
+  - ✅ VIOLATION 1: Extracted url_launcher calls (lines 246-266) into SettingsViewModel.launchPrivacyPolicy()
+  - ✅ VIOLATION 2: Extracted permission handling (lines 332-339) into SettingsViewModel.requestNotificationPermission()
+  - ✅ VIOLATION 3: Updated all dialog methods (lines 341-433) to call viewmodel methods instead of direct providers
+  - ✅ VIOLATION 4: Removed direct provider calls from _toggleShowPriceTotal and _toggleNotifications methods
+  - ✅ Settings screen now follows MVVM pattern: only UI concerns remain, all business logic in SettingsViewModel
+  - ✅ Removed url_launcher and permission_handler imports from settings_screen.dart
+  - ✅ Added proper error handling through BaseViewModel.executeAsync pattern
+  - ✅ Analysis: All three commands return zero issues (melos run analyze, flutter analyze apps/ekush_ponji, flutter analyze apps/jhuri)
+  - ✅ Compatibility: No conflicts with existing ekush_ponji app or shared packages
+  - ✅ Settings screen is now fully MVVM compliant per audit requirements
+
 ---
 
-*Last updated: 2026-04-05 — Structural alignment & polish session complete*
-*Updated by: Cascade (structural alignment session)*
+*Last updated: 2026-04-05 — Settings screen MVVM refactoring complete*
+*Updated by: Cascade (MVVM compliance session)*

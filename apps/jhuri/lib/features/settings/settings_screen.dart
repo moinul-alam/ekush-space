@@ -4,14 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:ekush_notifications/ekush_notifications.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import '../../base/jhuri_base_screen.dart';
 import '../../providers/settings_providers.dart';
 import '../../l10n/jhuri_localizations.dart';
 import '../../shared/widgets/jhuri_app_header.dart';
+import 'settings_viewmodel.dart';
 
 abstract class _SettingsFonts {
   static double get sectionHeader => 13.0.sp;
@@ -53,6 +52,7 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
     final l10n = JhuriLocalizations.of(context);
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final viewModel = ref.read(settingsViewModelProvider.notifier);
 
     // Watch async providers
     final themeModeAsync = ref.watch(themeModeProvider);
@@ -243,26 +243,7 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
             title: l10n.privacyPolicy,
             subtitle: l10n.privacyPolicySubtitle,
             trailing: const Icon(Icons.chevron_right),
-            onTap: () async {
-              final Uri url = Uri.parse('https://ekushlabs.com/privacy');
-              try {
-                if (await canLaunchUrl(url)) {
-                  await launchUrl(url, mode: LaunchMode.externalApplication);
-                } else {
-                  if (mounted) {
-                    showJhuriSnackBar(
-                        message: 'লিংক খুলতে সমস্যা হয়েছে',
-                        type: SnackBarType.error);
-                  }
-                }
-              } catch (e) {
-                if (mounted) {
-                  showJhuriSnackBar(
-                      message: 'লিংক খুলতে সমস্যা হয়েছে',
-                      type: SnackBarType.error);
-                }
-              }
-            },
+            onTap: () => viewModel.launchPrivacyPolicy(),
           ),
 
           SizedBox(height: 16.h),
@@ -296,23 +277,13 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
   }
 
   Future<void> _toggleShowPriceTotal(bool value, WidgetRef ref) async {
-    try {
-      await ref.read(showPriceTotalNotifierProvider.notifier).setValue(value);
-    } catch (e) {
-      showJhuriSnackBar(
-          message: 'Error updating setting', type: SnackBarType.error);
-    }
+    final viewModel = ref.read(settingsViewModelProvider.notifier);
+    await viewModel.toggleShowPriceTotal(value, ref);
   }
 
   Future<void> _toggleNotifications(bool value, WidgetRef ref) async {
-    try {
-      await ref
-          .read(notificationsEnabledNotifierProvider.notifier)
-          .setValue(value);
-    } catch (e) {
-      showJhuriSnackBar(
-          message: 'Error updating setting', type: SnackBarType.error);
-    }
+    final viewModel = ref.read(settingsViewModelProvider.notifier);
+    await viewModel.toggleNotifications(value, ref);
   }
 
   void _showPermissionDialog(BuildContext context, JhuriLocalizations l10n) {
@@ -329,7 +300,8 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
           FilledButton(
             onPressed: () async {
               Navigator.of(ctx).pop();
-              await openAppSettings();
+              final viewModel = ref.read(settingsViewModelProvider.notifier);
+              await viewModel.requestNotificationPermission();
             },
             child: Text(l10n.openSettings),
           ),
@@ -365,9 +337,9 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
                   selected: {currentTheme},
                   onSelectionChanged: (Set<ThemeMode> selection) {
                     if (selection.isNotEmpty) {
-                      ref
-                          .read(themeModeProvider.notifier)
-                          .setThemeMode(selection.first);
+                      final viewModel =
+                          ref.read(settingsViewModelProvider.notifier);
+                      viewModel.changeTheme(selection.first, ref);
                       Navigator.pop(context);
                     }
                   },
@@ -411,10 +383,9 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
                   selected: {currentLocale.languageCode},
                   onSelectionChanged: (Set<String> selection) {
                     if (selection.isNotEmpty) {
-                      final locale = selection.first == 'bn'
-                          ? const Locale('bn', 'BD')
-                          : const Locale('en', 'US');
-                      ref.read(localeProvider.notifier).setLocale(locale);
+                      final viewModel =
+                          ref.read(settingsViewModelProvider.notifier);
+                      viewModel.changeLanguage(selection.first, ref);
                       Navigator.pop(context);
                     }
                   },
@@ -453,9 +424,9 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
               selected: {currentCurrency},
               onSelectionChanged: (Set<String> selection) {
                 if (selection.isNotEmpty) {
-                  ref
-                      .read(currencySymbolNotifierProvider.notifier)
-                      .setValue(selection.first);
+                  final viewModel =
+                      ref.read(settingsViewModelProvider.notifier);
+                  viewModel.changeCurrencySymbol(selection.first, ref);
                   Navigator.pop(context);
                 }
               },
@@ -495,9 +466,9 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
               selected: {currentTime},
               onSelectionChanged: (Set<String> selection) {
                 if (selection.isNotEmpty) {
-                  ref
-                      .read(defaultReminderTimeNotifierProvider.notifier)
-                      .setValue(selection.first);
+                  final viewModel =
+                      ref.read(settingsViewModelProvider.notifier);
+                  viewModel.changeDefaultReminderTime(selection.first, ref);
                   Navigator.pop(context);
                 }
               },
@@ -534,9 +505,9 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
               selected: {currentOrder},
               onSelectionChanged: (Set<String> selection) {
                 if (selection.isNotEmpty) {
-                  ref
-                      .read(listSortOrderNotifierProvider.notifier)
-                      .setValue(selection.first);
+                  final viewModel =
+                      ref.read(settingsViewModelProvider.notifier);
+                  viewModel.changeListSortOrder(selection.first, ref);
                   Navigator.pop(context);
                 }
               },
