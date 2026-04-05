@@ -1443,4 +1443,30 @@ class JhuriLocalizationsEn extends JhuriLocalizations {
 
   @override
   String get customItemErrorWithSuffix => 'Error: ';
+
+  // Additional missing keys from create_custom_item_screen.dart
+  @override
+  String get itemNameRequired => 'Enter item name';
+
+  @override
+  String get quantityHint => 'e.g., 1';
+
+  @override
+  String get enterQuantity => 'Enter quantity';
+
+  @override
+  String get validQuantity => 'Enter valid quantity';
+
+  @override
+  String get priceHint => 'e.g., 50';
+
+  @override
+  String get validPrice => 'Enter valid price';
+
+  @override
+  String get featureComingSoonCategory =>
+      'This feature is coming soon. Please create new categories from the category browser.';
+
+  @override
+  String get errorWithSuffix => 'Error: ';
 }

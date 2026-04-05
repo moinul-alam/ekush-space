@@ -1442,4 +1442,30 @@ class JhuriLocalizationsBn extends JhuriLocalizations {
 
   @override
   String get customItemErrorWithSuffix => 'ত্রুটি হয়েছে: ';
+
+  // Additional missing keys from create_custom_item_screen.dart
+  @override
+  String get itemNameRequired => 'আইটেমের নাম লিখুন';
+
+  @override
+  String get quantityHint => 'যেমন: 1';
+
+  @override
+  String get enterQuantity => 'পরিমাণ লিখুন';
+
+  @override
+  String get validQuantity => 'বৈধ পরিমাণ লিখুন';
+
+  @override
+  String get priceHint => 'যেমন: 50';
+
+  @override
+  String get validPrice => 'বৈধ মূল্য লিখুন';
+
+  @override
+  String get featureComingSoonCategory =>
+      'এই ফিচারটি শীঘ্রই আসছে। অনুগ্রহ করে ক্যাটাগরি ব্রাউজার থেকে নতুন ক্যাটাগরি তৈরি করুন।';
+
+  @override
+  String get errorWithSuffix => 'ত্রুটি: ';
 }

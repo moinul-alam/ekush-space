@@ -6,6 +6,7 @@ import '../../config/jhuri_constants.dart';
 import '../../providers/database_provider.dart';
 import 'item_picker_viewmodel.dart';
 import '../../shared/widgets/jhuri_app_header.dart';
+import '../../l10n/jhuri_localizations.dart';
 
 class CreateCustomItemScreen extends ConsumerStatefulWidget {
   const CreateCustomItemScreen({super.key});
@@ -84,7 +85,7 @@ class _CreateCustomItemScreenState
             children: [
               // Bangla Name (required)
               Text(
-                'আইটেমের নাম *',
+                JhuriLocalizations.of(context).itemNameBangla,
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
@@ -95,14 +96,14 @@ class _CreateCustomItemScreenState
               TextFormField(
                 controller: _banglaNameController,
                 decoration: InputDecoration(
-                  hintText: 'যেমন: টমেটো',
+                  hintText: JhuriLocalizations.of(context).itemNameBanglaHint,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.r),
                   ),
                 ),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'আইটেমের নাম লিখুন';
+                    return JhuriLocalizations.of(context).itemNameRequired;
                   }
                   return null;
                 },
@@ -111,7 +112,7 @@ class _CreateCustomItemScreenState
 
               // English Name (optional)
               Text(
-                'ইংরেজি নাম',
+                JhuriLocalizations.of(context).itemNameEnglish,
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
@@ -122,7 +123,7 @@ class _CreateCustomItemScreenState
               TextFormField(
                 controller: _englishNameController,
                 decoration: InputDecoration(
-                  hintText: 'যেমন: Tomato',
+                  hintText: JhuriLocalizations.of(context).itemNameEnglishHint,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.r),
                   ),
@@ -132,7 +133,7 @@ class _CreateCustomItemScreenState
 
               // Category (required)
               Text(
-                'ক্যাটাগরি *',
+                JhuriLocalizations.of(context).itemCategory,
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
@@ -149,7 +150,7 @@ class _CreateCustomItemScreenState
                 ),
                 validator: (value) {
                   if (value == null || value == -1) {
-                    return 'ক্যাটাগরি বেছে নিন';
+                    return JhuriLocalizations.of(context).selectItemCategory;
                   }
                   return null;
                 },
@@ -176,7 +177,7 @@ class _CreateCustomItemScreenState
                       children: [
                         Icon(Icons.add, size: 20),
                         SizedBox(width: 8.w),
-                        Text('নতুন ক্যাটাগরি তৈরি'),
+                        Text(JhuriLocalizations.of(context).createNewCategory),
                       ],
                     ),
                   ),
@@ -195,7 +196,7 @@ class _CreateCustomItemScreenState
 
               // Quantity
               Text(
-                'পরিমাণ',
+                JhuriLocalizations.of(context).itemQuantity,
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
@@ -206,7 +207,7 @@ class _CreateCustomItemScreenState
               TextFormField(
                 controller: _quantityController,
                 decoration: InputDecoration(
-                  hintText: 'যেমন: 1',
+                  hintText: JhuriLocalizations.of(context).quantityHint,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.r),
                   ),
@@ -214,11 +215,11 @@ class _CreateCustomItemScreenState
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'পরিমাণ লিখুন';
+                    return JhuriLocalizations.of(context).enterQuantity;
                   }
                   final quantity = double.tryParse(value);
                   if (quantity == null || quantity <= 0) {
-                    return 'বৈধ পরিমাণ লিখুন';
+                    return JhuriLocalizations.of(context).validQuantity;
                   }
                   return null;
                 },
@@ -227,7 +228,7 @@ class _CreateCustomItemScreenState
 
               // Unit
               Text(
-                'একক',
+                JhuriLocalizations.of(context).itemUnit,
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
@@ -258,7 +259,7 @@ class _CreateCustomItemScreenState
 
               // Price (optional)
               Text(
-                'মূল্য',
+                JhuriLocalizations.of(context).price,
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
@@ -269,7 +270,7 @@ class _CreateCustomItemScreenState
               TextFormField(
                 controller: _priceController,
                 decoration: InputDecoration(
-                  hintText: 'যেমন: 50',
+                  hintText: JhuriLocalizations.of(context).priceHint,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.r),
                   ),
@@ -280,7 +281,7 @@ class _CreateCustomItemScreenState
                   if (value != null && value.trim().isNotEmpty) {
                     final price = double.tryParse(value);
                     if (price == null || price < 0) {
-                      return 'বৈধ মূল্য লিখুন';
+                      return JhuriLocalizations.of(context).validPrice;
                     }
                   }
                   return null;
@@ -312,7 +313,7 @@ class _CreateCustomItemScreenState
                           ),
                         )
                       : Text(
-                          'সংরক্ষণ করুন',
+                          JhuriLocalizations.of(context).addCustomItem,
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w600,
@@ -331,13 +332,12 @@ class _CreateCustomItemScreenState
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('নতুন ক্যাটাগরি তৈরি'),
-        content: const Text(
-            'এই ফিচারটি শীঘ্রই আসছে। অনুগ্রহ করে ক্যাটাগরি ব্রাউজার থেকে নতুন ক্যাটাগরি তৈরি করুন।'),
+        title: Text(JhuriLocalizations.of(context).createNewCategory),
+        content: Text(JhuriLocalizations.of(context).featureComingSoonCategory),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('ঠিক আছে'),
+            child: Text(JhuriLocalizations.of(context).ok),
           ),
         ],
       ),
@@ -351,7 +351,8 @@ class _CreateCustomItemScreenState
 
     if (_selectedCategoryId == 0) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('ক্যাটাগরি বেছে নিন')),
+        SnackBar(
+            content: Text(JhuriLocalizations.of(context).selectItemCategory)),
       );
       return;
     }
@@ -379,7 +380,9 @@ class _CreateCustomItemScreenState
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('আইটেম সংরক্ষণ হয়েছে')),
+          SnackBar(
+              content:
+                  Text(JhuriLocalizations.of(context).customItemAddedSuccess)),
         );
         // Invalidate the item picker provider for the saved category
         ref.invalidate(itemPickerViewModelProvider(_selectedCategoryId));
@@ -388,7 +391,9 @@ class _CreateCustomItemScreenState
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('ত্রুটি: $e')),
+          SnackBar(
+              content:
+                  Text('${JhuriLocalizations.of(context).errorWithSuffix}$e')),
         );
       }
     } finally {

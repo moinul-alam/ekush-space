@@ -660,6 +660,16 @@ abstract class JhuriLocalizations extends AppLocalizations
   String get atLeastOneItemRequired;
   String get customItemAddedSuccess;
   String get customItemErrorWithSuffix;
+
+  // Additional missing keys from create_custom_item_screen.dart
+  String get itemNameRequired;
+  String get quantityHint;
+  String get enterQuantity;
+  String get validQuantity;
+  String get priceHint;
+  String get validPrice;
+  String get featureComingSoonCategory;
+  String get errorWithSuffix;
 }
 
 class JhuriLocalizationsDelegate
