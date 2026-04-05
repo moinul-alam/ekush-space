@@ -522,6 +522,34 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
   - ✅ Compatibility: No conflicts with existing ekush_ponji app or shared packages
   - ✅ Architecture: Home screen now follows modular widget structure for improved maintainability
 
+- **HomeGreeterWidget Bangla Numerals Fix Complete (2026-04-26):**
+  - ✅ Added _toBanglaDigits helper function to convert ASCII digits to Bangla numerals
+  - ✅ Updated date formatting to use Bangla numerals for day and year
+  - ✅ Removed weekday name from date display - now shows only '৬ এপ্রিল ২০২৬' format
+  - ✅ Date format: Bangla day + space + month name + space + Bangla year
+  - ✅ Only modified home_greeter_widget.dart as specified
+  - ✅ Verification: flutter analyze apps/jhuri returns zero issues
+
+- **NoListWidget How-To Section Redesign Complete (2026-04-26):**
+  - ✅ Added 6 new l10n keys to all three localization files (APPEND ONLY)
+  - ✅ New keys: howToStep1Title, howToStep1Subtitle, howToStep2Title, howToStep2Subtitle, howToStep3Title, howToStep3Subtitle
+  - ✅ Replaced plain bullet points with card-style _buildHowToStep widget
+  - ✅ Each step features: 52x52 primary color container with white icon (size 26), bold title, subtitle text
+  - ✅ Step 1: Icons.add_circle_outline, 'নতুন ফর্দ তৈরি করুন'/'Create a new list'
+  - ✅ Step 2: Icons.category_outlined, 'ক্যাটাগরি নির্বাচন'/'Browse categories'
+  - ✅ Step 3: Icons.shopping_cart_outlined, 'আইটেম যোগ করুন'/'Add items'
+  - ✅ Added 20.h spacing between steps for better visual separation
+  - ✅ Removed old _buildBulletPoint method completely
+  - ✅ Only modified no_list_widget.dart and l10n files as specified
+  - ✅ New l10n Keys Added:
+    - apps/jhuri/lib/l10n/jhuri_localizations.dart (added abstract keys)
+    - apps/jhuri/lib/l10n/jhuri_localizations_bn.dart (added Bangla implementations)
+    - apps/jhuri/lib/l10n/jhuri_localizations_en.dart (added English implementations)
+  - ✅ Files Modified:
+    - apps/jhuri/lib/features/shopping_list/widgets/no_list_widget.dart (redesigned how-to section)
+  - ✅ Verification: All three analysis commands return zero issues
+  - ✅ UI Enhancement: How-to section now matches card-style design specification
+
 - **ScreenUtil Value Conversions — Final Batch Complete (2026-04-05):**
   - ✅ STEP 1: Fixed remaining hardcoded values in 7 files per specification
   - ✅ STEP 1: create_edit_list_screen.dart — Font sizes: 16.sp, 18.sp, 14.sp (lines 70, 101, 110)

@@ -8,6 +8,22 @@ import '../../../l10n/jhuri_localizations.dart';
 class HomeGreeterWidget extends ConsumerWidget {
   const HomeGreeterWidget({super.key});
 
+  String _toBanglaDigits(String input) {
+    const Map<String, String> digitMap = {
+      '0': '০',
+      '1': '১',
+      '2': '২',
+      '3': '৩',
+      '4': '৪',
+      '5': '৫',
+      '6': '৬',
+      '7': '৭',
+      '8': '৮',
+      '9': '৯',
+    };
+    return input.split('').map((c) => digitMap[c] ?? c).join('');
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = JhuriLocalizations.of(context);
@@ -28,9 +44,10 @@ class HomeGreeterWidget extends ConsumerWidget {
 
     // Format today's date in Bangla
     final now = DateTime.now();
-    final weekdayName = l10n.getDayName(now.weekday);
+    final day = _toBanglaDigits(now.day.toString());
+    final year = _toBanglaDigits(now.year.toString());
     final monthName = l10n.getMonthName(now.month);
-    final banglaDate = '$weekdayName, ${now.day} $monthName ${now.year}';
+    final banglaDate = '$day $monthName $year';
 
     return Container(
       width: double.infinity,

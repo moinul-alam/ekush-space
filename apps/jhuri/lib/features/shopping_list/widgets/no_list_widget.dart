@@ -66,7 +66,8 @@ class NoListWidget extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: colorScheme.primary,
                   foregroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 14.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 32.w, vertical: 14.h),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.r),
                   ),
@@ -88,25 +89,28 @@ class NoListWidget extends StatelessWidget {
 
               SizedBox(height: 12.h),
 
-              // 6. Three bullet points
+              // 6. Three card-style how-to steps
               Column(
                 children: [
-                  _buildBulletPoint(
-                    context,
-                    text: l10n.howToStep1,
-                    colorScheme: colorScheme,
+                  _buildHowToStep(
+                    context: context,
+                    icon: Icons.add_circle_outline,
+                    title: l10n.howToStep1Title,
+                    subtitle: l10n.howToStep1Subtitle,
                   ),
-                  SizedBox(height: 8.h),
-                  _buildBulletPoint(
-                    context,
-                    text: l10n.howToStep2,
-                    colorScheme: colorScheme,
+                  SizedBox(height: 20.h),
+                  _buildHowToStep(
+                    context: context,
+                    icon: Icons.category_outlined,
+                    title: l10n.howToStep2Title,
+                    subtitle: l10n.howToStep2Subtitle,
                   ),
-                  SizedBox(height: 8.h),
-                  _buildBulletPoint(
-                    context,
-                    text: l10n.howToStep3,
-                    colorScheme: colorScheme,
+                  SizedBox(height: 20.h),
+                  _buildHowToStep(
+                    context: context,
+                    icon: Icons.shopping_cart_outlined,
+                    title: l10n.howToStep3Title,
+                    subtitle: l10n.howToStep3Subtitle,
                   ),
                 ],
               ),
@@ -117,27 +121,48 @@ class NoListWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildBulletPoint(
-    BuildContext context, {
-    required String text,
-    required ColorScheme colorScheme,
+  Widget _buildHowToStep({
+    required BuildContext context,
+    required IconData icon,
+    required String title,
+    required String subtitle,
   }) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(
-          Icons.circle,
-          size: 8,
-          color: colorScheme.onSurface.withValues(alpha: 0.7),
+        Container(
+          width: 52.w,
+          height: 52.h,
+          decoration: BoxDecoration(
+            color: colorScheme.primary,
+            borderRadius: BorderRadius.circular(12.r),
+          ),
+          child: Icon(icon, color: Colors.white, size: 26),
         ),
-        SizedBox(width: 8.w),
+        SizedBox(width: 16.w),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(
-              fontSize: 14.sp,
-              color: colorScheme.onSurface.withValues(alpha: 0.7),
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
+                  color: colorScheme.onSurface,
+                ),
+              ),
+              SizedBox(height: 4.h),
+              Text(
+                subtitle,
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  color: colorScheme.onSurface.withValues(alpha: 0.6),
+                ),
+              ),
+            ],
           ),
         ),
       ],

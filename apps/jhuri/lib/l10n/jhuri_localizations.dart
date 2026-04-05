@@ -753,6 +753,12 @@ abstract class JhuriLocalizations extends AppLocalizations
   String get howToStep1;
   String get howToStep2;
   String get howToStep3;
+  String get howToStep1Title;
+  String get howToStep1Subtitle;
+  String get howToStep2Title;
+  String get howToStep2Subtitle;
+  String get howToStep3Title;
+  String get howToStep3Subtitle;
 }
 
 class JhuriLocalizationsDelegate

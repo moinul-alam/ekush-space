@@ -1676,4 +1676,23 @@ class JhuriLocalizationsEn extends JhuriLocalizations {
 
   @override
   String get howToStep3 => 'Check off items as you shop';
+
+  // Additional how-to step titles and subtitles
+  @override
+  String get howToStep1Title => 'Create a new list';
+
+  @override
+  String get howToStep1Subtitle => 'Tap + to start a new grocery list';
+
+  @override
+  String get howToStep2Title => 'Browse categories';
+
+  @override
+  String get howToStep2Subtitle => 'Choose the category you need items from';
+
+  @override
+  String get howToStep3Title => 'Add items';
+
+  @override
+  String get howToStep3Subtitle => 'Build your grocery list with ease';
 }

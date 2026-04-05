@@ -1676,4 +1676,23 @@ class JhuriLocalizationsBn extends JhuriLocalizations {
 
   @override
   String get howToStep3 => 'বাজারে গিয়ে একে একে টিক দিন';
+
+  // Additional how-to step titles and subtitles
+  @override
+  String get howToStep1Title => 'নতুন ফর্দ তৈরি করুন';
+
+  @override
+  String get howToStep1Subtitle => '+ বাটনে ক্লিক করে নতুন ফর্দ শুরু করুন';
+
+  @override
+  String get howToStep2Title => 'ক্যাটাগরি নির্বাচন';
+
+  @override
+  String get howToStep2Subtitle => 'প্রয়োজনীয় আইটেমের ক্যাটাগরি বেছে নিন';
+
+  @override
+  String get howToStep3Title => 'আইটেম যোগ করুন';
+
+  @override
+  String get howToStep3Subtitle => 'সহজেই আপনার বাজারের তালিকা তৈরি করুন';
 }
