@@ -479,6 +479,19 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
     - validPrice (বৈধ মূল্য লিখুন / Enter valid price)
     - featureComingSoonCategory (এই ফিচারটি শীঘ্রই আসছে... / This feature is coming soon...)
     - errorWithSuffix (ত্রুটি: / Error:)
+- **Localization Refactoring Complete (2026-04-06) - Quantity Sheet, Onboarding, Completion Animation:**
+  - ✅ STEP 1: Audited 5 files for hardcoded strings - item_quantity_bottom_sheet.dart, onboarding_page_one.dart, onboarding_page_two.dart, completion_animation_screen.dart, completion_animation_viewmodel.dart
+  - ✅ STEP 2: Added 1 missing l10n key to all three localization files:
+    - selectLanguageDescription (আপনার পছন্দের ভাষা নির্বাচন করুন / Select your preferred language)
+  - ✅ STEP 3: Replaced all hardcoded strings with JhuriLocalizations.of(context) calls:
+    - item_quantity_bottom_sheet.dart: Replaced 5 strings (quantity, unit, priceOptional, enterPriceLabel, addTo)
+    - onboarding_page_one.dart: Replaced 3 strings (onboardingTagline, appDescription, onboardingGetStarted)
+    - onboarding_page_two.dart: Replaced 4 strings (onboardingLanguageTitle, selectLanguageDescription, back, onboardingGetStarted)
+    - completion_animation_screen.dart: Replaced 3 strings (congratulations, yourListCompleted, okayLetsGo)
+    - completion_animation_viewmodel.dart: Refactored getCompletionStatusText method to accept l10n strings as named parameters
+  - ✅ Analysis: All three commands return zero issues (melos run analyze, flutter analyze apps/ekush_ponji, flutter analyze apps/jhuri)
+  - ✅ Compatibility: No conflicts with existing ekush_ponji app
+  - ✅ Architecture: Viewmodel properly isolated from l10n - strings passed as parameters from screen layer
   - ✅ STEP 3: Replaced all hardcoded strings in create_custom_item_screen.dart with JhuriLocalizations.of(context) calls
   - ✅ Analysis: All three commands return zero issues
     - melos run analyze: No issues found!

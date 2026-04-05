@@ -51,7 +51,7 @@ class _CustomItemsScreenState extends ConsumerState<CustomItemsScreen> {
                   ),
                   SizedBox(height: 16.h),
                   Text(
-                    'কোনো কাস্টম আইটেম নেই',
+                    l10n.noCustomItems,
                     style: TextStyle(
                       fontSize: 18.sp,
                       color: Theme.of(context)
@@ -62,7 +62,7 @@ class _CustomItemsScreenState extends ConsumerState<CustomItemsScreen> {
                   ),
                   SizedBox(height: 8.h),
                   Text(
-                    'আপনি এখনো কোনো কাস্টম আইটেম তৈরি করেননি',
+                    l10n.noCustomItemsDescription,
                     style: TextStyle(
                       fontSize: 14.sp,
                       color: Theme.of(context)
@@ -116,7 +116,7 @@ class _CustomItemsScreenState extends ConsumerState<CustomItemsScreen> {
                 children: [
                   Icon(Icons.delete, color: Colors.red),
                   SizedBox(width: 8.w),
-                  Text('মুছুন', style: TextStyle(color: Colors.red)),
+                  Text(l10n.delete, style: TextStyle(color: Colors.red)),
                 ],
               ),
             ),
@@ -127,34 +127,38 @@ class _CustomItemsScreenState extends ConsumerState<CustomItemsScreen> {
   }
 
   void _showDeleteConfirmation(ItemTemplate item) {
+    final l10n = JhuriLocalizations.of(context);
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('কাস্টম আইটেম মুছে ফেলুন'),
-        content: Text('আপনি কি "${item.nameBangla}" মুছতে চান?'),
+        title: Text(l10n.deleteCustomItem),
+        content: Text('Do you want to delete "${item.nameBangla}"?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('বাতিল'),
+            child: Text(l10n.cancel),
           ),
           TextButton(
             onPressed: () async {
               Navigator.pop(context);
-              final messenger = ScaffoldMessenger.of(this.context);
+              final messenger = ScaffoldMessenger.of(context);
               try {
                 final repository = ref.read(itemTemplateRepositoryProvider);
                 await repository.delete(item.id);
                 messenger.showSnackBar(
-                  const SnackBar(
-                      content: Text('কাস্টম আইটেম মুছে ফেলা হয়েছে')),
+                  SnackBar(
+                    content: Text('Custom item deleted successfully'),
+                  ),
                 );
               } catch (e) {
                 messenger.showSnackBar(
-                  SnackBar(content: Text('ত্রুটি: $e')),
+                  SnackBar(
+                    content: Text('Error: $e'),
+                  ),
                 );
               }
             },
-            child: const Text('মুছুন', style: TextStyle(color: Colors.red)),
+            child: Text(l10n.delete, style: TextStyle(color: Colors.red)),
           ),
         ],
       ),

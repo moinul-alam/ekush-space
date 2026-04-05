@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ekush_models/ekush_models.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../l10n/jhuri_localizations.dart';
 import 'category_browser_viewmodel.dart';
 import '../../providers/item_selection_provider.dart';
 import 'custom_category_form_bottom_sheet.dart';
@@ -21,6 +22,7 @@ class CategoryBrowserScreen extends ConsumerStatefulWidget {
 class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
   @override
   Widget build(BuildContext context) {
+    final l10n = JhuriLocalizations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
     final categoriesAsync = ref.watch(categoryBrowserViewModelProvider);
     final viewModel = ref.read(categoryBrowserViewModelProvider.notifier);
@@ -29,8 +31,8 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
     ref.watch(itemSelectionProvider);
 
     return Scaffold(
-      appBar: const JhuriAppHeader(
-        title: 'কী কিনবেন?',
+      appBar: JhuriAppHeader(
+        title: l10n.whatToBuy,
       ),
       body: _buildBody(categoriesAsync, viewModel, colorScheme),
     );
@@ -38,6 +40,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
 
   Widget _buildBody(AsyncValue<List<Category>> categoriesAsync,
       CategoryBrowserViewModel viewModel, ColorScheme colorScheme) {
+    final l10n = JhuriLocalizations.of(context);
     return categoriesAsync.when(
       loading: () => const Center(
         child: CircularProgressIndicator(),
@@ -53,7 +56,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
             ),
             SizedBox(height: 16.h),
             Text(
-              'ত্রুটি হয়েছে',
+              l10n.errorOccurred,
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
@@ -72,7 +75,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
             SizedBox(height: 24.h),
             ElevatedButton(
               onPressed: () => viewModel.refresh(),
-              child: const Text('আবার চেষ্টা করুন'),
+              child: Text(l10n.retry),
             ),
           ],
         ),
@@ -98,13 +101,14 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
 
   Widget _buildCategoryGrid(List<Category> categories,
       CategoryBrowserViewModel viewModel, ColorScheme colorScheme) {
+    final l10n = JhuriLocalizations.of(context);
     return Padding(
       padding: EdgeInsets.all(16.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'ক্যাটাগরি নির্বাচন করুন',
+            l10n.selectCategoryTitle,
             style: TextStyle(
               fontSize: 24.sp,
               fontWeight: FontWeight.w600,
@@ -209,8 +213,8 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
                 child: Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.vertical(
-                        bottom: Radius.circular(12.r)),
+                    borderRadius:
+                        BorderRadius.vertical(bottom: Radius.circular(12.r)),
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -221,7 +225,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
                       ],
                     ),
                   ),
-          padding: EdgeInsets.all(8.w),
+                  padding: EdgeInsets.all(8.w),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -251,6 +255,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
   }
 
   Widget _buildCustomItemCard(ColorScheme colorScheme) {
+    final l10n = JhuriLocalizations.of(context);
     return AspectRatio(
       aspectRatio: 1.0,
       child: Container(
@@ -299,7 +304,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
                   SizedBox(height: 12.h),
                   Flexible(
                     child: Text(
-                      'নতুন ক্যাটাগরি',
+                      l10n.createNewCategory,
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
@@ -319,6 +324,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
   }
 
   Widget _buildBottomButton(BuildContext context, ColorScheme colorScheme) {
+    final l10n = JhuriLocalizations.of(context);
     final itemSelection = ref.watch(itemSelectionProvider);
     final selectedCount = itemSelection.selectedCount;
 
@@ -347,7 +353,7 @@ class _CategoryBrowserScreenState extends ConsumerState<CategoryBrowserScreen> {
           ),
         ),
         child: Text(
-          selectedCount > 0 ? 'সম্পন্ন ($selectedCountটি আইটেম)' : 'সম্পন্ন',
+          selectedCount > 0 ? l10n.doneWithCount(selectedCount) : l10n.done,
           style: TextStyle(
             fontSize: 16.sp,
             fontWeight: FontWeight.w600,

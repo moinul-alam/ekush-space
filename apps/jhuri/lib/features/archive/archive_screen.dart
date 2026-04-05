@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ekush_models/ekush_models.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ekush_core/ekush_core.dart';
+import '../../l10n/jhuri_localizations.dart';
 import 'archive_viewmodel.dart';
 import '../../shared/widgets/jhuri_app_header.dart';
 
@@ -17,17 +18,20 @@ class ArchiveScreen extends ConsumerStatefulWidget {
 class _ArchiveScreenState extends ConsumerState<ArchiveScreen> {
   @override
   Widget build(BuildContext context) {
+    final l10n = JhuriLocalizations.of(context);
     final colorScheme = Theme.of(context).colorScheme;
     final viewState = ref.watch(archiveViewModelProvider);
     final viewModel = ref.read(archiveViewModelProvider.notifier);
 
     return Scaffold(
-      appBar: const JhuriAppHeader(
-        title: 'আর্কাইভ',
+      appBar: JhuriAppHeader(
+        title: l10n.archive,
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          await ref.read(archiveViewModelProvider.notifier).refresh();
+          await ref
+              .read(archiveViewModelProvider.notifier)
+              .refresh(loadingArchives: l10n.loadingArchives);
         },
         child: _buildBody(viewState, viewModel, colorScheme),
       ),
@@ -36,6 +40,8 @@ class _ArchiveScreenState extends ConsumerState<ArchiveScreen> {
 
   Widget _buildBody(ViewState viewState, ArchiveViewModel viewModel,
       ColorScheme colorScheme) {
+    final l10n = JhuriLocalizations.of(context);
+
     if (viewState is ViewStateLoading && !viewModel.hasData) {
       return const Center(
         child: CircularProgressIndicator(),
@@ -54,7 +60,7 @@ class _ArchiveScreenState extends ConsumerState<ArchiveScreen> {
             ),
             SizedBox(height: 16.h),
             Text(
-              'ত্রুটি হয়েছে',
+              l10n.errorOccurred,
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
@@ -91,7 +97,7 @@ class _ArchiveScreenState extends ConsumerState<ArchiveScreen> {
             ),
             SizedBox(height: 16.h),
             Text(
-              'কোনো আর্কাইভ তালিকা নেই',
+              l10n.noArchivedLists,
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
@@ -101,7 +107,7 @@ class _ArchiveScreenState extends ConsumerState<ArchiveScreen> {
             ),
             SizedBox(height: 8.h),
             Text(
-              'সম্পন্ন হওয়া তালিকাগুলো এখানে দেখাবে',
+              l10n.noArchivedListsDescription,
               style: TextStyle(
                 fontSize: 14.sp,
                 color: colorScheme.onSurface.withValues(alpha: 0.4),
@@ -138,6 +144,7 @@ class _ArchiveScreenState extends ConsumerState<ArchiveScreen> {
 
   Widget _buildListCard(
       BuildContext context, ShoppingList list, ColorScheme colorScheme) {
+    final l10n = JhuriLocalizations.of(context);
     return Container(
       decoration: BoxDecoration(
         color: colorScheme.surface,
@@ -162,7 +169,7 @@ class _ArchiveScreenState extends ConsumerState<ArchiveScreen> {
               children: [
                 // Title
                 Text(
-                  list.title.isEmpty ? 'বাজারের ফর্দ' : list.title,
+                  list.title.isEmpty ? l10n.shoppingListDefault : list.title,
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.bold,
@@ -194,7 +201,7 @@ class _ArchiveScreenState extends ConsumerState<ArchiveScreen> {
                     borderRadius: BorderRadius.circular(12.r),
                   ),
                   child: Text(
-                    'সম্পন্ন',
+                    l10n.completedStatus,
                     style: TextStyle(
                       fontSize: 10.sp,
                       fontWeight: FontWeight.w600,
@@ -212,14 +219,15 @@ class _ArchiveScreenState extends ConsumerState<ArchiveScreen> {
   }
 
   String _formatDate(DateTime date) {
+    final l10n = JhuriLocalizations.of(context);
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final listDate = DateTime(date.year, date.month, date.day);
 
     if (listDate == today) {
-      return 'আজ';
+      return l10n.today;
     } else if (listDate == today.subtract(const Duration(days: 1))) {
-      return 'গতকাল';
+      return l10n.yesterday;
     } else {
       return '${date.day}/${date.month}/${date.year}';
     }

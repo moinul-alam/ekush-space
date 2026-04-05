@@ -692,6 +692,52 @@ abstract class JhuriLocalizations extends AppLocalizations
   String get typeEmoji;
   String get categorySavedSuccess;
   String get errorWithSuffixDynamicCategory;
+
+  // Additional missing keys from settings screen
+  String get errorLoadingTheme;
+  String get errorLoadingLanguage;
+  String get appDescription;
+  String get developedBy;
+  String get allRightsReserved;
+  String get resettingSettings;
+  String get settingsResetSuccess;
+  String get settingsResetError;
+  String get linkLaunchError;
+  String get settingsOpenError;
+
+  // Additional missing keys from archive screen
+  String get noArchivedLists;
+  String get noArchivedListsDescription;
+  String get loadingArchives;
+
+  // Additional missing keys from category browser
+  String get selectCategoryTitle;
+  String doneWithCount(int count);
+
+  // Additional missing keys from custom items screen
+  String get errorLoadingCustomItems;
+  String get noCustomItems;
+  String get noCustomItemsDescription;
+
+  // Additional missing keys from completion animation
+  String get congratulations;
+  String get yourListCompleted;
+  String get okayLetsGo;
+
+  // Additional missing keys from completion animation viewmodel
+  String get completedStatus;
+  String get almostCompleted;
+  String get halfCompleted;
+  String get inProgress;
+
+  // Additional missing keys from shopping mode viewmodel
+  String get deleteCustomItem;
+  String get deleteCustomItemConfirmation;
+  String get customItemDeletedSuccess;
+  String get searchItems;
+  String get noItemsFound;
+  String get tryDifferentKeywords;
+  String get selectLanguageDescription;
 }
 
 class JhuriLocalizationsDelegate

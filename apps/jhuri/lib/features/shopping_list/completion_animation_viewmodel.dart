@@ -86,11 +86,17 @@ class CompletionAnimationViewModel extends BaseViewModel {
   }
 
   /// Get completion status text
-  String getCompletionStatusText(double percentage) {
-    if (percentage >= 100) return 'সম্পন্ন';
-    if (percentage >= 75) return 'প্রায় সম্পন্ন';
-    if (percentage >= 50) return 'অর্ধেক';
-    return 'চলিছ করছেন';
+  String getCompletionStatusText(
+    double percentage, {
+    required String completedText,
+    required String almostCompletedText,
+    required String halfCompletedText,
+    required String inProgressText,
+  }) {
+    if (percentage >= 100) return completedText;
+    if (percentage >= 75) return almostCompletedText;
+    if (percentage >= 50) return halfCompletedText;
+    return inProgressText;
   }
 
   /// Get completion color

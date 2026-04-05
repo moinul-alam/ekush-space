@@ -8,6 +8,7 @@ import 'item_picker_viewmodel.dart';
 import 'item_quantity_bottom_sheet.dart';
 import 'custom_item_form_bottom_sheet.dart';
 import '../../shared/widgets/jhuri_app_header.dart';
+import '../../l10n/jhuri_localizations.dart';
 
 class ItemPickerScreen extends ConsumerStatefulWidget {
   final int categoryId;
@@ -68,6 +69,7 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final l10n = JhuriLocalizations.of(context);
     final itemsAsync =
         ref.watch(itemPickerViewModelProvider(widget.categoryId));
     final itemSelection = ref.watch(itemSelectionProvider);
@@ -86,7 +88,7 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
                 controller: _searchController,
                 onChanged: _onSearchChanged,
                 decoration: InputDecoration(
-                  hintText: 'আইটেম খুঁজুন...',
+                  hintText: l10n.searchItems,
                   hintStyle: TextStyle(
                     color: colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
@@ -135,7 +137,8 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
           Expanded(
             child: Padding(
               padding: EdgeInsets.all(_isSearchVisible ? 0 : 12.0.w),
-              child: _buildItemsGrid(itemsAsync, itemSelection, colorScheme),
+              child:
+                  _buildItemsGrid(itemsAsync, itemSelection, colorScheme, l10n),
             ),
           ),
         ],
@@ -150,8 +153,11 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
     );
   }
 
-  Widget _buildItemsGrid(AsyncValue<List<ItemTemplate>> itemsAsync,
-      ItemSelectionState itemSelection, ColorScheme colorScheme) {
+  Widget _buildItemsGrid(
+      AsyncValue<List<ItemTemplate>> itemsAsync,
+      ItemSelectionState itemSelection,
+      ColorScheme colorScheme,
+      JhuriLocalizations l10n) {
     return itemsAsync.when(
       loading: () => const Center(
         child: CircularProgressIndicator(),
@@ -167,7 +173,7 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
             ),
             const SizedBox(height: 16),
             Text(
-              'ত্রুটি হয়েছে',
+              l10n.errorOccurred,
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
@@ -201,7 +207,7 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'কোনো আইটেম পাওয়া যায়নি',
+                  l10n.noItemsFound,
                   style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w600,
@@ -210,7 +216,7 @@ class _ItemPickerScreenState extends ConsumerState<ItemPickerScreen> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'অন্য কিওয়ার্ড দিয়ে চেষ্টা করুন',
+                  l10n.tryDifferentKeywords,
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: colorScheme.onSurface.withValues(alpha: 0.4),

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../config/jhuri_constants.dart';
+import '../../../l10n/jhuri_localizations.dart';
 
 class OnboardingPageOne extends StatelessWidget {
   final VoidCallback onNext;
@@ -64,7 +65,7 @@ class OnboardingPageOne extends StatelessWidget {
 
           // ── Tagline ─────────────────────────────
           Text(
-            'বাজারের ফর্দ, হাতের মুঠোয়',
+            JhuriLocalizations.of(context).onboardingTagline,
             style: TextStyle(
               fontSize: 20.sp,
               color: colorScheme.onSurface.withValues(alpha: 0.7),
@@ -76,7 +77,7 @@ class OnboardingPageOne extends StatelessWidget {
 
           // ── Description ─────────────────────────
           Text(
-            'স্মার্ট গ্রোসারি লিস্ট\nপ্ল্যান বেটার, শপ ইজিয়ার',
+            JhuriLocalizations.of(context).appDescription,
             style: TextStyle(
               fontSize: 16.sp,
               color: colorScheme.onSurface.withValues(alpha: 0.6),
@@ -102,7 +103,7 @@ class OnboardingPageOne extends StatelessWidget {
                 elevation: 2,
               ),
               child: Text(
-                'শুরু করুন',
+                JhuriLocalizations.of(context).onboardingGetStarted,
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w600,

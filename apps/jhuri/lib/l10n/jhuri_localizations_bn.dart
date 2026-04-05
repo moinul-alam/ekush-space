@@ -1474,10 +1474,10 @@ class JhuriLocalizationsBn extends JhuriLocalizations {
   String get addNewItem => 'নতুন আইটেম যোগ করুন';
 
   @override
-  String get itemNameBanglaRequired => 'আইটেমের নাম (বাংলা) *';
+  String get itemNameBanglaRequired => 'আইটেমের বাংলা নাম লিখুন';
 
   @override
-  String get itemNameEnglishOptional => 'আইটেমের নাম (ইংরেজি)';
+  String get itemNameEnglishOptional => 'আইটেমের ইংরেজি নাম (ঐচ্ছিক)';
 
   @override
   String get category => 'ক্যাটাগরি';
@@ -1486,7 +1486,7 @@ class JhuriLocalizationsBn extends JhuriLocalizations {
   String get quantityLabel => 'পরিমাণ';
 
   @override
-  String get enterQuantityLabel => 'পরিমাণ';
+  String get enterQuantityLabel => 'পরিমাণ লিখুন';
 
   @override
   String get unitLabel => 'একক';
@@ -1498,22 +1498,22 @@ class JhuriLocalizationsBn extends JhuriLocalizations {
   String get enterPriceLabel => 'মূল্য লিখুন';
 
   @override
-  String get errorWithSuffixDynamic => 'ত্রুটি হয়েছে: ';
+  String get errorWithSuffixDynamic => 'ত্রুটি: ${0}';
 
   @override
-  String get createNewCategoryForm => 'নতুন ক্যাটাগরি তৈরি';
+  String get createNewCategoryForm => 'নতুন ক্যাটাগরি তৈরি করুন';
 
   @override
-  String get categoryNameRequired => 'ক্যাটাগরির নাম *';
+  String get categoryNameRequired => 'ক্যাটাগরির নাম লিখুন';
 
   @override
-  String get categoryNameHint => 'যেমন: ফলমূল';
+  String get categoryNameHint => 'যেমন: ফল, সবজি, মাছ';
 
   @override
-  String get englishNameOptional => 'ইংরেজি নাম';
+  String get englishNameOptional => 'ইংরেজি নাম (ঐচ্ছিক)';
 
   @override
-  String get englishNameHint => 'যেমন: Fruits';
+  String get englishNameHint => 'যেমন: Fish, Vegetable, Meat';
 
   @override
   String get emojiIcon => 'ইমোজি আইকন';
@@ -1525,8 +1525,113 @@ class JhuriLocalizationsBn extends JhuriLocalizations {
   String get typeEmoji => 'ইমোজি টাইপ করুন';
 
   @override
-  String get categorySavedSuccess => 'ক্যাটাগরি সংরক্ষণ হয়েছে';
+  String get categorySavedSuccess => 'ক্যাটাগরি সফলভাবে সেভ হয়েছে';
 
   @override
-  String get errorWithSuffixDynamicCategory => 'ত্রুটি: ';
+  String get errorWithSuffixDynamicCategory => 'ত্রুটি: ${0}';
+
+  // Additional missing keys from settings screen
+  @override
+  String get errorLoadingTheme => 'থিম লোড করতে সমস্যা হয়েছে';
+
+  @override
+  String get errorLoadingLanguage => 'ভাষা লোড করতে সমস্যা হয়েছে';
+
+  @override
+  String get appDescription => 'ঝুড়ি - স্মার্ট গ্রোসারি লিস্ট';
+
+  @override
+  String get developedBy => 'একুশ ল্যাবস দ্বারা তৈরি';
+
+  @override
+  String get allRightsReserved => 'সর্বস্বত্ব স্বত্ত্ব সংরক্ষিত।';
+
+  @override
+  String get resettingSettings => 'রিসেট করা হচ্ছে...';
+
+  @override
+  String get settingsResetSuccess => 'সেটিংস সফলভাবে রিসেট করা হয়েছে';
+
+  @override
+  String get settingsResetError => 'সেটিংস রিসেট করতে সমস্যা হয়েছে';
+
+  @override
+  String get linkLaunchError => 'লিংক খুলতে সমস্যা হয়েছে';
+
+  @override
+  String get settingsOpenError => 'সেটিংস খুলতে সমস্যা হয়েছে';
+
+  // Additional missing keys from archive screen
+  @override
+  String get noArchivedLists => 'কোনো আর্কাইভ তালিকা নেই';
+
+  @override
+  String get noArchivedListsDescription =>
+      'সম্পন্ন হওয়া তালিকাগুলো এখানে দেখাবে';
+
+  @override
+  String get loadingArchives => 'আর্কাইভ লোড হচ্ছে...';
+
+  // Additional missing keys from category browser
+  @override
+  String get selectCategoryTitle => 'ক্যাটাগরি নির্বাচন করুন';
+
+  @override
+  String doneWithCount(int count) => 'সম্পন্ন ($countটি আইটেম)';
+
+  // Additional missing keys from custom items screen
+  @override
+  String get errorLoadingCustomItems => 'কাস্টম আইটেম লোড করতে সমস্যা: ${0}';
+
+  @override
+  String get noCustomItems => 'কোনো কাস্টম আইটেম নেই';
+
+  @override
+  String get noCustomItemsDescription =>
+      'আপনি এখনো কোনো কাস্টম আইটেম তৈরি করেননি';
+
+  // Additional missing keys from completion animation
+  @override
+  String get congratulations => 'অভিন্দোগ!';
+
+  @override
+  String get yourListCompleted => 'আপনার সম্পন্ন হয়েছে';
+
+  @override
+  String get okayLetsGo => 'ঠিক আছে, ফিরুন';
+
+  // Additional missing keys from completion animation viewmodel
+  @override
+  String get completedStatus => 'সম্পন্ন';
+
+  @override
+  String get almostCompleted => 'প্রায় সম্পন্ন';
+
+  @override
+  String get halfCompleted => 'অর্ধেক';
+
+  @override
+  String get inProgress => 'চলিছ করছেন';
+
+  // Additional missing keys from shopping mode viewmodel
+  @override
+  String get deleteCustomItem => 'কাস্টম আইটেম মুছে ফেলুন';
+
+  @override
+  String get deleteCustomItemConfirmation => 'আপনি কি "${0}" মুছতে চান?';
+
+  @override
+  String get customItemDeletedSuccess => 'কাস্টম আইটেম মুছে ফেলা হয়েছে';
+
+  @override
+  String get searchItems => 'আইটেম খুঁজুন...';
+
+  @override
+  String get noItemsFound => 'কোনো আইটেম পাওয়া যায়নি';
+
+  @override
+  String get tryDifferentKeywords => 'অন্য কিওয়ার্ড দিয়ে চেষ্টা করুন';
+
+  @override
+  String get selectLanguageDescription => 'আপনার পছন্দের ভাষা নির্বাচন করুন';
 }

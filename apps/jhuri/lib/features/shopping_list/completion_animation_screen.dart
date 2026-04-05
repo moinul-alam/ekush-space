@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ekush_core/ekush_core.dart';
 import 'completion_animation_viewmodel.dart';
+import '../../../l10n/jhuri_localizations.dart';
 
 class CompletionAnimationScreen extends ConsumerStatefulWidget {
   final int listId;
@@ -81,7 +82,7 @@ class _CompletionAnimationScreenState
 
                     // Success text
                     Text(
-                      'অভিন্দোগ!',
+                      JhuriLocalizations.of(context).congratulations,
                       style: TextStyle(
                         fontSize: 24.sp,
                         fontWeight: FontWeight.bold,
@@ -93,7 +94,7 @@ class _CompletionAnimationScreenState
 
                     // Subtitle
                     Text(
-                      'আপনার সম্পন্ন হয়েছে',
+                      JhuriLocalizations.of(context).yourListCompleted,
                       style: TextStyle(
                         fontSize: 16.sp,
                         color: Colors.grey[600],
@@ -120,7 +121,7 @@ class _CompletionAnimationScreenState
                           ),
                         ),
                         child: Text(
-                          'ঠিক আছে, ফিরুন',
+                          JhuriLocalizations.of(context).okayLetsGo,
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w600,

@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../config/jhuri_constants.dart';
 import '../onboarding_viewmodel.dart';
+import '../../../l10n/jhuri_localizations.dart';
 
 class OnboardingPageTwo extends ConsumerWidget {
   final VoidCallback onBack;
@@ -28,7 +29,7 @@ class OnboardingPageTwo extends ConsumerWidget {
         children: [
           // ── Title ──────────────────────────────
           Text(
-            'ভাষা নির্বাচন',
+            JhuriLocalizations.of(context).onboardingLanguageTitle,
             style: TextStyle(
               fontSize: 32.sp,
               fontWeight: FontWeight.bold,
@@ -42,7 +43,7 @@ class OnboardingPageTwo extends ConsumerWidget {
 
           // ── Subtitle ───────────────────────────
           Text(
-            'আপনার পছন্দের ভাষা নির্বাচন করুন',
+            JhuriLocalizations.of(context).selectLanguageDescription,
             style: TextStyle(
               fontSize: 16.sp,
               color: colorScheme.onSurface.withValues(alpha: 0.7),
@@ -145,7 +146,7 @@ class OnboardingPageTwo extends ConsumerWidget {
                     ),
                   ),
                   child: Text(
-                    'পিছনে',
+                    JhuriLocalizations.of(context).back,
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
@@ -171,7 +172,7 @@ class OnboardingPageTwo extends ConsumerWidget {
                   ),
                   child: state.isCompleting
                       ? SizedBox(
-                      height: 20.h,
+                          height: 20.h,
                           width: 20.w,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
@@ -180,7 +181,7 @@ class OnboardingPageTwo extends ConsumerWidget {
                           ),
                         )
                       : Text(
-                          'শুরু করুন',
+                          JhuriLocalizations.of(context).onboardingGetStarted,
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w600,

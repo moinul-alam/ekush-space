@@ -79,15 +79,15 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
               trailing: const Icon(Icons.chevron_right),
               onTap: () => _showThemeDialog(context, ref, l10n),
             ),
-            loading: () => const _SettingsTile(
+            loading: () => _SettingsTile(
               icon: Icons.palette_outlined,
-              title: 'Theme',
-              subtitle: 'Loading...',
+              title: l10n.theme,
+              subtitle: l10n.loading,
             ),
-            error: (_, __) => const _SettingsTile(
+            error: (_, __) => _SettingsTile(
               icon: Icons.palette_outlined,
-              title: 'Theme',
-              subtitle: 'Error',
+              title: l10n.theme,
+              subtitle: l10n.error,
             ),
           ),
 
@@ -101,15 +101,15 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
               trailing: const Icon(Icons.chevron_right),
               onTap: () => _showLanguageDialog(context, ref, l10n),
             ),
-            loading: () => const _SettingsTile(
+            loading: () => _SettingsTile(
               icon: Icons.language_outlined,
-              title: 'Language',
-              subtitle: 'Loading...',
+              title: l10n.language,
+              subtitle: l10n.loading,
             ),
-            error: (_, __) => const _SettingsTile(
+            error: (_, __) => _SettingsTile(
               icon: Icons.language_outlined,
-              title: 'Language',
-              subtitle: 'Error',
+              title: l10n.language,
+              subtitle: l10n.error,
             ),
           ),
 
@@ -243,7 +243,7 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
             title: l10n.privacyPolicy,
             subtitle: l10n.privacyPolicySubtitle,
             trailing: const Icon(Icons.chevron_right),
-            onTap: () => viewModel.launchPrivacyPolicy(),
+            onTap: () => viewModel.launchPrivacyPolicy(l10n),
           ),
 
           SizedBox(height: 16.h),
@@ -295,13 +295,13 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
-            child: Text(l10n.cancel),
+            child: Text(l10n.openSettings),
           ),
-          FilledButton(
+          TextButton(
             onPressed: () async {
               Navigator.of(ctx).pop();
               final viewModel = ref.read(settingsViewModelProvider.notifier);
-              await viewModel.requestNotificationPermission();
+              await viewModel.requestNotificationPermission(l10n);
             },
             child: Text(l10n.openSettings),
           ),
@@ -346,7 +346,7 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
                 );
               },
               loading: () => const CircularProgressIndicator(),
-              error: (_, __) => Text('Error loading theme'),
+              error: (_, __) => Text(l10n.errorLoadingTheme),
             );
           },
         ),
@@ -392,7 +392,7 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
                 );
               },
               loading: () => const CircularProgressIndicator(),
-              error: (_, __) => Text('Error loading language'),
+              error: (_, __) => Text(l10n.errorLoadingLanguage),
             );
           },
         ),
@@ -533,13 +533,13 @@ class _SettingsScreenState extends JhuriBaseScreenState<SettingsScreen>
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('ঝুড়ি - Smart Grocery List'),
+                Text(l10n.appDescription),
                 SizedBox(height: 8.h),
                 Text('${l10n.appVersion}: $version ($buildNumber)'),
                 SizedBox(height: 8.h),
-                const Text('Developed by Ekush Labs'),
+                Text(l10n.developedBy),
                 SizedBox(height: 8.h),
-                const Text('© 2026 Ekush Labs. All rights reserved.'),
+                Text(l10n.allRightsReserved),
               ],
             );
           },

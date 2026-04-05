@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ekush_models/ekush_models.dart';
 import '../../config/jhuri_constants.dart';
 import '../../providers/item_selection_provider.dart';
+import '../../../l10n/jhuri_localizations.dart';
 
 class ItemQuantityBottomSheet extends ConsumerStatefulWidget {
   final ItemTemplate item;
@@ -115,11 +116,11 @@ class _ItemQuantityBottomSheetState
                   ],
                 ),
 
-SizedBox(height: 24.h),
+                SizedBox(height: 24.h),
 
                 // Quantity selector
                 Text(
-                  'পরিমাণ',
+                  JhuriLocalizations.of(context).quantity,
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
@@ -203,7 +204,7 @@ SizedBox(height: 24.h),
 
                 // Unit selector
                 Text(
-                  'একক',
+                  JhuriLocalizations.of(context).unit,
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
@@ -257,7 +258,7 @@ SizedBox(height: 24.h),
 
                 // Price field (optional)
                 Text(
-                  'মূল্য (ঐচ্ছিক)',
+                  JhuriLocalizations.of(context).priceOptional,
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
@@ -269,7 +270,7 @@ SizedBox(height: 24.h),
                   controller: priceController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    hintText: 'মূল্য লিখুন',
+                    hintText: JhuriLocalizations.of(context).enterPriceLabel,
                     prefixText: '${JhuriConstants.defaultCurrencySymbol} ',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.r),
@@ -277,7 +278,7 @@ SizedBox(height: 24.h),
                   ),
                 ),
 
-SizedBox(height: 24.h),
+                SizedBox(height: 24.h),
 
                 // Add button
                 SizedBox(
@@ -314,7 +315,7 @@ SizedBox(height: 24.h),
                       ),
                     ),
                     child: Text(
-                      'যোগ করুন',
+                      JhuriLocalizations.of(context).addTo,
                       style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
@@ -326,7 +327,7 @@ SizedBox(height: 24.h),
             ),
           ),
 
-SizedBox(height: 20.h),
+          SizedBox(height: 20.h),
         ],
       ),
     );

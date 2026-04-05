@@ -23,20 +23,20 @@ class ArchiveViewModel extends BaseViewModel<List<ShoppingList>> {
     _loadArchivedLists();
   }
 
-  Future<void> _loadArchivedLists() async {
+  Future<void> _loadArchivedLists({String? loadingArchives}) async {
     await executeAsync(
       operation: () async {
         final lists = await _repository.getArchived();
         setSuccess(data: lists);
         return lists;
       },
-      loadingMessage: 'আর্কাইভ লোড হচ্ছে...',
+      loadingMessage: loadingArchives ?? 'Loading archives...',
     );
   }
 
   @override
-  Future<bool> refresh() async {
-    await _loadArchivedLists();
+  Future<bool> refresh({String? loadingArchives}) async {
+    await _loadArchivedLists(loadingArchives: loadingArchives);
     return !hasError;
   }
 }

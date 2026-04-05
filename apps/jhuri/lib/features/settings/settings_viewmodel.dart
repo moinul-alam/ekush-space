@@ -173,13 +173,13 @@ class SettingsViewModel extends BaseViewModel {
             .read(listSortOrderNotifierProvider.notifier)
             .setValue('dateDesc');
       },
-      loadingMessage: 'রিসেট করা হচ্ছে...',
-      successMessage: 'সেটিংস সফলভাবে রিসেট করা হয়েছে',
-      errorMessage: 'সেটিংস রিসেট করতে সমস্যা হয়েছে',
+      loadingMessage: l10n.resettingSettings,
+      successMessage: l10n.settingsResetSuccess,
+      errorMessage: l10n.settingsResetError,
     );
   }
 
-  Future<void> launchPrivacyPolicy() async {
+  Future<void> launchPrivacyPolicy(JhuriLocalizations l10n) async {
     await executeAsync(
       operation: () async {
         final Uri url = Uri.parse('https://ekushlabs.com/privacy');
@@ -190,18 +190,18 @@ class SettingsViewModel extends BaseViewModel {
         }
       },
       successMessage: null,
-      errorMessage: 'লিংক খুলতে সমস্যা হয়েছে',
+      errorMessage: l10n.linkLaunchError,
       showLoading: false,
     );
   }
 
-  Future<void> requestNotificationPermission() async {
+  Future<void> requestNotificationPermission(JhuriLocalizations l10n) async {
     await executeAsync(
       operation: () async {
         await openAppSettings();
       },
       successMessage: null,
-      errorMessage: 'সেটিংস খুলতে সমস্যা হয়েছে',
+      errorMessage: l10n.settingsOpenError,
       showLoading: false,
     );
   }

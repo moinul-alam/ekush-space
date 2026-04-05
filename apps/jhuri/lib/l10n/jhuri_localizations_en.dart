@@ -1475,10 +1475,10 @@ class JhuriLocalizationsEn extends JhuriLocalizations {
   String get addNewItem => 'Add New Item';
 
   @override
-  String get itemNameBanglaRequired => 'Item Name (Bangla) *';
+  String get itemNameBanglaRequired => 'Enter item name';
 
   @override
-  String get itemNameEnglishOptional => 'Item Name (English)';
+  String get itemNameEnglishOptional => 'English name (optional)';
 
   @override
   String get category => 'Category';
@@ -1487,47 +1487,151 @@ class JhuriLocalizationsEn extends JhuriLocalizations {
   String get quantityLabel => 'Quantity';
 
   @override
-  String get enterQuantityLabel => 'Quantity';
+  String get enterQuantityLabel => 'Enter quantity';
 
   @override
   String get unitLabel => 'Unit';
 
   @override
-  String get priceOptional => 'Price (Optional)';
+  String get priceOptional => 'Price (optional)';
 
   @override
   String get enterPriceLabel => 'Enter price';
 
   @override
-  String get errorWithSuffixDynamic => 'Error occurred: ';
+  String get errorWithSuffixDynamic => 'Error: ${0}';
 
   @override
   String get createNewCategoryForm => 'Create New Category';
 
   @override
-  String get categoryNameRequired => 'Category Name *';
+  String get categoryNameRequired => 'Category name required';
 
   @override
-  String get categoryNameHint => 'e.g., Fruits';
+  String get categoryNameHint => 'e.g., Fruits, Vegetables';
 
   @override
-  String get englishNameOptional => 'English Name';
+  String get englishNameOptional => 'English name (optional)';
 
   @override
-  String get englishNameHint => 'e.g., Fruits';
+  String get englishNameHint => 'e.g., Fish, Vegetable, Meat';
 
   @override
   String get emojiIcon => 'Emoji Icon';
 
   @override
-  String get addOtherEmoji => 'Add Other Emoji';
+  String get addOtherEmoji => 'Add other emoji';
 
   @override
-  String get typeEmoji => 'Type Emoji';
+  String get typeEmoji => 'Type emoji';
 
   @override
-  String get categorySavedSuccess => 'Category saved';
+  String get categorySavedSuccess => 'Category saved successfully';
 
   @override
-  String get errorWithSuffixDynamicCategory => 'Error: ';
+  String get errorWithSuffixDynamicCategory => 'Error: ${0}';
+
+  // Additional missing keys from settings screen
+  @override
+  String get errorLoadingTheme => 'Error loading theme';
+
+  @override
+  String get errorLoadingLanguage => 'Error loading language';
+
+  @override
+  String get appDescription => 'Jhuri - Smart Grocery List';
+
+  @override
+  String get developedBy => 'Developed by Ekush Labs';
+
+  @override
+  String get allRightsReserved => ' 2026 Ekush Labs. All rights reserved.';
+
+  @override
+  String get resettingSettings => 'Resetting...';
+
+  @override
+  String get settingsResetSuccess => 'Settings reset successfully';
+
+  @override
+  String get settingsResetError => 'Failed to reset settings';
+
+  @override
+  String get linkLaunchError => 'Failed to launch link';
+
+  @override
+  String get settingsOpenError => 'Failed to open settings';
+
+  // Additional missing keys from archive screen
+  @override
+  String get noArchivedLists => 'No archived lists';
+
+  @override
+  String get noArchivedListsDescription => 'Completed lists will appear here';
+
+  @override
+  String get loadingArchives => 'Loading archives...';
+
+  // Additional missing keys from category browser
+  @override
+  String get selectCategoryTitle => 'Select category to create';
+
+  @override
+  String doneWithCount(int count) => 'Done ($count items)';
+
+  // Additional missing keys from custom items screen
+  @override
+  String get errorLoadingCustomItems => 'Error loading custom items: ${0}';
+
+  @override
+  String get noCustomItems => 'No custom items';
+
+  @override
+  String get noCustomItemsDescription =>
+      'You haven\'t created any custom items yet';
+
+  // Additional missing keys from completion animation
+  @override
+  String get congratulations => 'Congratulations!';
+
+  @override
+  String get yourListCompleted => 'Your list is completed';
+
+  @override
+  String get okayLetsGo => 'Okay, Let\'s Go';
+
+  // Additional missing keys from completion animation viewmodel
+  @override
+  String get completedStatus => 'Completed';
+
+  @override
+  String get almostCompleted => 'Almost completed';
+
+  @override
+  String get halfCompleted => 'Half completed';
+
+  @override
+  String get inProgress => 'In progress';
+
+  // Additional missing keys from shopping mode viewmodel
+  @override
+  String get deleteCustomItem => 'Delete Custom Item';
+
+  @override
+  String get deleteCustomItemConfirmation => 'Do you want to delete "${0}"?';
+
+  @override
+  String get customItemDeletedSuccess => 'Custom item deleted successfully';
+
+  @override
+  String get searchItems => 'Search items...';
+
+  @override
+  String get noItemsFound => 'No items found';
+
+  @override
+  String get tryDifferentKeywords => 'Try different keywords';
+
+  @override
+  String get selectLanguageDescription => 'Select your preferred language';
 }
