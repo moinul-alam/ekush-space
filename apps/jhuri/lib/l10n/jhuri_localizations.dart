@@ -14,7 +14,8 @@ abstract class JhuriLocalizations extends AppLocalizations
   // ═════════════════════════════════════════════════════════
 
   static JhuriLocalizations of(BuildContext context) {
-    return Localizations.of<JhuriLocalizations>(context, JhuriLocalizations)!;
+    return Localizations.of<AppLocalizations>(context, AppLocalizations)!
+        as JhuriLocalizations;
   }
 
   // ═════════════════════════════════════════════════════════
@@ -621,7 +622,9 @@ class JhuriLocalizationsDelegate
   const JhuriLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) => AppLocalizations.isSupported(locale);
+  bool isSupported(Locale locale) {
+    return locale.languageCode == 'bn' || locale.languageCode == 'en';
+  }
 
   @override
   Future<AppLocalizations> load(Locale locale) async {
