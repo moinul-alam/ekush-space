@@ -25,11 +25,11 @@ class NoListWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // 1. Illustration placeholder
-              Icon(
-                Icons.shopping_basket_outlined,
-                size: 80,
-                color: colorScheme.primary.withValues(alpha: 0.4),
-              ),
+              // Icon(
+              //   Icons.shopping_basket_outlined,
+              //   size: 80,
+              //   color: colorScheme.primary.withValues(alpha: 0.4),
+              // ),
 
               SizedBox(height: 24.h),
 
