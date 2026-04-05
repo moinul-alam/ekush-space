@@ -45,6 +45,10 @@ class OnboardingNotifier extends Notifier<OnboardingState> {
 
   void selectLanguage(String language) {
     state = state.copyWith(selectedLanguage: language);
+    final locale = language == 'english'
+        ? const Locale('en', 'US')
+        : const Locale('bn', 'BD');
+    ref.read(localeProvider.notifier).setLocale(locale);
   }
 
   void selectTheme(ThemeMode mode) {
@@ -64,11 +68,10 @@ class OnboardingNotifier extends Notifier<OnboardingState> {
           .read(themeModeProvider.notifier)
           .setThemeMode(state.selectedTheme);
 
-      // Then complete onboarding with language
-      final success =
-          await _repository.completeOnboarding(state.selectedLanguage);
+      // Mark onboarding as complete
+      await _repository.setOnboardingComplete(true);
       state = state.copyWith(isCompleting: false);
-      return success;
+      return true;
     } catch (e) {
       state = state.copyWith(isCompleting: false);
       return false;

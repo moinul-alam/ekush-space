@@ -79,6 +79,41 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 
 ---
 
+## Onboarding Animation and Language Persistence Fixes Complete (2026-04-06):
+
+- **FIX 1 — Animation Implementation (onboarding_screen.dart):**
+  - ✅ Replaced SlideTransition with Offset(-0.35, -0.35) that caused logo to vanish outside parent container
+  - ✅ Implemented StatefulWidget with AnimationController and phase-based animation system
+  - ✅ Phase 1: Logo and title centered on screen for 2000ms using Positioned.fill with Center
+  - ✅ Phase 2: AnimatedPositioned widgets move logo to top-left (16.h, 20.w) and title beside it (68.w)
+  - ✅ Logo animates from 100.h to 40.h height using height parameter in Image.asset
+  - ✅ Content fades in after 2700ms (2000ms + 700ms animation) using addStatusListener
+  - ✅ Screen structure uses Stack with full SafeArea height and MediaQuery for screen dimensions
+  - ✅ No SlideTransition, ScaleTransition, or FractionalOffset used anywhere
+
+- **FIX 2 — Language Persistence (onboarding_viewmodel.dart):**
+  - ✅ Updated selectLanguage() to call localeProvider.notifier.setLocale() immediately
+  - ✅ Language changes now persist instantly and UI rebuilds without waiting for complete()
+  - ✅ Updated complete() method to remove language persistence (now handled by selectLanguage)
+  - ✅ complete() now only persists theme via themeModeProvider and calls setOnboardingComplete(true)
+  - ✅ Removed _repository.completeOnboarding(language) call, replaced with setOnboardingComplete(true)
+
+- **Analysis Verification:** All three commands return zero issues
+  - melos run analyze: No issues found!
+  - flutter analyze apps/ekush_ponji: No issues found!
+  - flutter analyze apps/jhuri: No issues found!
+
+- **Expected Behavior:** 
+  - ✅ Logo and title visible centered for 2 seconds on app launch
+  - ✅ Logo animates smoothly to top-left, title appears beside it, neither vanishes
+  - ✅ Content fades in after animation completes
+  - ✅ Tapping বাংলা/English immediately changes all onboarding text
+  - ✅ Language persists after tapping Start button
+
+- **Compatibility:** No conflicts with existing ekush_ponji app or shared packages
+
+---
+
 ## Home Header Layout Update Complete (2026-04-06):
 
 - **JhuriAppHeader Converted to ConsumerWidget**: Now watches localeProvider for reactive language changes
