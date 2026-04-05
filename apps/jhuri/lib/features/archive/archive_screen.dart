@@ -3,98 +3,119 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ekush_models/ekush_models.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../shopping_list/home_providers.dart';
+import 'package:ekush_core/ekush_core.dart';
+import 'archive_viewmodel.dart';
 import '../../shared/widgets/jhuri_app_header.dart';
 
-class ArchiveScreen extends ConsumerWidget {
+class ArchiveScreen extends ConsumerStatefulWidget {
   const ArchiveScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ArchiveScreen> createState() => _ArchiveScreenState();
+}
+
+class _ArchiveScreenState extends ConsumerState<ArchiveScreen> {
+  @override
+  Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final archivedListsAsync = ref.watch(archivedListsProvider);
+    final viewState = ref.watch(archiveViewModelProvider);
+    final viewModel = ref.read(archiveViewModelProvider.notifier);
 
     return Scaffold(
       appBar: const JhuriAppHeader(
         title: 'আর্কাইভ',
       ),
-      body: archivedListsAsync.when(
-        loading: () => const Center(
-          child: CircularProgressIndicator(),
-        ),
-        error: (error, stackTrace) => Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(
-                Icons.error_outline,
-                size: 64,
-                color: Colors.red,
-              ),
-              SizedBox(height: 16.h),
-              Text(
-                'ত্রুটি হয়েছে',
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.red,
-                  fontFamily: 'HindSiliguri',
-                ),
-              ),
-              SizedBox(height: 8.h),
-              Text(
-                'আর্কাইভ তালিকা লোড করতে সমস্যা হয়েছে',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  color: Colors.grey[600],
-                  fontFamily: 'HindSiliguri',
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ),
-        data: (lists) {
-          if (lists.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.archive_outlined,
-                    size: 64,
-                    color: colorScheme.onSurface.withValues(alpha: 0.3),
-                  ),
-                  SizedBox(height: 16.h),
-                  Text(
-                    'কোনো আর্কাইভ তালিকা নেই',
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                      color: colorScheme.onSurface.withValues(alpha: 0.6),
-                      fontFamily: 'HindSiliguri',
-                    ),
-                  ),
-                  SizedBox(height: 8.h),
-                  Text(
-                    'সম্পন্ন হওয়া তালিকাগুলো এখানে দেখাবে',
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      color: colorScheme.onSurface.withValues(alpha: 0.4),
-                      fontFamily: 'HindSiliguri',
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }
-
-          return Padding(
-            padding: EdgeInsets.all(16.w),
-            child: _buildListsGrid(context, lists, colorScheme),
-          );
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await ref.read(archiveViewModelProvider.notifier).refresh();
         },
+        child: _buildBody(viewState, viewModel, colorScheme),
       ),
+    );
+  }
+
+  Widget _buildBody(ViewState viewState, ArchiveViewModel viewModel,
+      ColorScheme colorScheme) {
+    if (viewState is ViewStateLoading && !viewModel.hasData) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    if (viewState is ViewStateError) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.error_outline,
+              size: 64,
+              color: Colors.red,
+            ),
+            SizedBox(height: 16.h),
+            Text(
+              'ত্রুটি হয়েছে',
+              style: TextStyle(
+                fontSize: 18.sp,
+                fontWeight: FontWeight.w600,
+                color: Colors.red,
+                fontFamily: 'HindSiliguri',
+              ),
+            ),
+            SizedBox(height: 8.h),
+            Text(
+              viewState.message,
+              style: TextStyle(
+                fontSize: 14.sp,
+                color: Colors.grey[600],
+                fontFamily: 'HindSiliguri',
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      );
+    }
+
+    final archivedLists = viewModel.archivedLists;
+
+    if (archivedLists.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.archive_outlined,
+              size: 64,
+              color: colorScheme.onSurface.withValues(alpha: 0.3),
+            ),
+            SizedBox(height: 16.h),
+            Text(
+              'কোনো আর্কাইভ তালিকা নেই',
+              style: TextStyle(
+                fontSize: 18.sp,
+                fontWeight: FontWeight.w600,
+                color: colorScheme.onSurface.withValues(alpha: 0.6),
+                fontFamily: 'HindSiliguri',
+              ),
+            ),
+            SizedBox(height: 8.h),
+            Text(
+              'সম্পন্ন হওয়া তালিকাগুলো এখানে দেখাবে',
+              style: TextStyle(
+                fontSize: 14.sp,
+                color: colorScheme.onSurface.withValues(alpha: 0.4),
+                fontFamily: 'HindSiliguri',
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Padding(
+      padding: EdgeInsets.all(16.w),
+      child: _buildListsGrid(context, archivedLists, colorScheme),
     );
   }
 
@@ -167,8 +188,7 @@ class ArchiveScreen extends ConsumerWidget {
 
                 // Completed badge
                 Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                   decoration: BoxDecoration(
                     color: Colors.green,
                     borderRadius: BorderRadius.circular(12.r),

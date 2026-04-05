@@ -1,8 +1,8 @@
 // lib/features/onboarding/onboarding_viewmodel.dart
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../config/jhuri_constants.dart';
+import 'data/onboarding_repository.dart';
+import 'data/onboarding_repository_provider.dart';
 
 // ── State ────────────────────────────────────────────────────
 
@@ -29,8 +29,13 @@ class OnboardingState {
 // ── Notifier ─────────────────────────────────────────────────
 
 class OnboardingNotifier extends Notifier<OnboardingState> {
+  late final OnboardingRepository _repository;
+
   @override
-  OnboardingState build() => const OnboardingState();
+  OnboardingState build() {
+    _repository = ref.read(onboardingRepositoryProvider);
+    return const OnboardingState();
+  }
 
   void selectLanguage(String language) {
     state = state.copyWith(selectedLanguage: language);
@@ -42,17 +47,10 @@ class OnboardingNotifier extends Notifier<OnboardingState> {
     state = state.copyWith(isCompleting: true);
 
     try {
-      final prefs = await SharedPreferences.getInstance();
-
-      // Save language preference
-      await prefs.setString(
-          JhuriConstants.storageKeyLanguage, state.selectedLanguage);
-
-      // Mark onboarding done — splash will never show this again
-      await prefs.setBool(JhuriConstants.storageKeyOnboardingComplete, true);
-
+      final success =
+          await _repository.completeOnboarding(state.selectedLanguage);
       state = state.copyWith(isCompleting: false);
-      return true;
+      return success;
     } catch (e) {
       state = state.copyWith(isCompleting: false);
       return false;
@@ -60,11 +58,9 @@ class OnboardingNotifier extends Notifier<OnboardingState> {
   }
 
   /// Returns true if onboarding has already been completed.
-  static Future<bool> isOnboardingDone() async {
+  static Future<bool> isOnboardingDone(OnboardingRepository repository) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      return prefs.getBool(JhuriConstants.storageKeyOnboardingComplete) ??
-          false;
+      return repository.isOnboardingComplete();
     } catch (_) {
       return false;
     }

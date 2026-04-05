@@ -79,6 +79,43 @@ Update: I will use Ekush Ponji AdMob IDs for now. For Ads, use Test IDs.
 
 ---
 
+## ArchiveViewModel & Onboarding Repository Refactoring Complete (2026-04-05):
+
+- **ArchiveViewModel Created**: apps/jhuri/lib/features/archive/archive_viewmodel.dart
+  - Extends BaseViewModel<List<ShoppingList>> following MVVM pattern
+  - Exposes archivedLists stream sourced from ShoppingListRepository
+  - Provides refresh functionality and proper error handling
+  
+- **Archive Provider Defined**: apps/jhuri/lib/features/archive/archive_providers.dart
+  - archivedListsProvider uses same repository as home providers
+  - No repository logic duplicated - follows DRY principles
+  
+- **Archive Screen Updated**: apps/jhuri/lib/features/archive/archive_screen.dart
+  - Converted from ConsumerWidget to ConsumerStatefulWidget pattern
+  - Now consumes archiveViewModelProvider instead of borrowing from home_providers.dart
+  - Maintains identical UI and functionality with proper MVVM architecture
+
+- **Onboarding Repository Created**: apps/jhuri/lib/features/onboarding/data/onboarding_repository.dart
+  - Minimal repository wrapping only onboarding-specific SharedPreferences keys
+  - Methods: setLanguage(), getLanguage(), setOnboardingComplete(), isOnboardingComplete(), completeOnboarding()
+  - Provider: apps/jhuri/lib/features/onboarding/data/onboarding_repository_provider.dart
+
+- **Onboarding ViewModel Updated**: apps/jhuri/lib/features/onboarding/onboarding_viewmodel.dart
+  - Removed direct SharedPreferences access (lines 45, 52 originally)
+  - Now routes all persistence calls through OnboardingRepository
+  - Public interface unchanged - screens require no updates
+  - Proper dependency injection via onboardingRepositoryProvider
+
+- **Analysis Verification**: All three commands return zero issues
+  - melos run analyze: No issues found!
+  - flutter analyze apps/ekush_ponji: No issues found! (14.0s)
+  - flutter analyze apps/jhuri: No issues found! (16.5s)
+
+- **Compatibility**: No conflicts with existing ekush_ponji app or shared packages
+- **Architecture**: Both features now follow proper MVVM pattern with clear separation of concerns
+
+---
+
 ## Key Architectural Decisions (Do Not Revisit)
 
 - Drift lives in `ekush_models` — table definitions only
@@ -420,5 +457,5 @@ Every Windsurf session must end with `flutter analyze apps/ekush_ponji` returnin
 
 ---
 
-*Last updated: 2026-04-05 — Settings screen MVVM refactoring complete*
+*Last updated: 2026-04-05 — ArchiveViewModel created, OnboardingViewModel SharedPreferences routed through repository*
 *Updated by: Cascade (MVVM compliance session)*
